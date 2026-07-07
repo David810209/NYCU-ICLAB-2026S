@@ -1,13 +1,13 @@
 # NYCU-ICLAB-2026-SPRING
 
-## NYCU 2025 SPRING Digital Circuit and System (DCS)
+## NYCU 2026 Integrated Circuit Design Laboratory(IC Lab)
 - Course: Integrated Circuit Design Laboratory
 - Semester: 2026 SPRING
 
 ---
 
 ## Demo Result
-- Total Score : 98.66
+- Total Score : 98.66 / 104
 - Total Rank : 2 / 83
 - Best code * 2
 - No.1 * 1
