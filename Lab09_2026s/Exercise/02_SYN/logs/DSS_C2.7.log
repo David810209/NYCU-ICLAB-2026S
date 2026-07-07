@@ -1,0 +1,1395 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "DSS"
+DSS
+if {![info exists CYCLE]} {
+    set CYCLE 3.0
+}
+set INPUT_DLY [expr 0.5*$CYCLE]
+1.35
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+1.35
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog {Usertype.sv INF.sv DSS.sv}
+Running PRESTO HDLC
+Compiling source file ./Usertype.sv
+Warning:  ./Usertype.sv:17: The package usertype has already been analyzed. It is being replaced. (VER-26)
+Compiling source file ./INF.sv
+Information:  ./INF.sv:1: List () of one, unnamed, port is ignored. (VER-988)
+Compiling source file ./DSS.sv
+Presto compilation completed successfully.
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ff1p98vm40c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_tt1p8v25c.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN  
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'fsa0m_a_generic_core_ss1p62v125c'
+  Loading link library 'fsa0m_a_generic_core_ff1p98vm40c'
+  Loading link library 'fsa0m_a_t33_generic_io_ss1p62v125c'
+  Loading link library 'fsa0m_a_t33_generic_io_tt1p8v25c'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Warning:  ./DSS.sv:148: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+Warning:  ./DSS.sv:162: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+Warning:  ./DSS.sv:176: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+Warning:  ./DSS.sv:190: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+Warning:  ./DSS.sv:204: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 234 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           148            |    auto/auto     |
+|           115            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 235 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           162            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 236 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           176            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 237 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           190            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 238 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           204            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 249 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           124            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 252 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           133            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 387 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           388            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 405 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           406            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 580 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           582            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 674 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           676            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 787 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           789            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 803 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           805            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 825 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           827            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 852 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           853            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 887 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           890            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine DSS line 304 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  sell_price_r_reg   | Flip-flop |  13   |  Y  | N  | N  | N  | N  | N  | N  |
+|   upgrade_en_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 310 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| balance_add_tmp_reg | Flip-flop |  25   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 317 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   real_staff_reg    | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+|   need_flour_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   need_butter_reg   | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|    need_milk_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   need_sugar_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   need_fruit_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   stock_lack_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|   sales_total_reg   | Flip-flop |  13   |  Y  | N  | N  | N  | N  | N  | N  |
+|   real_flour_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   real_butter_reg   | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|    real_milk_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   real_sugar_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+|   real_fruit_reg    | Flip-flop |  11   |  Y  | N  | N  | N  | N  | N  | N  |
+| stock_overflow_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| staff_overflow_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 337 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     date_ok_reg     | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 342 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   added_sugar_reg   | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|   added_fruit_reg   | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|   added_flour_reg   | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|  added_butter_reg   | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|   added_milk_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 424 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    mult_step_reg    | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 451 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    real_cost_reg    | Flip-flop |  20   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 466 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    real_fee_reg     | Flip-flop |  19   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 472 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  total_salary_reg   | Flip-flop |  23   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 517 in file
+                './DSS.sv'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+|      ms_ok_reg       | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| ms_no_staff_warn_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|  ms_stock_warn_reg   | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+        in routine DSS line 525 in file
+                './DSS.sv'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+|    pd_no_warn_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| rs_balance_warn_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| rs_restock_warn_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    rs_no_warn_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| hs_balance_warn_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|  hs_staff_warn_reg   | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|    hs_no_warn_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| pd_no_staff_warn_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+| pd_balance_warn_reg  | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+        in routine DSS line 558 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 636 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   req_action_reg    | Flip-flop |   3   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 640 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   req_dessert_reg   | Flip-flop |   3   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 644 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| req_order_mode_reg  | Flip-flop |   2   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 648 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    req_date_reg     | Flip-flop |   9   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 652 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    req_staff_reg    | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 656 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   req_data_no_reg   | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 660 in file
+                './DSS.sv'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| data_no_valid_reg_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine DSS line 667 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   restock_cnt_reg   | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 674 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   req_restock_reg   | Flip-flop |  60   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 690 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    cur_sugar_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    cur_flour_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|   cur_butter_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    cur_milk_reg     | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    cur_level_reg    | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+|    cur_fruit_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    cur_sales_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+| cur_staff_dram_reg  | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+|   cur_balance_reg   | Flip-flop |  24   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 711 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   threshold_r_reg   | Flip-flop |   7   |  Y  | N  | N  | N  | N  | N  | N  |
+|     price_r_reg     | Flip-flop |  10   |  Y  | N  | N  | N  | N  | N  | N  |
+|  cost_flour_r_reg   | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|  cost_butter_r_reg  | Flip-flop |   7   |  Y  | N  | N  | N  | N  | N  | N  |
+|   cost_milk_r_reg   | Flip-flop |   6   |  Y  | N  | N  | N  | N  | N  | N  |
+|  cost_sugar_r_reg   | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|  cost_fruit_r_reg   | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+|   hire_fee_r_reg    | Flip-flop |  14   |  Y  | N  | N  | N  | N  | N  | N  |
+|    salary_r_reg     | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 728 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    nxt_sugar_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    nxt_fruit_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    nxt_flour_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|   nxt_butter_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+|    nxt_milk_reg     | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 757 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     nxt_day_reg     | Flip-flop |   5   |  Y  | N  | N  | N  | N  | N  | N  |
+|    nxt_month_reg    | Flip-flop |   4   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 769 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    nxt_sales_reg    | Flip-flop |  12   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 787 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    nxt_level_reg    | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 803 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    nxt_staff_reg    | Flip-flop |   8   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 825 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   nxt_balance_reg   | Flip-flop |  24   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 882 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   warn_msg_r_reg    | Flip-flop |   3   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 887 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   complete_r_reg    | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DSS line 940 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| only_write_date_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DSS)
+Elaborated 1 design.
+Current design is now 'DSS'.
+Information: Building the design 'PRICE_LUT'. (HDL-193)
+Warning:  ./DSS.sv:1470: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 1469 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1470           |    auto/auto     |
+|           1472           |    auto/auto     |
+|           1578           |    auto/auto     |
+|           1684           |    auto/auto     |
+|           1790           |    auto/auto     |
+|           1896           |    auto/auto     |
+|           2002           |    auto/auto     |
+|           2108           |    auto/auto     |
+|           2214           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (PRICE_LUT)
+Information: Building the design 'DIV10_LUT'. (HDL-193)
+Presto compilation completed successfully. (DIV10_LUT)
+Information: Building the design 'COST_FLOUR_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 1378 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1378           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (COST_FLOUR_LUT)
+Information: Building the design 'COST_BUTTER_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 1392 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1392           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (COST_BUTTER_LUT)
+Information: Building the design 'COST_MILK_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 1406 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1406           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (COST_MILK_LUT)
+Information: Building the design 'COST_SUGAR_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 1420 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1420           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (COST_SUGAR_LUT)
+Information: Building the design 'COST_FRUIT_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 1434 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1434           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (COST_FRUIT_LUT)
+Information: Building the design 'HIRE_FEE_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 2433 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           2434           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (HIRE_FEE_LUT)
+Information: Building the design 'SALARY_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 2545 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           2546           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (SALARY_LUT)
+Information: Building the design 'THRESHOLD_LUT'. (HDL-193)
+
+Statistics for case statements in always block at line 1448 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1448           |    auto/auto     |
+===============================================
+Presto compilation completed successfully. (THRESHOLD_LUT)
+Information: Building the design 'mult_16bit_u'. (HDL-193)
+
+Inferred memory devices in process
+        in routine mult_16bit_u line 991 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   start_mult_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit_u line 998 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    shift_cnt_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit_u line 1005 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    cycle_n_r_reg    | Flip-flop |   3   |  Y  | N  | N  | Y  | N  | N  | N  |
+|    cycle_n_r_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit_u line 1010 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    mult_done_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit_u line 1018 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       acc_reg       | Flip-flop |  23   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    shifted_A_reg    | Flip-flop |  23   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     shift_B_reg     | Flip-flop |  11   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (mult_16bit_u)
+Information: Building the design 'Read_DRAM' instantiated from design 'DSS' with
+        the parameters "|((N%clk%)(N%in_valid%)(N%in_continue%)(N%in_abort%)(N%shop_data_no%)(N%out_data0%)(N%out_valid0%)(N%out_valid%)(N%inf%I%WORK/INF%DSS_inf%))". (HDL-193)
+
+Statistics for case statements in always block at line 1090 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1091           |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine Read_DRAM_I_inf_INF_DSS_inf_ line 1085 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Read_DRAM_I_inf_INF_DSS_inf_ line 1107 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   inf.AR_ADDR_reg   | Flip-flop |  17   |  Y  | N  | Y  | N  | N  | N  | N  |
+|  inf.AR_VALID_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Read_DRAM_I_inf_INF_DSS_inf_ line 1137 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    out_data0_reg    | Flip-flop |  64   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (Read_DRAM_I_inf_INF_DSS_inf_)
+Information: Building the design 'Write_DRAM' instantiated from design 'DSS' with
+        the parameters "|((N%clk%)(N%in_valid%)(N%out_valid%)(N%shop_data_no%)(N%in_data0%)(N%in_data1%)(N%only_write_date%)(N%inf%I%WORK/INF%DSS_inf%))". (HDL-193)
+
+Statistics for case statements in always block at line 1221 in file
+        './DSS.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1222           |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine Write_DRAM_I_inf_INF_DSS_inf_ line 1216 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Write_DRAM_I_inf_INF_DSS_inf_ line 1244 in file
+                './DSS.sv'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| only_write_date_r_reg | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Write_DRAM_I_inf_INF_DSS_inf_ line 1256 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     aw_done_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|  inf.AW_VALID_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   inf.AW_ADDR_reg   | Flip-flop |  17   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     aw_beat_reg     | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Write_DRAM_I_inf_INF_DSS_inf_ line 1293 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     w_done_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   inf.W_VALID_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   inf.W_DATA_reg    | Flip-flop |  64   |  Y  | N  | Y  | N  | N  | N  | N  |
+|     w_beat_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Write_DRAM_I_inf_INF_DSS_inf_ line 1332 in file
+                './DSS.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     b_done_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+|     b_beat_reg      | Flip-flop |   1   |  N  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (Write_DRAM_I_inf_INF_DSS_inf_)
+1
+# (B-2) read_sverilog
+#read_sverilog $DESIGN\.v
+# (B-3) set current design
+current_design $DESIGN
+Current design is 'DSS'.
+{DSS}
+link
+
+  Linking design 'DSS'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (14 designs)              /RAID2/COURSE/2026_Spring/iclab/iclab042/Lab09_2026s/Exercise/02_SYN/DSS.db, etc
+  fsa0m_a_generic_core_ss1p62v125c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db
+  fsa0m_a_generic_core_ff1p98vm40c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ff1p98vm40c.db
+  fsa0m_a_t33_generic_io_ss1p62v125c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_ss1p62v125c.db
+  fsa0m_a_t33_generic_io_tt1p8v25c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_tt1p8v25c.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+set_wire_load_mode top
+1
+set_operating_conditions -max WCCOM -min BCCOM
+Using operating conditions 'WCCOM' found in library 'fsa0m_a_generic_core_ss1p62v125c'.
+Using operating conditions 'BCCOM' found in library 'fsa0m_a_generic_core_ff1p98vm40c'.
+1
+# set_wire_load_model -name umc18_wl10 -library slow
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+create_clock -name clk -period $CYCLE [get_ports clk] 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+set_fix_hold                       [get_clocks clk]
+1
+set_clock_uncertainty       0.1    [get_clocks clk]
+1
+# set_clock_latency   -source 0      [get_clocks clk]
+# set_clock_latency           1      [get_clocks clk] 
+set_input_transition        0.5    [all_inputs] 
+1
+set_clock_transition        0.1    [all_clocks] 
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk inf.rst_n
+1
+#set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+# (D-3) Setting Design Environment
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
+set_load 0.05 [all_outputs]
+1
+# (D-4) Setting DRC Constraint
+#set_max_delay           0     ; # Optimize delay max effort                 
+#set_max_area            0      ; # Optimize area max effort           
+set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+1
+set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+1
+set_max_fanout          10      [all_inputs]
+1
+# set_dont_use slow/JKFF*
+#set_dont_touch [get_cells core_reg_macro]
+#set hdlin_ff_always_sync_set_reset true
+# (D-5) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Changed wire load model for 'alt1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'apparch' from '(none)' to 'G5K'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'DSS' contains 3 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : DSS
+Version: T-2022.03
+Date   : Mon May 11 00:58:10 2026
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+clk                 -         -         -         -      0.10      0.10
+
+                 Max Transition      Min Transition
+Object           Rise      Fall      Rise      Fall
+-------------------------------------------------------
+clk              0.10      0.10      0.10      0.10
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
+1
+set_fix_hold [all_clocks]
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 8 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 5394                                   |
+| Number of User Hierarchies                              | 13                                     |
+| Sequential Cell Count                                   | 972                                    |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 2300                                   |
+| Number of Dont Touch nets                               | 4                                      |
+| Number of size only cells                               | 0                                      |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 779 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'DSS'
+Information: The register 'req_data_no_reg[7]' will be removed. (OPT-1207)
+
+  Loading target library 'fsa0m_a_generic_core_ff1p98vm40c'
+  Loading target library 'fsa0m_a_t33_generic_io_ss1p62v125c'
+  Loading target library 'fsa0m_a_t33_generic_io_tt1p8v25c'
+Loaded alib file './alib-52/fsa0m_a_generic_core_ss1p62v125c.db.alib'
+Loaded alib file './alib-52/fsa0m_a_generic_core_ff1p98vm40c.db.alib'
+Loaded alib file './alib-52/fsa0m_a_t33_generic_io_ss1p62v125c.db.alib' (placeholder)
+Loaded alib file './alib-52/fsa0m_a_t33_generic_io_tt1p8v25c.db.alib' (placeholder)
+Warning: Operating condition WCCOM set on design DSS has different process,
+voltage and temperatures parameters than the parameters at which target library 
+fsa0m_a_generic_core_ff1p98vm40c is characterized. Delays may be inaccurate as a result. (OPT-998)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy u_div10_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_cost_flour_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_cost_butter_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_cost_milk_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_cost_sugar_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_cost_fruit_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_hire_fee_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_salary_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_threshold_lut before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_mult before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_read_dram before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy u_write_dram before Pass 1 (OPT-776)
+Information: Ungrouping 12 of 14 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'DSS'
+Information: Added key list 'DesignWare' to design 'DSS'. (DDB-72)
+Information: The register 'u_mult/shifted_A_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_mult/shift_B_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_sugar_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_milk_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_butter_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_butter_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_flour_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_fruit_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_fruit_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'need_sugar_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'threshold_r_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'salary_r_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'salary_r_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'salary_r_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'hire_fee_r_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'hire_fee_r_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cost_fruit_r_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cost_fruit_r_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cost_fruit_r_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cost_butter_r_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_read_dram/inf.AR_ADDR_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_mult/shift_B_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_mult/shift_B_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_mult/shift_B_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'u_write_dram/inf.AW_ADDR_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: In design 'DSS', the register 'cost_sugar_r_reg[0]' is removed because it is merged to 'cost_butter_r_reg[1]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_fruit_r_reg[3]' is removed because it is merged to 'cost_butter_r_reg[1]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_sugar_r_reg[3]' is removed because it is merged to 'cost_fruit_r_reg[6]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_fruit_r_reg[7]' is removed because it is merged to 'cost_sugar_r_reg[4]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_flour_r_reg[1]' is removed because it is merged to 'cost_butter_r_reg[3]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_sugar_r_reg[2]' is removed because it is merged to 'cost_fruit_r_reg[5]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_sugar_r_reg[1]' is removed because it is merged to 'cost_fruit_r_reg[4]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_milk_r_reg[0]' is removed because it is merged to 'cost_fruit_r_reg[4]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_butter_r_reg[6]' is removed because it is merged to 'cost_flour_r_reg[4]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_flour_r_reg[3]' is removed because it is merged to 'cost_butter_r_reg[5]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_flour_r_reg[2]' is removed because it is merged to 'cost_butter_r_reg[4]'. (OPT-1215)
+Information: In design 'DSS', the register 'cost_flour_r_reg[0]' is removed because it is merged to 'cost_butter_r_reg[2]'. (OPT-1215)
+Information: In design 'DSS', the register 'u_write_dram/inf.AW_ADDR_reg[16]' is removed because it is merged to 'u_write_dram/inf.AW_VALID_reg'. (OPT-1215)
+ Implement Synthetic for 'DSS'.
+  Processing 'PRICE_LUT'
+ Implement Synthetic for 'PRICE_LUT'.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIE1' in the library 'fsa0m_a_generic_core_ss1p62v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIE0' in the library 'fsa0m_a_generic_core_ss1p62v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'BHD1' in the library 'fsa0m_a_generic_core_ss1p62v125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Updating design information... (UID-85)
+Information: Ungrouping hierarchy u_price_lut 'PRICE_LUT' #insts = 594. (OPT-777)
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:51  286437.9      0.51     120.8      26.8                           20923750.0000      0.00  
+    0:00:51  285366.1      3.13     298.6     119.3                           20852700.0000      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:00:52  285850.5      3.13     278.1     119.3                           20907960.0000      0.00  
+    0:00:52  285684.8      3.04     272.1     140.9                           20897738.0000      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:54  166298.7      0.75      66.5      23.4                           10547406.0000      0.00  
+    0:00:55  171964.0      0.30      46.2      23.4                           10955069.0000      0.00  
+    0:00:55  171964.0      0.30      46.2      23.4                           10955069.0000      0.00  
+    0:00:56  171792.1      0.30      47.2      23.4                           10945805.0000      0.00  
+    0:00:56  171698.4      0.30      47.0      23.4                           10940474.0000      0.00  
+    0:00:57  169848.5      0.43      47.0      23.4                           10857679.0000      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:00:58  167248.7      0.41      48.9      23.4                           10625587.0000      0.00  
+    0:00:58  167320.5      0.39      46.2      23.4                           10635316.0000      0.00  
+    0:00:58  167320.5      0.39      46.2      23.4                           10635316.0000      0.00  
+    0:00:59  166133.1      0.38      32.4      23.4                           10563683.0000      0.00  
+    0:00:59  166133.1      0.38      32.4      23.4                           10563683.0000      0.00  
+    0:01:02  174785.7      0.26      27.7      23.4                           11175522.0000      0.00  
+    0:01:02  174785.7      0.26      27.7      23.4                           11175522.0000      0.00  
+    0:01:02  174985.7      0.25      27.2      23.4                           11187628.0000      0.00  
+    0:01:02  174985.7      0.25      27.2      23.4                           11187628.0000      0.00  
+    0:01:05  183832.0      0.19      26.5      23.4                           11798495.0000      0.00  
+    0:01:05  183832.0      0.19      26.5      23.4                           11798495.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+
+
+  Beginning Design Rule Fixing  (max_fanout)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:08  189200.4      0.00       0.0      23.4                           12198060.0000      0.00  
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:01:08  189278.5      0.00       0.0       0.0                           12202978.0000      0.00  
+    0:01:08  189278.5      0.00       0.0       0.0                           12202978.0000      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:08  189278.5      0.00       0.0       0.0                           12202978.0000      0.00  
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+    0:01:12  175454.4      0.06       5.9       0.0                           10933764.0000      0.00  
+    0:01:17  184456.9      0.04       3.1       0.0                           11604925.0000      0.00  
+    0:01:17  184456.9      0.04       3.1       0.0                           11604925.0000      0.00  
+    0:01:17  176679.3      0.04       1.7       0.0                           10968030.0000      0.00  
+    0:01:17  176679.3      0.04       1.7       0.0                           10968030.0000      0.00  
+    0:01:26  185600.6      0.01       0.1       0.0                           11657863.0000      0.00  
+    0:01:26  185600.6      0.01       0.1       0.0                           11657863.0000      0.00  
+    0:01:26  185766.2      0.00       0.0       0.0                           11670822.0000      0.00  
+    0:01:26  185766.2      0.00       0.0       0.0                           11670822.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+    0:01:27  185772.5      0.00       0.0       0.0                           11671107.0000      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:01:27  185872.5      0.00       0.0       0.0                           11677311.0000      0.00  
+    0:01:28  180472.8      0.00       0.0       0.0                           11249298.0000      0.00  
+    0:01:28  180482.2      0.00       0.0       0.0                           11250243.0000      0.00  
+    0:01:28  180482.2      0.00       0.0       0.0                           11250243.0000      0.00  
+    0:01:29  174138.9      0.00       0.0       0.0                           10801968.0000      0.00  
+    0:01:29  172292.1      0.00       0.0       0.0                           10678471.0000      0.00  
+    0:01:29  172292.1      0.00       0.0       0.0                           10678471.0000      0.00  
+    0:01:29  172292.1      0.00       0.0       0.0                           10678471.0000      0.00  
+    0:01:29  172292.1      0.00       0.0       0.0                           10678471.0000      0.00  
+    0:01:30  172292.1      0.00       0.0       0.0                           10678471.0000      0.00  
+    0:01:30  172292.1      0.00       0.0       0.0                           10678471.0000      0.00  
+    0:01:31  169145.4      0.00       0.0       0.0                           10430875.0000      0.00  
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ff1p98vm40c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_tt1p8v25c.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+  Loading target library 'fsa0m_a_generic_core_ff1p98vm40c'
+  Loading target library 'fsa0m_a_t33_generic_io_ss1p62v125c'
+  Loading target library 'fsa0m_a_t33_generic_io_tt1p8v25c'
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab09_2026s/Exercise/02_SYN/Netlist/DSS_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'DSS_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab09_2026s/Exercise/02_SYN/Netlist/DSS_SYN.sdf'. (WT-3)
+Information: Updating design information... (UID-85)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+write -format svsim   -output Netlist/$DESIGN\_Wrapper.sv
+Writing svsim file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab09_2026s/Exercise/02_SYN/Netlist/DSS_Wrapper.sv'.
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_area
+ 
+****************************************
+Report : area
+Design : DSS
+Version: T-2022.03
+Date   : Mon May 11 00:59:45 2026
+****************************************
+
+Library(s) Used:
+
+    fsa0m_a_generic_core_ss1p62v125c (File: /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db)
+
+Number of ports:                          262
+Number of nets:                          7974
+Number of cells:                         7872
+Number of combinational cells:           6953
+Number of sequential cells:               919
+Number of macros/black boxes:               0
+Number of buf/inv:                       1613
+Number of references:                     131
+
+Combinational area:             117926.827109
+Buf/Inv area:                    16670.807930
+Noncombinational area:           51218.597294
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                169145.424403
+Total area:                 undefined
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : DSS
+Version: T-2022.03
+Date   : Mon May 11 00:59:45 2026
+****************************************
+
+Operating Conditions: WCCOM   Library: fsa0m_a_generic_core_ss1p62v125c
+Wire Load Model Mode: top
+
+  Startpoint: req_dessert_reg_0_
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: stock_lack_reg
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  DSS                enG30K                fsa0m_a_generic_core_ss1p62v125c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  req_dessert_reg_0_/CK (QDFFP)            0.00       0.00 r
+  req_dessert_reg_0_/Q (QDFFP)             0.45       0.45 f
+  U6866/O (BUF12CK)                        0.23       0.68 f
+  U2807/O (INV6)                           0.09       0.76 r
+  U3505/O (NR2F)                           0.08       0.84 f
+  U3500/O (BUF4CK)                         0.18       1.02 f
+  U3959/O (NR2F)                           0.16       1.18 r
+  U2770/O (NR2P)                           0.13       1.31 f
+  U4553/O (INV3CK)                         0.10       1.40 r
+  U4552/O (ND3P)                           0.10       1.50 f
+  U4551/O (OR2)                            0.25       1.75 f
+  U4550/O (MOAI1H)                         0.15       1.90 r
+  U6530/O (ND2P)                           0.10       2.00 f
+  U6411/O (ND3HT)                          0.12       2.12 r
+  U4840/O (ND2T)                           0.08       2.21 f
+  U6565/O (AOI13HP)                        0.16       2.37 r
+  U6276/O (ND3P)                           0.10       2.47 f
+  stock_lack_reg/D (QDFFS)                 0.00       2.47 f
+  data arrival time                                   2.47
+
+  clock clk (rise edge)                    2.70       2.70
+  clock network delay (ideal)              0.00       2.70
+  clock uncertainty                       -0.10       2.60
+  stock_lack_reg/CK (QDFFS)                0.00       2.60 r
+  library setup time                      -0.13       2.47
+  data required time                                  2.47
+  -----------------------------------------------------------
+  data required time                                  2.47
+  data arrival time                                  -2.47
+  -----------------------------------------------------------
+  slack (MET)                                         0.00
+
+
+1
+exit
+
+Memory usage for this session 480 Mbytes.
+Memory usage for this session including child processes 741 Mbytes.
+CPU usage for this session 324 seconds ( 0.09 hours ).
+Elapsed time for this session 101 seconds ( 0.03 hours ).
+
+Thank you...
+

@@ -1,0 +1,478 @@
+vcs -timescale=1ns/1fs -j8                -sverilog +v2k -full64 -Mupdate -R -debug_access+all -y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f "filelist.f"	 -o "simv"      	 -l "vcs.log"      	 -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a +define+RTL +define+CORRECT +notimingchecks 
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Fri Mar 20 18:23:09 2026
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file 'PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'DRAM_CTRL.vp'.
+Back to file 'TESTBED.v'.
+Parsing included file 'HARVESTER.vp'.
+Back to file 'TESTBED.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM.vp'.
+Back to file 'TESTBED.v'.
+Top Level Modules:
+       TESTBED
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+6 modules and 0 UDP read.
+recompiling module PATTERN
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+make[1]: Entering directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+make[1]: Leaving directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+make[1]: Entering directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _134045_archive_1.so _134182_archive_1.so _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+Notice: timing checks disabled with +notimingcheck at compile-time
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Mar 20 18:23 2026
+*Verdi* Loading libsscore_vcs201906.so
+FSDB Dumper for VCS, Release Verdi_P-2019.06, Linux x86_64/64bit, 05/26/2019
+(C) 1996 - 2019 by Synopsys, Inc.
+***********************************************************************
+*  ERROR -                                                            *
+*  The simulator version is newer than the FSDB dumper version which  *
+*  may cause abnormal behavior, please contact Synopsys support for   *
+*  assistance.                                                        *
+***********************************************************************
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'HARVESTER.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+testcase 0
+  READ  bank=1 row=11
+  WRITE bank=3 row=55
+  CALC  row=6
+  SORT  src=33 dst=42
+testcase 1
+  READ  bank=2 row=11
+  WRITE bank=1 row=57
+  CALC  row=14
+  SORT  src=34 dst=38
+testcase 2
+  READ  bank=3 row=29
+  WRITE bank=1 row=37
+  CALC  row=12
+  SORT  src=47 dst=46
+testcase 3
+  READ  bank=2 row=46
+  WRITE bank=0 row=56
+  CALC  row=29
+  SORT  src=61 dst=49
+testcase 4
+  READ  bank=0 row=22
+  WRITE bank=2 row=43
+  CALC  row=25
+  SORT  src=60 dst=36
+testcase 5
+  READ  bank=0 row=29
+  WRITE bank=3 row=37
+  CALC  row=29
+  SORT  src=55 dst=52
+testcase 6
+  READ  bank=2 row=14
+  WRITE bank=3 row=60
+  CALC  row=8
+  SORT  src=57 dst=52
+testcase 7
+  READ  bank=3 row=10
+  WRITE bank=1 row=58
+  CALC  row=26
+  SORT  src=45 dst=52
+testcase 8
+  READ  bank=3 row=39
+  WRITE bank=1 row=39
+  CALC  row=25
+  SORT  src=60 dst=35
+testcase 9
+  READ  bank=2 row=33
+  WRITE bank=0 row=32
+  CALC  row=9
+  SORT  src=33 dst=40
+testcase 10
+  READ  bank=3 row=22
+  WRITE bank=1 row=37
+  CALC  row=3
+  SORT  src=60 dst=34
+testcase 11
+  READ  bank=0 row=48
+  WRITE bank=1 row=37
+  CALC  row=19
+  SORT  src=34 dst=61
+testcase 12
+  READ  bank=1 row=56
+  WRITE bank=0 row=44
+  CALC  row=28
+  SORT  src=62 dst=39
+testcase 13
+  READ  bank=1 row=34
+  WRITE bank=2 row=56
+  CALC  row=20
+  SORT  src=45 dst=45
+testcase 14
+  READ  bank=3 row=16
+  WRITE bank=1 row=60
+  CALC  row=23
+  SORT  src=54 dst=48
+testcase 15
+  READ  bank=3 row=9
+  WRITE bank=1 row=37
+  CALC  row=5
+  SORT  src=41 dst=34
+testcase 16
+  READ  bank=3 row=42
+  WRITE bank=1 row=53
+  CALC  row=19
+  SORT  src=62 dst=45
+testcase 17
+  READ  bank=0 row=8
+  WRITE bank=2 row=58
+  CALC  row=5
+  SORT  src=37 dst=50
+testcase 18
+  READ  bank=3 row=61
+  WRITE bank=1 row=54
+  CALC  row=19
+  SORT  src=45 dst=33
+testcase 19
+  READ  bank=3 row=56
+  WRITE bank=2 row=48
+  CALC  row=26
+  SORT  src=35 dst=58
+testcase 20
+  READ  bank=1 row=32
+  WRITE bank=0 row=47
+  CALC  row=23
+  SORT  src=58 dst=37
+testcase 21
+  READ  bank=3 row=6
+  WRITE bank=0 row=52
+  CALC  row=9
+  SORT  src=47 dst=45
+testcase 22
+  READ  bank=3 row=8
+  WRITE bank=3 row=62
+  CALC  row=4
+  SORT  src=45 dst=39
+testcase 23
+  READ  bank=2 row=42
+  WRITE bank=1 row=51
+  CALC  row=13
+  SORT  src=60 dst=42
+testcase 24
+  READ  bank=1 row=61
+  WRITE bank=3 row=54
+  CALC  row=8
+  SORT  src=34 dst=48
+testcase 25
+  READ  bank=3 row=42
+  WRITE bank=3 row=38
+  CALC  row=30
+  SORT  src=60 dst=49
+testcase 26
+  READ  bank=1 row=39
+  WRITE bank=1 row=32
+  CALC  row=10
+  SORT  src=42 dst=56
+testcase 27
+  READ  bank=2 row=26
+  WRITE bank=1 row=59
+  CALC  row=4
+  SORT  src=35 dst=49
+testcase 28
+  READ  bank=1 row=31
+  WRITE bank=1 row=39
+  CALC  row=31
+  SORT  src=50 dst=33
+testcase 29
+  READ  bank=1 row=17
+  WRITE bank=2 row=33
+  CALC  row=12
+  SORT  src=40 dst=45
+testcase 30
+  READ  bank=1 row=58
+  WRITE bank=2 row=48
+  CALC  row=27
+  SORT  src=46 dst=42
+testcase 31
+  READ  bank=3 row=34
+  WRITE bank=3 row=42
+  CALC  row=21
+  SORT  src=48 dst=40
+testcase 32
+  READ  bank=2 row=13
+  WRITE bank=1 row=57
+  CALC  row=17
+  SORT  src=60 dst=35
+testcase 33
+  READ  bank=2 row=49
+  WRITE bank=0 row=50
+  CALC  row=17
+  SORT  src=38 dst=40
+testcase 34
+  READ  bank=0 row=22
+  WRITE bank=0 row=59
+  CALC  row=8
+  SORT  src=54 dst=45
+testcase 35
+  READ  bank=3 row=41
+  WRITE bank=3 row=46
+  CALC  row=29
+  SORT  src=48 dst=41
+testcase 36
+  READ  bank=0 row=30
+  WRITE bank=1 row=47
+  CALC  row=0
+  SORT  src=36 dst=34
+testcase 37
+  READ  bank=2 row=53
+  WRITE bank=1 row=44
+  CALC  row=25
+  SORT  src=45 dst=45
+testcase 38
+  READ  bank=1 row=5
+  WRITE bank=3 row=40
+  CALC  row=25
+  SORT  src=34 dst=42
+testcase 39
+  READ  bank=3 row=29
+  WRITE bank=2 row=57
+  CALC  row=19
+  SORT  src=52 dst=36
+testcase 40
+  READ  bank=2 row=29
+  WRITE bank=0 row=60
+  CALC  row=17
+  SORT  src=61 dst=47
+testcase 41
+  READ  bank=2 row=1
+  WRITE bank=0 row=55
+  CALC  row=5
+  SORT  src=55 dst=61
+testcase 42
+  READ  bank=1 row=42
+  WRITE bank=0 row=34
+  CALC  row=24
+  SORT  src=36 dst=33
+testcase 43
+  READ  bank=3 row=11
+  WRITE bank=0 row=42
+  CALC  row=17
+  SORT  src=41 dst=51
+testcase 44
+  READ  bank=1 row=35
+  WRITE bank=3 row=49
+  CALC  row=7
+  SORT  src=44 dst=37
+testcase 45
+  READ  bank=1 row=17
+  WRITE bank=0 row=40
+  CALC  row=21
+  SORT  src=62 dst=36
+testcase 46
+  READ  bank=0 row=17
+  WRITE bank=2 row=32
+  CALC  row=14
+  SORT  src=58 dst=51
+testcase 47
+  READ  bank=2 row=25
+  WRITE bank=2 row=52
+  CALC  row=10
+  SORT  src=33 dst=61
+testcase 48
+  READ  bank=1 row=19
+  WRITE bank=1 row=60
+  CALC  row=11
+  SORT  src=59 dst=54
+testcase 49
+  READ  bank=0 row=0
+  WRITE bank=3 row=62
+  CALC  row=4
+  SORT  src=41 dst=38
+testcase 50
+  READ  bank=1 row=50
+  WRITE bank=2 row=36
+  CALC  row=11
+  SORT  src=51 dst=49
+testcase 51
+  READ  bank=0 row=20
+  WRITE bank=2 row=43
+  CALC  row=6
+  SORT  src=62 dst=57
+testcase 52
+  READ  bank=3 row=21
+  WRITE bank=1 row=36
+  CALC  row=6
+  SORT  src=47 dst=53
+testcase 53
+  READ  bank=0 row=50
+  WRITE bank=3 row=47
+  CALC  row=8
+  SORT  src=43 dst=48
+testcase 54
+  READ  bank=3 row=44
+  WRITE bank=1 row=37
+  CALC  row=22
+  SORT  src=60 dst=50
+testcase 55
+  READ  bank=1 row=58
+  WRITE bank=2 row=52
+  CALC  row=13
+  SORT  src=55 dst=33
+testcase 56
+  READ  bank=2 row=1
+  WRITE bank=0 row=45
+  CALC  row=11
+  SORT  src=49 dst=60
+testcase 57
+  READ  bank=3 row=37
+  WRITE bank=1 row=54
+  CALC  row=4
+  SORT  src=53 dst=37
+testcase 58
+  READ  bank=0 row=13
+  WRITE bank=1 row=49
+  CALC  row=19
+  SORT  src=60 dst=36
+testcase 59
+  READ  bank=0 row=20
+  WRITE bank=1 row=56
+  CALC  row=14
+  SORT  src=34 dst=59
+testcase 60
+  READ  bank=0 row=16
+  WRITE bank=1 row=44
+  CALC  row=25
+  SORT  src=41 dst=49
+testcase 61
+  READ  bank=0 row=1
+  WRITE bank=2 row=54
+  CALC  row=6
+  SORT  src=50 dst=46
+testcase 62
+  READ  bank=3 row=17
+  WRITE bank=1 row=47
+  CALC  row=2
+  SORT  src=60 dst=55
+testcase 63
+  READ  bank=3 row=52
+  WRITE bank=2 row=38
+  CALC  row=23
+  SORT  src=47 dst=58
+testcase 64
+  READ  bank=2 row=17
+  WRITE bank=3 row=47
+  CALC  row=7
+  SORT  src=45 dst=39
+testcase 65
+  READ  bank=0 row=30
+  WRITE bank=0 row=45
+  CALC  row=29
+  SORT  src=55 dst=50
+testcase 66
+  READ  bank=2 row=37
+  WRITE bank=3 row=39
+  CALC  row=13
+  SORT  src=37 dst=43
+testcase 67
+  READ  bank=1 row=7
+  WRITE bank=0 row=33
+  CALC  row=20
+  SORT  src=51 dst=34
+testcase 68
+  READ  bank=1 row=2
+  WRITE bank=0 row=38
+  CALC  row=23
+  SORT  src=52 dst=60
+testcase 69
+  READ  bank=1 row=1
+  WRITE bank=2 row=32
+  CALC  row=1
+  SORT  src=50 dst=61
+testcase 70
+  READ  bank=1 row=24
+  WRITE bank=0 row=40
+  CALC  row=24
+  SORT  src=36 dst=34
+testcase 71
+  READ  bank=3 row=28
+  WRITE bank=2 row=61
+  CALC  row=19
+  SORT  src=37 dst=38
+testcase 72
+  READ  bank=0 row=46
+  WRITE bank=0 row=53
+  CALC  row=14
+  SORT  src=33 dst=59
+testcase 73
+  READ  bank=1 row=59
+  WRITE bank=0 row=38
+  CALC  row=22
+  SORT  src=41 dst=49
+testcase 74
+  READ  bank=0 row=55
+  WRITE bank=0 row=45
+  CALC  row=19
+  SORT  src=47 dst=44
+testcase 75
+  READ  bank=3 row=19
+  WRITE bank=3 row=48
+  CALC  row=4
+  SORT  src=51 dst=60
+testcase 76
+  READ  bank=1 row=60
+  WRITE bank=0 row=39
+  CALC  row=9
+  SORT  src=33 dst=34
+testcase 77
+  READ  bank=2 row=6
+  WRITE bank=1 row=45
+  CALC  row=6
+  SORT  src=38 dst=58
+*                              FAIL!                                    *
+*                    Error message from PATTERN.v                       *
+*************************************************************************
+*                          SPEC AXI-5 FAIL                              *
+*            aw_ready should be asserted within 100 cycles              *
+*************************************************************************
+*                              FAIL!                                    *
+*                    Error message from PATTERN.v                       *
+*************************************************************************
+*                           SPEC AXI-5 FAIL                             *
+*************************************************************************
+$finish called from file "PATTERN.v", line 1284.
+$finish at simulation time           3679460000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 36794600000 ps
+CPU Time:     16.760 seconds;       Data structure size:   1.2Mb
+Fri Mar 20 18:23:26 2026
+CPU time: 1.439 seconds to compile + .434 seconds to elab + .462 seconds to link + 16.838 seconds in simulation

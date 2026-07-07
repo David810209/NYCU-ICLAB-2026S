@@ -1,0 +1,32 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+#  Set Libraries
+#======================================================
+# Skip this part as it's already set in .synopsys_dc.setup
+#======================================================
+#  Global Parameters
+#======================================================
+set DESIGN "HT"
+HT
+if {![info exists CYCLE]} {
+    set CYCLE 8.9
+}
+set INPUT_DLY [expr 0.5*$CYCLE]
+3.55
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+3.55
+#======================================================
+#  Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN\.v 
+Running PRESTO HDLC
+Compiling source file ../01_RTL/HT.v
+Presto compilation completed successfully.
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db'

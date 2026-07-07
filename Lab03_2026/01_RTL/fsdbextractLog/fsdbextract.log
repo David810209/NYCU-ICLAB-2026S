@@ -1,0 +1,10 @@
+Command Line: /usr/cad/synopsys/verdi/2019.06/platform/LINUXAMD64/bin/fsdbextract /RAID2/COURSE/2026_Spring/iclab/iclabTA04/lab03_2026/01_RTL/DRAM_CTRL.fsdb -o /RAID2/COURSE/2026_Spring/iclab/iclabTA04/lab03_2026/01_RTL/extractSignal.fsdb -nwf /RAID2/COURSE/2026_Spring/iclab/iclabTA04/lab03_2026/01_RTL/nWaveLog/extract_file.ga24366 -verilog -bt 0.000000ps -et 21700000.000000ps -log /RAID2/COURSE/2026_Spring/iclab/iclabTA04/lab03_2026/01_RTL/nWaveLog/extract_log.ha24366
+uname(Linux ee31 3.10.0-1160.102.1.el7.x86_64 #1 SMP Tue Oct 17 15:42:21 UTC 2023 x86_64)
+First time to read tree time 0.000492 0.000000 0.000490 delta 2711552 2711552 total 284512256 284512256
+fsdbextract:Find signals time 0.017234 0.006220 0.001364 delta 2400256 2400256 total 299106304 299106304
+Load signals(0)-(2170000) time 0.007429 0.006319 0.006411 delta 128622592 128622592 total 427728896 427728896
+Write signals(0)-(2170000) time 0.000089 0.000085 0.000000 delta 1060864 1060864 total 428789760 428789760
+Unload signals(0)-(2170000) time 0.000055 0.000055 0.000000 delta 0 0 total 428789760 428789760
+fsdbextract:Retrieve VC time 0.007670 0.006516 0.006451 delta 129683456 129683456 total 428789760 428789760
+fsdbextract main program time 0.441966 0.043946 0.036926 delta 195375104 195375104 total 307974144 307974144
+au time 0.442200 0.044004 0.037094 delta 195375104 195375104 total 307974144 307974144

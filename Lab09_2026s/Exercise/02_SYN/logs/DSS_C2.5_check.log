@@ -1,0 +1,13 @@
+[1;33m===========DSS============[0m
+[0;32m--> V Latch Checked![0m
+[0;32m--> V Width Mismatch Checked![0m
+[0;32m--> V No Error in syn_DSS.log![0m
+[0;31m--> X Timing (violated) ---[0m
+[1;33m============================[0m
+[0;31m--> X 02_SYN Fail !! Please check out syn.log file.[0m
+[1;33m============================[0m
+[1;33mCycle: 2.50 [0m
+[1;33mArea: 193353.249075 [0m
+[1;33mGate count: 19376 [0m
+[1;33mDynamic: Total Dynamic Power    =  16.9528 mW  (100%) [0m
+[1;33mLeakage: Cell Leakage Power     =  12.5742 uW [0m

@@ -1,0 +1,3220 @@
+vcs -timescale=1ns/1fs -j4                -sverilog +v2k -full64 -Mupdate -R -debug_access+all -f "filelist.f"	 -o "simv"      	 -l "vcs.log"      	 -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a -v ~iclabTA01/umc018/Verilog/umc18_neg.v +define+GATE +define+RUN +define+PERF +neg_tchk  
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Tue May  5 00:03:33 2026
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/DRAM_MAP_define.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM_inst1.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM_inst2.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM_data.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'DCCPU_SYN.v'.
+Back to file 'TESTBED.v'.
+Parsing design file '../04_MEM/CACHE_128X16X1BM1.v'
+Parsing design file '../04_MEM/CACHE_256X16X1BM1.v'
+Parsing design file '../04_MEM/SUMA180_512X16X1BM1.v'
+Parsing library file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/umc018/Verilog/umc18_neg.v'
+Top Level Modules:
+       TESTBED
+       CACHE_128X16X1BM1
+       CACHE_256X16X1BM1
+TimeScale is 10 ps / 1 ps
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 1503
+DCCPU, "DFFSX1 core_1_memory_dcache_dirty_start_addr_reg_0__6_( .D (n2019),  .CK (clk),  .SN (n2809),  .QN (n5790));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 1523
+DCCPU, "DFFSX1 core_1_memory_dcache_dirty_start_addr_reg_1__6_( .D (n2018),  .CK (clk),  .SN (n3878),  .QN (n5789));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 1531
+DCCPU, "DFFSX1 core_1_memory_awlen_m_inf_data_reg_0_( .D (n5761),  .CK (clk),  .SN (n3878),  .QN (awlen_m_inf_data[0]));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 5514
+DCCPU, "AFHCONX2 U6007( .A (n4671),  .B (n4670),  .CI (n4669),  .CON (n5558));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[IDTS] Ignoring dynamic type sensitivity
+../00_TESTBED/PATTERN.v, 468
+"txt_red_prefix"
+  Dynamic types used in always_comb, always_latch, always (@*) will be ignored
+  for the inferred sensitivity list. 
+  
+  Declared at: ../00_TESTBED/PATTERN.v, 409
+  
+
+
+Warning-[IDTS] Ignoring dynamic type sensitivity
+../00_TESTBED/PATTERN.v, 468
+"reset_color"
+  Dynamic types used in always_comb, always_latch, always (@*) will be ignored
+  for the inferred sensitivity list. 
+  
+  Declared at: ../00_TESTBED/PATTERN.v, 408
+  
+
+
+   ***   $sdf_annotate() version 1.2R
+   ***    SDF file: "DCCPU_SYN.sdf"
+   ***    Annotation scope: TESTBED.u_DCCPU
+   ***    No MTM selection argument specified
+   ***    No SCALE FACTORS argument specified
+   ***    No SCALE TYPE argument specified
+   ***    MTM selection defaulted to "TOOL_CONTROL":
+               (+typdelays compiled, TYPICAL delays selected)
+   ***    SCALE FACTORS defaulted to "1.0:1.0:1.0":
+   ***    SCALE TYPE defaulted to: "FROM_MTM"
+   ***    Turnoff delay: "FROM_FILE"
+   ***    Approximation (mipd) policy: "MAXIMUM"
+
+   ***    SDF annotation begin: Tue May  5 00:03:34 2026
+
+
+SDF Info: +pulse_r/100, +pulse_e/100 in effect
+
+          Total errors: 0
+          Total warnings: 0
+   ***    SDF annotation completed: Tue May  5 00:03:34 2026
+
+
+Starting vcs inline pass...
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+125 modules and 2 UDPs read.
+recompiling module PATTERN
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+make[1]: Entering directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Midterm_Project/03_GATE/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _15160_archive_1.so _15227_archive_1.so _prev_archive_1.so _cuarc0.so objs/udps/U7Vwg.o objs/udps/exIG1.o  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Midterm_Project/03_GATE/csrc'
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  May  5 00:03 2026
+Doing SDF annotation ...... Done
+[1;36m[task_random] 900 ICs generated[1;0m
+[1;36m[task_random] .dat files written[1;0m
+[CORE0] PC=0x0000 INSTR=0x4081 -> ADDI  r1 = r0 + 1
+[CORE1] PC=0x0000 INSTR=0x4081 -> ADDI  r1 = r0 + 1
+[1;34m[IC    0] both cores executed | Latency so far: 615[1;0m
+[CORE0] PC=0x0002 INSTR=0x4102 -> ADDI  r2 = r0 + 2
+[CORE1] PC=0x0002 INSTR=0x4102 -> ADDI  r2 = r0 + 2
+[1;34m[IC    1] both cores executed | Latency so far: 627[1;0m
+[CORE0] PC=0x0004 INSTR=0x4183 -> ADDI  r3 = r0 + 3
+[CORE1] PC=0x0004 INSTR=0x4183 -> ADDI  r3 = r0 + 3
+[1;34m[IC    2] both cores executed | Latency so far: 639[1;0m
+[CORE0] PC=0x0006 INSTR=0x4204 -> ADDI  r4 = r0 + 4
+[CORE1] PC=0x0006 INSTR=0x4204 -> ADDI  r4 = r0 + 4
+[1;34m[IC    3] both cores executed | Latency so far: 651[1;0m
+[CORE0] PC=0x0008 INSTR=0x4285 -> ADDI  r5 = r0 + 5
+[CORE1] PC=0x0008 INSTR=0x4285 -> ADDI  r5 = r0 + 5
+[1;34m[IC    4] both cores executed | Latency so far: 663[1;0m
+[CORE0] PC=0x000a INSTR=0x4306 -> ADDI  r6 = r0 + 6
+[CORE1] PC=0x000a INSTR=0x4306 -> ADDI  r6 = r0 + 6
+[1;34m[IC    5] both cores executed | Latency so far: 675[1;0m
+[CORE0] PC=0x000c INSTR=0x4387 -> ADDI  r7 = r0 + 7
+[CORE1] PC=0x000c INSTR=0x4387 -> ADDI  r7 = r0 + 7
+[1;34m[IC    6] both cores executed | Latency so far: 687[1;0m
+[CORE0] PC=0x000e INSTR=0x44b8 -> ADDI  r1 = r1 + 56
+[CORE1] PC=0x000e INSTR=0x335c -> MULT  {r5,r6} = r4 * r6
+[1;34m[IC    7] both cores executed | Latency so far: 715[1;0m
+[CORE0] PC=0x0010 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x0010 INSTR=0x0000 -> NOP
+core1:load, pc=0x0010 addr=0x1072 data=2e1b, idx=0, tag=1000
+[1;34m[IC    8] both cores executed | Latency so far: 1031[1;0m
+[CORE0] PC=0x0012 INSTR=0x3658 -> MULT  {r5,r4} = r5 * r4
+[CORE1] PC=0x0012 INSTR=0xc006 -> BEQ   if (r0 == r0) branch 6 bytes to 0x0020
+[1;34m[IC    9] both cores executed | Latency so far: 1059[1;0m
+[CORE0] PC=0x0014 INSTR=0x4491 -> ADDI  r1 = r1 + 17
+[CORE1] PC=0x0020 INSTR=0x13d2 -> SUB   r5 = r4 - r7
+[1;34m[IC   10] both cores executed | Latency so far: 1071[1;0m
+[CORE0] PC=0x0016 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0022 INSTR=0x0000 -> NOP
+core1:load, pc=0x0016 addr=0x1094 data=fd9b, idx=0, tag=1000
+[1;34m[IC   11] both cores executed | Latency so far: 1086[1;0m
+[CORE0] PC=0x0018 INSTR=0x32fc -> MULT  {r7,r6} = r4 * r5
+[CORE1] PC=0x0024 INSTR=0x44a5 -> ADDI  r1 = r1 + 37
+[1;34m[IC   12] both cores executed | Latency so far: 1114[1;0m
+[CORE0] PC=0x001a INSTR=0x0000 -> NOP
+[CORE1] PC=0x0026 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0026 addr=0x104c data=7083, idx=0, tag=1000
+[1;34m[IC   13] both cores executed | Latency so far: 1129[1;0m
+[CORE0] PC=0x001c INSTR=0x5a00 -> ADDI  r4 = r6 + 0
+[CORE1] PC=0x0028 INSTR=0xc015 -> BEQ   if (r0 == r0) branch 21 bytes to 0x0054
+[1;34m[IC   14] both cores executed | Latency so far: 1141[1;0m
+[CORE0] PC=0x001e INSTR=0x44eb -> ADDI  r1 = r1 + -21
+[CORE1] PC=0x0054 INSTR=0x44e1 -> ADDI  r1 = r1 + -31
+[1;34m[IC   15] both cores executed | Latency so far: 1153[1;0m
+[CORE0] PC=0x0020 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0056 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core1:load, pc=0x0020 addr=0x106a data=371b, idx=0, tag=1000
+core2:store, pc=0x0056 addr=0x100e data=0007, idx=0, tag=0000
+[1;34m[IC   16] both cores executed | Latency so far: 1171[1;0m
+[CORE0] PC=0x0022 INSTR=0x5917 -> ADDI  r2 = r6 + 23
+[CORE1] PC=0x0058 INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[1;34m[IC   17] both cores executed | Latency so far: 1183[1;0m
+[CORE0] PC=0x0024 INSTR=0x0000 -> NOP
+[CORE1] PC=0x005a INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x005a addr=0x1000 data=0018, idx=0, tag=0000
+[1;34m[IC   18] both cores executed | Latency so far: 1198[1;0m
+[CORE0] PC=0x0026 INSTR=0x59bc -> ADDI  r3 = r6 + 60
+[CORE1] PC=0x005c INSTR=0x3144 -> MULT  {r4,r2} = r4 * r2
+[1;34m[IC   19] both cores executed | Latency so far: 1226[1;0m
+[CORE0] PC=0x0028 INSTR=0x7380 -> SUBI  r7 = r4 - 0
+[CORE1] PC=0x005e INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[1;34m[IC   20] both cores executed | Latency so far: 1238[1;0m
+[CORE0] PC=0x002a INSTR=0x0000 -> NOP
+[CORE1] PC=0x0060 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0060 addr=0x1042 data=cb9c, idx=0, tag=1000
+[1;34m[IC   21] both cores executed | Latency so far: 1253[1;0m
+[CORE0] PC=0x002c INSTR=0x1646 -> OR    r4 = r5 | r4
+[CORE1] PC=0x0062 INSTR=0x69de -> SUBI  r3 = r2 - -34
+[1;34m[IC   22] both cores executed | Latency so far: 1265[1;0m
+[CORE0] PC=0x002e INSTR=0x4bec -> ADDI  r7 = r2 + -20
+[CORE1] PC=0x0064 INSTR=0x5d77 -> ADDI  r2 = r7 + -9
+[1;34m[IC   23] both cores executed | Latency so far: 1277[1;0m
+[CORE0] PC=0x0030 INSTR=0xc016 -> BEQ   if (r0 == r0) branch 22 bytes to 0x005e
+[CORE1] PC=0x0066 INSTR=0x05c2 -> SUB   r4 = r1 - r3
+[1;34m[IC   24] both cores executed | Latency so far: 1289[1;0m
+[CORE0] PC=0x005e INSTR=0x25ba -> MULT  {r3,r5} = r1 * r3
+[CORE1] PC=0x0068 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC   25] both cores executed | Latency so far: 1317[1;0m
+[CORE0] PC=0x0060 INSTR=0x0000 -> NOP
+[CORE1] PC=0x006a INSTR=0x4485 -> ADDI  r1 = r1 + 5
+[1;34m[IC   26] both cores executed | Latency so far: 1329[1;0m
+[CORE0] PC=0x0062 INSTR=0x0000 -> NOP
+[CORE1] PC=0x006c INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x006c addr=0x10ca data=cdd8, idx=0, tag=1000
+[1;34m[IC   27] both cores executed | Latency so far: 1344[1;0m
+[CORE0] PC=0x0064 INSTR=0xe142 -> JUMP  -> 0x0142
+[CORE1] PC=0x006e INSTR=0x12ee -> SLT   r6 = (r4 < r5)
+[1;34m[IC   28] both cores executed | Latency so far: 1355[1;0m
+[CORE0] PC=0x0142 INSTR=0x0dc6 -> OR    r4 = r3 | r3
+[CORE1] PC=0x0070 INSTR=0x3e44 -> MULT  {r4,r2} = r7 * r4
+[1;34m[IC   29] both cores executed | Latency so far: 1755[1;0m
+[CORE0] PC=0x0144 INSTR=0x13aa -> NOR   r2 = ~(r4 | r7)
+[CORE1] PC=0x0072 INSTR=0x6680 -> SUBI  r5 = r1 - 0
+[1;34m[IC   30] both cores executed | Latency so far: 1767[1;0m
+[CORE0] PC=0x0146 INSTR=0x4495 -> ADDI  r1 = r1 + 21
+[CORE1] PC=0x0074 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC   31] both cores executed | Latency so far: 1779[1;0m
+[CORE0] PC=0x0148 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x0076 INSTR=0x44e2 -> ADDI  r1 = r1 + -30
+core1:load, pc=0x0148 addr=0x1094 data=fd9b, idx=0, tag=1000
+[1;34m[IC   32] both cores executed | Latency so far: 1794[1;0m
+[CORE0] PC=0x014a INSTR=0x0000 -> NOP
+[CORE1] PC=0x0078 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x0078 addr=0x100e data=0000, idx=0, tag=0000
+[1;34m[IC   33] both cores executed | Latency so far: 1809[1;0m
+[CORE0] PC=0x014c INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x007a INSTR=0x6d81 -> SUBI  r3 = r3 - 1
+[1;34m[IC   34] both cores executed | Latency so far: 1821[1;0m
+[CORE0] PC=0x014e INSTR=0x44f6 -> ADDI  r1 = r1 + -10
+[CORE1] PC=0x007c INSTR=0x0000 -> NOP
+[1;34m[IC   35] both cores executed | Latency so far: 1833[1;0m
+[CORE0] PC=0x0150 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x007e INSTR=0x0000 -> NOP
+core1:load, pc=0x0150 addr=0x1000 data=0018, idx=0, tag=1000
+[1;34m[IC   36] both cores executed | Latency so far: 1848[1;0m
+[CORE0] PC=0x0152 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x0080 INSTR=0x0d48 -> NAND  r4 = ~(r3 & r2)
+core1:load, pc=0x0152 addr=0x1000 data=0018, idx=0, tag=1000
+[1;34m[IC   37] both cores executed | Latency so far: 1863[1;0m
+[CORE0] PC=0x0154 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x0082 INSTR=0x7980 -> SUBI  r3 = r6 - 0
+core1:store, pc=0x0154 addr=0x1000 data=fd9b, idx=0, tag=0000
+[1;34m[IC   38] both cores executed | Latency so far: 1878[1;0m
+[CORE0] PC=0x0156 INSTR=0x5197 -> ADDI  r3 = r4 + 23
+[CORE1] PC=0x0084 INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[1;34m[IC   39] both cores executed | Latency so far: 1890[1;0m
+[CORE0] PC=0x0158 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0086 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0086 addr=0x1050 data=d08d, idx=0, tag=1000
+[1;34m[IC   40] both cores executed | Latency so far: 1905[1;0m
+[CORE0] PC=0x015a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0088 INSTR=0x44e5 -> ADDI  r1 = r1 + -27
+[1;34m[IC   41] both cores executed | Latency so far: 1917[1;0m
+[CORE0] PC=0x015c INSTR=0x44a2 -> ADDI  r1 = r1 + 34
+[CORE1] PC=0x008a INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x008a addr=0x101a data=0325, idx=0, tag=1000
+[1;34m[IC   42] both cores executed | Latency so far: 1932[1;0m
+[CORE0] PC=0x015e INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x008c INSTR=0x0000 -> NOP
+core1:store, pc=0x015e addr=0x10c2 data=0000, idx=0, tag=0000
+[1;34m[IC   43] both cores executed | Latency so far: 1947[1;0m
+[CORE0] PC=0x0160 INSTR=0x47ba -> ADDI  r7 = r1 + 58
+[CORE1] PC=0x008e INSTR=0x7dc3 -> SUBI  r3 = r7 - -61
+[1;34m[IC   44] both cores executed | Latency so far: 1959[1;0m
+[CORE0] PC=0x0162 INSTR=0x5b80 -> ADDI  r7 = r6 + 0
+[CORE1] PC=0x0090 INSTR=0x44a5 -> ADDI  r1 = r1 + 37
+[1;34m[IC   45] both cores executed | Latency so far: 1971[1;0m
+[CORE0] PC=0x0164 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0092 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x0092 addr=0x1064 data=3ff8, idx=0, tag=0000
+[1;34m[IC   46] both cores executed | Latency so far: 1986[1;0m
+[CORE0] PC=0x0166 INSTR=0x21f4 -> MULT  {r7,r2} = r0 * r3
+[CORE1] PC=0x0094 INSTR=0x4e03 -> ADDI  r4 = r3 + 3
+[1;34m[IC   47] both cores executed | Latency so far: 2014[1;0m
+[CORE0] PC=0x0168 INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[CORE1] PC=0x0096 INSTR=0x0ef6 -> OR    r7 = r3 | r5
+[1;34m[IC   48] both cores executed | Latency so far: 2026[1;0m
+[CORE0] PC=0x016a INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x0098 INSTR=0x0000 -> NOP
+core1:load, pc=0x016a addr=0x1104 data=cfc9, idx=1, tag=1000
+[1;34m[IC   49] both cores executed | Latency so far: 2802[1;0m
+[1;32m=== PASS DRAM CHECK at IC=49 ===[1;0m
+[CORE0] PC=0x016c INSTR=0x44bd -> ADDI  r1 = r1 + 61
+[CORE1] PC=0x009a INSTR=0x7e80 -> SUBI  r5 = r7 - 0
+[1;34m[IC   50] both cores executed | Latency so far: 2814[1;0m
+[CORE0] PC=0x016e INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x009c INSTR=0x0000 -> NOP
+core1:load, pc=0x016e addr=0x117e data=da4e, idx=1, tag=1000
+[1;34m[IC   51] both cores executed | Latency so far: 2829[1;0m
+[CORE0] PC=0x0170 INSTR=0x5a25 -> ADDI  r4 = r6 + 37
+[CORE1] PC=0x009e INSTR=0x32f8 -> MULT  {r7,r4} = r4 * r5
+[1;34m[IC   52] both cores executed | Latency so far: 2857[1;0m
+[CORE0] PC=0x0172 INSTR=0x26f4 -> MULT  {r7,r2} = r1 * r5
+[CORE1] PC=0x00a0 INSTR=0x1fa6 -> OR    r2 = r7 | r7
+[1;34m[IC   53] both cores executed | Latency so far: 2885[1;0m
+[CORE0] PC=0x0174 INSTR=0x44de -> ADDI  r1 = r1 + -34
+[CORE1] PC=0x00a2 INSTR=0x1e3c -> XOR   r3 = r7 ^ r4
+[1;34m[IC   54] both cores executed | Latency so far: 2897[1;0m
+[CORE0] PC=0x0176 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x00a4 INSTR=0x0000 -> NOP
+core1:load, pc=0x0176 addr=0x113a data=a9c6, idx=1, tag=1000
+[1;34m[IC   55] both cores executed | Latency so far: 2912[1;0m
+[CORE0] PC=0x0178 INSTR=0x44dd -> ADDI  r1 = r1 + -35
+[CORE1] PC=0x00a6 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC   56] both cores executed | Latency so far: 2924[1;0m
+[CORE0] PC=0x017a INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x00a8 INSTR=0x44b7 -> ADDI  r1 = r1 + 55
+core1:store, pc=0x017a addr=0x10f4 data=a9c6, idx=0, tag=0000
+[1;34m[IC   57] both cores executed | Latency so far: 2939[1;0m
+[CORE0] PC=0x017c INSTR=0x0000 -> NOP
+[CORE1] PC=0x00aa INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x00aa addr=0x1150 data=db2c, idx=1, tag=1000
+[1;34m[IC   58] both cores executed | Latency so far: 2954[1;0m
+[CORE0] PC=0x017e INSTR=0x392c -> MULT  {r2,r6} = r6 * r2
+[CORE1] PC=0x00ac INSTR=0xc03b -> BEQ   if (r0 == r0) branch 59 bytes to 0x0124
+[1;34m[IC   59] both cores executed | Latency so far: 2982[1;0m
+[CORE0] PC=0x0180 INSTR=0x7a98 -> SUBI  r5 = r6 - 24
+[CORE1] PC=0x0124 INSTR=0x44dc -> ADDI  r1 = r1 + -36
+[1;34m[IC   60] both cores executed | Latency so far: 3366[1;0m
+[CORE0] PC=0x0182 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0126 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0126 addr=0x1108 data=ea59, idx=1, tag=1000
+[1;34m[IC   61] both cores executed | Latency so far: 3381[1;0m
+[CORE0] PC=0x0184 INSTR=0xe246 -> JUMP  -> 0x0246
+[CORE1] PC=0x0128 INSTR=0x2128 -> MULT  {r2,r4} = r0 * r2
+[1;34m[IC   62] both cores executed | Latency so far: 3408[1;0m
+[CORE0] PC=0x0246 INSTR=0x44ba -> ADDI  r1 = r1 + 58
+[CORE1] PC=0x012a INSTR=0x4489 -> ADDI  r1 = r1 + 9
+[1;34m[IC   63] both cores executed | Latency so far: 3963[1;0m
+[CORE0] PC=0x0248 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x012c INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core1:load, pc=0x0248 addr=0x1168 data=f250, idx=1, tag=1000
+core2:store, pc=0x012c addr=0x111a data=db2c, idx=1, tag=0000
+[1;34m[IC   64] both cores executed | Latency so far: 3981[1;0m
+[CORE0] PC=0x024a INSTR=0x11fa -> NOR   r7 = ~(r4 | r3)
+[CORE1] PC=0x012e INSTR=0x44f3 -> ADDI  r1 = r1 + -13
+[1;34m[IC   65] both cores executed | Latency so far: 3993[1;0m
+[CORE0] PC=0x024c INSTR=0x0000 -> NOP
+[CORE1] PC=0x0130 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0130 addr=0x1100 data=cfc6, idx=1, tag=1000
+[1;34m[IC   66] both cores executed | Latency so far: 4008[1;0m
+[CORE0] PC=0x024e INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0132 INSTR=0x7700 -> SUBI  r6 = r5 - 0
+[1;34m[IC   67] both cores executed | Latency so far: 4020[1;0m
+[CORE0] PC=0x0250 INSTR=0x44d9 -> ADDI  r1 = r1 + -39
+[CORE1] PC=0x0134 INSTR=0x0000 -> NOP
+[1;34m[IC   68] both cores executed | Latency so far: 4032[1;0m
+[CORE0] PC=0x0252 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0136 INSTR=0x0000 -> NOP
+core1:store, pc=0x0252 addr=0x109a data=0001, idx=0, tag=0000
+[1;34m[IC   69] both cores executed | Latency so far: 4047[1;0m
+[CORE0] PC=0x0254 INSTR=0x19f4 -> AND   r7 = r6 & r3
+[CORE1] PC=0x0138 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC   70] both cores executed | Latency so far: 4059[1;0m
+[CORE0] PC=0x0256 INSTR=0x0000 -> NOP
+[CORE1] PC=0x013a INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[1;34m[IC   71] both cores executed | Latency so far: 4071[1;0m
+[CORE0] PC=0x0258 INSTR=0x0000 -> NOP
+[CORE1] PC=0x013c INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x013c addr=0x1072 data=0367, idx=0, tag=0000
+[1;34m[IC   72] both cores executed | Latency so far: 4086[1;0m
+[CORE0] PC=0x025a INSTR=0x44ad -> ADDI  r1 = r1 + 45
+[CORE1] PC=0x013e INSTR=0x44df -> ADDI  r1 = r1 + -33
+[1;34m[IC   73] both cores executed | Latency so far: 4098[1;0m
+[CORE0] PC=0x025c INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x0140 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core1:load, pc=0x025c addr=0x10f4 data=a9c6, idx=0, tag=1000
+core2:store, pc=0x0140 addr=0x1030 data=cfc6, idx=0, tag=0000
+[1;34m[IC   74] both cores executed | Latency so far: 4116[1;0m
+[CORE0] PC=0x025e INSTR=0x7fe4 -> SUBI  r7 = r7 - -28
+[CORE1] PC=0x0142 INSTR=0x44b1 -> ADDI  r1 = r1 + 49
+[1;34m[IC   75] both cores executed | Latency so far: 4128[1;0m
+[CORE0] PC=0x0260 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0144 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0144 addr=0x1092 data=8ee2, idx=0, tag=1000
+[1;34m[IC   76] both cores executed | Latency so far: 4143[1;0m
+[CORE0] PC=0x0262 INSTR=0xc026 -> BEQ   if (r0 == r0) branch 38 bytes to 0x02b0
+[CORE1] PC=0x0146 INSTR=0xc005 -> BEQ   if (r0 == r0) branch 5 bytes to 0x0152
+[1;34m[IC   77] both cores executed | Latency so far: 4155[1;0m
+[CORE0] PC=0x02b0 INSTR=0x6347 -> SUBI  r6 = r0 - -57
+[CORE1] PC=0x0152 INSTR=0x72e6 -> SUBI  r5 = r4 - -26
+[1;34m[IC   78] both cores executed | Latency so far: 4167[1;0m
+[CORE0] PC=0x02b2 INSTR=0x3376 -> MULT  {r7,r3} = r4 * r6
+[CORE1] PC=0x0154 INSTR=0x44b4 -> ADDI  r1 = r1 + 52
+[1;34m[IC   79] both cores executed | Latency so far: 4195[1;0m
+[CORE0] PC=0x02b4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0156 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x0156 addr=0x10fa data=1e48, idx=0, tag=1000
+[1;34m[IC   80] both cores executed | Latency so far: 4210[1;0m
+[CORE0] PC=0x02b6 INSTR=0x0e24 -> AND   r2 = r3 & r4
+[CORE1] PC=0x0158 INSTR=0xc00a -> BEQ   if (r0 == r0) branch 10 bytes to 0x016e
+[1;34m[IC   81] both cores executed | Latency so far: 4222[1;0m
+[CORE0] PC=0x02b8 INSTR=0x0e56 -> OR    r5 = r3 | r4
+[CORE1] PC=0x016e INSTR=0x44d2 -> ADDI  r1 = r1 + -46
+[1;34m[IC   82] both cores executed | Latency so far: 4234[1;0m
+[CORE0] PC=0x02ba INSTR=0x0000 -> NOP
+[CORE1] PC=0x0170 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x0170 addr=0x109e data=cfc6, idx=0, tag=0000
+[1;34m[IC   83] both cores executed | Latency so far: 4249[1;0m
+[CORE0] PC=0x02bc INSTR=0x44ac -> ADDI  r1 = r1 + 44
+[CORE1] PC=0x0172 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC   84] both cores executed | Latency so far: 4261[1;0m
+[CORE0] PC=0x02be INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x0174 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+core1:load, pc=0x02be addr=0x114c data=bcf6, idx=1, tag=1000
+[1;34m[IC   85] both cores executed | Latency so far: 4276[1;0m
+[CORE0] PC=0x02c0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0176 INSTR=0x44b1 -> ADDI  r1 = r1 + 49
+[1;34m[IC   86] both cores executed | Latency so far: 4288[1;0m
+[CORE0] PC=0x02c2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0178 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x0178 addr=0x11fc data=cfc6, idx=1, tag=0000
+[1;34m[IC   87] both cores executed | Latency so far: 4303[1;0m
+[CORE0] PC=0x02c4 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x017a INSTR=0x226e -> MULT  {r6,r7} = r0 * r4
+[1;34m[IC   88] both cores executed | Latency so far: 4331[1;0m
+[CORE0] PC=0x02c6 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x017c INSTR=0x0000 -> NOP
+[1;34m[IC   89] both cores executed | Latency so far: 4343[1;0m
+[CORE0] PC=0x02c8 INSTR=0x4485 -> ADDI  r1 = r1 + 5
+[CORE1] PC=0x017e INSTR=0x0000 -> NOP
+[1;34m[IC   90] both cores executed | Latency so far: 4355[1;0m
+[CORE0] PC=0x02ca INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x0180 INSTR=0x0000 -> NOP
+core1:load, pc=0x02ca addr=0x1252 data=efc8, idx=0, tag=1001
+[1;34m[IC   91] both cores executed | Latency so far: 5144[1;0m
+[CORE0] PC=0x02cc INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0182 INSTR=0xe278 -> JUMP  -> 0x0278
+[1;34m[IC   92] both cores executed | Latency so far: 5155[1;0m
+[CORE0] PC=0x02ce INSTR=0x44ef -> ADDI  r1 = r1 + -17
+[CORE1] PC=0x0278 INSTR=0x0000 -> NOP
+[1;34m[IC   93] both cores executed | Latency so far: 5710[1;0m
+[CORE0] PC=0x02d0 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x027a INSTR=0x0000 -> NOP
+core1:load, pc=0x02d0 addr=0x11b0 data=2544, idx=1, tag=1000
+[1;34m[IC   94] both cores executed | Latency so far: 5725[1;0m
+[CORE0] PC=0x02d2 INSTR=0x3768 -> MULT  {r6,r4} = r5 * r6
+[CORE1] PC=0x027c INSTR=0x44e3 -> ADDI  r1 = r1 + -29
+[1;34m[IC   95] both cores executed | Latency so far: 5753[1;0m
+[CORE0] PC=0x02d4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x027e INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x027e addr=0x11c2 data=0000, idx=1, tag=0000
+[1;34m[IC   96] both cores executed | Latency so far: 5768[1;0m
+[CORE0] PC=0x02d6 INSTR=0x0a6e -> SLT   r6 = (r2 < r4)
+[CORE1] PC=0x0280 INSTR=0x44d1 -> ADDI  r1 = r1 + -47
+[1;34m[IC   97] both cores executed | Latency so far: 5780[1;0m
+[CORE0] PC=0x02d8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0282 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x0282 addr=0x1164 data=cfc6, idx=1, tag=0000
+[1;34m[IC   98] both cores executed | Latency so far: 5795[1;0m
+[CORE0] PC=0x02da INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0284 INSTR=0x4980 -> ADDI  r3 = r2 + 0
+[1;34m[IC   99] both cores executed | Latency so far: 6099[1;0m
+[1;32m=== PASS DRAM CHECK at IC=99 ===[1;0m
+[CORE0] PC=0x02dc INSTR=0x44fd -> ADDI  r1 = r1 + -3
+[CORE1] PC=0x0286 INSTR=0x0000 -> NOP
+[1;34m[IC  100] both cores executed | Latency so far: 6111[1;0m
+[CORE0] PC=0x02de INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0288 INSTR=0x0000 -> NOP
+core1:store, pc=0x02de addr=0x112a data=fff5, idx=1, tag=0000
+[1;34m[IC  101] both cores executed | Latency so far: 6126[1;0m
+[CORE0] PC=0x02e0 INSTR=0x6a00 -> SUBI  r4 = r2 - 0
+[CORE1] PC=0x028a INSTR=0x352a -> MULT  {r2,r5} = r5 * r2
+[1;34m[IC  102] both cores executed | Latency so far: 6154[1;0m
+[CORE0] PC=0x02e2 INSTR=0x272c -> MULT  {r2,r6} = r1 * r6
+[CORE1] PC=0x028c INSTR=0x44c9 -> ADDI  r1 = r1 + -55
+[1;34m[IC  103] both cores executed | Latency so far: 6182[1;0m
+[CORE0] PC=0x02e4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x028e INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x028e addr=0x10f6 data=4728, idx=0, tag=1000
+[1;34m[IC  104] both cores executed | Latency so far: 6643[1;0m
+[CORE0] PC=0x02e6 INSTR=0x6322 -> SUBI  r6 = r0 - 34
+[CORE1] PC=0x0290 INSTR=0x44e8 -> ADDI  r1 = r1 + -24
+[1;34m[IC  105] both cores executed | Latency so far: 6655[1;0m
+[CORE0] PC=0x02e8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0292 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x0292 addr=0x10c6 data=0000, idx=0, tag=0000
+[1;34m[IC  106] both cores executed | Latency so far: 6670[1;0m
+[CORE0] PC=0x02ea INSTR=0x37d6 -> MULT  {r5,r3} = r5 * r7
+[CORE1] PC=0x0294 INSTR=0x5ed2 -> ADDI  r5 = r7 + -46
+[1;34m[IC  107] both cores executed | Latency so far: 6698[1;0m
+[CORE0] PC=0x02ec INSTR=0x44fe -> ADDI  r1 = r1 + -2
+[CORE1] PC=0x0296 INSTR=0xc01e -> BEQ   if (r0 == r0) branch 30 bytes to 0x02d4
+[1;34m[IC  108] both cores executed | Latency so far: 6710[1;0m
+[CORE0] PC=0x02ee INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x02d4 INSTR=0x0000 -> NOP
+core1:store, pc=0x02ee addr=0x1126 data=0000, idx=1, tag=0000
+[1;34m[IC  109] both cores executed | Latency so far: 6725[1;0m
+[CORE0] PC=0x02f0 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x02d6 INSTR=0x61e0 -> SUBI  r3 = r0 - -32
+[1;34m[IC  110] both cores executed | Latency so far: 6737[1;0m
+[CORE0] PC=0x02f2 INSTR=0x44ea -> ADDI  r1 = r1 + -22
+[CORE1] PC=0x02d8 INSTR=0x0000 -> NOP
+[1;34m[IC  111] both cores executed | Latency so far: 6749[1;0m
+[CORE0] PC=0x02f4 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x02da INSTR=0x0000 -> NOP
+core1:load, pc=0x02f4 addr=0x107a data=1305, idx=0, tag=1000
+[1;34m[IC  112] both cores executed | Latency so far: 6764[1;0m
+[CORE0] PC=0x02f6 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x02dc INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  113] both cores executed | Latency so far: 6776[1;0m
+[CORE0] PC=0x02f8 INSTR=0x44a3 -> ADDI  r1 = r1 + 35
+[CORE1] PC=0x02de INSTR=0x44b1 -> ADDI  r1 = r1 + 49
+[1;34m[IC  114] both cores executed | Latency so far: 6788[1;0m
+[CORE0] PC=0x02fa INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x02e0 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x02e0 addr=0x11a6 data=15da, idx=1, tag=1000
+core1:store, pc=0x02fa addr=0x113e data=1016, idx=1, tag=0000
+[1;34m[IC  115] both cores executed | Latency so far: 6806[1;0m
+[CORE0] PC=0x02fc INSTR=0x44e9 -> ADDI  r1 = r1 + -23
+[CORE1] PC=0x02e2 INSTR=0x7380 -> SUBI  r7 = r4 - 0
+[1;34m[IC  116] both cores executed | Latency so far: 6818[1;0m
+[CORE0] PC=0x02fe INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x02e4 INSTR=0x0000 -> NOP
+core1:load, pc=0x02fe addr=0x1110 data=c906, idx=1, tag=1000
+[1;34m[IC  117] both cores executed | Latency so far: 6833[1;0m
+[CORE0] PC=0x0300 INSTR=0x44bc -> ADDI  r1 = r1 + 60
+[CORE1] PC=0x02e6 INSTR=0xe388 -> JUMP  -> 0x0388
+[1;34m[IC  118] both cores executed | Latency so far: 7290[1;0m
+[CORE0] PC=0x0302 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x0388 INSTR=0x0000 -> NOP
+core1:load, pc=0x0302 addr=0x1188 data=3ef7, idx=1, tag=1000
+[1;34m[IC  119] both cores executed | Latency so far: 7751[1;0m
+[CORE0] PC=0x0304 INSTR=0x4eaf -> ADDI  r5 = r3 + 47
+[CORE1] PC=0x038a INSTR=0x3938 -> MULT  {r3,r4} = r6 * r2
+[1;34m[IC  120] both cores executed | Latency so far: 7779[1;0m
+[CORE0] PC=0x0306 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x038c INSTR=0x7f69 -> SUBI  r6 = r7 - -23
+[1;34m[IC  121] both cores executed | Latency so far: 7791[1;0m
+[CORE0] PC=0x0308 INSTR=0x4490 -> ADDI  r1 = r1 + 16
+[CORE1] PC=0x038e INSTR=0x0000 -> NOP
+[1;34m[IC  122] both cores executed | Latency so far: 7803[1;0m
+[CORE0] PC=0x030a INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x0390 INSTR=0x0000 -> NOP
+core1:load, pc=0x030a addr=0x1226 data=17e9, idx=0, tag=1001
+[1;34m[IC  123] both cores executed | Latency so far: 8672[1;0m
+[CORE0] PC=0x030c INSTR=0x44f3 -> ADDI  r1 = r1 + -13
+[CORE1] PC=0x0392 INSTR=0x1fbc -> XOR   r3 = r7 ^ r7
+[1;34m[IC  124] both cores executed | Latency so far: 8684[1;0m
+[CORE0] PC=0x030e INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0394 INSTR=0x0000 -> NOP
+core1:store, pc=0x030e addr=0x120c data=17e9, idx=0, tag=0001
+[1;34m[IC  125] both cores executed | Latency so far: 8699[1;0m
+[CORE0] PC=0x0310 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0396 INSTR=0x1226 -> OR    r2 = r4 | r4
+[1;34m[IC  126] both cores executed | Latency so far: 8711[1;0m
+[CORE0] PC=0x0312 INSTR=0x44a2 -> ADDI  r1 = r1 + 34
+[CORE1] PC=0x0398 INSTR=0x0000 -> NOP
+[1;34m[IC  127] both cores executed | Latency so far: 8723[1;0m
+[CORE0] PC=0x0314 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x039a INSTR=0x0000 -> NOP
+core1:load, pc=0x0314 addr=0x12ce data=d270, idx=0, tag=1001
+[1;34m[IC  128] both cores executed | Latency so far: 8738[1;0m
+[CORE0] PC=0x0316 INSTR=0x5f51 -> ADDI  r6 = r7 + -47
+[CORE1] PC=0x039c INSTR=0x4b9c -> ADDI  r7 = r2 + 28
+[1;34m[IC  129] both cores executed | Latency so far: 8750[1;0m
+[CORE0] PC=0x0318 INSTR=0x5600 -> ADDI  r4 = r5 + 0
+[CORE1] PC=0x039e INSTR=0x6500 -> SUBI  r2 = r1 - 0
+[1;34m[IC  130] both cores executed | Latency so far: 8762[1;0m
+[CORE0] PC=0x031a INSTR=0x1746 -> OR    r4 = r5 | r6
+[CORE1] PC=0x03a0 INSTR=0x6700 -> SUBI  r6 = r1 - 0
+[1;34m[IC  131] both cores executed | Latency so far: 8774[1;0m
+[CORE0] PC=0x031c INSTR=0x3ef8 -> MULT  {r7,r4} = r7 * r5
+[CORE1] PC=0x03a2 INSTR=0x4d80 -> ADDI  r3 = r3 + 0
+[1;34m[IC  132] both cores executed | Latency so far: 8802[1;0m
+[CORE0] PC=0x031e INSTR=0x0d20 -> ADD   r2 = r3 + r2
+[CORE1] PC=0x03a4 INSTR=0x44bc -> ADDI  r1 = r1 + 60
+[1;34m[IC  133] both cores executed | Latency so far: 8814[1;0m
+[CORE0] PC=0x0320 INSTR=0x0000 -> NOP
+[CORE1] PC=0x03a6 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x03a6 addr=0x121e data=00d3, idx=0, tag=0001
+[1;34m[IC  134] both cores executed | Latency so far: 8829[1;0m
+[CORE0] PC=0x0322 INSTR=0x7256 -> SUBI  r4 = r4 - -42
+[CORE1] PC=0x03a8 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  135] both cores executed | Latency so far: 8841[1;0m
+[CORE0] PC=0x0324 INSTR=0x0000 -> NOP
+[CORE1] PC=0x03aa INSTR=0x4486 -> ADDI  r1 = r1 + 6
+[1;34m[IC  136] both cores executed | Latency so far: 8853[1;0m
+[CORE0] PC=0x0326 INSTR=0x0000 -> NOP
+[CORE1] PC=0x03ac INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x03ac addr=0x12a8 data=00d3, idx=0, tag=0001
+[1;34m[IC  137] both cores executed | Latency so far: 8868[1;0m
+[CORE0] PC=0x0328 INSTR=0xc003 -> BEQ   if (r0 == r0) branch 3 bytes to 0x0330
+[CORE1] PC=0x03ae INSTR=0x59ae -> ADDI  r3 = r6 + 46
+[1;34m[IC  138] both cores executed | Latency so far: 8880[1;0m
+[CORE0] PC=0x0330 INSTR=0x5d36 -> ADDI  r2 = r7 + 54
+[CORE1] PC=0x03b0 INSTR=0xe49a -> JUMP  -> 0x049a
+[1;34m[IC  139] both cores executed | Latency so far: 8891[1;0m
+[CORE0] PC=0x0332 INSTR=0x3b7c -> MULT  {r7,r6} = r6 * r6
+[CORE1] PC=0x049a INSTR=0x4496 -> ADDI  r1 = r1 + 22
+[1;34m[IC  140] both cores executed | Latency so far: 9353[1;0m
+[CORE0] PC=0x0334 INSTR=0x0000 -> NOP
+[CORE1] PC=0x049c INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x049c addr=0x12d4 data=da8c, idx=0, tag=1001
+[1;34m[IC  141] both cores executed | Latency so far: 9368[1;0m
+[CORE0] PC=0x0336 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x049e INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  142] both cores executed | Latency so far: 9380[1;0m
+[CORE0] PC=0x0338 INSTR=0x4488 -> ADDI  r1 = r1 + 8
+[CORE1] PC=0x04a0 INSTR=0x44a3 -> ADDI  r1 = r1 + 35
+[1;34m[IC  143] both cores executed | Latency so far: 9392[1;0m
+[CORE0] PC=0x033a INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x04a2 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core1:load, pc=0x033a addr=0x135c data=1780, idx=1, tag=1001
+core2:load, pc=0x04a2 addr=0x1398 data=60e0, idx=1, tag=1001
+[1;34m[IC  144] both cores executed | Latency so far: 10131[1;0m
+[CORE0] PC=0x033c INSTR=0x44e7 -> ADDI  r1 = r1 + -25
+[CORE1] PC=0x04a4 INSTR=0x6f80 -> SUBI  r7 = r3 - 0
+[1;34m[IC  145] both cores executed | Latency so far: 10143[1;0m
+[CORE0] PC=0x033e INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x04a6 INSTR=0x0000 -> NOP
+core1:load, pc=0x033e addr=0x132a data=a8aa, idx=1, tag=1001
+[1;34m[IC  146] both cores executed | Latency so far: 10158[1;0m
+[CORE0] PC=0x0340 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x04a8 INSTR=0x44a9 -> ADDI  r1 = r1 + 41
+[1;34m[IC  147] both cores executed | Latency so far: 10170[1;0m
+[CORE0] PC=0x0342 INSTR=0x448b -> ADDI  r1 = r1 + 11
+[CORE1] PC=0x04aa INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x04aa addr=0x13ea data=0101, idx=1, tag=0001
+[1;34m[IC  148] both cores executed | Latency so far: 10185[1;0m
+[CORE0] PC=0x0344 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x04ac INSTR=0x0000 -> NOP
+core1:load, pc=0x0344 addr=0x13be data=361a, idx=1, tag=1001
+[1;34m[IC  149] both cores executed | Latency so far: 11053[1;0m
+[1;32m=== PASS DRAM CHECK at IC=149 ===[1;0m
+[CORE0] PC=0x0346 INSTR=0x06a6 -> OR    r2 = r1 | r5
+[CORE1] PC=0x04ae INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  150] both cores executed | Latency so far: 11065[1;0m
+[CORE0] PC=0x0348 INSTR=0x0000 -> NOP
+[CORE1] PC=0x04b0 INSTR=0x44e5 -> ADDI  r1 = r1 + -27
+[1;34m[IC  151] both cores executed | Latency so far: 11077[1;0m
+[CORE0] PC=0x034a INSTR=0x0000 -> NOP
+[CORE1] PC=0x04b2 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x04b2 addr=0x1334 data=7f03, idx=1, tag=1001
+[1;34m[IC  152] both cores executed | Latency so far: 11092[1;0m
+[CORE0] PC=0x034c INSTR=0x44d4 -> ADDI  r1 = r1 + -44
+[CORE1] PC=0x04b4 INSTR=0xe4c0 -> JUMP  -> 0x04c0
+[1;34m[IC  153] both cores executed | Latency so far: 11103[1;0m
+[CORE0] PC=0x034e INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x04c0 INSTR=0x0000 -> NOP
+core1:store, pc=0x034e addr=0x1366 data=1045, idx=1, tag=0001
+[1;34m[IC  154] both cores executed | Latency so far: 11118[1;0m
+[CORE0] PC=0x0350 INSTR=0xe442 -> JUMP  -> 0x0442
+[CORE1] PC=0x04c2 INSTR=0x077c -> XOR   r7 = r1 ^ r6
+[1;34m[IC  155] both cores executed | Latency so far: 11129[1;0m
+[CORE0] PC=0x0442 INSTR=0x6256 -> SUBI  r4 = r0 - -42
+[CORE1] PC=0x04c4 INSTR=0xc032 -> BEQ   if (r0 == r0) branch 50 bytes to 0x052a
+[1;34m[IC  156] both cores executed | Latency so far: 11575[1;0m
+[CORE0] PC=0x0444 INSTR=0x4492 -> ADDI  r1 = r1 + 18
+[CORE1] PC=0x052a INSTR=0x35f8 -> MULT  {r7,r4} = r5 * r3
+[1;34m[IC  157] both cores executed | Latency so far: 11961[1;0m
+[CORE0] PC=0x0446 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x052c INSTR=0x0000 -> NOP
+core1:store, pc=0x0446 addr=0x138a data=1045, idx=1, tag=0001
+[1;34m[IC  158] both cores executed | Latency so far: 11976[1;0m
+[CORE0] PC=0x0448 INSTR=0xe488 -> JUMP  -> 0x0488
+[CORE1] PC=0x052e INSTR=0x0a2c -> XOR   r2 = r2 ^ r4
+[1;34m[IC  159] both cores executed | Latency so far: 11987[1;0m
+[CORE0] PC=0x0488 INSTR=0x44ba -> ADDI  r1 = r1 + 58
+[CORE1] PC=0x0530 INSTR=0x632b -> SUBI  r6 = r0 - 43
+[1;34m[IC  160] both cores executed | Latency so far: 11999[1;0m
+[CORE0] PC=0x048a INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x0532 INSTR=0x0000 -> NOP
+core1:load, pc=0x048a addr=0x13fe data=f67b, idx=1, tag=1001
+[1;34m[IC  161] both cores executed | Latency so far: 12014[1;0m
+[CORE0] PC=0x048c INSTR=0x4490 -> ADDI  r1 = r1 + 16
+[CORE1] PC=0x0534 INSTR=0x75f4 -> SUBI  r3 = r5 - -12
+[1;34m[IC  162] both cores executed | Latency so far: 12026[1;0m
+[CORE0] PC=0x048e INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x0536 INSTR=0x0000 -> NOP
+core1:store, pc=0x048e addr=0x141e data=1045, idx=0, tag=0010
+[1;34m[IC  163] both cores executed | Latency so far: 12375[1;0m
+[CORE0] PC=0x0490 INSTR=0x44c3 -> ADDI  r1 = r1 + -61
+[CORE1] PC=0x0538 INSTR=0x44ff -> ADDI  r1 = r1 + -1
+[1;34m[IC  164] both cores executed | Latency so far: 12387[1;0m
+[CORE0] PC=0x0492 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x053a INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core1:load, pc=0x0492 addr=0x13a4 data=0b99, idx=1, tag=1001
+core2:store, pc=0x053a addr=0x1332 data=d101, idx=1, tag=0001
+[1;34m[IC  165] both cores executed | Latency so far: 12405[1;0m
+[CORE0] PC=0x0494 INSTR=0x7500 -> SUBI  r2 = r5 - 0
+[CORE1] PC=0x053c INSTR=0x44fa -> ADDI  r1 = r1 + -6
+[1;34m[IC  166] both cores executed | Latency so far: 12417[1;0m
+[CORE0] PC=0x0496 INSTR=0x0000 -> NOP
+[CORE1] PC=0x053e INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x053e addr=0x1326 data=ffff, idx=1, tag=0001
+[1;34m[IC  167] both cores executed | Latency so far: 12432[1;0m
+[CORE0] PC=0x0498 INSTR=0xe594 -> JUMP  -> 0x0594
+[CORE1] PC=0x0540 INSTR=0x274e -> MULT  {r4,r7} = r1 * r6
+[1;34m[IC  168] both cores executed | Latency so far: 12459[1;0m
+[CORE0] PC=0x0594 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0542 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  169] both cores executed | Latency so far: 12829[1;0m
+[CORE0] PC=0x0596 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0544 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  170] both cores executed | Latency so far: 12841[1;0m
+[CORE0] PC=0x0598 INSTR=0x44df -> ADDI  r1 = r1 + -33
+[CORE1] PC=0x0546 INSTR=0x44dc -> ADDI  r1 = r1 + -36
+[1;34m[IC  171] both cores executed | Latency so far: 12853[1;0m
+[CORE0] PC=0x059a INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0548 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0548 addr=0x11de data=164d, idx=1, tag=1000
+core1:store, pc=0x059a addr=0x1262 data=0b99, idx=0, tag=0001
+[1;34m[IC  172] both cores executed | Latency so far: 14161[1;0m
+[CORE0] PC=0x059c INSTR=0x396e -> MULT  {r6,r7} = r6 * r2
+[CORE1] PC=0x054a INSTR=0x4483 -> ADDI  r1 = r1 + 3
+[1;34m[IC  173] both cores executed | Latency so far: 14189[1;0m
+[CORE0] PC=0x059e INSTR=0x0000 -> NOP
+[CORE1] PC=0x054c INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x054c addr=0x11e4 data=4b46, idx=1, tag=1000
+[1;34m[IC  174] both cores executed | Latency so far: 14204[1;0m
+[CORE0] PC=0x05a0 INSTR=0x3a46 -> MULT  {r4,r3} = r6 * r4
+[CORE1] PC=0x054e INSTR=0xe5f8 -> JUMP  -> 0x05f8
+[1;34m[IC  175] both cores executed | Latency so far: 14231[1;0m
+[CORE0] PC=0x05a2 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x05f8 INSTR=0x4489 -> ADDI  r1 = r1 + 9
+[1;34m[IC  176] both cores executed | Latency so far: 14243[1;0m
+[CORE0] PC=0x05a4 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x05fa INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x05fa addr=0x11f6 data=991c, idx=1, tag=1000
+[1;34m[IC  177] both cores executed | Latency so far: 14258[1;0m
+[CORE0] PC=0x05a6 INSTR=0x44f1 -> ADDI  r1 = r1 + -15
+[CORE1] PC=0x05fc INSTR=0x0000 -> NOP
+[1;34m[IC  178] both cores executed | Latency so far: 14270[1;0m
+[CORE0] PC=0x05a8 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x05fe INSTR=0x0000 -> NOP
+core1:load, pc=0x05a8 addr=0x1144 data=2610, idx=1, tag=1000
+[1;34m[IC  179] both cores executed | Latency so far: 14285[1;0m
+[CORE0] PC=0x05aa INSTR=0x44ab -> ADDI  r1 = r1 + 43
+[CORE1] PC=0x0600 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  180] both cores executed | Latency so far: 14631[1;0m
+[CORE0] PC=0x05ac INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x0602 INSTR=0x44e6 -> ADDI  r1 = r1 + -26
+core1:load, pc=0x05ac addr=0x119a data=34e1, idx=1, tag=1000
+[1;34m[IC  181] both cores executed | Latency so far: 14646[1;0m
+[CORE0] PC=0x05ae INSTR=0x0000 -> NOP
+[CORE1] PC=0x0604 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x0604 addr=0x1142 data=ffde, idx=1, tag=0000
+[1;34m[IC  182] both cores executed | Latency so far: 14661[1;0m
+[CORE0] PC=0x05b0 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0606 INSTR=0x7580 -> SUBI  r3 = r5 - 0
+[1;34m[IC  183] both cores executed | Latency so far: 14673[1;0m
+[CORE0] PC=0x05b2 INSTR=0x44d5 -> ADDI  r1 = r1 + -43
+[CORE1] PC=0x0608 INSTR=0x0000 -> NOP
+[1;34m[IC  184] both cores executed | Latency so far: 14685[1;0m
+[CORE0] PC=0x05b4 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x060a INSTR=0x0000 -> NOP
+core1:load, pc=0x05b4 addr=0x10c4 data=722f, idx=0, tag=1000
+[1;34m[IC  185] both cores executed | Latency so far: 15316[1;0m
+[CORE0] PC=0x05b6 INSTR=0xc017 -> BEQ   if (r0 == r0) branch 23 bytes to 0x05e6
+[CORE1] PC=0x060c INSTR=0x1576 -> OR    r7 = r5 | r2
+[1;34m[IC  186] both cores executed | Latency so far: 15328[1;0m
+[CORE0] PC=0x05e6 INSTR=0x3d68 -> MULT  {r6,r4} = r7 * r2
+[CORE1] PC=0x060e INSTR=0x4495 -> ADDI  r1 = r1 + 21
+[1;34m[IC  187] both cores executed | Latency so far: 15356[1;0m
+[CORE0] PC=0x05e8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0610 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x0610 addr=0x116c data=ffd2, idx=1, tag=0000
+[1;34m[IC  188] both cores executed | Latency so far: 15371[1;0m
+[CORE0] PC=0x05ea INSTR=0x1dc4 -> AND   r4 = r7 & r3
+[CORE1] PC=0x0612 INSTR=0xc03c -> BEQ   if (r0 == r0) branch 60 bytes to 0x068c
+[1;34m[IC  189] both cores executed | Latency so far: 15383[1;0m
+[CORE0] PC=0x05ec INSTR=0x44f5 -> ADDI  r1 = r1 + -11
+[CORE1] PC=0x068c INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  190] both cores executed | Latency so far: 15395[1;0m
+[CORE0] PC=0x05ee INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x068e INSTR=0x44e1 -> ADDI  r1 = r1 + -31
+core1:load, pc=0x05ee addr=0x10ae data=183e, idx=0, tag=1000
+[1;34m[IC  191] both cores executed | Latency so far: 15410[1;0m
+[CORE0] PC=0x05f0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0690 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x0690 addr=0x10ae data=ffd2, idx=0, tag=0000
+[1;34m[IC  192] both cores executed | Latency so far: 15425[1;0m
+[CORE0] PC=0x05f2 INSTR=0x44e4 -> ADDI  r1 = r1 + -28
+[CORE1] PC=0x0692 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  193] both cores executed | Latency so far: 15437[1;0m
+[CORE0] PC=0x05f4 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0694 INSTR=0x44e9 -> ADDI  r1 = r1 + -23
+core1:load, pc=0x05f4 addr=0x1076 data=5ddd, idx=0, tag=1000
+[1;34m[IC  194] both cores executed | Latency so far: 15452[1;0m
+[CORE0] PC=0x05f6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0696 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x0696 addr=0x1000 data=fd9b, idx=0, tag=1000
+[1;34m[IC  195] both cores executed | Latency so far: 15467[1;0m
+[CORE0] PC=0x05f8 INSTR=0x1574 -> AND   r7 = r5 & r2
+[CORE1] PC=0x0698 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x0698 addr=0x1000 data=d101, idx=0, tag=0000
+[1;34m[IC  196] both cores executed | Latency so far: 15482[1;0m
+[CORE0] PC=0x05fa INSTR=0x44c9 -> ADDI  r1 = r1 + -55
+[CORE1] PC=0x069a INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x069a addr=0x1000 data=fd9b, idx=0, tag=0000
+[1;34m[IC  197] both cores executed | Latency so far: 15497[1;0m
+[CORE0] PC=0x05fc INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x069c INSTR=0x0000 -> NOP
+core1:load, pc=0x05fc addr=0x1008 data=a52b, idx=0, tag=1000
+[1;34m[IC  198] both cores executed | Latency so far: 15512[1;0m
+[CORE0] PC=0x05fe INSTR=0x44fc -> ADDI  r1 = r1 + -4
+[CORE1] PC=0x069e INSTR=0x5b80 -> ADDI  r7 = r6 + 0
+[1;34m[IC  199] both cores executed | Latency so far: 16225[1;0m
+[1;32m=== PASS DRAM CHECK at IC=199 ===[1;0m
+[CORE0] PC=0x0600 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x06a0 INSTR=0x0000 -> NOP
+core1:store, pc=0x0600 addr=0x1000 data=183e, idx=0, tag=0000
+[1;34m[IC  200] both cores executed | Latency so far: 16574[1;0m
+[CORE0] PC=0x0602 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x06a2 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core1:load, pc=0x0602 addr=0x1000 data=d101, idx=0, tag=1000
+core2:store, pc=0x06a2 addr=0x1000 data=d101, idx=0, tag=0000
+[1;34m[IC  201] both cores executed | Latency so far: 16592[1;0m
+[CORE0] PC=0x0604 INSTR=0x5380 -> ADDI  r7 = r4 + 0
+[CORE1] PC=0x06a4 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x06a4 addr=0x1000 data=d101, idx=0, tag=1000
+[1;34m[IC  202] both cores executed | Latency so far: 16607[1;0m
+[CORE0] PC=0x0606 INSTR=0x1958 -> NAND  r5 = ~(r6 & r2)
+[CORE1] PC=0x06a6 INSTR=0xe6c8 -> JUMP  -> 0x06c8
+[1;34m[IC  203] both cores executed | Latency so far: 16618[1;0m
+[CORE0] PC=0x0608 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x06c8 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core1:load, pc=0x0608 addr=0x1000 data=ffd2, idx=0, tag=1000
+core2:store, pc=0x06c8 addr=0x1000 data=ffd2, idx=0, tag=0000
+[1;34m[IC  204] both cores executed | Latency so far: 16636[1;0m
+[CORE0] PC=0x060a INSTR=0x448e -> ADDI  r1 = r1 + 14
+[CORE1] PC=0x06ca INSTR=0x674f -> SUBI  r6 = r1 - -49
+[1;34m[IC  205] both cores executed | Latency so far: 16648[1;0m
+[CORE0] PC=0x060c INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x06cc INSTR=0x0000 -> NOP
+core1:store, pc=0x060c addr=0x101c data=ffd2, idx=0, tag=0000
+[1;34m[IC  206] both cores executed | Latency so far: 16663[1;0m
+[CORE0] PC=0x060e INSTR=0xc00b -> BEQ   if (r0 == r0) branch 11 bytes to 0x0626
+[CORE1] PC=0x06ce INSTR=0x578f -> ADDI  r7 = r5 + 15
+[1;34m[IC  207] both cores executed | Latency so far: 16675[1;0m
+[CORE0] PC=0x0626 INSTR=0x44f2 -> ADDI  r1 = r1 + -14
+[CORE1] PC=0x06d0 INSTR=0x4a80 -> ADDI  r5 = r2 + 0
+[1;34m[IC  208] both cores executed | Latency so far: 16687[1;0m
+[CORE0] PC=0x0628 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x06d2 INSTR=0x0000 -> NOP
+core1:load, pc=0x0628 addr=0x1000 data=ffd2, idx=0, tag=1000
+[1;34m[IC  209] both cores executed | Latency so far: 16702[1;0m
+[CORE0] PC=0x062a INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x06d4 INSTR=0x44b1 -> ADDI  r1 = r1 + 49
+core1:store, pc=0x062a addr=0x1000 data=ffd2, idx=0, tag=0000
+[1;34m[IC  210] both cores executed | Latency so far: 16717[1;0m
+[CORE0] PC=0x062c INSTR=0x0000 -> NOP
+[CORE1] PC=0x06d6 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x06d6 addr=0x1062 data=1ca8, idx=0, tag=1000
+[1;34m[IC  211] both cores executed | Latency so far: 16732[1;0m
+[CORE0] PC=0x062e INSTR=0x7b80 -> SUBI  r7 = r6 - 0
+[CORE1] PC=0x06d8 INSTR=0x448a -> ADDI  r1 = r1 + 10
+[1;34m[IC  212] both cores executed | Latency so far: 16744[1;0m
+[CORE0] PC=0x0630 INSTR=0x0000 -> NOP
+[CORE1] PC=0x06da INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x06da addr=0x1076 data=5ddd, idx=0, tag=1000
+[1;34m[IC  213] both cores executed | Latency so far: 16759[1;0m
+[CORE0] PC=0x0632 INSTR=0x44ab -> ADDI  r1 = r1 + 43
+[CORE1] PC=0x06dc INSTR=0x44ec -> ADDI  r1 = r1 + -20
+[1;34m[IC  214] both cores executed | Latency so far: 16771[1;0m
+[CORE0] PC=0x0634 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x06de INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x06de addr=0x104e data=8a51, idx=0, tag=1000
+core1:store, pc=0x0634 addr=0x1056 data=ffd2, idx=0, tag=0000
+[1;34m[IC  215] both cores executed | Latency so far: 16789[1;0m
+[CORE0] PC=0x0636 INSTR=0x44dd -> ADDI  r1 = r1 + -35
+[CORE1] PC=0x06e0 INSTR=0xe734 -> JUMP  -> 0x0734
+[1;34m[IC  216] both cores executed | Latency so far: 16800[1;0m
+[CORE0] PC=0x0638 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x0734 INSTR=0x0000 -> NOP
+core1:store, pc=0x0638 addr=0x1010 data=ffd2, idx=0, tag=0000
+[1;34m[IC  217] both cores executed | Latency so far: 17408[1;0m
+[CORE0] PC=0x063a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0736 INSTR=0x4600 -> ADDI  r4 = r1 + 0
+[1;34m[IC  218] both cores executed | Latency so far: 17420[1;0m
+[CORE0] PC=0x063c INSTR=0x4488 -> ADDI  r1 = r1 + 8
+[CORE1] PC=0x0738 INSTR=0x0000 -> NOP
+[1;34m[IC  219] both cores executed | Latency so far: 17432[1;0m
+[CORE0] PC=0x063e INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x073a INSTR=0x0000 -> NOP
+core1:store, pc=0x063e addr=0x109e data=a52b, idx=0, tag=0000
+[1;34m[IC  220] both cores executed | Latency so far: 17447[1;0m
+[CORE0] PC=0x0640 INSTR=0xc036 -> BEQ   if (r0 == r0) branch 54 bytes to 0x06ae
+[CORE1] PC=0x073c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  221] both cores executed | Latency so far: 17459[1;0m
+[CORE0] PC=0x06ae INSTR=0x0000 -> NOP
+[CORE1] PC=0x073e INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  222] both cores executed | Latency so far: 17471[1;0m
+[CORE0] PC=0x06b0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0740 INSTR=0x4484 -> ADDI  r1 = r1 + 4
+[1;34m[IC  223] both cores executed | Latency so far: 17483[1;0m
+[CORE0] PC=0x06b2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0742 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x0742 addr=0x1152 data=ffe1, idx=1, tag=0000
+[1;34m[IC  224] both cores executed | Latency so far: 17498[1;0m
+[CORE0] PC=0x06b4 INSTR=0x7f80 -> SUBI  r7 = r7 - 0
+[CORE1] PC=0x0744 INSTR=0x44d2 -> ADDI  r1 = r1 + -46
+[1;34m[IC  225] both cores executed | Latency so far: 17510[1;0m
+[CORE0] PC=0x06b6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0746 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x0746 addr=0x10f6 data=0027, idx=0, tag=0000
+[1;34m[IC  226] both cores executed | Latency so far: 17525[1;0m
+[CORE0] PC=0x06b8 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0748 INSTR=0x44f6 -> ADDI  r1 = r1 + -10
+[1;34m[IC  227] both cores executed | Latency so far: 17537[1;0m
+[CORE0] PC=0x06ba INSTR=0x4486 -> ADDI  r1 = r1 + 6
+[CORE1] PC=0x074a INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x074a addr=0x10e2 data=3199, idx=0, tag=1000
+[1;34m[IC  228] both cores executed | Latency so far: 17552[1;0m
+[CORE0] PC=0x06bc INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x074c INSTR=0x0000 -> NOP
+core1:load, pc=0x06bc addr=0x1128 data=ac67, idx=1, tag=1000
+[1;34m[IC  229] both cores executed | Latency so far: 17567[1;0m
+[CORE0] PC=0x06be INSTR=0x44e3 -> ADDI  r1 = r1 + -29
+[CORE1] PC=0x074e INSTR=0x32cc -> MULT  {r4,r6} = r4 * r5
+[1;34m[IC  230] both cores executed | Latency so far: 17595[1;0m
+[CORE0] PC=0x06c0 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x0750 INSTR=0x0000 -> NOP
+core1:load, pc=0x06c0 addr=0x10ee data=3bd1, idx=0, tag=1000
+[1;34m[IC  231] both cores executed | Latency so far: 17610[1;0m
+[CORE0] PC=0x06c2 INSTR=0x5e07 -> ADDI  r4 = r7 + 7
+[CORE1] PC=0x0752 INSTR=0x44c4 -> ADDI  r1 = r1 + -60
+[1;34m[IC  232] both cores executed | Latency so far: 17622[1;0m
+[CORE0] PC=0x06c4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0754 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x0754 addr=0x106a data=371b, idx=0, tag=1000
+[1;34m[IC  233] both cores executed | Latency so far: 17637[1;0m
+[CORE0] PC=0x06c6 INSTR=0x4e8c -> ADDI  r5 = r3 + 12
+[CORE1] PC=0x0756 INSTR=0x7281 -> SUBI  r5 = r4 - 1
+[1;34m[IC  234] both cores executed | Latency so far: 17649[1;0m
+[CORE0] PC=0x06c8 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0758 INSTR=0x5600 -> ADDI  r4 = r5 + 0
+[1;34m[IC  235] both cores executed | Latency so far: 17661[1;0m
+[CORE0] PC=0x06ca INSTR=0x44da -> ADDI  r1 = r1 + -38
+[CORE1] PC=0x075a INSTR=0x0000 -> NOP
+[1;34m[IC  236] both cores executed | Latency so far: 17673[1;0m
+[CORE0] PC=0x06cc INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x075c INSTR=0x0000 -> NOP
+core1:store, pc=0x06cc addr=0x1022 data=ffd2, idx=0, tag=0000
+[1;34m[IC  237] both cores executed | Latency so far: 17688[1;0m
+[CORE0] PC=0x06ce INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x075e INSTR=0xc026 -> BEQ   if (r0 == r0) branch 38 bytes to 0x07ac
+[1;34m[IC  238] both cores executed | Latency so far: 17700[1;0m
+[CORE0] PC=0x06d0 INSTR=0x4489 -> ADDI  r1 = r1 + 9
+[CORE1] PC=0x07ac INSTR=0x0000 -> NOP
+[1;34m[IC  239] both cores executed | Latency so far: 17712[1;0m
+[CORE0] PC=0x06d2 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x07ae INSTR=0x0000 -> NOP
+core1:load, pc=0x06d2 addr=0x10b2 data=b465, idx=0, tag=1000
+[1;34m[IC  240] both cores executed | Latency so far: 17727[1;0m
+[CORE0] PC=0x06d4 INSTR=0x537a -> ADDI  r6 = r4 + -6
+[CORE1] PC=0x07b0 INSTR=0x4490 -> ADDI  r1 = r1 + 16
+[1;34m[IC  241] both cores executed | Latency so far: 17739[1;0m
+[CORE0] PC=0x06d6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x07b2 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x07b2 addr=0x108a data=4b09, idx=0, tag=1000
+[1;34m[IC  242] both cores executed | Latency so far: 17754[1;0m
+[CORE0] PC=0x06d8 INSTR=0x36e4 -> MULT  {r6,r2} = r5 * r5
+[CORE1] PC=0x07b4 INSTR=0x7f1d -> SUBI  r6 = r7 - 29
+[1;34m[IC  243] both cores executed | Latency so far: 17782[1;0m
+[CORE0] PC=0x06da INSTR=0x463c -> ADDI  r4 = r1 + 60
+[CORE1] PC=0x07b6 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  244] both cores executed | Latency so far: 17794[1;0m
+[CORE0] PC=0x06dc INSTR=0x0000 -> NOP
+[CORE1] PC=0x07b8 INSTR=0x44fb -> ADDI  r1 = r1 + -5
+[1;34m[IC  245] both cores executed | Latency so far: 17806[1;0m
+[CORE0] PC=0x06de INSTR=0x0000 -> NOP
+[CORE1] PC=0x07ba INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x07ba addr=0x1000 data=ffd2, idx=0, tag=1000
+[1;34m[IC  246] both cores executed | Latency so far: 17821[1;0m
+[CORE0] PC=0x06e0 INSTR=0x3774 -> MULT  {r7,r2} = r5 * r6
+[CORE1] PC=0x07bc INSTR=0x5580 -> ADDI  r3 = r5 + 0
+[1;34m[IC  247] both cores executed | Latency so far: 17849[1;0m
+[CORE0] PC=0x06e2 INSTR=0x44d2 -> ADDI  r1 = r1 + -46
+[CORE1] PC=0x07be INSTR=0x4f80 -> ADDI  r7 = r3 + 0
+[1;34m[IC  248] both cores executed | Latency so far: 17861[1;0m
+[CORE0] PC=0x06e4 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x07c0 INSTR=0x0000 -> NOP
+core1:load, pc=0x06e4 addr=0x1056 data=ffd2, idx=0, tag=1000
+[1;34m[IC  249] both cores executed | Latency so far: 18530[1;0m
+[1;32m=== PASS DRAM CHECK at IC=249 ===[1;0m
+[CORE0] PC=0x06e6 INSTR=0x1af0 -> ADD   r7 = r6 + r5
+[CORE1] PC=0x07c2 INSTR=0xe84c -> JUMP  -> 0x084c
+[1;34m[IC  250] both cores executed | Latency so far: 18541[1;0m
+[CORE0] PC=0x06e8 INSTR=0xe7a2 -> JUMP  -> 0x07a2
+[CORE1] PC=0x084c INSTR=0x5a7f -> ADDI  r4 = r6 + -1
+[1;34m[IC  251] both cores executed | Latency so far: 18807[1;0m
+[CORE0] PC=0x07a2 INSTR=0x5fe2 -> ADDI  r7 = r7 + -30
+[CORE1] PC=0x084e INSTR=0xe94a -> JUMP  -> 0x094a
+[1;34m[IC  252] both cores executed | Latency so far: 19411[1;0m
+[CORE0] PC=0x07a4 INSTR=0x4706 -> ADDI  r6 = r1 + 6
+[CORE1] PC=0x094a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  253] both cores executed | Latency so far: 19922[1;0m
+[CORE0] PC=0x07a6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x094c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  254] both cores executed | Latency so far: 19934[1;0m
+[CORE0] PC=0x07a8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x094e INSTR=0x4482 -> ADDI  r1 = r1 + 2
+[1;34m[IC  255] both cores executed | Latency so far: 19946[1;0m
+[CORE0] PC=0x07aa INSTR=0x0000 -> NOP
+[CORE1] PC=0x0950 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0950 addr=0x1100 data=cfc6, idx=1, tag=1000
+[1;34m[IC  256] both cores executed | Latency so far: 19961[1;0m
+[CORE0] PC=0x07ac INSTR=0xc03c -> BEQ   if (r0 == r0) branch 60 bytes to 0x0826
+[CORE1] PC=0x0952 INSTR=0x33bc -> MULT  {r3,r6} = r4 * r7
+[1;34m[IC  257] both cores executed | Latency so far: 19989[1;0m
+[CORE0] PC=0x0826 INSTR=0x6133 -> SUBI  r2 = r0 - 51
+[CORE1] PC=0x0954 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  258] both cores executed | Latency so far: 20256[1;0m
+[CORE0] PC=0x0828 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0956 INSTR=0x44ee -> ADDI  r1 = r1 + -18
+[1;34m[IC  259] both cores executed | Latency so far: 20268[1;0m
+[CORE0] PC=0x082a INSTR=0x0000 -> NOP
+[CORE1] PC=0x0958 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x0958 addr=0x105c data=371b, idx=0, tag=0000
+[1;34m[IC  260] both cores executed | Latency so far: 20283[1;0m
+[CORE0] PC=0x082c INSTR=0x44b4 -> ADDI  r1 = r1 + 52
+[CORE1] PC=0x095a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  261] both cores executed | Latency so far: 20295[1;0m
+[CORE0] PC=0x082e INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x095c INSTR=0x4493 -> ADDI  r1 = r1 + 19
+core1:load, pc=0x082e addr=0x10be data=7ecb, idx=0, tag=1000
+[1;34m[IC  262] both cores executed | Latency so far: 20310[1;0m
+[CORE0] PC=0x0830 INSTR=0x0000 -> NOP
+[CORE1] PC=0x095e INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x095e addr=0x1100 data=cfc6, idx=1, tag=1000
+[1;34m[IC  263] both cores executed | Latency so far: 20325[1;0m
+[CORE0] PC=0x0832 INSTR=0x4489 -> ADDI  r1 = r1 + 9
+[CORE1] PC=0x0960 INSTR=0x44aa -> ADDI  r1 = r1 + 42
+[1;34m[IC  264] both cores executed | Latency so far: 20337[1;0m
+[CORE0] PC=0x0834 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0962 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x0962 addr=0x1154 data=6782, idx=1, tag=1000
+core1:store, pc=0x0834 addr=0x10d0 data=0031, idx=0, tag=0000
+[1;34m[IC  265] both cores executed | Latency so far: 20355[1;0m
+[CORE0] PC=0x0836 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0964 INSTR=0x4100 -> ADDI  r2 = r0 + 0
+[1;34m[IC  266] both cores executed | Latency so far: 20367[1;0m
+[CORE0] PC=0x0838 INSTR=0x44a3 -> ADDI  r1 = r1 + 35
+[CORE1] PC=0x0966 INSTR=0x0000 -> NOP
+[1;34m[IC  267] both cores executed | Latency so far: 20379[1;0m
+[CORE0] PC=0x083a INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x0968 INSTR=0x0000 -> NOP
+core1:store, pc=0x083a addr=0x1194 data=7ecb, idx=1, tag=0000
+[1;34m[IC  268] both cores executed | Latency so far: 20394[1;0m
+[CORE0] PC=0x083c INSTR=0x23ee -> MULT  {r6,r7} = r0 * r7
+[CORE1] PC=0x096a INSTR=0x7f80 -> SUBI  r7 = r7 - 0
+[1;34m[IC  269] both cores executed | Latency so far: 20422[1;0m
+[CORE0] PC=0x083e INSTR=0x3e28 -> MULT  {r2,r4} = r7 * r4
+[CORE1] PC=0x096c INSTR=0x449e -> ADDI  r1 = r1 + 30
+[1;34m[IC  270] both cores executed | Latency so far: 20450[1;0m
+[CORE0] PC=0x0840 INSTR=0x0000 -> NOP
+[CORE1] PC=0x096e INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x096e addr=0x1190 data=2d9e, idx=1, tag=1000
+[1;34m[IC  271] both cores executed | Latency so far: 20465[1;0m
+[CORE0] PC=0x0842 INSTR=0x44d9 -> ADDI  r1 = r1 + -39
+[CORE1] PC=0x0970 INSTR=0x3e5c -> MULT  {r5,r6} = r7 * r4
+[1;34m[IC  272] both cores executed | Latency so far: 20493[1;0m
+[CORE0] PC=0x0844 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0972 INSTR=0x0000 -> NOP
+core1:load, pc=0x0844 addr=0x1146 data=cb47, idx=1, tag=1000
+[1;34m[IC  273] both cores executed | Latency so far: 20508[1;0m
+[CORE0] PC=0x0846 INSTR=0x6a80 -> SUBI  r5 = r2 - 0
+[CORE1] PC=0x0974 INSTR=0x0646 -> OR    r4 = r1 | r4
+[1;34m[IC  274] both cores executed | Latency so far: 20520[1;0m
+[CORE0] PC=0x0848 INSTR=0x33e4 -> MULT  {r6,r2} = r4 * r7
+[CORE1] PC=0x0976 INSTR=0x3b2a -> MULT  {r2,r5} = r6 * r6
+[1;34m[IC  275] both cores executed | Latency so far: 20564[1;0m
+[CORE0] PC=0x084a INSTR=0xe894 -> JUMP  -> 0x0894
+[CORE1] PC=0x0978 INSTR=0xea70 -> JUMP  -> 0x0a70
+[1;34m[IC  276] both cores executed | Latency so far: 20574[1;0m
+[CORE0] PC=0x0894 INSTR=0x44d0 -> ADDI  r1 = r1 + -48
+[CORE1] PC=0x0a70 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  277] both cores executed | Latency so far: 21108[1;0m
+[CORE0] PC=0x0896 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x0a72 INSTR=0x44fc -> ADDI  r1 = r1 + -4
+core1:load, pc=0x0896 addr=0x10e6 data=5b50, idx=0, tag=1000
+[1;34m[IC  278] both cores executed | Latency so far: 21123[1;0m
+[CORE0] PC=0x0898 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0a74 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0a74 addr=0x1108 data=ea59, idx=1, tag=1000
+[1;34m[IC  279] both cores executed | Latency so far: 21138[1;0m
+[CORE0] PC=0x089a INSTR=0x449e -> ADDI  r1 = r1 + 30
+[CORE1] PC=0x0a76 INSTR=0x448f -> ADDI  r1 = r1 + 15
+[1;34m[IC  280] both cores executed | Latency so far: 21150[1;0m
+[CORE0] PC=0x089c INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0a78 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0a78 addr=0x1126 data=0000, idx=1, tag=1000
+core1:store, pc=0x089c addr=0x1122 data=5b50, idx=1, tag=0000
+[1;34m[IC  281] both cores executed | Latency so far: 21168[1;0m
+[CORE0] PC=0x089e INSTR=0x576c -> ADDI  r6 = r5 + -20
+[CORE1] PC=0x0a7a INSTR=0xc02f -> BEQ   if (r0 == r0) branch 47 bytes to 0x0ada
+[1;34m[IC  282] both cores executed | Latency so far: 21180[1;0m
+[CORE0] PC=0x08a0 INSTR=0xc024 -> BEQ   if (r0 == r0) branch 36 bytes to 0x08ea
+[CORE1] PC=0x0ada INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  283] both cores executed | Latency so far: 21192[1;0m
+[CORE0] PC=0x08ea INSTR=0x0000 -> NOP
+[CORE1] PC=0x0adc INSTR=0x44f6 -> ADDI  r1 = r1 + -10
+[1;34m[IC  284] both cores executed | Latency so far: 21204[1;0m
+[CORE0] PC=0x08ec INSTR=0x0000 -> NOP
+[CORE1] PC=0x0ade INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x0ade addr=0x1092 data=01a7, idx=0, tag=0000
+[1;34m[IC  285] both cores executed | Latency so far: 21219[1;0m
+[CORE0] PC=0x08ee INSTR=0x72bc -> SUBI  r5 = r4 - 60
+[CORE1] PC=0x0ae0 INSTR=0xebd8 -> JUMP  -> 0x0bd8
+[1;34m[IC  286] both cores executed | Latency so far: 21230[1;0m
+[CORE0] PC=0x08f0 INSTR=0x67a6 -> SUBI  r7 = r1 - 38
+[CORE1] PC=0x0bd8 INSTR=0x05a0 -> ADD   r2 = r1 + r3
+[1;34m[IC  287] both cores executed | Latency so far: 21593[1;0m
+[CORE0] PC=0x08f2 INSTR=0x3f5c -> MULT  {r5,r6} = r7 * r6
+[CORE1] PC=0x0bda INSTR=0x3de8 -> MULT  {r6,r4} = r7 * r3
+[1;34m[IC  288] both cores executed | Latency so far: 21637[1;0m
+[CORE0] PC=0x08f4 INSTR=0x11be -> SLT   r3 = (r4 < r3)
+[CORE1] PC=0x0bdc INSTR=0x7680 -> SUBI  r5 = r5 - 0
+[1;34m[IC  289] both cores executed | Latency so far: 21649[1;0m
+[CORE0] PC=0x08f6 INSTR=0x2164 -> MULT  {r6,r2} = r0 * r2
+[CORE1] PC=0x0bde INSTR=0x7b00 -> SUBI  r6 = r6 - 0
+[1;34m[IC  290] both cores executed | Latency so far: 21677[1;0m
+[CORE0] PC=0x08f8 INSTR=0x52e2 -> ADDI  r5 = r4 + -30
+[CORE1] PC=0x0be0 INSTR=0x7300 -> SUBI  r6 = r4 - 0
+[1;34m[IC  291] both cores executed | Latency so far: 21689[1;0m
+[CORE0] PC=0x08fa INSTR=0x05d0 -> ADD   r5 = r1 + r3
+[CORE1] PC=0x0be2 INSTR=0x222a -> MULT  {r2,r5} = r0 * r4
+[1;34m[IC  292] both cores executed | Latency so far: 21717[1;0m
+[CORE0] PC=0x08fc INSTR=0x7ec1 -> SUBI  r5 = r7 - -63
+[CORE1] PC=0x0be4 INSTR=0x2f58 -> MULT  {r5,r4} = r3 * r6
+[1;34m[IC  293] both cores executed | Latency so far: 21745[1;0m
+[CORE0] PC=0x08fe INSTR=0x4e80 -> ADDI  r5 = r3 + 0
+[CORE1] PC=0x0be6 INSTR=0x1772 -> SUB   r7 = r5 - r6
+[1;34m[IC  294] both cores executed | Latency so far: 21757[1;0m
+[CORE0] PC=0x0900 INSTR=0x1aec -> XOR   r6 = r6 ^ r5
+[CORE1] PC=0x0be8 INSTR=0xec24 -> JUMP  -> 0x0c24
+[1;34m[IC  295] both cores executed | Latency so far: 22267[1;0m
+[CORE0] PC=0x0902 INSTR=0x6100 -> SUBI  r2 = r0 - 0
+[CORE1] PC=0x0c24 INSTR=0x7a00 -> SUBI  r4 = r6 - 0
+[1;34m[IC  296] both cores executed | Latency so far: 22887[1;0m
+[CORE0] PC=0x0904 INSTR=0x12e4 -> AND   r6 = r4 & r5
+[CORE1] PC=0x0c26 INSTR=0x44ae -> ADDI  r1 = r1 + 46
+[1;34m[IC  297] both cores executed | Latency so far: 22899[1;0m
+[CORE0] PC=0x0906 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0c28 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0c28 addr=0x10ee data=3bd1, idx=0, tag=1000
+[1;34m[IC  298] both cores executed | Latency so far: 22914[1;0m
+[CORE0] PC=0x0908 INSTR=0x7f00 -> SUBI  r6 = r7 - 0
+[CORE1] PC=0x0c2a INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  299] both cores executed | Latency so far: 23660[1;0m
+[1;32m=== PASS DRAM CHECK at IC=299 ===[1;0m
+[CORE0] PC=0x090a INSTR=0x0000 -> NOP
+[CORE1] PC=0x0c2c INSTR=0x44e2 -> ADDI  r1 = r1 + -30
+[1;34m[IC  300] both cores executed | Latency so far: 23672[1;0m
+[CORE0] PC=0x090c INSTR=0x0000 -> NOP
+[CORE1] PC=0x0c2e INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0c2e addr=0x1032 data=ddf7, idx=0, tag=1000
+[1;34m[IC  301] both cores executed | Latency so far: 23687[1;0m
+[CORE0] PC=0x090e INSTR=0x1566 -> OR    r6 = r5 | r2
+[CORE1] PC=0x0c30 INSTR=0x0db8 -> NAND  r3 = ~(r3 & r3)
+[1;34m[IC  302] both cores executed | Latency so far: 23699[1;0m
+[CORE0] PC=0x0910 INSTR=0x1ecc -> XOR   r4 = r7 ^ r5
+[CORE1] PC=0x0c32 INSTR=0x336e -> MULT  {r6,r7} = r4 * r6
+[1;34m[IC  303] both cores executed | Latency so far: 23727[1;0m
+[CORE0] PC=0x0912 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0c34 INSTR=0x13fe -> SLT   r7 = (r4 < r7)
+[1;34m[IC  304] both cores executed | Latency so far: 23739[1;0m
+[CORE0] PC=0x0914 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0c36 INSTR=0x0000 -> NOP
+[1;34m[IC  305] both cores executed | Latency so far: 23751[1;0m
+[CORE0] PC=0x0916 INSTR=0x44fe -> ADDI  r1 = r1 + -2
+[CORE1] PC=0x0c38 INSTR=0x0000 -> NOP
+[1;34m[IC  306] both cores executed | Latency so far: 23763[1;0m
+[CORE0] PC=0x0918 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0c3a INSTR=0x0000 -> NOP
+core1:store, pc=0x0918 addr=0x101e data=006b, idx=0, tag=0000
+[1;34m[IC  307] both cores executed | Latency so far: 23778[1;0m
+[CORE0] PC=0x091a INSTR=0x4490 -> ADDI  r1 = r1 + 16
+[CORE1] PC=0x0c3c INSTR=0x7e00 -> SUBI  r4 = r7 - 0
+[1;34m[IC  308] both cores executed | Latency so far: 23790[1;0m
+[CORE0] PC=0x091c INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0c3e INSTR=0x0000 -> NOP
+core1:load, pc=0x091c addr=0x103e data=87c4, idx=0, tag=1000
+[1;34m[IC  309] both cores executed | Latency so far: 23805[1;0m
+[CORE0] PC=0x091e INSTR=0x44e1 -> ADDI  r1 = r1 + -31
+[CORE1] PC=0x0c40 INSTR=0x2e3c -> MULT  {r3,r6} = r3 * r4
+[1;34m[IC  310] both cores executed | Latency so far: 23833[1;0m
+[CORE0] PC=0x0920 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x0c42 INSTR=0x0000 -> NOP
+core1:store, pc=0x0920 addr=0x1000 data=0000, idx=0, tag=0000
+[1;34m[IC  311] both cores executed | Latency so far: 23848[1;0m
+[CORE0] PC=0x0922 INSTR=0xe9bc -> JUMP  -> 0x09bc
+[CORE1] PC=0x0c44 INSTR=0x5f80 -> ADDI  r7 = r7 + 0
+[1;34m[IC  312] both cores executed | Latency so far: 23859[1;0m
+[CORE0] PC=0x09bc INSTR=0xc018 -> BEQ   if (r0 == r0) branch 24 bytes to 0x09ee
+[CORE1] PC=0x0c46 INSTR=0x13b4 -> AND   r3 = r4 & r7
+[1;34m[IC  313] both cores executed | Latency so far: 23871[1;0m
+[CORE0] PC=0x09ee INSTR=0x42fc -> ADDI  r5 = r0 + -4
+[CORE1] PC=0x0c48 INSTR=0x315e -> MULT  {r5,r7} = r4 * r2
+[1;34m[IC  314] both cores executed | Latency so far: 23899[1;0m
+[CORE0] PC=0x09f0 INSTR=0x15a6 -> OR    r2 = r5 | r3
+[CORE1] PC=0x0c4a INSTR=0x44e7 -> ADDI  r1 = r1 + -25
+[1;34m[IC  315] both cores executed | Latency so far: 23911[1;0m
+[CORE0] PC=0x09f2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0c4c INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0c4c addr=0x1000 data=0000, idx=0, tag=1000
+[1;34m[IC  316] both cores executed | Latency so far: 23926[1;0m
+[CORE0] PC=0x09f4 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x0c4e INSTR=0x6637 -> SUBI  r4 = r1 - 55
+core1:store, pc=0x09f4 addr=0x1000 data=006a, idx=0, tag=0000
+[1;34m[IC  317] both cores executed | Latency so far: 23941[1;0m
+[CORE0] PC=0x09f6 INSTR=0x1d62 -> SUB   r6 = r7 - r2
+[CORE1] PC=0x0c50 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0c50 addr=0x1000 data=006a, idx=0, tag=1000
+[1;34m[IC  318] both cores executed | Latency so far: 23956[1;0m
+[CORE0] PC=0x09f8 INSTR=0x134a -> NOR   r4 = ~(r4 | r6)
+[CORE1] PC=0x0c52 INSTR=0x32ae -> MULT  {r2,r7} = r4 * r5
+[1;34m[IC  319] both cores executed | Latency so far: 23984[1;0m
+[CORE0] PC=0x09fa INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x0c54 INSTR=0x3bb4 -> MULT  {r3,r2} = r6 * r7
+core1:store, pc=0x09fa addr=0x1000 data=fffc, idx=0, tag=0000
+[1;34m[IC  320] both cores executed | Latency so far: 24015[1;0m
+[CORE0] PC=0x09fc INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0c56 INSTR=0x0a52 -> SUB   r5 = r2 - r4
+core1:store, pc=0x09fc addr=0x1000 data=006b, idx=0, tag=0000
+[1;34m[IC  321] both cores executed | Latency so far: 24030[1;0m
+[CORE0] PC=0x09fe INSTR=0x7658 -> SUBI  r4 = r5 - -40
+[CORE1] PC=0x0c58 INSTR=0xecb8 -> JUMP  -> 0x0cb8
+[1;34m[IC  322] both cores executed | Latency so far: 24041[1;0m
+[CORE0] PC=0x0a00 INSTR=0x1bb8 -> NAND  r3 = ~(r6 & r7)
+[CORE1] PC=0x0cb8 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x0cb8 addr=0x1000 data=006b, idx=0, tag=1000
+[1;34m[IC  323] both cores executed | Latency so far: 24578[1;0m
+[CORE0] PC=0x0a02 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0cba INSTR=0x2eac -> MULT  {r2,r6} = r3 * r5
+core1:store, pc=0x0a02 addr=0x1000 data=006e, idx=0, tag=0000
+[1;34m[IC  324] both cores executed | Latency so far: 24609[1;0m
+[CORE0] PC=0x0a04 INSTR=0x32fa -> MULT  {r7,r5} = r4 * r5
+[CORE1] PC=0x0cbc INSTR=0x3b78 -> MULT  {r7,r4} = r6 * r6
+[1;34m[IC  325] both cores executed | Latency so far: 24653[1;0m
+[CORE0] PC=0x0a06 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0cbe INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  326] both cores executed | Latency so far: 24665[1;0m
+[CORE0] PC=0x0a08 INSTR=0x449a -> ADDI  r1 = r1 + 26
+[CORE1] PC=0x0cc0 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  327] both cores executed | Latency so far: 24677[1;0m
+[CORE0] PC=0x0a0a INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0cc2 INSTR=0x44be -> ADDI  r1 = r1 + 62
+core1:store, pc=0x0a0a addr=0x10b2 data=ffff, idx=0, tag=0000
+[1;34m[IC  328] both cores executed | Latency so far: 24692[1;0m
+[CORE0] PC=0x0a0c INSTR=0x0000 -> NOP
+[CORE1] PC=0x0cc4 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0cc4 addr=0x1178 data=a759, idx=1, tag=1000
+[1;34m[IC  329] both cores executed | Latency so far: 24707[1;0m
+[CORE0] PC=0x0a0e INSTR=0xeac2 -> JUMP  -> 0x0ac2
+[CORE1] PC=0x0cc6 INSTR=0x2ed8 -> MULT  {r5,r4} = r3 * r5
+[1;34m[IC  330] both cores executed | Latency so far: 24734[1;0m
+[CORE0] PC=0x0ac2 INSTR=0x44af -> ADDI  r1 = r1 + 47
+[CORE1] PC=0x0cc8 INSTR=0x44ec -> ADDI  r1 = r1 + -20
+[1;34m[IC  331] both cores executed | Latency so far: 24746[1;0m
+[CORE0] PC=0x0ac4 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x0cca INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0cca addr=0x1150 data=db2c, idx=1, tag=1000
+core1:store, pc=0x0ac4 addr=0x1110 data=ff95, idx=1, tag=0000
+[1;34m[IC  332] both cores executed | Latency so far: 24764[1;0m
+[CORE0] PC=0x0ac6 INSTR=0x7965 -> SUBI  r2 = r6 - -27
+[CORE1] PC=0x0ccc INSTR=0x5700 -> ADDI  r6 = r5 + 0
+[1;34m[IC  333] both cores executed | Latency so far: 24776[1;0m
+[CORE0] PC=0x0ac8 INSTR=0x44fa -> ADDI  r1 = r1 + -6
+[CORE1] PC=0x0cce INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  334] both cores executed | Latency so far: 24788[1;0m
+[CORE0] PC=0x0aca INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x0cd0 INSTR=0x44ff -> ADDI  r1 = r1 + -1
+core1:store, pc=0x0aca addr=0x1104 data=ff70, idx=1, tag=0000
+[1;34m[IC  335] both cores executed | Latency so far: 24803[1;0m
+[CORE0] PC=0x0acc INSTR=0x0000 -> NOP
+[CORE1] PC=0x0cd2 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0cd2 addr=0x10ce data=8030, idx=0, tag=1000
+[1;34m[IC  336] both cores executed | Latency so far: 24818[1;0m
+[CORE0] PC=0x0ace INSTR=0x523e -> ADDI  r4 = r4 + 62
+[CORE1] PC=0x0cd4 INSTR=0x44c6 -> ADDI  r1 = r1 + -58
+[1;34m[IC  337] both cores executed | Latency so far: 24830[1;0m
+[CORE0] PC=0x0ad0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0cd6 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x0cd6 addr=0x105a data=a759, idx=0, tag=0000
+[1;34m[IC  338] both cores executed | Latency so far: 24845[1;0m
+[CORE0] PC=0x0ad2 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0cd8 INSTR=0x7900 -> SUBI  r2 = r6 - 0
+[1;34m[IC  339] both cores executed | Latency so far: 24857[1;0m
+[CORE0] PC=0x0ad4 INSTR=0x44c2 -> ADDI  r1 = r1 + -62
+[CORE1] PC=0x0cda INSTR=0x0000 -> NOP
+[1;34m[IC  340] both cores executed | Latency so far: 24869[1;0m
+[CORE0] PC=0x0ad6 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x0cdc INSTR=0x0000 -> NOP
+core1:load, pc=0x0ad6 addr=0x1008 data=a52b, idx=0, tag=1000
+[1;34m[IC  341] both cores executed | Latency so far: 24884[1;0m
+[CORE0] PC=0x0ad8 INSTR=0x4b31 -> ADDI  r6 = r2 + 49
+[CORE1] PC=0x0cde INSTR=0xeda8 -> JUMP  -> 0x0da8
+[1;34m[IC  342] both cores executed | Latency so far: 24895[1;0m
+[CORE0] PC=0x0ada INSTR=0x44ba -> ADDI  r1 = r1 + 58
+[CORE1] PC=0x0da8 INSTR=0xc032 -> BEQ   if (r0 == r0) branch 50 bytes to 0x0e0e
+[1;34m[IC  343] both cores executed | Latency so far: 25404[1;0m
+[CORE0] PC=0x0adc INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x0e0e INSTR=0x0000 -> NOP
+core1:store, pc=0x0adc addr=0x107c data=ff95, idx=0, tag=0000
+[1;34m[IC  344] both cores executed | Latency so far: 25968[1;0m
+[CORE0] PC=0x0ade INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0e10 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  345] both cores executed | Latency so far: 25980[1;0m
+[CORE0] PC=0x0ae0 INSTR=0x449a -> ADDI  r1 = r1 + 26
+[CORE1] PC=0x0e12 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  346] both cores executed | Latency so far: 25992[1;0m
+[CORE0] PC=0x0ae2 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x0e14 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0e14 addr=0x1156 data=e621, idx=1, tag=1000
+core1:store, pc=0x0ae2 addr=0x112e data=0089, idx=1, tag=0000
+[1;34m[IC  347] both cores executed | Latency so far: 26010[1;0m
+[CORE0] PC=0x0ae4 INSTR=0x1e54 -> AND   r5 = r7 & r4
+[CORE1] PC=0x0e16 INSTR=0x09ca -> NOR   r4 = ~(r2 | r3)
+[1;34m[IC  348] both cores executed | Latency so far: 26022[1;0m
+[CORE0] PC=0x0ae6 INSTR=0x4486 -> ADDI  r1 = r1 + 6
+[CORE1] PC=0x0e18 INSTR=0x29ee -> MULT  {r6,r7} = r2 * r3
+[1;34m[IC  349] both cores executed | Latency so far: 26802[1;0m
+[1;32m=== PASS DRAM CHECK at IC=349 ===[1;0m
+[CORE0] PC=0x0ae8 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0e1a INSTR=0x0000 -> NOP
+core1:store, pc=0x0ae8 addr=0x113a data=a52b, idx=1, tag=0000
+[1;34m[IC  350] both cores executed | Latency so far: 26817[1;0m
+[CORE0] PC=0x0aea INSTR=0x12da -> NOR   r5 = ~(r4 | r5)
+[CORE1] PC=0x0e1c INSTR=0x3d2a -> MULT  {r2,r5} = r7 * r2
+[1;34m[IC  351] both cores executed | Latency so far: 26845[1;0m
+[CORE0] PC=0x0aec INSTR=0x44b7 -> ADDI  r1 = r1 + 55
+[CORE1] PC=0x0e1e INSTR=0x0dac -> XOR   r2 = r3 ^ r3
+[1;34m[IC  352] both cores executed | Latency so far: 26857[1;0m
+[CORE0] PC=0x0aee INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0e20 INSTR=0x0000 -> NOP
+core1:store, pc=0x0aee addr=0x11a8 data=a52b, idx=1, tag=0000
+[1;34m[IC  353] both cores executed | Latency so far: 26872[1;0m
+[CORE0] PC=0x0af0 INSTR=0x7d05 -> SUBI  r2 = r7 - 5
+[CORE1] PC=0x0e22 INSTR=0x6980 -> SUBI  r3 = r2 - 0
+[1;34m[IC  354] both cores executed | Latency so far: 26884[1;0m
+[CORE0] PC=0x0af2 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0e24 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0e24 addr=0x1156 data=e621, idx=1, tag=1000
+[1;34m[IC  355] both cores executed | Latency so far: 26899[1;0m
+[CORE0] PC=0x0af4 INSTR=0x44e4 -> ADDI  r1 = r1 + -28
+[CORE1] PC=0x0e26 INSTR=0x0000 -> NOP
+[1;34m[IC  356] both cores executed | Latency so far: 26911[1;0m
+[CORE0] PC=0x0af6 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x0e28 INSTR=0x0000 -> NOP
+core1:load, pc=0x0af6 addr=0x10f0 data=16b9, idx=0, tag=1000
+[1;34m[IC  357] both cores executed | Latency so far: 26926[1;0m
+[CORE0] PC=0x0af8 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0e2a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  358] both cores executed | Latency so far: 26938[1;0m
+[CORE0] PC=0x0afa INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0e2c INSTR=0x44ae -> ADDI  r1 = r1 + 46
+[1;34m[IC  359] both cores executed | Latency so far: 26950[1;0m
+[CORE0] PC=0x0afc INSTR=0x4487 -> ADDI  r1 = r1 + 7
+[CORE1] PC=0x0e2e INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x0e2e addr=0x1230 data=e367, idx=0, tag=1001
+[1;34m[IC  360] both cores executed | Latency so far: 27487[1;0m
+[CORE0] PC=0x0afe INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x0e30 INSTR=0x0000 -> NOP
+core1:load, pc=0x0afe addr=0x11fa data=6d12, idx=1, tag=1000
+[1;34m[IC  361] both cores executed | Latency so far: 27502[1;0m
+[CORE0] PC=0x0b00 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0e32 INSTR=0x023a -> NOR   r3 = ~(r0 | r4)
+[1;34m[IC  362] both cores executed | Latency so far: 27865[1;0m
+[CORE0] PC=0x0b02 INSTR=0x449b -> ADDI  r1 = r1 + 27
+[CORE1] PC=0x0e34 INSTR=0x0000 -> NOP
+[1;34m[IC  363] both cores executed | Latency so far: 27877[1;0m
+[CORE0] PC=0x0b04 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0e36 INSTR=0x0000 -> NOP
+core1:store, pc=0x0b04 addr=0x12ae data=00ba, idx=0, tag=0001
+[1;34m[IC  364] both cores executed | Latency so far: 27892[1;0m
+[CORE0] PC=0x0b06 INSTR=0x3d3a -> MULT  {r3,r5} = r7 * r2
+[CORE1] PC=0x0e38 INSTR=0xee9c -> JUMP  -> 0x0e9c
+[1;34m[IC  365] both cores executed | Latency so far: 27919[1;0m
+[CORE0] PC=0x0b08 INSTR=0x44ca -> ADDI  r1 = r1 + -54
+[CORE1] PC=0x0e9c INSTR=0x44a5 -> ADDI  r1 = r1 + 37
+[1;34m[IC  366] both cores executed | Latency so far: 27931[1;0m
+[CORE0] PC=0x0b0a INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x0e9e INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0e9e addr=0x127a data=78cd, idx=0, tag=1001
+core1:store, pc=0x0b0a addr=0x1242 data=f7f0, idx=0, tag=0001
+[1;34m[IC  367] both cores executed | Latency so far: 27949[1;0m
+[CORE0] PC=0x0b0c INSTR=0x7d00 -> SUBI  r2 = r7 - 0
+[CORE1] PC=0x0ea0 INSTR=0x6e3c -> SUBI  r4 = r3 - 60
+[1;34m[IC  368] both cores executed | Latency so far: 27961[1;0m
+[CORE0] PC=0x0b0e INSTR=0x12da -> NOR   r5 = ~(r4 | r5)
+[CORE1] PC=0x0ea2 INSTR=0xc018 -> BEQ   if (r0 == r0) branch 24 bytes to 0x0ed4
+[1;34m[IC  369] both cores executed | Latency so far: 27973[1;0m
+[CORE0] PC=0x0b10 INSTR=0x07de -> SLT   r5 = (r1 < r7)
+[CORE1] PC=0x0ed4 INSTR=0xef44 -> JUMP  -> 0x0f44
+[1;34m[IC  370] both cores executed | Latency so far: 27984[1;0m
+[CORE0] PC=0x0b12 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0f44 INSTR=0x4481 -> ADDI  r1 = r1 + 1
+[1;34m[IC  371] both cores executed | Latency so far: 28507[1;0m
+[CORE0] PC=0x0b14 INSTR=0x44a7 -> ADDI  r1 = r1 + 39
+[CORE1] PC=0x0f46 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x0f46 addr=0x127c data=e367, idx=0, tag=0001
+[1;34m[IC  372] both cores executed | Latency so far: 28522[1;0m
+[CORE0] PC=0x0b16 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0f48 INSTR=0x0000 -> NOP
+core1:load, pc=0x0b16 addr=0x130e data=12c2, idx=1, tag=1001
+[1;34m[IC  373] both cores executed | Latency so far: 29198[1;0m
+[CORE0] PC=0x0b18 INSTR=0xeb6e -> JUMP  -> 0x0b6e
+[CORE1] PC=0x0f4a INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  374] both cores executed | Latency so far: 29209[1;0m
+[CORE0] PC=0x0b6e INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f4c INSTR=0x44ef -> ADDI  r1 = r1 + -17
+[1;34m[IC  375] both cores executed | Latency so far: 29221[1;0m
+[CORE0] PC=0x0b70 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f4e INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0f4e addr=0x11da data=14a8, idx=1, tag=1000
+[1;34m[IC  376] both cores executed | Latency so far: 29844[1;0m
+[CORE0] PC=0x0b72 INSTR=0x57f6 -> ADDI  r7 = r5 + -10
+[CORE1] PC=0x0f50 INSTR=0x3eaa -> MULT  {r2,r5} = r7 * r5
+[1;34m[IC  377] both cores executed | Latency so far: 29872[1;0m
+[CORE0] PC=0x0b74 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0f52 INSTR=0x6aed -> SUBI  r5 = r2 - -19
+[1;34m[IC  378] both cores executed | Latency so far: 29884[1;0m
+[CORE0] PC=0x0b76 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0f54 INSTR=0x0000 -> NOP
+[1;34m[IC  379] both cores executed | Latency so far: 29896[1;0m
+[CORE0] PC=0x0b78 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0f56 INSTR=0x0000 -> NOP
+[1;34m[IC  380] both cores executed | Latency so far: 29908[1;0m
+[CORE0] PC=0x0b7a INSTR=0x44fd -> ADDI  r1 = r1 + -3
+[CORE1] PC=0x0f58 INSTR=0x0000 -> NOP
+[1;34m[IC  381] both cores executed | Latency so far: 29920[1;0m
+[CORE0] PC=0x0b7c INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x0f5a INSTR=0x0000 -> NOP
+core1:store, pc=0x0b7c addr=0x1188 data=f7f0, idx=1, tag=0000
+[1;34m[IC  382] both cores executed | Latency so far: 29935[1;0m
+[CORE0] PC=0x0b7e INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0f5c INSTR=0x4246 -> ADDI  r4 = r0 + -58
+[1;34m[IC  383] both cores executed | Latency so far: 29947[1;0m
+[CORE0] PC=0x0b80 INSTR=0x44f0 -> ADDI  r1 = r1 + -16
+[CORE1] PC=0x0f5e INSTR=0x0000 -> NOP
+[1;34m[IC  384] both cores executed | Latency so far: 29959[1;0m
+[CORE0] PC=0x0b82 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0f60 INSTR=0x0000 -> NOP
+core1:store, pc=0x0b82 addr=0x10e8 data=00ba, idx=0, tag=0000
+[1;34m[IC  385] both cores executed | Latency so far: 30781[1;0m
+[CORE0] PC=0x0b84 INSTR=0x44d8 -> ADDI  r1 = r1 + -40
+[CORE1] PC=0x0f62 INSTR=0x2de8 -> MULT  {r6,r4} = r3 * r3
+[1;34m[IC  386] both cores executed | Latency so far: 30809[1;0m
+[CORE0] PC=0x0b86 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0f64 INSTR=0x0000 -> NOP
+core1:store, pc=0x0b86 addr=0x1098 data=12b8, idx=0, tag=0000
+[1;34m[IC  387] both cores executed | Latency so far: 30824[1;0m
+[CORE0] PC=0x0b88 INSTR=0x6600 -> SUBI  r4 = r1 - 0
+[CORE1] PC=0x0f66 INSTR=0x5dea -> ADDI  r3 = r7 + -22
+[1;34m[IC  388] both cores executed | Latency so far: 30836[1;0m
+[CORE0] PC=0x0b8a INSTR=0x71ab -> SUBI  r3 = r4 - 43
+[CORE1] PC=0x0f68 INSTR=0x1dd6 -> OR    r5 = r7 | r3
+[1;34m[IC  389] both cores executed | Latency so far: 30848[1;0m
+[CORE0] PC=0x0b8c INSTR=0x3fcc -> MULT  {r4,r6} = r7 * r7
+[CORE1] PC=0x0f6a INSTR=0x6a5f -> SUBI  r4 = r2 - -33
+[1;34m[IC  390] both cores executed | Latency so far: 30876[1;0m
+[CORE0] PC=0x0b8e INSTR=0x44db -> ADDI  r1 = r1 + -37
+[CORE1] PC=0x0f6c INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  391] both cores executed | Latency so far: 30888[1;0m
+[CORE0] PC=0x0b90 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x0f6e INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+core1:load, pc=0x0b90 addr=0x104e data=8a51, idx=0, tag=1000
+[1;34m[IC  392] both cores executed | Latency so far: 30903[1;0m
+[CORE0] PC=0x0b92 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f70 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  393] both cores executed | Latency so far: 30915[1;0m
+[CORE0] PC=0x0b94 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f72 INSTR=0x44d3 -> ADDI  r1 = r1 + -45
+[1;34m[IC  394] both cores executed | Latency so far: 30927[1;0m
+[CORE0] PC=0x0b96 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f74 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0f74 addr=0x1000 data=006e, idx=0, tag=1000
+[1;34m[IC  395] both cores executed | Latency so far: 30942[1;0m
+[CORE0] PC=0x0b98 INSTR=0xec74 -> JUMP  -> 0x0c74
+[CORE1] PC=0x0f76 INSTR=0x44aa -> ADDI  r1 = r1 + 42
+[1;34m[IC  396] both cores executed | Latency so far: 30953[1;0m
+[CORE0] PC=0x0c74 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f78 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x0f78 addr=0x1054 data=0c0e, idx=0, tag=0000
+[1;34m[IC  397] both cores executed | Latency so far: 31576[1;0m
+[CORE0] PC=0x0c76 INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[CORE1] PC=0x0f7a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  398] both cores executed | Latency so far: 31588[1;0m
+[CORE0] PC=0x0c78 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x0f7c INSTR=0x4485 -> ADDI  r1 = r1 + 5
+core1:load, pc=0x0c78 addr=0x1090 data=fc4f, idx=0, tag=1000
+[1;34m[IC  399] both cores executed | Latency so far: 32631[1;0m
+[1;32m=== PASS DRAM CHECK at IC=399 ===[1;0m
+[CORE0] PC=0x0c7a INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f7e INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0f7e addr=0x10dc data=9107, idx=0, tag=1000
+[1;34m[IC  400] both cores executed | Latency so far: 32646[1;0m
+[CORE0] PC=0x0c7c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0f80 INSTR=0x07f6 -> OR    r7 = r1 | r7
+[1;34m[IC  401] both cores executed | Latency so far: 32658[1;0m
+[CORE0] PC=0x0c7e INSTR=0x4482 -> ADDI  r1 = r1 + 2
+[CORE1] PC=0x0f82 INSTR=0x0000 -> NOP
+[1;34m[IC  402] both cores executed | Latency so far: 32670[1;0m
+[CORE0] PC=0x0c80 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x0f84 INSTR=0x0000 -> NOP
+core1:load, pc=0x0c80 addr=0x1112 data=a3e0, idx=1, tag=1000
+[1;34m[IC  403] both cores executed | Latency so far: 32685[1;0m
+[CORE0] PC=0x0c82 INSTR=0x4494 -> ADDI  r1 = r1 + 20
+[CORE1] PC=0x0f86 INSTR=0x3a7c -> MULT  {r7,r6} = r6 * r4
+[1;34m[IC  404] both cores executed | Latency so far: 32713[1;0m
+[CORE0] PC=0x0c84 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x0f88 INSTR=0x0000 -> NOP
+core1:load, pc=0x0c84 addr=0x113a data=a52b, idx=1, tag=1000
+[1;34m[IC  405] both cores executed | Latency so far: 32728[1;0m
+[CORE0] PC=0x0c86 INSTR=0x3fee -> MULT  {r6,r7} = r7 * r7
+[CORE1] PC=0x0f8a INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[1;34m[IC  406] both cores executed | Latency so far: 32756[1;0m
+[CORE0] PC=0x0c88 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f8c INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x0f8c addr=0x10ce data=8030, idx=0, tag=1000
+[1;34m[IC  407] both cores executed | Latency so far: 32771[1;0m
+[CORE0] PC=0x0c8a INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0f8e INSTR=0x448a -> ADDI  r1 = r1 + 10
+[1;34m[IC  408] both cores executed | Latency so far: 32783[1;0m
+[CORE0] PC=0x0c8c INSTR=0x44eb -> ADDI  r1 = r1 + -21
+[CORE1] PC=0x0f90 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x0f90 addr=0x10e2 data=3199, idx=0, tag=1000
+[1;34m[IC  409] both cores executed | Latency so far: 32798[1;0m
+[CORE0] PC=0x0c8e INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x0f92 INSTR=0x0000 -> NOP
+core1:store, pc=0x0c8e addr=0x1090 data=12c2, idx=0, tag=0000
+[1;34m[IC  410] both cores executed | Latency so far: 32813[1;0m
+[CORE0] PC=0x0c90 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0f94 INSTR=0x4b0c -> ADDI  r6 = r2 + 12
+[1;34m[IC  411] both cores executed | Latency so far: 32825[1;0m
+[CORE0] PC=0x0c92 INSTR=0x4494 -> ADDI  r1 = r1 + 20
+[CORE1] PC=0x0f96 INSTR=0x0000 -> NOP
+[1;34m[IC  412] both cores executed | Latency so far: 32837[1;0m
+[CORE0] PC=0x0c94 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0f98 INSTR=0x0000 -> NOP
+core1:store, pc=0x0c94 addr=0x1136 data=6440, idx=1, tag=0000
+[1;34m[IC  413] both cores executed | Latency so far: 32852[1;0m
+[CORE0] PC=0x0c96 INSTR=0x660a -> SUBI  r4 = r1 - 10
+[CORE1] PC=0x0f9a INSTR=0x4482 -> ADDI  r1 = r1 + 2
+[1;34m[IC  414] both cores executed | Latency so far: 32864[1;0m
+[CORE0] PC=0x0c98 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0f9c INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x0f9c addr=0x10e6 data=97fa, idx=0, tag=0000
+[1;34m[IC  415] both cores executed | Latency so far: 32879[1;0m
+[CORE0] PC=0x0c9a INSTR=0x44ac -> ADDI  r1 = r1 + 44
+[CORE1] PC=0x0f9e INSTR=0x7e00 -> SUBI  r4 = r7 - 0
+[1;34m[IC  416] both cores executed | Latency so far: 32891[1;0m
+[CORE0] PC=0x0c9c INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x0fa0 INSTR=0x0000 -> NOP
+core1:load, pc=0x0c9c addr=0x118e data=b588, idx=1, tag=1000
+[1;34m[IC  417] both cores executed | Latency so far: 32906[1;0m
+[CORE0] PC=0x0c9e INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0fa2 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  418] both cores executed | Latency so far: 32918[1;0m
+[CORE0] PC=0x0ca0 INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[CORE1] PC=0x0fa4 INSTR=0x44b2 -> ADDI  r1 = r1 + 50
+[1;34m[IC  419] both cores executed | Latency so far: 32930[1;0m
+[CORE0] PC=0x0ca2 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x0fa6 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x0fa6 addr=0x11c8 data=c63d, idx=1, tag=1000
+core1:store, pc=0x0ca2 addr=0x1100 data=6440, idx=1, tag=0000
+[1;34m[IC  420] both cores executed | Latency so far: 32948[1;0m
+[CORE0] PC=0x0ca4 INSTR=0x1936 -> OR    r3 = r6 | r2
+[CORE1] PC=0x0fa8 INSTR=0x19c6 -> OR    r4 = r6 | r3
+[1;34m[IC  421] both cores executed | Latency so far: 32960[1;0m
+[CORE0] PC=0x0ca6 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0faa INSTR=0x44fe -> ADDI  r1 = r1 + -2
+[1;34m[IC  422] both cores executed | Latency so far: 32972[1;0m
+[CORE0] PC=0x0ca8 INSTR=0x4496 -> ADDI  r1 = r1 + 22
+[CORE1] PC=0x0fac INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x0fac addr=0x11c4 data=e0cb, idx=1, tag=1000
+[1;34m[IC  423] both cores executed | Latency so far: 32987[1;0m
+[CORE0] PC=0x0caa INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x0fae INSTR=0x0000 -> NOP
+core1:load, pc=0x0caa addr=0x11aa data=f142, idx=1, tag=1000
+[1;34m[IC  424] both cores executed | Latency so far: 33002[1;0m
+[CORE0] PC=0x0cac INSTR=0x0a6a -> NOR   r6 = ~(r2 | r4)
+[CORE1] PC=0x0fb0 INSTR=0x72dc -> SUBI  r5 = r4 - -36
+[1;34m[IC  425] both cores executed | Latency so far: 33014[1;0m
+[CORE0] PC=0x0cae INSTR=0x0542 -> SUB   r4 = r1 - r2
+[CORE1] PC=0x0fb2 INSTR=0x2f44 -> MULT  {r4,r2} = r3 * r6
+[1;34m[IC  426] both cores executed | Latency so far: 33042[1;0m
+[CORE0] PC=0x0cb0 INSTR=0x4374 -> ADDI  r6 = r0 + -12
+[CORE1] PC=0x0fb4 INSTR=0x3746 -> MULT  {r4,r3} = r5 * r6
+[1;34m[IC  427] both cores executed | Latency so far: 33070[1;0m
+[CORE0] PC=0x0cb2 INSTR=0x44d8 -> ADDI  r1 = r1 + -40
+[CORE1] PC=0x0fb6 INSTR=0x44ca -> ADDI  r1 = r1 + -54
+[1;34m[IC  428] both cores executed | Latency so far: 33082[1;0m
+[CORE0] PC=0x0cb4 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0fb8 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x0fb8 addr=0x1158 data=0cf5, idx=1, tag=1000
+core1:store, pc=0x0cb4 addr=0x115a data=fff4, idx=1, tag=0000
+[1;34m[IC  429] both cores executed | Latency so far: 33100[1;0m
+[CORE0] PC=0x0cb6 INSTR=0x234c -> MULT  {r4,r6} = r0 * r6
+[CORE1] PC=0x0fba INSTR=0x7580 -> SUBI  r3 = r5 - 0
+[1;34m[IC  430] both cores executed | Latency so far: 33128[1;0m
+[CORE0] PC=0x0cb8 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0fbc INSTR=0x13e8 -> NAND  r6 = ~(r4 & r7)
+[1;34m[IC  431] both cores executed | Latency so far: 33140[1;0m
+[CORE0] PC=0x0cba INSTR=0x44f0 -> ADDI  r1 = r1 + -16
+[CORE1] PC=0x0fbe INSTR=0x0000 -> NOP
+[1;34m[IC  432] both cores executed | Latency so far: 33152[1;0m
+[CORE0] PC=0x0cbc INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x0fc0 INSTR=0x0000 -> NOP
+core1:store, pc=0x0cbc addr=0x10ba data=b588, idx=0, tag=0000
+[1;34m[IC  433] both cores executed | Latency so far: 33167[1;0m
+[CORE0] PC=0x0cbe INSTR=0xc00e -> BEQ   if (r0 == r0) branch 14 bytes to 0x0cdc
+[CORE1] PC=0x0fc2 INSTR=0x5d00 -> ADDI  r2 = r7 + 0
+[1;34m[IC  434] both cores executed | Latency so far: 33179[1;0m
+[CORE0] PC=0x0cdc INSTR=0x6180 -> SUBI  r3 = r0 - 0
+[CORE1] PC=0x0fc4 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  435] both cores executed | Latency so far: 33191[1;0m
+[CORE0] PC=0x0cde INSTR=0x0000 -> NOP
+[CORE1] PC=0x0fc6 INSTR=0x44c6 -> ADDI  r1 = r1 + -58
+[1;34m[IC  436] both cores executed | Latency so far: 33203[1;0m
+[CORE0] PC=0x0ce0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0fc8 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x0fc8 addr=0x1064 data=b423, idx=0, tag=0000
+[1;34m[IC  437] both cores executed | Latency so far: 33218[1;0m
+[CORE0] PC=0x0ce2 INSTR=0x7a00 -> SUBI  r4 = r6 - 0
+[CORE1] PC=0x0fca INSTR=0x44ce -> ADDI  r1 = r1 + -50
+[1;34m[IC  438] both cores executed | Latency so far: 33230[1;0m
+[CORE0] PC=0x0ce4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x0fcc INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x0fcc addr=0x1000 data=1fb6, idx=0, tag=0000
+[1;34m[IC  439] both cores executed | Latency so far: 33245[1;0m
+[CORE0] PC=0x0ce6 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0fce INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x0fce addr=0x1000 data=1fb6, idx=0, tag=1000
+[1;34m[IC  440] both cores executed | Latency so far: 33260[1;0m
+[CORE0] PC=0x0ce8 INSTR=0x44e3 -> ADDI  r1 = r1 + -29
+[CORE1] PC=0x0fd0 INSTR=0x0000 -> NOP
+[1;34m[IC  441] both cores executed | Latency so far: 33272[1;0m
+[CORE0] PC=0x0cea INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x0fd2 INSTR=0x0000 -> NOP
+core1:store, pc=0x0cea addr=0x1000 data=0000, idx=0, tag=0000
+[1;34m[IC  442] both cores executed | Latency so far: 33287[1;0m
+[CORE0] PC=0x0cec INSTR=0xc031 -> BEQ   if (r0 == r0) branch 49 bytes to 0x0d50
+[CORE1] PC=0x0fd4 INSTR=0x2756 -> MULT  {r5,r3} = r1 * r6
+[1;34m[IC  443] both cores executed | Latency so far: 33315[1;0m
+[CORE0] PC=0x0d50 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0fd6 INSTR=0x0138 -> NAND  r3 = ~(r0 & r2)
+[1;34m[IC  444] both cores executed | Latency so far: 33824[1;0m
+[CORE0] PC=0x0d52 INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[CORE1] PC=0x0fd8 INSTR=0x0000 -> NOP
+[1;34m[IC  445] both cores executed | Latency so far: 33836[1;0m
+[CORE0] PC=0x0d54 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x0fda INSTR=0x0000 -> NOP
+core1:store, pc=0x0d54 addr=0x10c0 data=0000, idx=0, tag=0000
+[1;34m[IC  446] both cores executed | Latency so far: 33851[1;0m
+[CORE0] PC=0x0d56 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x0fdc INSTR=0x6100 -> SUBI  r2 = r0 - 0
+[1;34m[IC  447] both cores executed | Latency so far: 33863[1;0m
+[CORE0] PC=0x0d58 INSTR=0x44e0 -> ADDI  r1 = r1 + -32
+[CORE1] PC=0x0fde INSTR=0x0000 -> NOP
+[1;34m[IC  448] both cores executed | Latency so far: 33875[1;0m
+[CORE0] PC=0x0d5a INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x0fe0 INSTR=0x0000 -> NOP
+core1:store, pc=0x0d5a addr=0x1000 data=b588, idx=0, tag=0000
+[1;34m[IC  449] both cores executed | Latency so far: 34671[1;0m
+[1;32m=== PASS DRAM CHECK at IC=449 ===[1;0m
+[CORE0] PC=0x0d5c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x0fe2 INSTR=0xc037 -> BEQ   if (r0 == r0) branch 55 bytes to 0x1052
+[1;34m[IC  450] both cores executed | Latency so far: 34683[1;0m
+[CORE0] PC=0x0d5e INSTR=0x449b -> ADDI  r1 = r1 + 27
+[CORE1] PC=0x1052 INSTR=0x0000 -> NOP
+[1;34m[IC  451] both cores executed | Latency so far: 35293[1;0m
+[CORE0] PC=0x0d60 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x1054 INSTR=0x0000 -> NOP
+core1:store, pc=0x0d60 addr=0x10b4 data=a3e0, idx=0, tag=0000
+[1;34m[IC  452] both cores executed | Latency so far: 35308[1;0m
+[CORE0] PC=0x0d62 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1056 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  453] both cores executed | Latency so far: 35320[1;0m
+[CORE0] PC=0x0d64 INSTR=0x449d -> ADDI  r1 = r1 + 29
+[CORE1] PC=0x1058 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  454] both cores executed | Latency so far: 35332[1;0m
+[CORE0] PC=0x0d66 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x105a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+core1:store, pc=0x0d66 addr=0x116c data=b588, idx=1, tag=0000
+[1;34m[IC  455] both cores executed | Latency so far: 35347[1;0m
+[CORE0] PC=0x0d68 INSTR=0x0000 -> NOP
+[CORE1] PC=0x105c INSTR=0x44ab -> ADDI  r1 = r1 + 43
+[1;34m[IC  456] both cores executed | Latency so far: 35359[1;0m
+[CORE0] PC=0x0d6a INSTR=0x0000 -> NOP
+[CORE1] PC=0x105e INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x105e addr=0x11d0 data=2fad, idx=1, tag=1000
+[1;34m[IC  457] both cores executed | Latency so far: 35374[1;0m
+[CORE0] PC=0x0d6c INSTR=0x17e8 -> NAND  r6 = ~(r5 & r7)
+[CORE1] PC=0x1060 INSTR=0x2e4a -> MULT  {r4,r5} = r3 * r4
+[1;34m[IC  458] both cores executed | Latency so far: 35402[1;0m
+[CORE0] PC=0x0d6e INSTR=0x3da8 -> MULT  {r2,r4} = r7 * r3
+[CORE1] PC=0x1062 INSTR=0x449c -> ADDI  r1 = r1 + 28
+[1;34m[IC  459] both cores executed | Latency so far: 35430[1;0m
+[CORE0] PC=0x0d70 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1064 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x1064 addr=0x1208 data=80a1, idx=0, tag=1001
+[1;34m[IC  460] both cores executed | Latency so far: 36341[1;0m
+[CORE0] PC=0x0d72 INSTR=0x44bd -> ADDI  r1 = r1 + 61
+[CORE1] PC=0x1066 INSTR=0x172a -> NOR   r2 = ~(r5 | r6)
+[1;34m[IC  461] both cores executed | Latency so far: 36353[1;0m
+[CORE0] PC=0x0d74 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x1068 INSTR=0x0000 -> NOP
+core1:store, pc=0x0d74 addr=0x11e6 data=0000, idx=1, tag=0000
+[1;34m[IC  462] both cores executed | Latency so far: 36368[1;0m
+[CORE0] PC=0x0d76 INSTR=0x5900 -> ADDI  r2 = r6 + 0
+[CORE1] PC=0x106a INSTR=0x44b2 -> ADDI  r1 = r1 + 50
+[1;34m[IC  463] both cores executed | Latency so far: 36380[1;0m
+[CORE0] PC=0x0d78 INSTR=0x0000 -> NOP
+[CORE1] PC=0x106c INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x106c addr=0x126c data=9da2, idx=0, tag=1001
+[1;34m[IC  464] both cores executed | Latency so far: 36395[1;0m
+[CORE0] PC=0x0d7a INSTR=0x4496 -> ADDI  r1 = r1 + 22
+[CORE1] PC=0x106e INSTR=0x44c6 -> ADDI  r1 = r1 + -58
+[1;34m[IC  465] both cores executed | Latency so far: 36407[1;0m
+[CORE0] PC=0x0d7c INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x1070 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core1:load, pc=0x0d7c addr=0x1212 data=46a1, idx=0, tag=1001
+core2:store, pc=0x1070 addr=0x11f8 data=0eb7, idx=1, tag=0000
+[1;34m[IC  466] both cores executed | Latency so far: 36425[1;0m
+[CORE0] PC=0x0d7e INSTR=0xedc2 -> JUMP  -> 0x0dc2
+[CORE1] PC=0x1072 INSTR=0x44e2 -> ADDI  r1 = r1 + -30
+[1;34m[IC  467] both cores executed | Latency so far: 36436[1;0m
+[CORE0] PC=0x0dc2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1074 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1074 addr=0x11bc data=49c4, idx=1, tag=1000
+[1;34m[IC  468] both cores executed | Latency so far: 36451[1;0m
+[CORE0] PC=0x0dc4 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1076 INSTR=0x7abc -> SUBI  r5 = r6 - 60
+[1;34m[IC  469] both cores executed | Latency so far: 36463[1;0m
+[CORE0] PC=0x0dc6 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1078 INSTR=0x0000 -> NOP
+[1;34m[IC  470] both cores executed | Latency so far: 36475[1;0m
+[CORE0] PC=0x0dc8 INSTR=0x44fc -> ADDI  r1 = r1 + -4
+[CORE1] PC=0x107a INSTR=0x0000 -> NOP
+[1;34m[IC  471] both cores executed | Latency so far: 36487[1;0m
+[CORE0] PC=0x0dca INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x107c INSTR=0x0000 -> NOP
+core1:load, pc=0x0dca addr=0x110a data=8dc4, idx=1, tag=1000
+[1;34m[IC  472] both cores executed | Latency so far: 36502[1;0m
+[CORE0] PC=0x0dcc INSTR=0x034e -> SLT   r4 = (r0 < r6)
+[CORE1] PC=0x107e INSTR=0x5300 -> ADDI  r6 = r4 + 0
+[1;34m[IC  473] both cores executed | Latency so far: 36514[1;0m
+[CORE0] PC=0x0dce INSTR=0x5509 -> ADDI  r2 = r5 + 9
+[CORE1] PC=0x1080 INSTR=0x4180 -> ADDI  r3 = r0 + 0
+[1;34m[IC  474] both cores executed | Latency so far: 36526[1;0m
+[CORE0] PC=0x0dd0 INSTR=0x44f1 -> ADDI  r1 = r1 + -15
+[CORE1] PC=0x1082 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  475] both cores executed | Latency so far: 36538[1;0m
+[CORE0] PC=0x0dd2 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1084 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+core1:store, pc=0x0dd2 addr=0x10ec data=0001, idx=0, tag=0000
+[1;34m[IC  476] both cores executed | Latency so far: 37064[1;0m
+[CORE0] PC=0x0dd4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1086 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  477] both cores executed | Latency so far: 37076[1;0m
+[CORE0] PC=0x0dd6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1088 INSTR=0x44f7 -> ADDI  r1 = r1 + -9
+[1;34m[IC  478] both cores executed | Latency so far: 37088[1;0m
+[CORE0] PC=0x0dd8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x108a INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x108a addr=0x102a data=61a3, idx=0, tag=1000
+[1;34m[IC  479] both cores executed | Latency so far: 37103[1;0m
+[CORE0] PC=0x0dda INSTR=0x1bfe -> SLT   r7 = (r6 < r7)
+[CORE1] PC=0x108c INSTR=0x4189 -> ADDI  r3 = r0 + 9
+[1;34m[IC  480] both cores executed | Latency so far: 37115[1;0m
+[CORE0] PC=0x0ddc INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x108e INSTR=0x0932 -> SUB   r3 = r2 - r2
+[1;34m[IC  481] both cores executed | Latency so far: 37127[1;0m
+[CORE0] PC=0x0dde INSTR=0x44ca -> ADDI  r1 = r1 + -54
+[CORE1] PC=0x1090 INSTR=0x0000 -> NOP
+[1;34m[IC  482] both cores executed | Latency so far: 37139[1;0m
+[CORE0] PC=0x0de0 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x1092 INSTR=0x0000 -> NOP
+core1:store, pc=0x0de0 addr=0x1000 data=b588, idx=0, tag=0000
+[1;34m[IC  483] both cores executed | Latency so far: 37154[1;0m
+[CORE0] PC=0x0de2 INSTR=0x448f -> ADDI  r1 = r1 + 15
+[CORE1] PC=0x1094 INSTR=0x07c4 -> AND   r4 = r1 & r7
+[1;34m[IC  484] both cores executed | Latency so far: 37166[1;0m
+[CORE0] PC=0x0de4 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1096 INSTR=0x0000 -> NOP
+core1:store, pc=0x0de4 addr=0x101e data=0001, idx=0, tag=0000
+[1;34m[IC  485] both cores executed | Latency so far: 37181[1;0m
+[CORE0] PC=0x0de6 INSTR=0x44f6 -> ADDI  r1 = r1 + -10
+[CORE1] PC=0x1098 INSTR=0x1960 -> ADD   r6 = r6 + r2
+[1;34m[IC  486] both cores executed | Latency so far: 37193[1;0m
+[CORE0] PC=0x0de8 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x109a INSTR=0x0000 -> NOP
+core1:load, pc=0x0de8 addr=0x100a data=9540, idx=0, tag=1000
+[1;34m[IC  487] both cores executed | Latency so far: 37208[1;0m
+[CORE0] PC=0x0dea INSTR=0xc010 -> BEQ   if (r0 == r0) branch 16 bytes to 0x0e0c
+[CORE1] PC=0x109c INSTR=0xf162 -> JUMP  -> 0x1162
+[1;34m[IC  488] both cores executed | Latency so far: 37219[1;0m
+[CORE0] PC=0x0e0c INSTR=0x0f68 -> NAND  r6 = ~(r3 & r6)
+[CORE1] PC=0x1162 INSTR=0x53f3 -> ADDI  r7 = r4 + -13
+[1;34m[IC  489] both cores executed | Latency so far: 38165[1;0m
+[CORE0] PC=0x0e0e INSTR=0xc028 -> BEQ   if (r0 == r0) branch 40 bytes to 0x0e60
+[CORE1] PC=0x1164 INSTR=0x44bb -> ADDI  r1 = r1 + 59
+[1;34m[IC  490] both cores executed | Latency so far: 38177[1;0m
+[CORE0] PC=0x0e60 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1166 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x1166 addr=0x10a0 data=4988, idx=0, tag=0000
+[1;34m[IC  491] both cores executed | Latency so far: 38192[1;0m
+[CORE0] PC=0x0e62 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1168 INSTR=0x4500 -> ADDI  r2 = r1 + 0
+[1;34m[IC  492] both cores executed | Latency so far: 38204[1;0m
+[CORE0] PC=0x0e64 INSTR=0x4493 -> ADDI  r1 = r1 + 19
+[CORE1] PC=0x116a INSTR=0x0000 -> NOP
+[1;34m[IC  493] both cores executed | Latency so far: 38216[1;0m
+[CORE0] PC=0x0e66 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x116c INSTR=0x0000 -> NOP
+core1:store, pc=0x0e66 addr=0x10ae data=9540, idx=0, tag=0000
+[1;34m[IC  494] both cores executed | Latency so far: 38231[1;0m
+[CORE0] PC=0x0e68 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x116e INSTR=0x0b24 -> AND   r2 = r2 & r6
+[1;34m[IC  495] both cores executed | Latency so far: 38243[1;0m
+[CORE0] PC=0x0e6a INSTR=0x4496 -> ADDI  r1 = r1 + 22
+[CORE1] PC=0x1170 INSTR=0x0000 -> NOP
+[1;34m[IC  496] both cores executed | Latency so far: 38255[1;0m
+[CORE0] PC=0x0e6c INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1172 INSTR=0x0000 -> NOP
+core1:load, pc=0x0e6c addr=0x1158 data=0cf5, idx=1, tag=1000
+[1;34m[IC  497] both cores executed | Latency so far: 38270[1;0m
+[CORE0] PC=0x0e6e INSTR=0xee8c -> JUMP  -> 0x0e8c
+[CORE1] PC=0x1174 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  498] both cores executed | Latency so far: 38281[1;0m
+[CORE0] PC=0x0e8c INSTR=0x0000 -> NOP
+[CORE1] PC=0x1176 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  499] both cores executed | Latency so far: 38836[1;0m
+[1;32m=== PASS DRAM CHECK at IC=499 ===[1;0m
+[CORE0] PC=0x0e8e INSTR=0x0000 -> NOP
+[CORE1] PC=0x1178 INSTR=0x44b9 -> ADDI  r1 = r1 + 57
+[1;34m[IC  500] both cores executed | Latency so far: 38848[1;0m
+[CORE0] PC=0x0e90 INSTR=0x0000 -> NOP
+[CORE1] PC=0x117a INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x117a addr=0x120e data=3e29, idx=0, tag=1001
+[1;34m[IC  501] both cores executed | Latency so far: 39461[1;0m
+[CORE0] PC=0x0e92 INSTR=0x2b7a -> MULT  {r7,r5} = r2 * r6
+[CORE1] PC=0x117c INSTR=0x33dc -> MULT  {r5,r6} = r4 * r7
+[1;34m[IC  502] both cores executed | Latency so far: 39505[1;0m
+[CORE0] PC=0x0e94 INSTR=0x4d41 -> ADDI  r2 = r3 + -63
+[CORE1] PC=0x117e INSTR=0x173e -> SLT   r3 = (r5 < r6)
+[1;34m[IC  503] both cores executed | Latency so far: 39517[1;0m
+[CORE0] PC=0x0e96 INSTR=0xc01d -> BEQ   if (r0 == r0) branch 29 bytes to 0x0ed2
+[CORE1] PC=0x1180 INSTR=0x6724 -> SUBI  r6 = r1 - 36
+[1;34m[IC  504] both cores executed | Latency so far: 39529[1;0m
+[CORE0] PC=0x0ed2 INSTR=0x4492 -> ADDI  r1 = r1 + 18
+[CORE1] PC=0x1182 INSTR=0xc028 -> BEQ   if (r0 == r0) branch 40 bytes to 0x11d4
+[1;34m[IC  505] both cores executed | Latency so far: 39541[1;0m
+[CORE0] PC=0x0ed4 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x11d4 INSTR=0x0000 -> NOP
+core1:store, pc=0x0ed4 addr=0x117c data=4662, idx=1, tag=0000
+[1;34m[IC  506] both cores executed | Latency so far: 39556[1;0m
+[CORE0] PC=0x0ed6 INSTR=0x4b00 -> ADDI  r6 = r2 + 0
+[CORE1] PC=0x11d6 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  507] both cores executed | Latency so far: 39568[1;0m
+[CORE0] PC=0x0ed8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x11d8 INSTR=0x44ce -> ADDI  r1 = r1 + -50
+[1;34m[IC  508] both cores executed | Latency so far: 39580[1;0m
+[CORE0] PC=0x0eda INSTR=0x0000 -> NOP
+[CORE1] PC=0x11da INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x11da addr=0x112a data=00e3, idx=1, tag=0000
+[1;34m[IC  509] both cores executed | Latency so far: 39595[1;0m
+[CORE0] PC=0x0edc INSTR=0x44cf -> ADDI  r1 = r1 + -49
+[CORE1] PC=0x11dc INSTR=0x44b0 -> ADDI  r1 = r1 + 48
+[1;34m[IC  510] both cores executed | Latency so far: 39607[1;0m
+[CORE0] PC=0x0ede INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x11de INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x11de addr=0x118a data=bb72, idx=1, tag=1000
+core1:store, pc=0x0ede addr=0x111a data=1489, idx=1, tag=0000
+[1;34m[IC  511] both cores executed | Latency so far: 39625[1;0m
+[CORE0] PC=0x0ee0 INSTR=0x25fa -> MULT  {r7,r5} = r1 * r3
+[CORE1] PC=0x11e0 INSTR=0x3944 -> MULT  {r4,r2} = r6 * r2
+[1;34m[IC  512] both cores executed | Latency so far: 39669[1;0m
+[CORE0] PC=0x0ee2 INSTR=0x44ef -> ADDI  r1 = r1 + -17
+[CORE1] PC=0x11e2 INSTR=0x4497 -> ADDI  r1 = r1 + 23
+[1;34m[IC  513] both cores executed | Latency so far: 39681[1;0m
+[CORE0] PC=0x0ee4 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x11e4 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core1:load, pc=0x0ee4 addr=0x10f8 data=becd, idx=0, tag=1000
+core2:load, pc=0x11e4 addr=0x11b8 data=e892, idx=1, tag=1000
+[1;34m[IC  514] both cores executed | Latency so far: 40084[1;0m
+[CORE0] PC=0x0ee6 INSTR=0x6ad5 -> SUBI  r5 = r2 - -43
+[CORE1] PC=0x11e6 INSTR=0xc032 -> BEQ   if (r0 == r0) branch 50 bytes to 0x124c
+[1;34m[IC  515] both cores executed | Latency so far: 40096[1;0m
+[CORE0] PC=0x0ee8 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x124c INSTR=0x6915 -> SUBI  r2 = r2 - 21
+[1;34m[IC  516] both cores executed | Latency so far: 40590[1;0m
+[CORE0] PC=0x0eea INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x124e INSTR=0x0000 -> NOP
+[1;34m[IC  517] both cores executed | Latency so far: 40602[1;0m
+[CORE0] PC=0x0eec INSTR=0x4497 -> ADDI  r1 = r1 + 23
+[CORE1] PC=0x1250 INSTR=0x0000 -> NOP
+[1;34m[IC  518] both cores executed | Latency so far: 40614[1;0m
+[CORE0] PC=0x0eee INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x1252 INSTR=0x0000 -> NOP
+core1:load, pc=0x0eee addr=0x1222 data=c637, idx=0, tag=1001
+[1;34m[IC  519] both cores executed | Latency so far: 41111[1;0m
+[CORE0] PC=0x0ef0 INSTR=0x4121 -> ADDI  r2 = r0 + 33
+[CORE1] PC=0x1254 INSTR=0x6bbf -> SUBI  r7 = r2 - 63
+[1;34m[IC  520] both cores executed | Latency so far: 41123[1;0m
+[CORE0] PC=0x0ef2 INSTR=0x1348 -> NAND  r4 = ~(r4 & r6)
+[CORE1] PC=0x1256 INSTR=0x7200 -> SUBI  r4 = r4 - 0
+[1;34m[IC  521] both cores executed | Latency so far: 41135[1;0m
+[CORE0] PC=0x0ef4 INSTR=0xef1c -> JUMP  -> 0x0f1c
+[CORE1] PC=0x1258 INSTR=0xc01b -> BEQ   if (r0 == r0) branch 27 bytes to 0x1290
+[1;34m[IC  522] both cores executed | Latency so far: 41146[1;0m
+[CORE0] PC=0x0f1c INSTR=0x1ae4 -> AND   r6 = r6 & r5
+[CORE1] PC=0x1290 INSTR=0x0f7a -> NOR   r7 = ~(r3 | r6)
+[1;34m[IC  523] both cores executed | Latency so far: 41669[1;0m
+[CORE0] PC=0x0f1e INSTR=0x44dc -> ADDI  r1 = r1 + -36
+[CORE1] PC=0x1292 INSTR=0x5900 -> ADDI  r2 = r6 + 0
+[1;34m[IC  524] both cores executed | Latency so far: 41681[1;0m
+[CORE0] PC=0x0f20 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1294 INSTR=0x0000 -> NOP
+core1:store, pc=0x0f20 addr=0x11da data=fbbf, idx=1, tag=0000
+[1;34m[IC  525] both cores executed | Latency so far: 41696[1;0m
+[CORE0] PC=0x0f22 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1296 INSTR=0xc022 -> BEQ   if (r0 == r0) branch 34 bytes to 0x12dc
+[1;34m[IC  526] both cores executed | Latency so far: 41708[1;0m
+[CORE0] PC=0x0f24 INSTR=0x44e1 -> ADDI  r1 = r1 + -31
+[CORE1] PC=0x12dc INSTR=0x0000 -> NOP
+[1;34m[IC  527] both cores executed | Latency so far: 41720[1;0m
+[CORE0] PC=0x0f26 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x12de INSTR=0x0000 -> NOP
+core1:store, pc=0x0f26 addr=0x111c data=4600, idx=1, tag=0000
+[1;34m[IC  528] both cores executed | Latency so far: 41735[1;0m
+[CORE0] PC=0x0f28 INSTR=0x44d2 -> ADDI  r1 = r1 + -46
+[CORE1] PC=0x12e0 INSTR=0x19fa -> NOR   r7 = ~(r6 | r3)
+[1;34m[IC  529] both cores executed | Latency so far: 41747[1;0m
+[CORE0] PC=0x0f2a INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x12e2 INSTR=0x0000 -> NOP
+core1:store, pc=0x0f2a addr=0x10c0 data=fbbf, idx=0, tag=0000
+[1;34m[IC  530] both cores executed | Latency so far: 42077[1;0m
+[CORE0] PC=0x0f2c INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x12e4 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  531] both cores executed | Latency so far: 42089[1;0m
+[CORE0] PC=0x0f2e INSTR=0x44ec -> ADDI  r1 = r1 + -20
+[CORE1] PC=0x12e6 INSTR=0x44c8 -> ADDI  r1 = r1 + -56
+[1;34m[IC  532] both cores executed | Latency so far: 42101[1;0m
+[CORE0] PC=0x0f30 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x12e8 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core1:load, pc=0x0f30 addr=0x1018 data=ae90, idx=0, tag=1000
+core2:store, pc=0x12e8 addr=0x10c8 data=00e3, idx=0, tag=0000
+[1;34m[IC  533] both cores executed | Latency so far: 42119[1;0m
+[CORE0] PC=0x0f32 INSTR=0x26fc -> MULT  {r7,r6} = r1 * r5
+[CORE1] PC=0x12ea INSTR=0x4487 -> ADDI  r1 = r1 + 7
+[1;34m[IC  534] both cores executed | Latency so far: 42147[1;0m
+[CORE0] PC=0x0f34 INSTR=0x0000 -> NOP
+[CORE1] PC=0x12ec INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x12ec addr=0x10d6 data=e800, idx=0, tag=1000
+[1;34m[IC  535] both cores executed | Latency so far: 42162[1;0m
+[CORE0] PC=0x0f36 INSTR=0xc00c -> BEQ   if (r0 == r0) branch 12 bytes to 0x0f50
+[CORE1] PC=0x12ee INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  536] both cores executed | Latency so far: 42174[1;0m
+[CORE0] PC=0x0f50 INSTR=0x0000 -> NOP
+[CORE1] PC=0x12f0 INSTR=0x44a2 -> ADDI  r1 = r1 + 34
+[1;34m[IC  537] both cores executed | Latency so far: 42186[1;0m
+[CORE0] PC=0x0f52 INSTR=0x0000 -> NOP
+[CORE1] PC=0x12f2 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x12f2 addr=0x1198 data=00e3, idx=1, tag=0000
+[1;34m[IC  538] both cores executed | Latency so far: 42201[1;0m
+[CORE0] PC=0x0f54 INSTR=0x355e -> MULT  {r5,r7} = r5 * r2
+[CORE1] PC=0x12f4 INSTR=0x3668 -> MULT  {r6,r4} = r5 * r4
+[1;34m[IC  539] both cores executed | Latency so far: 42245[1;0m
+[CORE0] PC=0x0f56 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x12f6 INSTR=0x7180 -> SUBI  r3 = r4 - 0
+[1;34m[IC  540] both cores executed | Latency so far: 42257[1;0m
+[CORE0] PC=0x0f58 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x12f8 INSTR=0x0000 -> NOP
+[1;34m[IC  541] both cores executed | Latency so far: 42269[1;0m
+[CORE0] PC=0x0f5a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x12fa INSTR=0x0000 -> NOP
+[1;34m[IC  542] both cores executed | Latency so far: 42281[1;0m
+[CORE0] PC=0x0f5c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x12fc INSTR=0x0000 -> NOP
+[1;34m[IC  543] both cores executed | Latency so far: 42293[1;0m
+[CORE0] PC=0x0f5e INSTR=0x4491 -> ADDI  r1 = r1 + 17
+[CORE1] PC=0x12fe INSTR=0x0000 -> NOP
+[1;34m[IC  544] both cores executed | Latency so far: 42305[1;0m
+[CORE0] PC=0x0f60 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1300 INSTR=0x0000 -> NOP
+core1:store, pc=0x0f60 addr=0x1232 data=fbbf, idx=0, tag=0001
+[1;34m[IC  545] both cores executed | Latency so far: 42990[1;0m
+[CORE0] PC=0x0f62 INSTR=0x2b6a -> MULT  {r6,r5} = r2 * r6
+[CORE1] PC=0x1302 INSTR=0x44ab -> ADDI  r1 = r1 + 43
+[1;34m[IC  546] both cores executed | Latency so far: 43018[1;0m
+[CORE0] PC=0x0f64 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1304 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x1304 addr=0x11ee data=e800, idx=1, tag=0000
+[1;34m[IC  547] both cores executed | Latency so far: 43033[1;0m
+[CORE0] PC=0x0f66 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1306 INSTR=0x5280 -> ADDI  r5 = r4 + 0
+[1;34m[IC  548] both cores executed | Latency so far: 43045[1;0m
+[CORE0] PC=0x0f68 INSTR=0x44d4 -> ADDI  r1 = r1 + -44
+[CORE1] PC=0x1308 INSTR=0x0000 -> NOP
+[1;34m[IC  549] both cores executed | Latency so far: 43642[1;0m
+[1;32m=== PASS DRAM CHECK at IC=549 ===[1;0m
+[CORE0] PC=0x0f6a INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x130a INSTR=0x0000 -> NOP
+core1:store, pc=0x0f6a addr=0x115a data=fbbf, idx=1, tag=0000
+[1;34m[IC  550] both cores executed | Latency so far: 43657[1;0m
+[CORE0] PC=0x0f6c INSTR=0x2758 -> MULT  {r5,r4} = r1 * r6
+[CORE1] PC=0x130c INSTR=0x44df -> ADDI  r1 = r1 + -33
+[1;34m[IC  551] both cores executed | Latency so far: 43685[1;0m
+[CORE0] PC=0x0f6e INSTR=0x0000 -> NOP
+[CORE1] PC=0x130e INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x130e addr=0x11ac data=fcbd, idx=1, tag=1000
+[1;34m[IC  552] both cores executed | Latency so far: 43700[1;0m
+[CORE0] PC=0x0f70 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1310 INSTR=0x6900 -> SUBI  r2 = r2 - 0
+[1;34m[IC  553] both cores executed | Latency so far: 43712[1;0m
+[CORE0] PC=0x0f72 INSTR=0x449a -> ADDI  r1 = r1 + 26
+[CORE1] PC=0x1312 INSTR=0x0000 -> NOP
+[1;34m[IC  554] both cores executed | Latency so far: 43724[1;0m
+[CORE0] PC=0x0f74 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1314 INSTR=0x0000 -> NOP
+core1:load, pc=0x0f74 addr=0x120c data=17e9, idx=0, tag=1001
+[1;34m[IC  555] both cores executed | Latency so far: 43739[1;0m
+[CORE0] PC=0x0f76 INSTR=0x5f00 -> ADDI  r6 = r7 + 0
+[CORE1] PC=0x1316 INSTR=0x0348 -> NAND  r4 = ~(r0 & r6)
+[1;34m[IC  556] both cores executed | Latency so far: 43751[1;0m
+[CORE0] PC=0x0f78 INSTR=0x7f00 -> SUBI  r6 = r7 - 0
+[CORE1] PC=0x1318 INSTR=0x6e00 -> SUBI  r4 = r3 - 0
+[1;34m[IC  557] both cores executed | Latency so far: 43763[1;0m
+[CORE0] PC=0x0f7a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x131a INSTR=0x12d2 -> SUB   r5 = r4 - r5
+[1;34m[IC  558] both cores executed | Latency so far: 43775[1;0m
+[CORE0] PC=0x0f7c INSTR=0x4483 -> ADDI  r1 = r1 + 3
+[CORE1] PC=0x131c INSTR=0x0000 -> NOP
+[1;34m[IC  559] both cores executed | Latency so far: 43787[1;0m
+[CORE0] PC=0x0f7e INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x131e INSTR=0x0000 -> NOP
+core1:store, pc=0x0f7e addr=0x1290 data=0000, idx=0, tag=0001
+[1;34m[IC  560] both cores executed | Latency so far: 43802[1;0m
+[CORE0] PC=0x0f80 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1320 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  561] both cores executed | Latency so far: 43814[1;0m
+[CORE0] PC=0x0f82 INSTR=0x449e -> ADDI  r1 = r1 + 30
+[CORE1] PC=0x1322 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  562] both cores executed | Latency so far: 43826[1;0m
+[CORE0] PC=0x0f84 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x1324 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+core1:store, pc=0x0f84 addr=0x134a data=17e9, idx=1, tag=0001
+[1;34m[IC  563] both cores executed | Latency so far: 44338[1;0m
+[CORE0] PC=0x0f86 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1326 INSTR=0x44b1 -> ADDI  r1 = r1 + 49
+[1;34m[IC  564] both cores executed | Latency so far: 44350[1;0m
+[CORE0] PC=0x0f88 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1328 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x1328 addr=0x1388 data=641d, idx=1, tag=1001
+[1;34m[IC  565] both cores executed | Latency so far: 44365[1;0m
+[CORE0] PC=0x0f8a INSTR=0x77b3 -> SUBI  r7 = r5 - 51
+[CORE1] PC=0x132a INSTR=0x4b00 -> ADDI  r6 = r2 + 0
+[1;34m[IC  566] both cores executed | Latency so far: 44377[1;0m
+[CORE0] PC=0x0f8c INSTR=0x44a4 -> ADDI  r1 = r1 + 36
+[CORE1] PC=0x132c INSTR=0x448c -> ADDI  r1 = r1 + 12
+[1;34m[IC  567] both cores executed | Latency so far: 44389[1;0m
+[CORE0] PC=0x0f8e INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x132e INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x132e addr=0x13a0 data=a768, idx=1, tag=1001
+core1:store, pc=0x0f8e addr=0x1392 data=06c2, idx=1, tag=0001
+[1;34m[IC  568] both cores executed | Latency so far: 44407[1;0m
+[CORE0] PC=0x0f90 INSTR=0x44ba -> ADDI  r1 = r1 + 58
+[CORE1] PC=0x1330 INSTR=0x738c -> SUBI  r7 = r4 - 12
+[1;34m[IC  569] both cores executed | Latency so far: 44419[1;0m
+[CORE0] PC=0x0f92 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x1332 INSTR=0x0000 -> NOP
+core1:store, pc=0x0f92 addr=0x1406 data=ffcd, idx=0, tag=0010
+[1;34m[IC  570] both cores executed | Latency so far: 45054[1;0m
+[CORE0] PC=0x0f94 INSTR=0x315c -> MULT  {r5,r6} = r4 * r2
+[CORE1] PC=0x1334 INSTR=0x44f3 -> ADDI  r1 = r1 + -13
+[1;34m[IC  571] both cores executed | Latency so far: 45082[1;0m
+[CORE0] PC=0x0f96 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1336 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x1336 addr=0x1386 data=6411, idx=1, tag=0001
+[1;34m[IC  572] both cores executed | Latency so far: 45097[1;0m
+[CORE0] PC=0x0f98 INSTR=0x7380 -> SUBI  r7 = r4 - 0
+[CORE1] PC=0x1338 INSTR=0x615b -> SUBI  r2 = r0 - -37
+[1;34m[IC  573] both cores executed | Latency so far: 45109[1;0m
+[CORE0] PC=0x0f9a INSTR=0x44c2 -> ADDI  r1 = r1 + -62
+[CORE1] PC=0x133a INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  574] both cores executed | Latency so far: 45121[1;0m
+[CORE0] PC=0x0f9c INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x133c INSTR=0x4484 -> ADDI  r1 = r1 + 4
+core1:load, pc=0x0f9c addr=0x138a data=1045, idx=1, tag=1001
+[1;34m[IC  575] both cores executed | Latency so far: 45136[1;0m
+[CORE0] PC=0x0f9e INSTR=0x0000 -> NOP
+[CORE1] PC=0x133e INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x133e addr=0x140c data=6411, idx=0, tag=0010
+[1;34m[IC  576] both cores executed | Latency so far: 45151[1;0m
+[CORE0] PC=0x0fa0 INSTR=0x39bc -> MULT  {r3,r6} = r6 * r3
+[CORE1] PC=0x1340 INSTR=0x44fd -> ADDI  r1 = r1 + -3
+[1;34m[IC  577] both cores executed | Latency so far: 45179[1;0m
+[CORE0] PC=0x0fa2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1342 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1342 addr=0x1406 data=ffcd, idx=0, tag=1010
+[1;34m[IC  578] both cores executed | Latency so far: 45194[1;0m
+[CORE0] PC=0x0fa4 INSTR=0xc030 -> BEQ   if (r0 == r0) branch 48 bytes to 0x1006
+[CORE1] PC=0x1344 INSTR=0x4593 -> ADDI  r3 = r1 + 19
+[1;34m[IC  579] both cores executed | Latency so far: 45206[1;0m
+[CORE0] PC=0x1006 INSTR=0x6e73 -> SUBI  r4 = r3 - -13
+[CORE1] PC=0x1346 INSTR=0x1168 -> NAND  r6 = ~(r4 & r2)
+[1;34m[IC  580] both cores executed | Latency so far: 45816[1;0m
+[CORE0] PC=0x1008 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1348 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  581] both cores executed | Latency so far: 45828[1;0m
+[CORE0] PC=0x100a INSTR=0x449f -> ADDI  r1 = r1 + 31
+[CORE1] PC=0x134a INSTR=0x44a9 -> ADDI  r1 = r1 + 41
+[1;34m[IC  582] both cores executed | Latency so far: 45840[1;0m
+[CORE0] PC=0x100c INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x134c INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x134c addr=0x14d6 data=637d, idx=0, tag=1010
+core1:store, pc=0x100c addr=0x1446 data=f6e5, idx=0, tag=0010
+[1;34m[IC  583] both cores executed | Latency so far: 45858[1;0m
+[CORE0] PC=0x100e INSTR=0xf106 -> JUMP  -> 0x1106
+[CORE1] PC=0x134e INSTR=0x3a64 -> MULT  {r6,r2} = r6 * r4
+[1;34m[IC  584] both cores executed | Latency so far: 45885[1;0m
+[CORE0] PC=0x1106 INSTR=0x11d4 -> AND   r5 = r4 & r3
+[CORE1] PC=0x1350 INSTR=0x32ca -> MULT  {r4,r5} = r4 * r5
+[1;34m[IC  585] both cores executed | Latency so far: 46298[1;0m
+[CORE0] PC=0x1108 INSTR=0x611a -> SUBI  r2 = r0 - 26
+[CORE1] PC=0x1352 INSTR=0x44c3 -> ADDI  r1 = r1 + -61
+[1;34m[IC  586] both cores executed | Latency so far: 46310[1;0m
+[CORE0] PC=0x110a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1354 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x1354 addr=0x145c data=1929, idx=0, tag=0010
+[1;34m[IC  587] both cores executed | Latency so far: 46325[1;0m
+[CORE0] PC=0x110c INSTR=0xc03f -> BEQ   if (r0 == r0) branch 63 bytes to 0x118c
+[CORE1] PC=0x1356 INSTR=0x25ca -> MULT  {r4,r5} = r1 * r3
+[1;34m[IC  588] both cores executed | Latency so far: 46353[1;0m
+[CORE0] PC=0x118c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1358 INSTR=0x0bb2 -> SUB   r3 = r2 - r7
+[1;34m[IC  589] both cores executed | Latency so far: 46365[1;0m
+[CORE0] PC=0x118e INSTR=0x44a5 -> ADDI  r1 = r1 + 37
+[CORE1] PC=0x135a INSTR=0x0000 -> NOP
+[1;34m[IC  590] both cores executed | Latency so far: 46377[1;0m
+[CORE0] PC=0x1190 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x135c INSTR=0x0000 -> NOP
+core1:store, pc=0x1190 addr=0x150e data=ffe6, idx=1, tag=0010
+[1;34m[IC  591] both cores executed | Latency so far: 47376[1;0m
+[CORE0] PC=0x1192 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x135e INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  592] both cores executed | Latency so far: 47388[1;0m
+[CORE0] PC=0x1194 INSTR=0x4484 -> ADDI  r1 = r1 + 4
+[CORE1] PC=0x1360 INSTR=0x4497 -> ADDI  r1 = r1 + 23
+[1;34m[IC  593] both cores executed | Latency so far: 47400[1;0m
+[CORE0] PC=0x1196 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x1362 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1362 addr=0x1508 data=7e58, idx=1, tag=1010
+core1:store, pc=0x1196 addr=0x1594 data=ffe6, idx=1, tag=0010
+[1;34m[IC  594] both cores executed | Latency so far: 47418[1;0m
+[CORE0] PC=0x1198 INSTR=0x3b7a -> MULT  {r7,r5} = r6 * r6
+[CORE1] PC=0x1364 INSTR=0x4e00 -> ADDI  r4 = r3 + 0
+[1;34m[IC  595] both cores executed | Latency so far: 47446[1;0m
+[CORE0] PC=0x119a INSTR=0x44e5 -> ADDI  r1 = r1 + -27
+[CORE1] PC=0x1366 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  596] both cores executed | Latency so far: 47458[1;0m
+[CORE0] PC=0x119c INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x1368 INSTR=0x44b8 -> ADDI  r1 = r1 + 56
+core1:store, pc=0x119c addr=0x155e data=f6e5, idx=1, tag=0010
+[1;34m[IC  597] both cores executed | Latency so far: 47473[1;0m
+[CORE0] PC=0x119e INSTR=0x0000 -> NOP
+[CORE1] PC=0x136a INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x136a addr=0x15f6 data=f121, idx=1, tag=1010
+[1;34m[IC  598] both cores executed | Latency so far: 47488[1;0m
+[CORE0] PC=0x11a0 INSTR=0x32f8 -> MULT  {r7,r4} = r4 * r5
+[CORE1] PC=0x136c INSTR=0x44f1 -> ADDI  r1 = r1 + -15
+[1;34m[IC  599] both cores executed | Latency so far: 48166[1;0m
+[1;32m=== PASS DRAM CHECK at IC=599 ===[1;0m
+[CORE0] PC=0x11a2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x136e INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x136e addr=0x15d8 data=72a2, idx=1, tag=1010
+[1;34m[IC  600] both cores executed | Latency so far: 48181[1;0m
+[CORE0] PC=0x11a4 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1370 INSTR=0xf3d4 -> JUMP  -> 0x13d4
+[1;34m[IC  601] both cores executed | Latency so far: 48192[1;0m
+[CORE0] PC=0x11a6 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x13d4 INSTR=0x0000 -> NOP
+[1;34m[IC  602] both cores executed | Latency so far: 48204[1;0m
+[CORE0] PC=0x11a8 INSTR=0x4486 -> ADDI  r1 = r1 + 6
+[CORE1] PC=0x13d6 INSTR=0x0000 -> NOP
+[1;34m[IC  603] both cores executed | Latency so far: 48216[1;0m
+[CORE0] PC=0x11aa INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x13d8 INSTR=0x0000 -> NOP
+core1:load, pc=0x11aa addr=0x1666 data=5059, idx=0, tag=1011
+[1;34m[IC  604] both cores executed | Latency so far: 48595[1;0m
+[CORE0] PC=0x11ac INSTR=0x44fd -> ADDI  r1 = r1 + -3
+[CORE1] PC=0x13da INSTR=0x2bd4 -> MULT  {r5,r2} = r2 * r7
+[1;34m[IC  605] both cores executed | Latency so far: 48623[1;0m
+[CORE0] PC=0x11ae INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x13dc INSTR=0x0000 -> NOP
+core1:load, pc=0x11ae addr=0x1660 data=ec56, idx=0, tag=1011
+[1;34m[IC  606] both cores executed | Latency so far: 48638[1;0m
+[CORE0] PC=0x11b0 INSTR=0x1bb6 -> OR    r3 = r6 | r7
+[CORE1] PC=0x13de INSTR=0xc03c -> BEQ   if (r0 == r0) branch 60 bytes to 0x1458
+[1;34m[IC  607] both cores executed | Latency so far: 48650[1;0m
+[CORE0] PC=0x11b2 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1458 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  608] both cores executed | Latency so far: 48898[1;0m
+[CORE0] PC=0x11b4 INSTR=0x448a -> ADDI  r1 = r1 + 10
+[CORE1] PC=0x145a INSTR=0x44bb -> ADDI  r1 = r1 + 59
+[1;34m[IC  609] both cores executed | Latency so far: 48910[1;0m
+[CORE0] PC=0x11b6 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x145c INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core1:load, pc=0x11b6 addr=0x16f2 data=463d, idx=0, tag=1011
+core2:load, pc=0x145c addr=0x16cc data=d7ab, idx=0, tag=1011
+[1;34m[IC  610] both cores executed | Latency so far: 48928[1;0m
+[CORE0] PC=0x11b8 INSTR=0x44c9 -> ADDI  r1 = r1 + -55
+[CORE1] PC=0x145e INSTR=0x44e5 -> ADDI  r1 = r1 + -27
+[1;34m[IC  611] both cores executed | Latency so far: 48940[1;0m
+[CORE0] PC=0x11ba INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x1460 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core1:load, pc=0x11ba addr=0x1684 data=493d, idx=0, tag=1011
+core2:load, pc=0x1460 addr=0x1696 data=da6e, idx=0, tag=1011
+[1;34m[IC  612] both cores executed | Latency so far: 48958[1;0m
+[CORE0] PC=0x11bc INSTR=0x0f5a -> NOR   r5 = ~(r3 | r6)
+[CORE1] PC=0x1462 INSTR=0x4380 -> ADDI  r7 = r0 + 0
+[1;34m[IC  613] both cores executed | Latency so far: 48970[1;0m
+[CORE0] PC=0x11be INSTR=0x1f68 -> NAND  r6 = ~(r7 & r6)
+[CORE1] PC=0x1464 INSTR=0xf4e8 -> JUMP  -> 0x14e8
+[1;34m[IC  614] both cores executed | Latency so far: 48981[1;0m
+[CORE0] PC=0x11c0 INSTR=0x0ff0 -> ADD   r7 = r3 + r7
+[CORE1] PC=0x14e8 INSTR=0x7a80 -> SUBI  r5 = r6 - 0
+[1;34m[IC  615] both cores executed | Latency so far: 48993[1;0m
+[CORE0] PC=0x11c2 INSTR=0x44bb -> ADDI  r1 = r1 + 59
+[CORE1] PC=0x14ea INSTR=0x44e2 -> ADDI  r1 = r1 + -30
+[1;34m[IC  616] both cores executed | Latency so far: 49005[1;0m
+[CORE0] PC=0x11c4 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x14ec INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core1:load, pc=0x11c4 addr=0x16fa data=98da, idx=0, tag=1011
+core2:load, pc=0x14ec addr=0x165a data=a384, idx=0, tag=1011
+[1;34m[IC  617] both cores executed | Latency so far: 49023[1;0m
+[CORE0] PC=0x11c6 INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[CORE1] PC=0x14ee INSTR=0x1942 -> SUB   r4 = r6 - r2
+[1;34m[IC  618] both cores executed | Latency so far: 49035[1;0m
+[CORE0] PC=0x11c8 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x14f0 INSTR=0x0000 -> NOP
+core1:load, pc=0x11c8 addr=0x16ec data=4eac, idx=0, tag=1011
+[1;34m[IC  619] both cores executed | Latency so far: 49050[1;0m
+[CORE0] PC=0x11ca INSTR=0x44e1 -> ADDI  r1 = r1 + -31
+[CORE1] PC=0x14f2 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  620] both cores executed | Latency so far: 49062[1;0m
+[CORE0] PC=0x11cc INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+[CORE1] PC=0x14f4 INSTR=0x44b2 -> ADDI  r1 = r1 + 50
+core1:store, pc=0x11cc addr=0x16ae data=463d, idx=0, tag=0011
+[1;34m[IC  621] both cores executed | Latency so far: 49077[1;0m
+[CORE0] PC=0x11ce INSTR=0x0000 -> NOP
+[CORE1] PC=0x14f6 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x14f6 addr=0x173c data=7aea, idx=1, tag=1011
+[1;34m[IC  622] both cores executed | Latency so far: 49714[1;0m
+[CORE0] PC=0x11d0 INSTR=0x44be -> ADDI  r1 = r1 + 62
+[CORE1] PC=0x14f8 INSTR=0xf59a -> JUMP  -> 0x159a
+[1;34m[IC  623] both cores executed | Latency so far: 49725[1;0m
+[CORE0] PC=0x11d2 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x159a INSTR=0x0000 -> NOP
+core1:load, pc=0x11d2 addr=0x172a data=3fa0, idx=1, tag=1011
+[1;34m[IC  624] both cores executed | Latency so far: 50113[1;0m
+[CORE0] PC=0x11d4 INSTR=0x5fae -> ADDI  r7 = r7 + 46
+[CORE1] PC=0x159c INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  625] both cores executed | Latency so far: 50125[1;0m
+[CORE0] PC=0x11d6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x159e INSTR=0x44d4 -> ADDI  r1 = r1 + -44
+[1;34m[IC  626] both cores executed | Latency so far: 50137[1;0m
+[CORE0] PC=0x11d8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x15a0 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x15a0 addr=0x1664 data=ca3a, idx=0, tag=1011
+[1;34m[IC  627] both cores executed | Latency so far: 50152[1;0m
+[CORE0] PC=0x11da INSTR=0xc014 -> BEQ   if (r0 == r0) branch 20 bytes to 0x1204
+[CORE1] PC=0x15a2 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  628] both cores executed | Latency so far: 50164[1;0m
+[CORE0] PC=0x1204 INSTR=0x0000 -> NOP
+[CORE1] PC=0x15a4 INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[1;34m[IC  629] both cores executed | Latency so far: 50658[1;0m
+[CORE0] PC=0x1206 INSTR=0x0000 -> NOP
+[CORE1] PC=0x15a6 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x15a6 addr=0x1724 data=64f0, idx=1, tag=1011
+[1;34m[IC  630] both cores executed | Latency so far: 50673[1;0m
+[CORE0] PC=0x1208 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x15a8 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  631] both cores executed | Latency so far: 50685[1;0m
+[CORE0] PC=0x120a INSTR=0x44e8 -> ADDI  r1 = r1 + -24
+[CORE1] PC=0x15aa INSTR=0x44fd -> ADDI  r1 = r1 + -3
+[1;34m[IC  632] both cores executed | Latency so far: 50697[1;0m
+[CORE0] PC=0x120c INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x15ac INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core1:load, pc=0x120c addr=0x167a data=b5ed, idx=0, tag=1011
+core2:load, pc=0x15ac addr=0x169e data=b9ba, idx=0, tag=1011
+[1;34m[IC  633] both cores executed | Latency so far: 50715[1;0m
+[CORE0] PC=0x120e INSTR=0xc010 -> BEQ   if (r0 == r0) branch 16 bytes to 0x1230
+[CORE1] PC=0x15ae INSTR=0x44b3 -> ADDI  r1 = r1 + 51
+[1;34m[IC  634] both cores executed | Latency so far: 50727[1;0m
+[CORE0] PC=0x1230 INSTR=0x0000 -> NOP
+[CORE1] PC=0x15b0 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x15b0 addr=0x1704 data=a384, idx=1, tag=0011
+[1;34m[IC  635] both cores executed | Latency so far: 50742[1;0m
+[CORE0] PC=0x1232 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x15b2 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  636] both cores executed | Latency so far: 50754[1;0m
+[CORE0] PC=0x1234 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x15b4 INSTR=0x44bc -> ADDI  r1 = r1 + 60
+[1;34m[IC  637] both cores executed | Latency so far: 50766[1;0m
+[CORE0] PC=0x1236 INSTR=0x4483 -> ADDI  r1 = r1 + 3
+[CORE1] PC=0x15b6 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x15b6 addr=0x17fa data=36ea, idx=1, tag=0011
+[1;34m[IC  638] both cores executed | Latency so far: 50781[1;0m
+[CORE0] PC=0x1238 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x15b8 INSTR=0x0000 -> NOP
+core1:load, pc=0x1238 addr=0x177c data=2d88, idx=1, tag=1011
+[1;34m[IC  639] both cores executed | Latency so far: 50796[1;0m
+[CORE0] PC=0x123a INSTR=0x31d4 -> MULT  {r5,r2} = r4 * r3
+[CORE1] PC=0x15ba INSTR=0x6a91 -> SUBI  r5 = r2 - 17
+[1;34m[IC  640] both cores executed | Latency so far: 50824[1;0m
+[CORE0] PC=0x123c INSTR=0x6b80 -> SUBI  r7 = r2 - 0
+[CORE1] PC=0x15bc INSTR=0x417e -> ADDI  r2 = r0 + -2
+[1;34m[IC  641] both cores executed | Latency so far: 50836[1;0m
+[CORE0] PC=0x123e INSTR=0x3e3a -> MULT  {r3,r5} = r7 * r4
+[CORE1] PC=0x15be INSTR=0xf652 -> JUMP  -> 0x1652
+[1;34m[IC  642] both cores executed | Latency so far: 50863[1;0m
+[CORE0] PC=0x1240 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1652 INSTR=0xf6d4 -> JUMP  -> 0x16d4
+[1;34m[IC  643] both cores executed | Latency so far: 51301[1;0m
+[CORE0] PC=0x1242 INSTR=0x44b3 -> ADDI  r1 = r1 + 51
+[CORE1] PC=0x16d4 INSTR=0x0000 -> NOP
+[1;34m[IC  644] both cores executed | Latency so far: 51313[1;0m
+[CORE0] PC=0x1244 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x16d6 INSTR=0x0000 -> NOP
+core1:store, pc=0x1244 addr=0x1860 data=38a8, idx=0, tag=0100
+[1;34m[IC  645] both cores executed | Latency so far: 52299[1;0m
+[CORE0] PC=0x1246 INSTR=0xc005 -> BEQ   if (r0 == r0) branch 5 bytes to 0x1252
+[CORE1] PC=0x16d8 INSTR=0xc026 -> BEQ   if (r0 == r0) branch 38 bytes to 0x1726
+[1;34m[IC  646] both cores executed | Latency so far: 52311[1;0m
+[CORE0] PC=0x1252 INSTR=0x44f1 -> ADDI  r1 = r1 + -15
+[CORE1] PC=0x1726 INSTR=0x69be -> SUBI  r3 = r2 - 62
+[1;34m[IC  647] both cores executed | Latency so far: 52801[1;0m
+[CORE0] PC=0x1254 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1728 INSTR=0x0000 -> NOP
+core1:load, pc=0x1254 addr=0x1842 data=b7e2, idx=0, tag=1100
+[1;34m[IC  648] both cores executed | Latency so far: 52816[1;0m
+[CORE0] PC=0x1256 INSTR=0x4489 -> ADDI  r1 = r1 + 9
+[CORE1] PC=0x172a INSTR=0x44d6 -> ADDI  r1 = r1 + -42
+[1;34m[IC  649] both cores executed | Latency so far: 53689[1;0m
+[1;32m=== PASS DRAM CHECK at IC=649 ===[1;0m
+[CORE0] PC=0x1258 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x172c INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core1:load, pc=0x1258 addr=0x1854 data=a543, idx=0, tag=1100
+core2:store, pc=0x172c addr=0x17a6 data=ffc0, idx=1, tag=0011
+[1;34m[IC  650] both cores executed | Latency so far: 53707[1;0m
+[CORE0] PC=0x125a INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x172e INSTR=0x7ec9 -> SUBI  r5 = r7 - -55
+[1;34m[IC  651] both cores executed | Latency so far: 53719[1;0m
+[CORE0] PC=0x125c INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1730 INSTR=0x0000 -> NOP
+[1;34m[IC  652] both cores executed | Latency so far: 53731[1;0m
+[CORE0] PC=0x125e INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[CORE1] PC=0x1732 INSTR=0x0000 -> NOP
+[1;34m[IC  653] both cores executed | Latency so far: 53743[1;0m
+[CORE0] PC=0x1260 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x1734 INSTR=0x0000 -> NOP
+core1:load, pc=0x1260 addr=0x1746 data=5e83, idx=1, tag=1011
+[1;34m[IC  654] both cores executed | Latency so far: 53758[1;0m
+[CORE0] PC=0x1262 INSTR=0x776d -> SUBI  r6 = r5 - -19
+[CORE1] PC=0x1736 INSTR=0x2e5e -> MULT  {r5,r7} = r3 * r4
+[1;34m[IC  655] both cores executed | Latency so far: 53786[1;0m
+[CORE0] PC=0x1264 INSTR=0xc020 -> BEQ   if (r0 == r0) branch 32 bytes to 0x12a6
+[CORE1] PC=0x1738 INSTR=0x7765 -> SUBI  r6 = r5 - -27
+[1;34m[IC  656] both cores executed | Latency so far: 53798[1;0m
+[CORE0] PC=0x12a6 INSTR=0x2ab8 -> MULT  {r3,r4} = r2 * r5
+[CORE1] PC=0x173a INSTR=0x3956 -> MULT  {r5,r3} = r6 * r2
+[1;34m[IC  657] both cores executed | Latency so far: 53842[1;0m
+[CORE0] PC=0x12a8 INSTR=0x44d7 -> ADDI  r1 = r1 + -41
+[CORE1] PC=0x173c INSTR=0x7a80 -> SUBI  r5 = r6 - 0
+[1;34m[IC  658] both cores executed | Latency so far: 53854[1;0m
+[CORE0] PC=0x12aa INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x173e INSTR=0x0000 -> NOP
+core1:load, pc=0x12aa addr=0x16f4 data=5962, idx=0, tag=1011
+[1;34m[IC  659] both cores executed | Latency so far: 54210[1;0m
+[CORE0] PC=0x12ac INSTR=0x21de -> MULT  {r5,r7} = r0 * r3
+[CORE1] PC=0x1740 INSTR=0xc000 -> BEQ   if (r0 == r0) branch 0 bytes to 0x1742
+[1;34m[IC  660] both cores executed | Latency so far: 54238[1;0m
+[CORE0] PC=0x12ae INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1742 INSTR=0x4204 -> ADDI  r4 = r0 + 4
+[1;34m[IC  661] both cores executed | Latency so far: 54250[1;0m
+[CORE0] PC=0x12b0 INSTR=0x44de -> ADDI  r1 = r1 + -34
+[CORE1] PC=0x1744 INSTR=0x0000 -> NOP
+[1;34m[IC  662] both cores executed | Latency so far: 54262[1;0m
+[CORE0] PC=0x12b2 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x1746 INSTR=0x0000 -> NOP
+core1:load, pc=0x12b2 addr=0x1630 data=6050, idx=0, tag=1011
+[1;34m[IC  663] both cores executed | Latency so far: 54277[1;0m
+[CORE0] PC=0x12b4 INSTR=0x46b1 -> ADDI  r5 = r1 + 49
+[CORE1] PC=0x1748 INSTR=0xc01c -> BEQ   if (r0 == r0) branch 28 bytes to 0x1782
+[1;34m[IC  664] both cores executed | Latency so far: 54289[1;0m
+[CORE0] PC=0x12b6 INSTR=0x6e00 -> SUBI  r4 = r3 - 0
+[CORE1] PC=0x1782 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  665] both cores executed | Latency so far: 54301[1;0m
+[CORE0] PC=0x12b8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1784 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  666] both cores executed | Latency so far: 54313[1;0m
+[CORE0] PC=0x12ba INSTR=0x0000 -> NOP
+[CORE1] PC=0x1786 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  667] both cores executed | Latency so far: 54325[1;0m
+[CORE0] PC=0x12bc INSTR=0x0000 -> NOP
+[CORE1] PC=0x1788 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  668] both cores executed | Latency so far: 54337[1;0m
+[CORE0] PC=0x12be INSTR=0x0000 -> NOP
+[CORE1] PC=0x178a INSTR=0x44f0 -> ADDI  r1 = r1 + -16
+[1;34m[IC  669] both cores executed | Latency so far: 54349[1;0m
+[CORE0] PC=0x12c0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x178c INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x178c addr=0x1586 data=68ad, idx=1, tag=1010
+[1;34m[IC  670] both cores executed | Latency so far: 55057[1;0m
+[CORE0] PC=0x12c2 INSTR=0x1d32 -> SUB   r3 = r7 - r2
+[CORE1] PC=0x178e INSTR=0x35e8 -> MULT  {r6,r4} = r5 * r3
+[1;34m[IC  671] both cores executed | Latency so far: 55085[1;0m
+[CORE0] PC=0x12c4 INSTR=0x429d -> ADDI  r5 = r0 + 29
+[CORE1] PC=0x1790 INSTR=0x0e32 -> SUB   r3 = r3 - r4
+[1;34m[IC  672] both cores executed | Latency so far: 55097[1;0m
+[CORE0] PC=0x12c6 INSTR=0x7b29 -> SUBI  r6 = r6 - 41
+[CORE1] PC=0x1792 INSTR=0xf838 -> JUMP  -> 0x1838
+[1;34m[IC  673] both cores executed | Latency so far: 55108[1;0m
+[CORE0] PC=0x12c8 INSTR=0x7d00 -> SUBI  r2 = r7 - 0
+[CORE1] PC=0x1838 INSTR=0x5500 -> ADDI  r2 = r5 + 0
+[1;34m[IC  674] both cores executed | Latency so far: 55484[1;0m
+[CORE0] PC=0x12ca INSTR=0x03fc -> XOR   r7 = r0 ^ r7
+[CORE1] PC=0x183a INSTR=0x44cf -> ADDI  r1 = r1 + -49
+[1;34m[IC  675] both cores executed | Latency so far: 55496[1;0m
+[CORE0] PC=0x12cc INSTR=0x0000 -> NOP
+[CORE1] PC=0x183c INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x183c addr=0x1524 data=8ab9, idx=1, tag=1010
+[1;34m[IC  676] both cores executed | Latency so far: 55511[1;0m
+[CORE0] PC=0x12ce INSTR=0x5680 -> ADDI  r5 = r5 + 0
+[CORE1] PC=0x183e INSTR=0x2b66 -> MULT  {r6,r3} = r2 * r6
+[1;34m[IC  677] both cores executed | Latency so far: 55539[1;0m
+[CORE0] PC=0x12d0 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1840 INSTR=0x44fc -> ADDI  r1 = r1 + -4
+[1;34m[IC  678] both cores executed | Latency so far: 55551[1;0m
+[CORE0] PC=0x12d2 INSTR=0x44d1 -> ADDI  r1 = r1 + -47
+[CORE1] PC=0x1842 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x1842 addr=0x151c data=fff3, idx=1, tag=0010
+[1;34m[IC  679] both cores executed | Latency so far: 55566[1;0m
+[CORE0] PC=0x12d4 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x1844 INSTR=0x0000 -> NOP
+core1:load, pc=0x12d4 addr=0x1552 data=0bc5, idx=1, tag=1010
+[1;34m[IC  680] both cores executed | Latency so far: 55581[1;0m
+[CORE0] PC=0x12d6 INSTR=0xc033 -> BEQ   if (r0 == r0) branch 51 bytes to 0x133e
+[CORE1] PC=0x1846 INSTR=0xf848 -> JUMP  -> 0x1848
+[1;34m[IC  681] both cores executed | Latency so far: 55592[1;0m
+[CORE0] PC=0x133e INSTR=0x44ca -> ADDI  r1 = r1 + -54
+[CORE1] PC=0x1848 INSTR=0x4497 -> ADDI  r1 = r1 + 23
+[1;34m[IC  682] both cores executed | Latency so far: 55919[1;0m
+[CORE0] PC=0x1340 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x184a INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x184a addr=0x154a data=cf2a, idx=1, tag=1010
+core1:store, pc=0x1340 addr=0x14e6 data=5e6d, idx=0, tag=0010
+[1;34m[IC  683] both cores executed | Latency so far: 56289[1;0m
+[CORE0] PC=0x1342 INSTR=0x449e -> ADDI  r1 = r1 + 30
+[CORE1] PC=0x184c INSTR=0x0a76 -> OR    r7 = r2 | r4
+[1;34m[IC  684] both cores executed | Latency so far: 56301[1;0m
+[CORE0] PC=0x1344 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x184e INSTR=0x0000 -> NOP
+core1:load, pc=0x1344 addr=0x1522 data=84a0, idx=1, tag=1010
+[1;34m[IC  685] both cores executed | Latency so far: 56316[1;0m
+[CORE0] PC=0x1346 INSTR=0x7bcb -> SUBI  r7 = r6 - -53
+[CORE1] PC=0x1850 INSTR=0x4486 -> ADDI  r1 = r1 + 6
+[1;34m[IC  686] both cores executed | Latency so far: 56328[1;0m
+[CORE0] PC=0x1348 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1852 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1852 addr=0x1556 data=0c8d, idx=1, tag=1010
+[1;34m[IC  687] both cores executed | Latency so far: 56343[1;0m
+[CORE0] PC=0x134a INSTR=0x05d6 -> OR    r5 = r1 | r3
+[CORE1] PC=0x1854 INSTR=0x7305 -> SUBI  r6 = r4 - 5
+[1;34m[IC  688] both cores executed | Latency so far: 56355[1;0m
+[CORE0] PC=0x134c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1856 INSTR=0x4d00 -> ADDI  r2 = r3 + 0
+[1;34m[IC  689] both cores executed | Latency so far: 56367[1;0m
+[CORE0] PC=0x134e INSTR=0x4497 -> ADDI  r1 = r1 + 23
+[CORE1] PC=0x1858 INSTR=0x0000 -> NOP
+[1;34m[IC  690] both cores executed | Latency so far: 56379[1;0m
+[CORE0] PC=0x1350 INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x185a INSTR=0x0000 -> NOP
+core1:load, pc=0x1350 addr=0x15ce data=8235, idx=1, tag=1010
+[1;34m[IC  691] both cores executed | Latency so far: 56394[1;0m
+[CORE0] PC=0x1352 INSTR=0x44ca -> ADDI  r1 = r1 + -54
+[CORE1] PC=0x185c INSTR=0x44c7 -> ADDI  r1 = r1 + -57
+[1;34m[IC  692] both cores executed | Latency so far: 56406[1;0m
+[CORE0] PC=0x1354 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x185e INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x185e addr=0x14e4 data=babf, idx=0, tag=1010
+core1:store, pc=0x1354 addr=0x1562 data=a69f, idx=1, tag=0010
+[1;34m[IC  693] both cores executed | Latency so far: 56424[1;0m
+[CORE0] PC=0x1356 INSTR=0x073c -> XOR   r3 = r1 ^ r6
+[CORE1] PC=0x1860 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  694] both cores executed | Latency so far: 56436[1;0m
+[CORE0] PC=0x1358 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1862 INSTR=0x44dd -> ADDI  r1 = r1 + -35
+[1;34m[IC  695] both cores executed | Latency so far: 56448[1;0m
+[CORE0] PC=0x135a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1864 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+core2:store, pc=0x1864 addr=0x141e data=babf, idx=0, tag=0010
+[1;34m[IC  696] both cores executed | Latency so far: 56463[1;0m
+[CORE0] PC=0x135c INSTR=0x6b80 -> SUBI  r7 = r2 - 0
+[CORE1] PC=0x1866 INSTR=0xf91a -> JUMP  -> 0x191a
+[1;34m[IC  697] both cores executed | Latency so far: 56474[1;0m
+[CORE0] PC=0x135e INSTR=0x113e -> SLT   r3 = (r4 < r2)
+[CORE1] PC=0x191a INSTR=0x73c0 -> SUBI  r7 = r4 - -64
+[1;34m[IC  698] both cores executed | Latency so far: 57108[1;0m
+[CORE0] PC=0x1360 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x191c INSTR=0x2aaa -> MULT  {r2,r5} = r2 * r5
+[1;34m[IC  699] both cores executed | Latency so far: 58063[1;0m
+[1;32m=== PASS DRAM CHECK at IC=699 ===[1;0m
+[CORE0] PC=0x1362 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x191e INSTR=0x0000 -> NOP
+[1;34m[IC  700] both cores executed | Latency so far: 58075[1;0m
+[CORE0] PC=0x1364 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1920 INSTR=0x0000 -> NOP
+[1;34m[IC  701] both cores executed | Latency so far: 58087[1;0m
+[CORE0] PC=0x1366 INSTR=0x44d1 -> ADDI  r1 = r1 + -47
+[CORE1] PC=0x1922 INSTR=0x0000 -> NOP
+[1;34m[IC  702] both cores executed | Latency so far: 58099[1;0m
+[CORE0] PC=0x1368 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1924 INSTR=0x0000 -> NOP
+core1:store, pc=0x1368 addr=0x1384 data=14ea, idx=1, tag=0001
+[1;34m[IC  703] both cores executed | Latency so far: 58593[1;0m
+[CORE0] PC=0x136a INSTR=0x1bb8 -> NAND  r3 = ~(r6 & r7)
+[CORE1] PC=0x1926 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  704] both cores executed | Latency so far: 58605[1;0m
+[CORE0] PC=0x136c INSTR=0x0000 -> NOP
+[CORE1] PC=0x1928 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  705] both cores executed | Latency so far: 58617[1;0m
+[CORE0] PC=0x136e INSTR=0x0000 -> NOP
+[CORE1] PC=0x192a INSTR=0x44e0 -> ADDI  r1 = r1 + -32
+[1;34m[IC  706] both cores executed | Latency so far: 58629[1;0m
+[CORE0] PC=0x1370 INSTR=0x0000 -> NOP
+[CORE1] PC=0x192c INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x192c addr=0x12de data=ffff, idx=0, tag=0001
+[1;34m[IC  707] both cores executed | Latency so far: 59167[1;0m
+[CORE0] PC=0x1372 INSTR=0x44e5 -> ADDI  r1 = r1 + -27
+[CORE1] PC=0x192e INSTR=0x44aa -> ADDI  r1 = r1 + 42
+[1;34m[IC  708] both cores executed | Latency so far: 59179[1;0m
+[CORE0] PC=0x1374 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x1930 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x1930 addr=0x1332 data=d101, idx=1, tag=1001
+core1:store, pc=0x1374 addr=0x134e data=8235, idx=1, tag=0001
+[1;34m[IC  709] both cores executed | Latency so far: 59197[1;0m
+[CORE0] PC=0x1376 INSTR=0xc010 -> BEQ   if (r0 == r0) branch 16 bytes to 0x1398
+[CORE1] PC=0x1932 INSTR=0x55f1 -> ADDI  r3 = r5 + -15
+[1;34m[IC  710] both cores executed | Latency so far: 59209[1;0m
+[CORE0] PC=0x1398 INSTR=0x4d0b -> ADDI  r2 = r3 + 11
+[CORE1] PC=0x1934 INSTR=0x1ee4 -> AND   r6 = r7 & r5
+[1;34m[IC  711] both cores executed | Latency so far: 59221[1;0m
+[CORE0] PC=0x139a INSTR=0x44a0 -> ADDI  r1 = r1 + 32
+[CORE1] PC=0x1936 INSTR=0x6d66 -> SUBI  r2 = r3 - -26
+[1;34m[IC  712] both cores executed | Latency so far: 59233[1;0m
+[CORE0] PC=0x139c INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x1938 INSTR=0x0000 -> NOP
+core1:store, pc=0x139c addr=0x138e data=7fea, idx=1, tag=0001
+[1;34m[IC  713] both cores executed | Latency so far: 59248[1;0m
+[CORE0] PC=0x139e INSTR=0x1d24 -> AND   r2 = r7 & r2
+[CORE1] PC=0x193a INSTR=0x5500 -> ADDI  r2 = r5 + 0
+[1;34m[IC  714] both cores executed | Latency so far: 59260[1;0m
+[CORE0] PC=0x13a0 INSTR=0xf3c2 -> JUMP  -> 0x13c2
+[CORE1] PC=0x193c INSTR=0x36d6 -> MULT  {r5,r3} = r5 * r5
+[1;34m[IC  715] both cores executed | Latency so far: 59287[1;0m
+[CORE0] PC=0x13c2 INSTR=0xf440 -> JUMP  -> 0x1440
+[CORE1] PC=0x193e INSTR=0xf9de -> JUMP  -> 0x19de
+[1;34m[IC  716] both cores executed | Latency so far: 59297[1;0m
+[CORE0] PC=0x1440 INSTR=0x4190 -> ADDI  r3 = r0 + 16
+[CORE1] PC=0x19de INSTR=0x2baa -> MULT  {r2,r5} = r2 * r7
+[1;34m[IC  717] both cores executed | Latency so far: 59561[1;0m
+[CORE0] PC=0x1442 INSTR=0x015e -> SLT   r5 = (r0 < r2)
+[CORE1] PC=0x19e0 INSTR=0x4d80 -> ADDI  r3 = r3 + 0
+[1;34m[IC  718] both cores executed | Latency so far: 59573[1;0m
+[CORE0] PC=0x1444 INSTR=0x44e4 -> ADDI  r1 = r1 + -28
+[CORE1] PC=0x19e2 INSTR=0x4ab4 -> ADDI  r5 = r2 + 52
+[1;34m[IC  719] both cores executed | Latency so far: 59585[1;0m
+[CORE0] PC=0x1446 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x19e4 INSTR=0x0000 -> NOP
+core1:load, pc=0x1446 addr=0x1356 data=3a5e, idx=1, tag=1001
+[1;34m[IC  720] both cores executed | Latency so far: 59600[1;0m
+[CORE0] PC=0x1448 INSTR=0x2f26 -> MULT  {r2,r3} = r3 * r6
+[CORE1] PC=0x19e6 INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core2:store, pc=0x19e6 addr=0x1332 data=6f91, idx=1, tag=0001
+[1;34m[IC  721] both cores executed | Latency so far: 59631[1;0m
+[CORE0] PC=0x144a INSTR=0x0d6c -> XOR   r6 = r3 ^ r2
+[CORE1] PC=0x19e8 INSTR=0x4680 -> ADDI  r5 = r1 + 0
+[1;34m[IC  722] both cores executed | Latency so far: 59643[1;0m
+[CORE0] PC=0x144c INSTR=0x6180 -> SUBI  r3 = r0 - 0
+[CORE1] PC=0x19ea INSTR=0x2aee -> MULT  {r6,r7} = r2 * r5
+[1;34m[IC  723] both cores executed | Latency so far: 59671[1;0m
+[CORE0] PC=0x144e INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x19ec INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  724] both cores executed | Latency so far: 59683[1;0m
+[CORE0] PC=0x1450 INSTR=0x44f1 -> ADDI  r1 = r1 + -15
+[CORE1] PC=0x19ee INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  725] both cores executed | Latency so far: 59695[1;0m
+[CORE0] PC=0x1452 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x19f0 INSTR=0x44ed -> ADDI  r1 = r1 + -19
+core1:store, pc=0x1452 addr=0x12b8 data=0001, idx=0, tag=0001
+[1;34m[IC  726] both cores executed | Latency so far: 59710[1;0m
+[CORE0] PC=0x1454 INSTR=0x0000 -> NOP
+[CORE1] PC=0x19f2 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x19f2 addr=0x120c data=17e9, idx=0, tag=1001
+[1;34m[IC  727] both cores executed | Latency so far: 59725[1;0m
+[CORE0] PC=0x1456 INSTR=0x44ce -> ADDI  r1 = r1 + -50
+[CORE1] PC=0x19f4 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  728] both cores executed | Latency so far: 59737[1;0m
+[CORE0] PC=0x1458 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x19f6 INSTR=0x448e -> ADDI  r1 = r1 + 14
+core1:store, pc=0x1458 addr=0x1254 data=3a5e, idx=0, tag=0001
+[1;34m[IC  729] both cores executed | Latency so far: 59752[1;0m
+[CORE0] PC=0x145a INSTR=0x0000 -> NOP
+[CORE1] PC=0x19f8 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x19f8 addr=0x12a6 data=263f, idx=0, tag=1001
+[1;34m[IC  730] both cores executed | Latency so far: 59767[1;0m
+[CORE0] PC=0x145c INSTR=0x2e6a -> MULT  {r6,r5} = r3 * r4
+[CORE1] PC=0x19fa INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  731] both cores executed | Latency so far: 59795[1;0m
+[CORE0] PC=0x145e INSTR=0x0000 -> NOP
+[CORE1] PC=0x19fc INSTR=0x44ff -> ADDI  r1 = r1 + -1
+[1;34m[IC  732] both cores executed | Latency so far: 59807[1;0m
+[CORE0] PC=0x1460 INSTR=0x0000 -> NOP
+[CORE1] PC=0x19fe INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x19fe addr=0x1224 data=8125, idx=0, tag=1001
+[1;34m[IC  733] both cores executed | Latency so far: 59822[1;0m
+[CORE0] PC=0x1462 INSTR=0x5980 -> ADDI  r3 = r6 + 0
+[CORE1] PC=0x1a00 INSTR=0x7104 -> SUBI  r2 = r4 - 4
+[1;34m[IC  734] both cores executed | Latency so far: 60391[1;0m
+[CORE0] PC=0x1464 INSTR=0x0db4 -> AND   r3 = r3 & r3
+[CORE1] PC=0x1a02 INSTR=0x36ac -> MULT  {r2,r6} = r5 * r5
+[1;34m[IC  735] both cores executed | Latency so far: 60419[1;0m
+[CORE0] PC=0x1466 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1a04 INSTR=0x5600 -> ADDI  r4 = r5 + 0
+[1;34m[IC  736] both cores executed | Latency so far: 60431[1;0m
+[CORE0] PC=0x1468 INSTR=0x44e0 -> ADDI  r1 = r1 + -32
+[CORE1] PC=0x1a06 INSTR=0x0000 -> NOP
+[1;34m[IC  737] both cores executed | Latency so far: 60443[1;0m
+[CORE0] PC=0x146a INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+[CORE1] PC=0x1a08 INSTR=0x0000 -> NOP
+core1:store, pc=0x146a addr=0x1194 data=fff8, idx=1, tag=0000
+[1;34m[IC  738] both cores executed | Latency so far: 61270[1;0m
+[CORE0] PC=0x146c INSTR=0x0dbc -> XOR   r3 = r3 ^ r3
+[CORE1] PC=0x1a0a INSTR=0x3d3c -> MULT  {r3,r6} = r7 * r2
+[1;34m[IC  739] both cores executed | Latency so far: 61298[1;0m
+[CORE0] PC=0x146e INSTR=0x763c -> SUBI  r4 = r5 - 60
+[CORE1] PC=0x1a0c INSTR=0x7f39 -> SUBI  r6 = r7 - 57
+[1;34m[IC  740] both cores executed | Latency so far: 61310[1;0m
+[CORE0] PC=0x1470 INSTR=0x449c -> ADDI  r1 = r1 + 28
+[CORE1] PC=0x1a0e INSTR=0x36b4 -> MULT  {r3,r2} = r5 * r5
+[1;34m[IC  741] both cores executed | Latency so far: 61338[1;0m
+[CORE0] PC=0x1472 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x1a10 INSTR=0x0000 -> NOP
+core1:load, pc=0x1472 addr=0x11cc data=ef88, idx=1, tag=1000
+[1;34m[IC  742] both cores executed | Latency so far: 61353[1;0m
+[CORE0] PC=0x1474 INSTR=0x7200 -> SUBI  r4 = r4 - 0
+[CORE1] PC=0x1a12 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  743] both cores executed | Latency so far: 61365[1;0m
+[CORE0] PC=0x1476 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1a14 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  744] both cores executed | Latency so far: 61377[1;0m
+[CORE0] PC=0x1478 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1a16 INSTR=0x44f2 -> ADDI  r1 = r1 + -14
+[1;34m[IC  745] both cores executed | Latency so far: 61389[1;0m
+[CORE0] PC=0x147a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1a18 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x1a18 addr=0x1108 data=ea59, idx=1, tag=1000
+[1;34m[IC  746] both cores executed | Latency so far: 61404[1;0m
+[CORE0] PC=0x147c INSTR=0x44ee -> ADDI  r1 = r1 + -18
+[CORE1] PC=0x1a1a INSTR=0x2b56 -> MULT  {r5,r3} = r2 * r6
+[1;34m[IC  747] both cores executed | Latency so far: 61432[1;0m
+[CORE0] PC=0x147e INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+[CORE1] PC=0x1a1c INSTR=0x0000 -> NOP
+core1:load, pc=0x147e addr=0x11a8 data=a52b, idx=1, tag=1000
+[1;34m[IC  748] both cores executed | Latency so far: 61447[1;0m
+[CORE0] PC=0x1480 INSTR=0x3fc6 -> MULT  {r4,r3} = r7 * r7
+[CORE1] PC=0x1a1e INSTR=0x44ff -> ADDI  r1 = r1 + -1
+[1;34m[IC  749] both cores executed | Latency so far: 62208[1;0m
+[1;32m=== PASS DRAM CHECK at IC=749 ===[1;0m
+[CORE0] PC=0x1482 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1a20 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x1a20 addr=0x1106 data=6ecb, idx=1, tag=1000
+[1;34m[IC  750] both cores executed | Latency so far: 62223[1;0m
+[CORE0] PC=0x1484 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1a22 INSTR=0x5600 -> ADDI  r4 = r5 + 0
+[1;34m[IC  751] both cores executed | Latency so far: 62235[1;0m
+[CORE0] PC=0x1486 INSTR=0x44db -> ADDI  r1 = r1 + -37
+[CORE1] PC=0x1a24 INSTR=0x0000 -> NOP
+[1;34m[IC  752] both cores executed | Latency so far: 62247[1;0m
+[CORE0] PC=0x1488 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1a26 INSTR=0x0000 -> NOP
+core1:store, pc=0x1488 addr=0x10de data=3dcf, idx=0, tag=0000
+[1;34m[IC  753] both cores executed | Latency so far: 62621[1;0m
+[CORE0] PC=0x148a INSTR=0x44b9 -> ADDI  r1 = r1 + 57
+[CORE1] PC=0x1a28 INSTR=0x325e -> MULT  {r5,r7} = r4 * r4
+[1;34m[IC  754] both cores executed | Latency so far: 62649[1;0m
+[CORE0] PC=0x148c INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1a2a INSTR=0x0000 -> NOP
+core1:store, pc=0x148c addr=0x1150 data=3dcf, idx=1, tag=0000
+[1;34m[IC  755] both cores executed | Latency so far: 62664[1;0m
+[CORE0] PC=0x148e INSTR=0x44e4 -> ADDI  r1 = r1 + -28
+[CORE1] PC=0x1a2c INSTR=0xfb1a -> JUMP  -> 0x1b1a
+[1;34m[IC  756] both cores executed | Latency so far: 62675[1;0m
+[CORE0] PC=0x1490 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1b1a INSTR=0x0000 -> NOP
+core1:load, pc=0x1490 addr=0x1118 data=5d34, idx=1, tag=1000
+[1;34m[IC  757] both cores executed | Latency so far: 63031[1;0m
+[CORE0] PC=0x1492 INSTR=0x558c -> ADDI  r3 = r5 + 12
+[CORE1] PC=0x1b1c INSTR=0x44d2 -> ADDI  r1 = r1 + -46
+[1;34m[IC  758] both cores executed | Latency so far: 63043[1;0m
+[CORE0] PC=0x1494 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1b1e INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+core2:store, pc=0x1b1e addr=0x10aa data=6ecb, idx=0, tag=0000
+[1;34m[IC  759] both cores executed | Latency so far: 63058[1;0m
+[CORE0] PC=0x1496 INSTR=0x44f7 -> ADDI  r1 = r1 + -9
+[CORE1] PC=0x1b20 INSTR=0x44e7 -> ADDI  r1 = r1 + -25
+[1;34m[IC  760] both cores executed | Latency so far: 63070[1;0m
+[CORE0] PC=0x1498 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x1b22 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core1:load, pc=0x1498 addr=0x1106 data=6ecb, idx=1, tag=1000
+core2:load, pc=0x1b22 addr=0x1078 data=a8ed, idx=0, tag=1000
+[1;34m[IC  761] both cores executed | Latency so far: 63088[1;0m
+[CORE0] PC=0x149a INSTR=0x4481 -> ADDI  r1 = r1 + 1
+[CORE1] PC=0x1b24 INSTR=0x4498 -> ADDI  r1 = r1 + 24
+[1;34m[IC  762] both cores executed | Latency so far: 63100[1;0m
+[CORE0] PC=0x149c INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x1b26 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x1b26 addr=0x10a8 data=99d7, idx=0, tag=1000
+core1:store, pc=0x149c addr=0x1108 data=ef88, idx=1, tag=0000
+[1;34m[IC  763] both cores executed | Latency so far: 63118[1;0m
+[CORE0] PC=0x149e INSTR=0xf530 -> JUMP  -> 0x1530
+[CORE1] PC=0x1b28 INSTR=0xc034 -> BEQ   if (r0 == r0) branch 52 bytes to 0x1b92
+[1;34m[IC  764] both cores executed | Latency so far: 63129[1;0m
+[CORE0] PC=0x1530 INSTR=0x44ad -> ADDI  r1 = r1 + 45
+[CORE1] PC=0x1b92 INSTR=0x63bd -> SUBI  r7 = r0 - 61
+[1;34m[IC  765] both cores executed | Latency so far: 63514[1;0m
+[CORE0] PC=0x1532 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x1b94 INSTR=0x0000 -> NOP
+core1:load, pc=0x1532 addr=0x1162 data=abcf, idx=1, tag=1000
+[1;34m[IC  766] both cores executed | Latency so far: 63529[1;0m
+[CORE0] PC=0x1534 INSTR=0xc00b -> BEQ   if (r0 == r0) branch 11 bytes to 0x154c
+[CORE1] PC=0x1b96 INSTR=0x0f30 -> ADD   r3 = r3 + r6
+[1;34m[IC  767] both cores executed | Latency so far: 63541[1;0m
+[CORE0] PC=0x154c INSTR=0x377c -> MULT  {r7,r6} = r5 * r6
+[CORE1] PC=0x1b98 INSTR=0x0d5e -> SLT   r5 = (r3 < r2)
+[1;34m[IC  768] both cores executed | Latency so far: 63569[1;0m
+[CORE0] PC=0x154e INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1b9a INSTR=0x44c4 -> ADDI  r1 = r1 + -60
+[1;34m[IC  769] both cores executed | Latency so far: 63581[1;0m
+[CORE0] PC=0x1550 INSTR=0x44dc -> ADDI  r1 = r1 + -36
+[CORE1] PC=0x1b9c INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x1b9c addr=0x1030 data=cfc6, idx=0, tag=1000
+[1;34m[IC  770] both cores executed | Latency so far: 63596[1;0m
+[CORE0] PC=0x1552 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+[CORE1] PC=0x1b9e INSTR=0x0000 -> NOP
+core1:load, pc=0x1552 addr=0x109a data=0001, idx=0, tag=1000
+[1;34m[IC  771] both cores executed | Latency so far: 63611[1;0m
+[CORE0] PC=0x1554 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1ba0 INSTR=0x4e80 -> ADDI  r5 = r3 + 0
+[1;34m[IC  772] both cores executed | Latency so far: 63623[1;0m
+[CORE0] PC=0x1556 INSTR=0x44f3 -> ADDI  r1 = r1 + -13
+[CORE1] PC=0x1ba2 INSTR=0x0000 -> NOP
+[1;34m[IC  773] both cores executed | Latency so far: 63635[1;0m
+[CORE0] PC=0x1558 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+[CORE1] PC=0x1ba4 INSTR=0x0000 -> NOP
+core1:store, pc=0x1558 addr=0x1000 data=0000, idx=0, tag=0000
+[1;34m[IC  774] both cores executed | Latency so far: 63650[1;0m
+[CORE0] PC=0x155a INSTR=0x4498 -> ADDI  r1 = r1 + 24
+[CORE1] PC=0x1ba6 INSTR=0x11b2 -> SUB   r3 = r4 - r3
+[1;34m[IC  775] both cores executed | Latency so far: 63662[1;0m
+[CORE0] PC=0x155c INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x1ba8 INSTR=0x0000 -> NOP
+core1:store, pc=0x155c addr=0x1030 data=ef88, idx=0, tag=0000
+[1;34m[IC  776] both cores executed | Latency so far: 63677[1;0m
+[CORE0] PC=0x155e INSTR=0xf56c -> JUMP  -> 0x156c
+[CORE1] PC=0x1baa INSTR=0xc001 -> BEQ   if (r0 == r0) branch 1 bytes to 0x1bae
+[1;34m[IC  777] both cores executed | Latency so far: 63688[1;0m
+[CORE0] PC=0x156c INSTR=0x4ef6 -> ADDI  r5 = r3 + -10
+[CORE1] PC=0x1bae INSTR=0x44e8 -> ADDI  r1 = r1 + -24
+[1;34m[IC  778] both cores executed | Latency so far: 63700[1;0m
+[CORE0] PC=0x156e INSTR=0x0000 -> NOP
+[CORE1] PC=0x1bb0 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1bb0 addr=0x1000 data=0000, idx=0, tag=1000
+[1;34m[IC  779] both cores executed | Latency so far: 63715[1;0m
+[CORE0] PC=0x1570 INSTR=0x44bd -> ADDI  r1 = r1 + 61
+[CORE1] PC=0x1bb2 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  780] both cores executed | Latency so far: 63727[1;0m
+[CORE0] PC=0x1572 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+[CORE1] PC=0x1bb4 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+core1:load, pc=0x1572 addr=0x10aa data=6ecb, idx=0, tag=1000
+[1;34m[IC  781] both cores executed | Latency so far: 63742[1;0m
+[CORE0] PC=0x1574 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1bb6 INSTR=0x448f -> ADDI  r1 = r1 + 15
+[1;34m[IC  782] both cores executed | Latency so far: 63754[1;0m
+[CORE0] PC=0x1576 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1bb8 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1bb8 addr=0x111a data=1489, idx=1, tag=1000
+[1;34m[IC  783] both cores executed | Latency so far: 63769[1;0m
+[CORE0] PC=0x1578 INSTR=0x25c4 -> MULT  {r4,r2} = r1 * r3
+[CORE1] PC=0x1bba INSTR=0x4715 -> ADDI  r6 = r1 + 21
+[1;34m[IC  784] both cores executed | Latency so far: 63797[1;0m
+[CORE0] PC=0x157a INSTR=0x0ec6 -> OR    r4 = r3 | r5
+[CORE1] PC=0x1bbc INSTR=0x5fc2 -> ADDI  r7 = r7 + -62
+[1;34m[IC  785] both cores executed | Latency so far: 63809[1;0m
+[CORE0] PC=0x157c INSTR=0x2eea -> MULT  {r6,r5} = r3 * r5
+[CORE1] PC=0x1bbe INSTR=0x5f2c -> ADDI  r6 = r7 + 44
+[1;34m[IC  786] both cores executed | Latency so far: 63837[1;0m
+[CORE0] PC=0x157e INSTR=0x227c -> MULT  {r7,r6} = r0 * r4
+[CORE1] PC=0x1bc0 INSTR=0xfcb4 -> JUMP  -> 0x1cb4
+[1;34m[IC  787] both cores executed | Latency so far: 63864[1;0m
+[CORE0] PC=0x1580 INSTR=0x5b04 -> ADDI  r6 = r6 + 4
+[CORE1] PC=0x1cb4 INSTR=0x3fee -> MULT  {r6,r7} = r7 * r7
+[1;34m[IC  788] both cores executed | Latency so far: 64270[1;0m
+[CORE0] PC=0x1582 INSTR=0x327c -> MULT  {r7,r6} = r4 * r4
+[CORE1] PC=0x1cb6 INSTR=0x7d80 -> SUBI  r3 = r7 - 0
+[1;34m[IC  789] both cores executed | Latency so far: 64298[1;0m
+[CORE0] PC=0x1584 INSTR=0x44db -> ADDI  r1 = r1 + -37
+[CORE1] PC=0x1cb8 INSTR=0x4483 -> ADDI  r1 = r1 + 3
+[1;34m[IC  790] both cores executed | Latency so far: 64310[1;0m
+[CORE0] PC=0x1586 INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x1cba INSTR=0xa580 -> STORE MEM[r1 + 0] <- r3
+core1:load, pc=0x1586 addr=0x1060 data=28ea, idx=0, tag=1000
+core2:store, pc=0x1cba addr=0x1120 data=3b19, idx=1, tag=0000
+[1;34m[IC  791] both cores executed | Latency so far: 64328[1;0m
+[CORE0] PC=0x1588 INSTR=0x6636 -> SUBI  r4 = r1 - 54
+[CORE1] PC=0x1cbc INSTR=0x44f9 -> ADDI  r1 = r1 + -7
+[1;34m[IC  792] both cores executed | Latency so far: 64340[1;0m
+[CORE0] PC=0x158a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1cbe INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+core2:load, pc=0x1cbe addr=0x1112 data=a3e0, idx=1, tag=1000
+[1;34m[IC  793] both cores executed | Latency so far: 64355[1;0m
+[CORE0] PC=0x158c INSTR=0x5694 -> ADDI  r5 = r5 + 20
+[CORE1] PC=0x1cc0 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  794] both cores executed | Latency so far: 64367[1;0m
+[CORE0] PC=0x158e INSTR=0x0000 -> NOP
+[CORE1] PC=0x1cc2 INSTR=0x44fc -> ADDI  r1 = r1 + -4
+[1;34m[IC  795] both cores executed | Latency so far: 64379[1;0m
+[CORE0] PC=0x1590 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1cc4 INSTR=0xa500 -> STORE MEM[r1 + 0] <- r2
+core2:store, pc=0x1cc4 addr=0x108a data=4f59, idx=0, tag=0000
+[1;34m[IC  796] both cores executed | Latency so far: 64394[1;0m
+[CORE0] PC=0x1592 INSTR=0x7a58 -> SUBI  r4 = r6 - -40
+[CORE1] PC=0x1cc6 INSTR=0x4b00 -> ADDI  r6 = r2 + 0
+[1;34m[IC  797] both cores executed | Latency so far: 64406[1;0m
+[CORE0] PC=0x1594 INSTR=0x1b62 -> SUB   r6 = r6 - r6
+[CORE1] PC=0x1cc8 INSTR=0x66eb -> SUBI  r5 = r1 - -21
+[1;34m[IC  798] both cores executed | Latency so far: 64418[1;0m
+[CORE0] PC=0x1596 INSTR=0x7fe1 -> SUBI  r7 = r7 - -31
+[CORE1] PC=0x1cca INSTR=0x1e4e -> SLT   r4 = (r7 < r4)
+[1;34m[IC  799] both cores executed | Latency so far: 65123[1;0m
+[1;32m=== PASS DRAM CHECK at IC=799 ===[1;0m
+[CORE0] PC=0x1598 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1ccc INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  800] both cores executed | Latency so far: 65135[1;0m
+[CORE0] PC=0x159a INSTR=0x44b0 -> ADDI  r1 = r1 + 48
+[CORE1] PC=0x1cce INSTR=0x44ae -> ADDI  r1 = r1 + 46
+[1;34m[IC  801] both cores executed | Latency so far: 65147[1;0m
+[CORE0] PC=0x159c INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1cd0 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core1:load, pc=0x159c addr=0x113e data=1016, idx=1, tag=1000
+core2:load, pc=0x1cd0 addr=0x1164 data=cfc6, idx=1, tag=1000
+[1;34m[IC  802] both cores executed | Latency so far: 65165[1;0m
+[CORE0] PC=0x159e INSTR=0x3ef8 -> MULT  {r7,r4} = r7 * r5
+[CORE1] PC=0x1cd2 INSTR=0x16ac -> XOR   r2 = r5 ^ r5
+[1;34m[IC  803] both cores executed | Latency so far: 65193[1;0m
+[CORE0] PC=0x15a0 INSTR=0x77a1 -> SUBI  r7 = r5 - 33
+[CORE1] PC=0x1cd4 INSTR=0x7591 -> SUBI  r3 = r5 - 17
+[1;34m[IC  804] both cores executed | Latency so far: 65205[1;0m
+[CORE0] PC=0x15a2 INSTR=0xf5e2 -> JUMP  -> 0x15e2
+[CORE1] PC=0x1cd6 INSTR=0x31b8 -> MULT  {r3,r4} = r4 * r3
+[1;34m[IC  805] both cores executed | Latency so far: 65232[1;0m
+[CORE0] PC=0x15e2 INSTR=0xf6aa -> JUMP  -> 0x16aa
+[CORE1] PC=0x1cd8 INSTR=0x657a -> SUBI  r2 = r1 - -6
+[1;34m[IC  806] both cores executed | Latency so far: 65243[1;0m
+[CORE0] PC=0x16aa INSTR=0x44ee -> ADDI  r1 = r1 + -18
+[CORE1] PC=0x1cda INSTR=0xfdc6 -> JUMP  -> 0x1dc6
+[1;34m[IC  807] both cores executed | Latency so far: 65681[1;0m
+[CORE0] PC=0x16ac INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x1dc6 INSTR=0x0000 -> NOP
+core1:load, pc=0x16ac addr=0x111a data=1489, idx=1, tag=1000
+[1;34m[IC  808] both cores executed | Latency so far: 66048[1;0m
+[CORE0] PC=0x16ae INSTR=0x0e3a -> NOR   r3 = ~(r3 | r4)
+[CORE1] PC=0x1dc8 INSTR=0x5e00 -> ADDI  r4 = r7 + 0
+[1;34m[IC  809] both cores executed | Latency so far: 66060[1;0m
+[CORE0] PC=0x16b0 INSTR=0xf6e4 -> JUMP  -> 0x16e4
+[CORE1] PC=0x1dca INSTR=0x11f8 -> NAND  r7 = ~(r4 & r3)
+[1;34m[IC  810] both cores executed | Latency so far: 66071[1;0m
+[CORE0] PC=0x16e4 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1dcc INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  811] both cores executed | Latency so far: 66083[1;0m
+[CORE0] PC=0x16e6 INSTR=0x44eb -> ADDI  r1 = r1 + -21
+[CORE1] PC=0x1dce INSTR=0x44c6 -> ADDI  r1 = r1 + -58
+[1;34m[IC  812] both cores executed | Latency so far: 66095[1;0m
+[CORE0] PC=0x16e8 INSTR=0x8600 -> LOAD  r4 <- MEM[r1 + 0]
+[CORE1] PC=0x1dd0 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core1:load, pc=0x16e8 addr=0x1070 data=974e, idx=0, tag=1000
+core2:load, pc=0x1dd0 addr=0x1070 data=974e, idx=0, tag=1000
+[1;34m[IC  813] both cores executed | Latency so far: 66113[1;0m
+[CORE0] PC=0x16ea INSTR=0x44c8 -> ADDI  r1 = r1 + -56
+[CORE1] PC=0x1dd2 INSTR=0x6121 -> SUBI  r2 = r0 - 33
+[1;34m[IC  814] both cores executed | Latency so far: 66125[1;0m
+[CORE0] PC=0x16ec INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+[CORE1] PC=0x1dd4 INSTR=0x0000 -> NOP
+core1:load, pc=0x16ec addr=0x1000 data=0000, idx=0, tag=1000
+[1;34m[IC  815] both cores executed | Latency so far: 66140[1;0m
+[CORE0] PC=0x16ee INSTR=0x6600 -> SUBI  r4 = r1 - 0
+[CORE1] PC=0x1dd6 INSTR=0x4727 -> ADDI  r6 = r1 + 39
+[1;34m[IC  816] both cores executed | Latency so far: 66152[1;0m
+[CORE0] PC=0x16f0 INSTR=0xc01c -> BEQ   if (r0 == r0) branch 28 bytes to 0x172a
+[CORE1] PC=0x1dd8 INSTR=0x44ce -> ADDI  r1 = r1 + -50
+[1;34m[IC  817] both cores executed | Latency so far: 66164[1;0m
+[CORE0] PC=0x172a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1dda INSTR=0x8680 -> LOAD  r5 <- MEM[r1 + 0]
+core2:load, pc=0x1dda addr=0x100c data=73cc, idx=0, tag=1000
+[1;34m[IC  818] both cores executed | Latency so far: 66657[1;0m
+[CORE0] PC=0x172c INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1ddc INSTR=0x3e56 -> MULT  {r5,r3} = r7 * r4
+[1;34m[IC  819] both cores executed | Latency so far: 66685[1;0m
+[CORE0] PC=0x172e INSTR=0x449c -> ADDI  r1 = r1 + 28
+[CORE1] PC=0x1dde INSTR=0x0000 -> NOP
+[1;34m[IC  820] both cores executed | Latency so far: 66697[1;0m
+[CORE0] PC=0x1730 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x1de0 INSTR=0x0000 -> NOP
+core1:store, pc=0x1730 addr=0x10b6 data=28dd, idx=0, tag=0000
+[1;34m[IC  821] both cores executed | Latency so far: 66712[1;0m
+[CORE0] PC=0x1732 INSTR=0x0d2e -> SLT   r2 = (r3 < r2)
+[CORE1] PC=0x1de2 INSTR=0x3e44 -> MULT  {r4,r2} = r7 * r4
+[1;34m[IC  822] both cores executed | Latency so far: 66740[1;0m
+[CORE0] PC=0x1734 INSTR=0x44f0 -> ADDI  r1 = r1 + -16
+[CORE1] PC=0x1de4 INSTR=0x6191 -> SUBI  r3 = r0 - 17
+[1;34m[IC  823] both cores executed | Latency so far: 66752[1;0m
+[CORE0] PC=0x1736 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1de6 INSTR=0x0000 -> NOP
+core1:load, pc=0x1736 addr=0x1096 data=af04, idx=0, tag=1000
+[1;34m[IC  824] both cores executed | Latency so far: 66767[1;0m
+[CORE0] PC=0x1738 INSTR=0x44fd -> ADDI  r1 = r1 + -3
+[CORE1] PC=0x1de8 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  825] both cores executed | Latency so far: 66779[1;0m
+[CORE0] PC=0x173a INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1dea INSTR=0x44bf -> ADDI  r1 = r1 + 63
+core1:store, pc=0x173a addr=0x1090 data=0000, idx=0, tag=0000
+[1;34m[IC  826] both cores executed | Latency so far: 66794[1;0m
+[CORE0] PC=0x173c INSTR=0x0000 -> NOP
+[CORE1] PC=0x1dec INSTR=0x449b -> ADDI  r1 = r1 + 27
+[1;34m[IC  827] both cores executed | Latency so far: 66806[1;0m
+[CORE0] PC=0x173e INSTR=0x0000 -> NOP
+[CORE1] PC=0x1dee INSTR=0x8500 -> LOAD  r2 <- MEM[r1 + 0]
+core2:load, pc=0x1dee addr=0x113e data=1016, idx=1, tag=1000
+[1;34m[IC  828] both cores executed | Latency so far: 66821[1;0m
+[CORE0] PC=0x1740 INSTR=0x6580 -> SUBI  r3 = r1 - 0
+[CORE1] PC=0x1df0 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  829] both cores executed | Latency so far: 66833[1;0m
+[CORE0] PC=0x1742 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1df2 INSTR=0x4484 -> ADDI  r1 = r1 + 4
+[1;34m[IC  830] both cores executed | Latency so far: 66845[1;0m
+[CORE0] PC=0x1744 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1df4 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x1df4 addr=0x11c4 data=005f, idx=1, tag=0000
+[1;34m[IC  831] both cores executed | Latency so far: 66860[1;0m
+[CORE0] PC=0x1746 INSTR=0x4a51 -> ADDI  r4 = r2 + -47
+[CORE1] PC=0x1df6 INSTR=0x7680 -> SUBI  r5 = r5 - 0
+[1;34m[IC  832] both cores executed | Latency so far: 66872[1;0m
+[CORE0] PC=0x1748 INSTR=0x4b4e -> ADDI  r6 = r2 + -50
+[CORE1] PC=0x1df8 INSTR=0x44d6 -> ADDI  r1 = r1 + -42
+[1;34m[IC  833] both cores executed | Latency so far: 66884[1;0m
+[CORE0] PC=0x174a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1dfa INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x1dfa addr=0x1170 data=ffff, idx=1, tag=0000
+[1;34m[IC  834] both cores executed | Latency so far: 66899[1;0m
+[CORE0] PC=0x174c INSTR=0x44a3 -> ADDI  r1 = r1 + 35
+[CORE1] PC=0x1dfc INSTR=0xc031 -> BEQ   if (r0 == r0) branch 49 bytes to 0x1e60
+[1;34m[IC  835] both cores executed | Latency so far: 66911[1;0m
+[CORE0] PC=0x174e INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1e60 INSTR=0x0000 -> NOP
+core1:load, pc=0x174e addr=0x10d6 data=e800, idx=0, tag=1000
+[1;34m[IC  836] both cores executed | Latency so far: 67405[1;0m
+[CORE0] PC=0x1750 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[CORE1] PC=0x1e62 INSTR=0x4f4b -> ADDI  r6 = r3 + -53
+[1;34m[IC  837] both cores executed | Latency so far: 67417[1;0m
+[CORE0] PC=0x1752 INSTR=0x44f5 -> ADDI  r1 = r1 + -11
+[CORE1] PC=0x1e64 INSTR=0x0000 -> NOP
+[1;34m[IC  838] both cores executed | Latency so far: 67429[1;0m
+[CORE0] PC=0x1754 INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+[CORE1] PC=0x1e66 INSTR=0x0000 -> NOP
+core1:store, pc=0x1754 addr=0x1040 data=0000, idx=0, tag=0000
+[1;34m[IC  839] both cores executed | Latency so far: 67444[1;0m
+[CORE0] PC=0x1756 INSTR=0x6278 -> SUBI  r4 = r0 - -8
+[CORE1] PC=0x1e68 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  840] both cores executed | Latency so far: 67456[1;0m
+[CORE0] PC=0x1758 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e6a INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  841] both cores executed | Latency so far: 67468[1;0m
+[CORE0] PC=0x175a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e6c INSTR=0x44c8 -> ADDI  r1 = r1 + -56
+[1;34m[IC  842] both cores executed | Latency so far: 67480[1;0m
+[CORE0] PC=0x175c INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e6e INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x1e6e addr=0x1000 data=ffff, idx=0, tag=0000
+[1;34m[IC  843] both cores executed | Latency so far: 67495[1;0m
+[CORE0] PC=0x175e INSTR=0x449b -> ADDI  r1 = r1 + 27
+[CORE1] PC=0x1e70 INSTR=0x4b80 -> ADDI  r7 = r2 + 0
+[1;34m[IC  844] both cores executed | Latency so far: 67507[1;0m
+[CORE0] PC=0x1760 INSTR=0xa780 -> STORE MEM[r1 + 0] <- r7
+[CORE1] PC=0x1e72 INSTR=0x0000 -> NOP
+core1:store, pc=0x1760 addr=0x1076 data=e800, idx=0, tag=0000
+[1;34m[IC  845] both cores executed | Latency so far: 67522[1;0m
+[CORE0] PC=0x1762 INSTR=0x44c5 -> ADDI  r1 = r1 + -59
+[CORE1] PC=0x1e74 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1e74 addr=0x1000 data=ffff, idx=0, tag=1000
+[1;34m[IC  846] both cores executed | Latency so far: 67537[1;0m
+[CORE0] PC=0x1764 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+[CORE1] PC=0x1e76 INSTR=0x0000 -> NOP
+core1:load, pc=0x1764 addr=0x1000 data=ffff, idx=0, tag=1000
+[1;34m[IC  847] both cores executed | Latency so far: 67552[1;0m
+[CORE0] PC=0x1766 INSTR=0x5522 -> ADDI  r2 = r5 + 34
+[CORE1] PC=0x1e78 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  848] both cores executed | Latency so far: 67564[1;0m
+[CORE0] PC=0x1768 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e7a INSTR=0x44a1 -> ADDI  r1 = r1 + 33
+[1;34m[IC  849] both cores executed | Latency so far: 68345[1;0m
+[1;32m=== PASS DRAM CHECK at IC=849 ===[1;0m
+[CORE0] PC=0x176a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e7c INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1e7c addr=0x10c0 data=fbbf, idx=0, tag=1000
+[1;34m[IC  850] both cores executed | Latency so far: 68360[1;0m
+[CORE0] PC=0x176c INSTR=0x5294 -> ADDI  r5 = r4 + 20
+[CORE1] PC=0x1e7e INSTR=0x155c -> XOR   r5 = r5 ^ r2
+[1;34m[IC  851] both cores executed | Latency so far: 68372[1;0m
+[CORE0] PC=0x176e INSTR=0x4f00 -> ADDI  r6 = r3 + 0
+[CORE1] PC=0x1e80 INSTR=0x44c0 -> ADDI  r1 = r1 + -64
+[1;34m[IC  852] both cores executed | Latency so far: 68384[1;0m
+[CORE0] PC=0x1770 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e82 INSTR=0x44f3 -> ADDI  r1 = r1 + -13
+[1;34m[IC  853] both cores executed | Latency so far: 68396[1;0m
+[CORE0] PC=0x1772 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e84 INSTR=0x8580 -> LOAD  r3 <- MEM[r1 + 0]
+core2:load, pc=0x1e84 addr=0x1026 data=e330, idx=0, tag=1000
+[1;34m[IC  854] both cores executed | Latency so far: 68411[1;0m
+[CORE0] PC=0x1774 INSTR=0x0efe -> SLT   r7 = (r3 < r5)
+[CORE1] PC=0x1e86 INSTR=0x44ed -> ADDI  r1 = r1 + -19
+[1;34m[IC  855] both cores executed | Latency so far: 68423[1;0m
+[CORE0] PC=0x1776 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e88 INSTR=0xa700 -> STORE MEM[r1 + 0] <- r6
+core2:store, pc=0x1e88 addr=0x1000 data=fbbf, idx=0, tag=0000
+[1;34m[IC  856] both cores executed | Latency so far: 68438[1;0m
+[CORE0] PC=0x1778 INSTR=0x4dce -> ADDI  r3 = r3 + -50
+[CORE1] PC=0x1e8a INSTR=0x44a5 -> ADDI  r1 = r1 + 37
+[1;34m[IC  857] both cores executed | Latency so far: 68450[1;0m
+[CORE0] PC=0x177a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e8c INSTR=0xa680 -> STORE MEM[r1 + 0] <- r5
+core2:store, pc=0x1e8c addr=0x104a data=efe9, idx=0, tag=0000
+[1;34m[IC  858] both cores executed | Latency so far: 68465[1;0m
+[CORE0] PC=0x177c INSTR=0x2b3e -> MULT  {r3,r7} = r2 * r6
+[CORE1] PC=0x1e8e INSTR=0x6d21 -> SUBI  r2 = r3 - 33
+[1;34m[IC  859] both cores executed | Latency so far: 68493[1;0m
+[CORE0] PC=0x177e INSTR=0x1274 -> AND   r7 = r4 & r4
+[CORE1] PC=0x1e90 INSTR=0x44a3 -> ADDI  r1 = r1 + 35
+[1;34m[IC  860] both cores executed | Latency so far: 68505[1;0m
+[CORE0] PC=0x1780 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e92 INSTR=0x8780 -> LOAD  r7 <- MEM[r1 + 0]
+core2:load, pc=0x1e92 addr=0x1090 data=0000, idx=0, tag=1000
+[1;34m[IC  861] both cores executed | Latency so far: 68520[1;0m
+[CORE0] PC=0x1782 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1e94 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[1;34m[IC  862] both cores executed | Latency so far: 68532[1;0m
+[CORE0] PC=0x1784 INSTR=0x44bf -> ADDI  r1 = r1 + 63
+[CORE1] PC=0x1e96 INSTR=0x44ac -> ADDI  r1 = r1 + 44
+[1;34m[IC  863] both cores executed | Latency so far: 68544[1;0m
+[CORE0] PC=0x1786 INSTR=0x44a3 -> ADDI  r1 = r1 + 35
+[CORE1] PC=0x1e98 INSTR=0x8700 -> LOAD  r6 <- MEM[r1 + 0]
+core2:load, pc=0x1e98 addr=0x1166 data=ec72, idx=1, tag=1000
+[1;34m[IC  864] both cores executed | Latency so far: 68559[1;0m
+[CORE0] PC=0x1788 INSTR=0xa600 -> STORE MEM[r1 + 0] <- r4
+[CORE1] PC=0x1e9a INSTR=0x0000 -> NOP
+core1:store, pc=0x1788 addr=0x1142 data=0008, idx=1, tag=0000
+[1;34m[IC  865] both cores executed | Latency so far: 68574[1;0m
+[CORE0] PC=0x178a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e9c INSTR=0x0000 -> NOP
+[1;34m[IC  866] both cores executed | Latency so far: 68586[1;0m
+[CORE0] PC=0x178c INSTR=0x0000 -> NOP
+[CORE1] PC=0x1e9e INSTR=0x0000 -> NOP
+[1;34m[IC  867] both cores executed | Latency so far: 68598[1;0m
+[CORE0] PC=0x178e INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ea0 INSTR=0x0000 -> NOP
+[1;34m[IC  868] both cores executed | Latency so far: 68610[1;0m
+[CORE0] PC=0x1790 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ea2 INSTR=0x0000 -> NOP
+[1;34m[IC  869] both cores executed | Latency so far: 68622[1;0m
+[CORE0] PC=0x1792 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ea4 INSTR=0x0000 -> NOP
+[1;34m[IC  870] both cores executed | Latency so far: 68634[1;0m
+[CORE0] PC=0x1794 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ea6 INSTR=0x0000 -> NOP
+[1;34m[IC  871] both cores executed | Latency so far: 68646[1;0m
+[CORE0] PC=0x1796 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ea8 INSTR=0x0000 -> NOP
+[1;34m[IC  872] both cores executed | Latency so far: 68658[1;0m
+[CORE0] PC=0x1798 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eaa INSTR=0x0000 -> NOP
+[1;34m[IC  873] both cores executed | Latency so far: 68670[1;0m
+[CORE0] PC=0x179a INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eac INSTR=0x0000 -> NOP
+[1;34m[IC  874] both cores executed | Latency so far: 68682[1;0m
+[CORE0] PC=0x179c INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eae INSTR=0x0000 -> NOP
+[1;34m[IC  875] both cores executed | Latency so far: 68694[1;0m
+[CORE0] PC=0x179e INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eb0 INSTR=0x0000 -> NOP
+[1;34m[IC  876] both cores executed | Latency so far: 68706[1;0m
+[CORE0] PC=0x17a0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eb2 INSTR=0x0000 -> NOP
+[1;34m[IC  877] both cores executed | Latency so far: 68718[1;0m
+[CORE0] PC=0x17a2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eb4 INSTR=0x0000 -> NOP
+[1;34m[IC  878] both cores executed | Latency so far: 68730[1;0m
+[CORE0] PC=0x17a4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eb6 INSTR=0x0000 -> NOP
+[1;34m[IC  879] both cores executed | Latency so far: 68742[1;0m
+[CORE0] PC=0x17a6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eb8 INSTR=0x0000 -> NOP
+[1;34m[IC  880] both cores executed | Latency so far: 68754[1;0m
+[CORE0] PC=0x17a8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eba INSTR=0x0000 -> NOP
+[1;34m[IC  881] both cores executed | Latency so far: 68766[1;0m
+[CORE0] PC=0x17aa INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ebc INSTR=0x0000 -> NOP
+[1;34m[IC  882] both cores executed | Latency so far: 68778[1;0m
+[CORE0] PC=0x17ac INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ebe INSTR=0x0000 -> NOP
+[1;34m[IC  883] both cores executed | Latency so far: 68790[1;0m
+[CORE0] PC=0x17ae INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ec0 INSTR=0x0000 -> NOP
+[1;34m[IC  884] both cores executed | Latency so far: 68802[1;0m
+[CORE0] PC=0x17b0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ec2 INSTR=0x0000 -> NOP
+[1;34m[IC  885] both cores executed | Latency so far: 68814[1;0m
+[CORE0] PC=0x17b2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ec4 INSTR=0x0000 -> NOP
+[1;34m[IC  886] both cores executed | Latency so far: 68826[1;0m
+[CORE0] PC=0x17b4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ec6 INSTR=0x0000 -> NOP
+[1;34m[IC  887] both cores executed | Latency so far: 68838[1;0m
+[CORE0] PC=0x17b6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ec8 INSTR=0x0000 -> NOP
+[1;34m[IC  888] both cores executed | Latency so far: 68850[1;0m
+[CORE0] PC=0x17b8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eca INSTR=0x0000 -> NOP
+[1;34m[IC  889] both cores executed | Latency so far: 68862[1;0m
+[CORE0] PC=0x17ba INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ecc INSTR=0x0000 -> NOP
+[1;34m[IC  890] both cores executed | Latency so far: 68874[1;0m
+[CORE0] PC=0x17bc INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ece INSTR=0x0000 -> NOP
+[1;34m[IC  891] both cores executed | Latency so far: 68886[1;0m
+[CORE0] PC=0x17be INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ed0 INSTR=0x0000 -> NOP
+[1;34m[IC  892] both cores executed | Latency so far: 68898[1;0m
+[CORE0] PC=0x17c0 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ed2 INSTR=0x0000 -> NOP
+[1;34m[IC  893] both cores executed | Latency so far: 68910[1;0m
+[CORE0] PC=0x17c2 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ed4 INSTR=0x0000 -> NOP
+[1;34m[IC  894] both cores executed | Latency so far: 68922[1;0m
+[CORE0] PC=0x17c4 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ed6 INSTR=0x0000 -> NOP
+[1;34m[IC  895] both cores executed | Latency so far: 68934[1;0m
+[CORE0] PC=0x17c6 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ed8 INSTR=0x0000 -> NOP
+[1;34m[IC  896] both cores executed | Latency so far: 68946[1;0m
+[CORE0] PC=0x17c8 INSTR=0x0000 -> NOP
+[CORE1] PC=0x1eda INSTR=0x0000 -> NOP
+[1;34m[IC  897] both cores executed | Latency so far: 68958[1;0m
+[CORE0] PC=0x17ca INSTR=0x0000 -> NOP
+[CORE1] PC=0x1edc INSTR=0x0000 -> NOP
+[1;34m[IC  898] both cores executed | Latency so far: 68970[1;0m
+[CORE0] PC=0x17cc INSTR=0x0000 -> NOP
+[CORE1] PC=0x1ede INSTR=0x0000 -> NOP
+[1;34m[IC  899] both cores executed | Latency so far: 69283[1;0m
+[1;32m=== PASS DRAM CHECK at IC=899 ===[1;0m
+[1;35m======================================================================
+                          Congratulations!!
+                    All 900 Instruction Counter Executed
+                    All 1800 Instructions Executed
+                       Cycle time = 3.500000 ns
+               Your execution cycles = 69283 cycles
+               Your CPIC       = 76.981111 cycles per instruction counter
+               Your CPI       = 38.490556 cycles per instruction
+======================================================================[1;0m
+$finish called from file "../00_TESTBED/PATTERN.v", line 939.
+$finish at simulation time         242522000 ps
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 242522000 ps
+CPU Time:      1.050 seconds;       Data structure size:   1.4Mb
+Tue May  5 00:03:39 2026
+CPU time: 1.780 seconds to compile + .460 seconds to elab + .767 seconds to link + 1.084 seconds in simulation

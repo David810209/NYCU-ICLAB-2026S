@@ -1,0 +1,1966 @@
+#======================================================
+#
+# Synopsys Synthesis Scripts (Design Vision dctcl mode)
+#
+#======================================================
+#======================================================
+# (A) Global Parameters
+#======================================================
+set DESIGN "DCCPU"
+DCCPU
+set CYCLE 4.3
+4.3
+set INPUT_DLY [expr 0.5*$CYCLE]
+2.15
+set OUTPUT_DLY [expr 0.5*$CYCLE]
+2.15
+#======================================================
+# (B) Read RTL Code
+#======================================================
+# (B-1) analyze + elaborate
+set hdlin_auto_save_templates TRUE
+TRUE
+analyze -f sverilog $DESIGN\.v 
+Running PRESTO HDLC
+Compiling source file ../01_RTL/DCCPU.v
+Presto compilation completed successfully.
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ff1p98vm40c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_tt1p8v25c.db'
+Loading db file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/04_MEM/SUMA180_384X16X1BM1_WC.db'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb'
+Loading db file '/usr/cad/synopsys/synthesis/cur/libraries/syn/standard.sldb'
+1
+elaborate $DESIGN  
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/gtech.db'
+Loading db file '/usr/cad/synopsys/synthesis/2022.03/libraries/syn/standard.sldb'
+  Loading link library 'fsa0m_a_generic_core_ss1p62v125c'
+  Loading link library 'fsa0m_a_generic_core_ff1p98vm40c'
+  Loading link library 'fsa0m_a_t33_generic_io_ss1p62v125c'
+  Loading link library 'fsa0m_a_t33_generic_io_tt1p8v25c'
+  Loading link library 'SUMA180_384X16X1BM1_WC'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Warning:  ../01_RTL/DCCPU.v:643: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:644: signed to unsigned assignment occurs. (VER-318)
+
+Statistics for case statements in always block at line 583 in file
+        '../01_RTL/DCCPU.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           585            |    auto/auto     |
+|           597            |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 609 in file
+        '../01_RTL/DCCPU.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           612            |    auto/auto     |
+|           624            |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine DCCPU line 499 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r0_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 504 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r1_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 509 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r2_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 514 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r3_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 519 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r4_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 524 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r5_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 529 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r6_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 534 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_1_r7_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 541 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r0_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 546 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r1_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 551 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r2_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 556 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r3_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 561 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r4_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 566 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r5_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 571 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r6_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 576 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    core_2_r7_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine DCCPU line 637 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     stall_2_reg     | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+|     stall_1_reg     | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (DCCPU)
+Elaborated 1 design.
+Current design is now 'DCCPU'.
+Information: Building the design 'Core'. (HDL-193)
+Warning:  ../01_RTL/DCCPU.v:876: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:878: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1127: signed to unsigned part selection occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1245: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1246: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1254: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1255: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1271: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1285: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1292: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1268: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 1002 in file
+        '../01_RTL/DCCPU.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1003           |    auto/auto     |
+===============================================
+
+Statistics for case statements in always block at line 1263 in file
+        '../01_RTL/DCCPU.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1268           |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine Core line 884 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       pc_reg        | Flip-flop |  13   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 893 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      pc_2_reg       | Flip-flop |  13   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 911 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   if_instr_r_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 920 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  if_instr_2_r_reg   | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 940 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| current_core_r_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 963 in file
+                '../01_RTL/DCCPU.v'.
+==================================================================================
+|     Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+==================================================================================
+| current_fetch_core_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+==================================================================================
+
+Inferred memory devices in process
+        in routine Core line 978 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  instr_counter_reg  | Flip-flop |   6   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 993 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 1086 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     rf_wen_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|    rf_wdata_reg     | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 1109 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     rl_wen_reg      | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|   rf_rl_wdata_reg   | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 1227 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| change_order_r_reg  | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Core line 1287 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  alu_result_r_reg   | Flip-flop |  12   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (Core)
+Information: Building the design 'Memory'. (HDL-193)
+Warning:  ../01_RTL/DCCPU.v:1791: signed to unsigned assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1485: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)
+
+Statistics for case statements in always block at line 1484 in file
+        '../01_RTL/DCCPU.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1485           |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine Memory line 1424 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| araddr_m_inf_inst_reg | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1430 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| icache_data_valid_reg | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1445 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   icache_tag_reg    | Flip-flop |   6   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1455 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   icache_tag_reg    | Flip-flop |   6   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1472 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| araddr_m_inf_data_reg | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1478 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      state_reg      | Flip-flop |   3   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1527 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| dcache_data_valid_reg | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1533 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  dcache_dirty_reg   | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1553 in file
+                '../01_RTL/DCCPU.v'.
+=======================================================================================
+|        Register Name        |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=======================================================================================
+|  dcache_dirty_end_addr_reg  | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+| dcache_dirty_start_addr_reg | Flip-flop |   7   |  Y  | N  | N  | Y  | N  | N  | N  |
+=======================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1571 in file
+                '../01_RTL/DCCPU.v'.
+=======================================================================================
+|        Register Name        |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=======================================================================================
+|  dcache_dirty_end_addr_reg  | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+| dcache_dirty_start_addr_reg | Flip-flop |   7   |  Y  | N  | N  | Y  | N  | N  | N  |
+=======================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1591 in file
+                '../01_RTL/DCCPU.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| dirty_data_num_r_reg | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1598 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   dcache_tag_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1604 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   dcache_tag_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1608 in file
+                '../01_RTL/DCCPU.v'.
+==================================================================================
+|     Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+==================================================================================
+| arvalid_m_inf_data_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+==================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1624 in file
+                '../01_RTL/DCCPU.v'.
+==================================================================================
+|     Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+==================================================================================
+| awvalid_m_inf_data_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+==================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1641 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  dcache_w_data_reg  | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+|   dcache_web_reg    | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1670 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    is_read_d_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1675 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| dcache_addr_cnt_reg | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1732 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     data_o_reg      | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1741 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|   mem_data_o_reg    | Flip-flop |  16   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1753 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  data_valid_o_reg   | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1776 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    flush_cnt_reg    | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|    flush_cnt_reg    | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1793 in file
+                '../01_RTL/DCCPU.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| need_flush_num_r_reg | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1804 in file
+                '../01_RTL/DCCPU.v'.
+====================================================================================
+|      Register Name       |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+====================================================================================
+| flush_read_cache_cnt_reg | Flip-flop |   2   |  Y  | N  | Y  | N  | N  | N  | N  |
+====================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1815 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+| flush_issue_cnt_reg | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1827 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| cache_data_buffer_reg | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1842 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| awaddr_m_inf_data_reg | Flip-flop |  32   |  Y  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1849 in file
+                '../01_RTL/DCCPU.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| awlen_m_inf_data_reg | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1858 in file
+                '../01_RTL/DCCPU.v'.
+=================================================================================
+|     Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+=================================================================================
+| wvalid_m_inf_data_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+=================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1862 in file
+                '../01_RTL/DCCPU.v'.
+================================================================================
+|    Register Name     |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+================================================================================
+| wlast_m_inf_data_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+================================================================================
+
+Inferred memory devices in process
+        in routine Memory line 1879 in file
+                '../01_RTL/DCCPU.v'.
+==================================================================================
+|     Register Name      |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+==================================================================================
+| arvalid_m_inf_inst_reg | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+==================================================================================
+Presto compilation completed successfully. (Memory)
+Information: Building the design 'mult_16bit'. (HDL-193)
+Warning:  ../01_RTL/DCCPU.v:1933: signed to unsigned part selection occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1943: signed to unsigned conversion occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1951: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1963: unsigned to signed assignment occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1966: signed to unsigned part selection occurs. (VER-318)
+Warning:  ../01_RTL/DCCPU.v:1982: signed to unsigned part selection occurs. (VER-318)
+
+Statistics for case statements in always block at line 1930 in file
+        '../01_RTL/DCCPU.v'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           1933           |    auto/auto     |
+===============================================
+
+Inferred memory devices in process
+        in routine mult_16bit line 1912 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    shift_cnt_reg    | Flip-flop |   4   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit line 1946 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    shifted_A_reg    | Flip-flop |  34   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit line 1958 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     booth_B_reg     | Flip-flop |  18   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+
+Inferred memory devices in process
+        in routine mult_16bit line 1970 in file
+                '../01_RTL/DCCPU.v'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       acc_reg       | Flip-flop |  34   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully. (mult_16bit)
+Information: Building the design 'SRAM_384_16'. (HDL-193)
+Presto compilation completed successfully. (SRAM_384_16)
+1
+# (B-2) read_sverilog
+#read_sverilog $DESIGN\.v
+# (B-3) set current design
+current_design $DESIGN
+Current design is 'DCCPU'.
+{DCCPU}
+link
+
+  Linking design 'DCCPU'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (5 designs)               /RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/02_SYN/DCCPU.db, etc
+  fsa0m_a_generic_core_ss1p62v125c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db
+  fsa0m_a_generic_core_ff1p98vm40c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ff1p98vm40c.db
+  fsa0m_a_t33_generic_io_ss1p62v125c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_ss1p62v125c.db
+  fsa0m_a_t33_generic_io_tt1p8v25c (library) /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_tt1p8v25c.db
+  SUMA180_384X16X1BM1_WC (library) /RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/04_MEM/SUMA180_384X16X1BM1_WC.db
+  dw_foundation.sldb (library) /usr/cad/synopsys/synthesis/cur/libraries/syn/dw_foundation.sldb
+
+1
+#======================================================
+#  (C) Global Setting
+#======================================================
+#set_wire_load_mode top
+#set_operating_conditions -max WCCOM -min BCCOM
+#set_wire_load_model -name umc18_wl10 -library slow
+#======================================================
+#  (D) Set Design Constraints
+#======================================================
+# (D-1) Setting Clock Constraints
+# create_clock -name clk -period $CYCLE [get_ports clk]
+create_clock -name "clk" -period $CYCLE clk 
+1
+set_dont_touch_network             [get_clocks clk]
+1
+set_fix_hold                       [get_clocks clk]
+1
+set_clock_uncertainty       0.1    [get_clocks clk]
+1
+# set_clock_latency   -source 0      [get_clocks clk]
+# set_clock_latency           1      [get_clocks clk] 
+set_input_transition        0.5    [all_inputs] 
+1
+set_clock_transition        0.1    [get_clocks clk] 
+1
+# (D-2) Setting in/out Constraints
+set_input_delay   -max  $INPUT_DLY  -clock clk   [all_inputs] ;  # set_up time check 
+1
+set_input_delay   -min  0           -clock clk   [all_inputs] ;  # hold   time check 
+1
+set_output_delay  -max  $OUTPUT_DLY -clock clk   [all_outputs] ; # set_up time check 
+1
+set_output_delay  -min  0           -clock clk   [all_outputs] ; # hold   time check 
+1
+set_input_delay 0 -clock clk clk
+1
+set_input_delay 0 -clock clk rst_n
+1
+set_max_delay $CYCLE -from [all_inputs] -to [all_outputs]
+1
+# (D-3) Setting Design Environment
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [get_ports clk]
+# set_driving_cell -library umc18io3v5v_slow -lib_cell P2C    -pin {Y}  [remove_from_collection [all_inputs] [get_ports clk]]
+# set_load  [load_of "umc18io3v5v_slow/P8C/A"]       [all_outputs] ; # ~= 0.038
+set_load 0.05 [all_outputs]
+1
+# (D-4) Setting DRC Constraint
+#set_max_delay           0     ; # Optimize delay max effort                 
+#set_max_area            0      ; # Optimize area max effort           
+set_max_transition      3       [all_inputs]   ; # U18 LUT Max Transition Value  
+1
+set_max_capacitance     0.15    [all_inputs]   ; # U18 LUT Max Capacitance Value
+1
+set_max_fanout          10      [all_inputs]
+1
+# set_dont_use slow/JKFF*
+#set_dont_touch [get_cells core_reg_macro]
+#set hdlin_ff_always_sync_set_reset true
+# (D-5) Report Clock skew
+report_clock -skew clk
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Changed wire load model for 'mult_16bit' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'SRAM_384_16' from '(none)' to 'enG10K'. (OPT-170)
+Information: Changed wire load model for 'Memory' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'Core' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'alt1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'astr' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width6' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_6_1_6' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width16' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_16_1_16' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width16' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_16_16_16' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width13' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_13_13_13' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width9' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_TC_OP_8_3_9' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width13' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_13_2_13' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width34' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_34_1_34' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width34' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_34_34_34' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_dec_width4' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*SUB_UNS_OP_4_1_4' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp6_width16' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*EQ_UNS_OP_16_16_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW_leftsh' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ASH_UNS_UNS_OP_8_3_8' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW_leftsh' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ASH_UNS_UNS_OP_8_3_8' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_7_1_7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_7_1_7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_7_1_7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_sub_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*SUB_UNS_OP_7_7_7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_7_1_7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_2_1_2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width8' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_7_1_8' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_inc_width2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_2_1_2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_add_width2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*ADD_UNS_OP_1_1_2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp6_width8' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*EQ_UNS_OP_8_7_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp2_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*LEQ_UNS_OP_7_1_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp2_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*LT_UNS_OP_7_7_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp2_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*GT_UNS_OP_7_7_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp2_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*LT_UNS_OP_7_7_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp2_width7' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*GT_UNS_OP_7_7_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp6_width2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*EQ_UNS_OP_2_2_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp6_width2' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*EQ_UNS_OP_1_2_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp6_width4' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*EQ_UNS_OP_4_4_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for 'DW01_cmp6_width6' from '(none)' to 'G5K'. (OPT-170)
+Information: Changed wire load model for '*EQ_UNS_OP_6_6_1' from '(none)' to 'G5K'. (OPT-170)
+Information: Updating design information... (UID-85)
+Warning: Design 'DCCPU' contains 2 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : clock_skew
+Design : DCCPU
+Version: T-2022.03
+Date   : Mon Jun 22 00:19:31 2026
+****************************************
+
+                 Rise      Fall  Min Rise  Min fall        Uncertainty
+Object          Delay     Delay     Delay     Delay     Plus      Minus
+--------------------------------------------------------------------------------
+clk                 -         -         -         -      0.10      0.10
+
+                 Max Transition      Min Transition
+Object           Rise      Fall      Rise      Fall
+-------------------------------------------------------
+clk              0.10      0.10      0.10      0.10
+1
+check_timing
+
+Information: Checking generated_clocks...
+
+Information: Checking loops...
+
+Information: Checking no_input_delay...
+
+Information: Checking unconstrained_endpoints...
+
+Information: Checking pulse_clock_cell_type...
+
+Information: Checking no_driving_cell...
+
+Information: Checking partial_input_delay...
+1
+replace_clock_gates
+Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)
+Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)
+Information: Performing clock-gate replacement on design DCCPU
+
+
+Clock Gate Replacement Report
+===============================================================================
+| Clock |                    | Include | Clock | Edge |       | Setup | Gate  |
+| Root  |     Cell Name      | Exclude | Fanin | Type | Func. | Cond. | Repl. |
+===============================================================================
+| clk   |                    |         |       |      |       |       |       |
+|       |       C1832        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1831        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1828        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1827        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1824        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1823        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1820        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1819        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1816        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1815        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1812        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1811        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1808        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1807        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1804        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1803        |    -    |   1   | rise |  and  |  yes  |  yes  |
+===============================================================================
+
+Summary:
+                                                   number  percentage
+Replaced cells (total):                              16          100
+Cell not replaced because
+   Cell was excluded:                                 0            0
+   Multiple clock inputs:                             0            0
+   Mixed or unknown clock edge type:                  0            0
+   No compatible clock gate available:                0            0
+   Setup condition violated:                          0            0
+Total:                                               16          100
+
+
+Information: Performing clock-gate replacement on design Core
+
+
+Clock Gate Replacement Report
+===============================================================================
+| Clock |                    | Include | Clock | Edge |       | Setup | Gate  |
+| Root  |     Cell Name      | Exclude | Fanin | Type | Func. | Cond. | Repl. |
+===============================================================================
+| clk   |                    |         |       |      |       |       |       |
+|       |       C1641        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1530        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C1529        |    -    |   1   | rise |  and  |  yes  |  yes  |
+===============================================================================
+
+Summary:
+                                                   number  percentage
+Replaced cells (total):                               3          100
+Cell not replaced because
+   Cell was excluded:                                 0            0
+   Multiple clock inputs:                             0            0
+   Mixed or unknown clock edge type:                  0            0
+   No compatible clock gate available:                0            0
+   Setup condition violated:                          0            0
+Total:                                                3          100
+
+
+Information: Performing clock-gate replacement on design mult_16bit
+
+
+Clock Gate Replacement Report
+===============================================================================
+| Clock |                    | Include | Clock | Edge |       | Setup | Gate  |
+| Root  |     Cell Name      | Exclude | Fanin | Type | Func. | Cond. | Repl. |
+===============================================================================
+| clk   |                    |         |       |      |       |       |       |
+|       |        C684        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |        C679        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |        C675        |    -    |   1   | rise |  and  |  yes  |  yes  |
+===============================================================================
+
+Summary:
+                                                   number  percentage
+Replaced cells (total):                               3          100
+Cell not replaced because
+   Cell was excluded:                                 0            0
+   Multiple clock inputs:                             0            0
+   Mixed or unknown clock edge type:                  0            0
+   No compatible clock gate available:                0            0
+   Setup condition violated:                          0            0
+Total:                                                3          100
+
+
+Information: Performing clock-gate replacement on design Memory
+
+
+Clock Gate Replacement Report
+===============================================================================
+| Clock |                    | Include | Clock | Edge |       | Setup | Gate  |
+| Root  |     Cell Name      | Exclude | Fanin | Type | Func. | Cond. | Repl. |
+===============================================================================
+| clk   |                    |         |       |      |       |       |       |
+|       |       C2140        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C2119        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C2028        |    -    |   1   | rise |  and  |  yes  |  yes  |
+|       |       C2019        |    -    |   1   | rise |  and  |  yes  |  yes  |
+===============================================================================
+
+Summary:
+                                                   number  percentage
+Replaced cells (total):                               4          100
+Cell not replaced because
+   Cell was excluded:                                 0            0
+   Multiple clock inputs:                             0            0
+   Mixed or unknown clock edge type:                  0            0
+   No compatible clock gate available:                0            0
+   Setup condition violated:                          0            0
+Total:                                                4          100
+
+
+Information: Performing clock-gate replacement on design SRAM_384_16
+1
+#======================================================
+#  (E) Optimization
+#======================================================
+check_design > Report/$DESIGN\.check
+set_fix_multiple_port_nets -all -buffer_constants [get_designs *]
+1
+# set_fix_hold [all_clocks]
+compile_ultra
+Information: Starting from 2013.12 release, constant propagation is enabled even when boundary optimization is disabled. (OPT-1318)
+Information: Performing power optimization. (PWR-850)
+Alib files are up-to-date.
+Information: Running optimization using a maximum of 8 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | S-2021.06-DWBB_202106.0 |     *     |
+| Licensed DW Building Blocks        | S-2021.06-DWBB_202106.0 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler NXT WLM                                                           |
+| Comand line  | compile_ultra                                                                     |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 2458                                   |
+| Number of User Hierarchies                              | 30                                     |
+| Sequential Cell Count                                   | 766                                    |
+| Macro Count                                             | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch cells                              | 447                                    |
+| Number of Dont Touch nets                               | 83                                     |
+| Number of size only cells                               | 52                                     |
+| Design with UPF Data                                    | false                                  |
+----------------------------------------------------------------------------------------------------
+| Variables                                               | Value                                  |
+----------------------------------------------------------------------------------------------------
+| set_fix_multiple_port_nets                              | -all -buffer_constants                 |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 204 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+Information: Uniquified 16 instances of design 'SNPS_CLOCK_GATE_HIGH_DCCPU'. (OPT-1056)
+Information: Uniquified 3 instances of design 'SNPS_CLOCK_GATE_HIGH_Core'. (OPT-1056)
+Information: Uniquified 3 instances of design 'SNPS_CLOCK_GATE_HIGH_mult_16bit'. (OPT-1056)
+Information: Uniquified 4 instances of design 'SNPS_CLOCK_GATE_HIGH_Memory'. (OPT-1056)
+  Simplifying Design 'DCCPU'
+
+  Loading target library 'fsa0m_a_generic_core_ff1p98vm40c'
+  Loading target library 'fsa0m_a_t33_generic_io_ss1p62v125c'
+  Loading target library 'fsa0m_a_t33_generic_io_tt1p8v25c'
+  Loading target library 'SUMA180_384X16X1BM1_WC'
+Loaded alib file './alib-52/fsa0m_a_generic_core_ss1p62v125c.db.alib'
+Loaded alib file './alib-52/fsa0m_a_generic_core_ff1p98vm40c.db.alib'
+Loaded alib file './alib-52/fsa0m_a_t33_generic_io_ss1p62v125c.db.alib' (placeholder)
+Loaded alib file './alib-52/fsa0m_a_t33_generic_io_tt1p8v25c.db.alib' (placeholder)
+Loaded alib file './alib-52/SUMA180_384X16X1BM1_WC.db.alib' (placeholder)
+Warning: Operating condition WCCOM set on design DCCPU has different process,
+voltage and temperatures parameters than the parameters at which target library 
+fsa0m_a_generic_core_ff1p98vm40c is characterized. Delays may be inaccurate as a result. (OPT-998)
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy core_1/memory before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy core_1/memory/dcache before Pass 1 (OPT-776)
+Information: Ungrouping 2 of 31 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'Core'
+Information: Added key list 'DesignWare' to design 'Core'. (DDB-72)
+Information: The register 'memory/araddr_m_inf_inst_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_inst_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/araddr_m_inf_data_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[31]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[30]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[29]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[28]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[27]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[26]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[25]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[24]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[23]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[22]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[21]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[20]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[19]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[18]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[17]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[16]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'memory/awaddr_m_inf_data_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: In design 'Core', the register 'memory/araddr_m_inf_data_reg[13]' is removed because it is merged to 'memory/araddr_m_inf_inst_reg[12]'. (OPT-1215)
+Information: In design 'Core', the register 'memory/araddr_m_inf_data_reg[11]' is removed because it is merged to 'memory/araddr_m_inf_inst_reg[11]'. (OPT-1215)
+Information: In design 'Core', the register 'memory/araddr_m_inf_data_reg[10]' is removed because it is merged to 'memory/araddr_m_inf_inst_reg[10]'. (OPT-1215)
+Information: In design 'Core', the register 'memory/araddr_m_inf_data_reg[9]' is removed because it is merged to 'memory/araddr_m_inf_inst_reg[9]'. (OPT-1215)
+Information: In design 'Core', the register 'memory/araddr_m_inf_data_reg[8]' is removed because it is merged to 'memory/araddr_m_inf_inst_reg[8]'. (OPT-1215)
+ Implement Synthetic for 'Core'.
+  Processing 'DCCPU'
+Information: In design 'DCCPU', the register 'stall_2_reg' is removed because it is merged to 'stall_1_reg'. (OPT-1215)
+  Processing 'mult_16bit'
+Information: Added key list 'DesignWare' to design 'mult_16bit'. (DDB-72)
+ Implement Synthetic for 'mult_16bit'.
+  Processing 'SNPS_CLOCK_GATE_HIGH_DCCPU_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DCCPU_15'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_Memory_3'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_Memory_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_Core_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_Core_2'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_mult_16bit_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_mult_16bit_2'
+  Mapping integrated clock gating circuitry
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIE1' in the library 'fsa0m_a_generic_core_ss1p62v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIE0' in the library 'fsa0m_a_generic_core_ss1p62v125c' is not characterized for internal power. (PWR-536)
+Information: The library cell 'BHD1' in the library 'fsa0m_a_generic_core_ss1p62v125c' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Information: Complementing port 'is_wb' in design 'Core'.
+         The new name of the port is 'is_wb_BAR'. (OPT-319)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: The wire load model of the parent cell core_1 is different from that of the child cell core_1/mult in the design mult_16bit. The child cell will not be ungrouped. (OPT-779)
+  Mapping Optimization (Phase 1)
+  Mapping Optimization (Phase 2)
+  Mapping Optimization (Phase 3)
+  Mapping Optimization (Phase 4)
+  Mapping Optimization (Phase 5)
+  Mapping Optimization (Phase 6)
+  Mapping Optimization (Phase 7)
+  Mapping Optimization (Phase 8)
+  Mapping Optimization (Phase 9)
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:36  229941.5      0.44      39.6       0.0                           20383590.0000      0.00  
+    0:00:36  229732.1      1.18      49.8       0.0                           20371512.0000      0.00  
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:00:36  229732.1      1.18      49.8       0.0                           20371512.0000      0.00  
+    0:00:36  229619.6      1.15      50.6       0.0                           20362316.0000      0.00  
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+Information: The register 'core_1/mult/acc_reg[33]' will be removed. (OPT-1207)
+Information: The register 'core_1/mult/acc_reg[32]' will be removed. (OPT-1207)
+Information: The register 'core_1/mult/shifted_A_reg[32]' will be removed. (OPT-1207)
+Information: The register 'core_1/mult/shifted_A_reg[33]' will be removed. (OPT-1207)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:38  183453.8      0.98      95.2     176.9                           16447413.0000      0.00  
+    0:00:40  189544.0      0.10      14.3     224.2                           16936906.0000      0.00  
+    0:00:40  189544.0      0.10      14.3     224.2                           16936906.0000      0.00  
+    0:00:40  189559.7      0.10      14.4     234.6                           16981056.0000      0.00  
+    0:00:41  184225.6      0.75      88.2     234.6                           16744576.0000      0.00  
+    0:00:42  184225.6      0.75      88.2     234.6                           16744576.0000      0.00  
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:00:42  182266.4      0.75      84.7     220.0                           16586340.0000      0.00  
+    0:00:43  181869.5      0.09       2.0     220.0                           16561251.0000      0.00  
+    0:00:43  181869.5      0.09       2.0     220.0                           16561251.0000      0.00  
+    0:00:43  181032.1      0.08       1.6     219.4                           16487476.0000      0.00  
+    0:00:43  181032.1      0.08       1.6     219.4                           16487476.0000      0.00  
+    0:00:45  183572.6      0.04       1.5     219.4                           16684854.0000      0.00  
+    0:00:45  183572.6      0.04       1.5     219.4                           16684854.0000      0.00  
+    0:00:45  184150.6      0.00       0.0     212.0                           16730572.0000      0.00  
+    0:00:45  184150.6      0.00       0.0     212.0                           16730572.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:45  184153.8      0.00       0.0     212.0                           16728055.0000      0.00  
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:00:45  184169.4      0.00       0.0       0.0                           16729124.0000      0.00  
+    0:00:45  184169.4      0.00       0.0       0.0                           16729124.0000      0.00  
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:45  184169.4      0.00       0.0       0.0                           16729124.0000      0.00  
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+    0:00:48  181838.3      0.00       0.0       0.0                           16454314.0000      0.00  
+    0:00:48  181838.3      0.00       0.0       0.0                           16454314.0000      0.00  
+    0:00:48  181838.3      0.00       0.0       0.0                           16454314.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+    0:00:48  180416.5      0.00       0.0       0.0                           16322312.0000      0.00  
+
+                                  TOTAL                                                            
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE   MIN DELAY 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER      COST    
+  --------- --------- --------- --------- --------- ------------------------- --------- -----------
+    0:00:48  181403.9      0.00       0.0       0.0                           16383584.0000      0.00  
+    0:00:49  181266.4      0.00       0.0       0.0                           16374638.0000      0.00  
+    0:00:49  181266.4      0.00       0.0       0.0                           16374638.0000      0.00  
+    0:00:49  181266.4      0.00       0.0       0.0                           16374638.0000      0.00  
+    0:00:49  180910.2      0.00       0.0       0.0                           16343318.0000      0.00  
+    0:00:49  180541.5      0.00       0.0       0.0                           16309954.0000      0.00  
+    0:00:49  180541.5      0.00       0.0       0.0                           16309954.0000      0.00  
+    0:00:49  180541.5      0.00       0.0       0.0                           16309954.0000      0.00  
+    0:00:49  180541.5      0.00       0.0       0.0                           16309954.0000      0.00  
+    0:00:49  180541.5      0.00       0.0       0.0                           16309954.0000      0.00  
+    0:00:49  180541.5      0.00       0.0       0.0                           16309954.0000      0.00  
+    0:00:50  179872.8      0.00       0.0       0.0                           16250070.0000      0.00  
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ff1p98vm40c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_ss1p62v125c.db'
+Loading db file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_t33_generic_io_tt1p8v25c.db'
+Loading db file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/04_MEM/SUMA180_384X16X1BM1_WC.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+  Loading target library 'fsa0m_a_generic_core_ff1p98vm40c'
+  Loading target library 'fsa0m_a_t33_generic_io_ss1p62v125c'
+  Loading target library 'fsa0m_a_t33_generic_io_tt1p8v25c'
+  Loading target library 'SUMA180_384X16X1BM1_WC'
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated black box outputs. (PWR-428)
+1
+#uniquify
+#compile
+#======================================================
+#  (F) Output Reports 
+#======================================================
+report_design  >  Report/$DESIGN\.design
+report_resource >  Report/$DESIGN\.resource
+report_timing -max_paths 3 >  Report/$DESIGN\.timing
+report_area >  Report/$DESIGN\.area
+report_power > Report/$DESIGN\.power
+report_clock > Report/$DESIGN\.clock
+report_port >  Report/$DESIGN\.port
+report_power >  Report/$DESIGN\.power
+#report_reference > Report/$DESIGN\.reference
+#======================================================
+#  (G) Change Naming Rule
+#======================================================
+set bus_inference_style "%s\[%d\]"
+%s[%d]
+set bus_naming_style "%s\[%d\]"
+%s[%d]
+set hdlout_internal_busses true
+true
+change_names -hierarchy -rule verilog
+Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _" -max_length 255 -type cell
+1
+define_name_rules name_rule -allowed "a-z A-Z 0-9 _[]" -max_length 255 -type net
+1
+define_name_rules name_rule -map {{"\\*cell\\*" "cell"}}
+1
+define_name_rules name_rule -case_insensitive
+1
+change_names -hierarchy -rules name_rule
+1
+#======================================================
+#  (H) Output Results
+#======================================================
+set verilogout_higher_designs_first true
+true
+write -format verilog -output Netlist/$DESIGN\_SYN.v -hierarchy
+Writing verilog file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/02_SYN/Netlist/DCCPU_SYN.v'.
+1
+write -format ddc     -hierarchy -output $DESIGN\_SYN.ddc
+Writing ddc file 'DCCPU_SYN.ddc'.
+1
+write_sdf -version 3.0 -context verilog -load_delay cell Netlist/$DESIGN\_SYN.sdf -significant_digits 6
+Information: Writing timing information to file '/RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/02_SYN/Netlist/DCCPU_SYN.sdf'. (WT-3)
+Information: Updating design information... (UID-85)
+1
+write_sdc Netlist/$DESIGN\_SYN.sdc
+1
+#======================================================
+#  (I) Finish and Quit
+#======================================================
+report_clock_gating -gating_elements
+ 
+****************************************
+Report : clock_gating
+        -gating_elements
+Design : DCCPU
+Version: T-2022.03
+Date   : Mon Jun 22 00:20:25 2026
+****************************************
+
+Information: Identification of clock-gating cells has not been performed. Pre-existing clock-gating cells will not be reported. (PWR-947)
+--------------------------------------------------------------------------------
+                             Clock Gating Cell Report
+--------------------------------------------------------------------------------
+
+ Clock Gating Bank : clk_gate_C1832
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1832/CLK = clk 
+         clk_gate_C1832/EN = gclk_c2_en[7] 
+         clk_gate_C1832/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1832/ENCLK = gclk_c2[7] 
+
+ Clock Gating Bank : clk_gate_C1831
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1831/CLK = clk 
+         clk_gate_C1831/EN = gclk_c1_en[7] 
+         clk_gate_C1831/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1831/ENCLK = gclk_c1[7] 
+
+ Clock Gating Bank : clk_gate_C1828
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1828/CLK = clk 
+         clk_gate_C1828/EN = gclk_c2_en[6] 
+         clk_gate_C1828/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1828/ENCLK = gclk_c2[6] 
+
+ Clock Gating Bank : clk_gate_C1827
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1827/CLK = clk 
+         clk_gate_C1827/EN = gclk_c1_en[6] 
+         clk_gate_C1827/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1827/ENCLK = gclk_c1[6] 
+
+ Clock Gating Bank : clk_gate_C1824
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1824/CLK = clk 
+         clk_gate_C1824/EN = gclk_c2_en[5] 
+         clk_gate_C1824/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1824/ENCLK = gclk_c2[5] 
+
+ Clock Gating Bank : clk_gate_C1823
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1823/CLK = clk 
+         clk_gate_C1823/EN = gclk_c1_en[5] 
+         clk_gate_C1823/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1823/ENCLK = gclk_c1[5] 
+
+ Clock Gating Bank : clk_gate_C1820
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1820/CLK = clk 
+         clk_gate_C1820/EN = gclk_c2_en[4] 
+         clk_gate_C1820/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1820/ENCLK = gclk_c2[4] 
+
+ Clock Gating Bank : clk_gate_C1819
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1819/CLK = clk 
+         clk_gate_C1819/EN = gclk_c1_en[4] 
+         clk_gate_C1819/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1819/ENCLK = gclk_c1[4] 
+
+ Clock Gating Bank : clk_gate_C1816
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1816/CLK = clk 
+         clk_gate_C1816/EN = gclk_c2_en[3] 
+         clk_gate_C1816/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1816/ENCLK = gclk_c2[3] 
+
+ Clock Gating Bank : clk_gate_C1815
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1815/CLK = clk 
+         clk_gate_C1815/EN = gclk_c1_en[3] 
+         clk_gate_C1815/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1815/ENCLK = gclk_c1[3] 
+
+ Clock Gating Bank : clk_gate_C1812
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1812/CLK = clk 
+         clk_gate_C1812/EN = gclk_c2_en[2] 
+         clk_gate_C1812/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1812/ENCLK = gclk_c2[2] 
+
+ Clock Gating Bank : clk_gate_C1811
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1811/CLK = clk 
+         clk_gate_C1811/EN = gclk_c1_en[2] 
+         clk_gate_C1811/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1811/ENCLK = gclk_c1[2] 
+
+ Clock Gating Bank : clk_gate_C1808
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1808/CLK = clk 
+         clk_gate_C1808/EN = gclk_c2_en[1] 
+         clk_gate_C1808/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1808/ENCLK = gclk_c2[1] 
+
+ Clock Gating Bank : clk_gate_C1807
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1807/CLK = clk 
+         clk_gate_C1807/EN = gclk_c1_en[1] 
+         clk_gate_C1807/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1807/ENCLK = gclk_c1[1] 
+
+ Clock Gating Bank : clk_gate_C1804
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1804/CLK = clk 
+         clk_gate_C1804/EN = gclk_c2_en[0] 
+         clk_gate_C1804/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1804/ENCLK = gclk_c2[0] 
+
+ Clock Gating Bank : clk_gate_C1803
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         clk_gate_C1803/CLK = clk 
+         clk_gate_C1803/EN = gclk_c1_en[0] 
+         clk_gate_C1803/TE = n1191 
+
+     OUTPUTS :
+         clk_gate_C1803/ENCLK = gclk_c1[0] 
+
+ Clock Gating Bank : core_1/clk_gate_C1641
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/clk_gate_C1641/CLK = clk 
+         core_1/clk_gate_C1641/EN = rf_wdata_en 
+         core_1/clk_gate_C1641/TE = n11 
+
+     OUTPUTS :
+         core_1/clk_gate_C1641/ENCLK = gclk_rf_wdata 
+
+ Clock Gating Bank : core_1/clk_gate_C1530
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/clk_gate_C1530/CLK = clk 
+         core_1/clk_gate_C1530/EN = instr1_en 
+         core_1/clk_gate_C1530/TE = n11 
+
+     OUTPUTS :
+         core_1/clk_gate_C1530/ENCLK = gclk_instr1 
+
+ Clock Gating Bank : core_1/clk_gate_C1529
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/clk_gate_C1529/CLK = clk 
+         core_1/clk_gate_C1529/EN = instr0_en 
+         core_1/clk_gate_C1529/TE = n11 
+
+     OUTPUTS :
+         core_1/clk_gate_C1529/ENCLK = gclk_instr0 
+
+ Clock Gating Bank : core_1/memory_clk_gate_C2019
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/memory_clk_gate_C2019/CLK = clk 
+         core_1/memory_clk_gate_C2019/EN = memory_gclk_itag_en0 
+         core_1/memory_clk_gate_C2019/TE = n11 
+
+     OUTPUTS :
+         core_1/memory_clk_gate_C2019/ENCLK = memory_gclk_itag0 
+
+ Clock Gating Bank : core_1/memory_clk_gate_C2028
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/memory_clk_gate_C2028/CLK = clk 
+         core_1/memory_clk_gate_C2028/EN = memory_gclk_itag_en1 
+         core_1/memory_clk_gate_C2028/TE = n11 
+
+     OUTPUTS :
+         core_1/memory_clk_gate_C2028/ENCLK = memory_gclk_itag1 
+
+ Clock Gating Bank : core_1/memory_clk_gate_C2119
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/memory_clk_gate_C2119/CLK = clk 
+         core_1/memory_clk_gate_C2119/EN = memory_gclk_dirty_ptr0_en 
+         core_1/memory_clk_gate_C2119/TE = n11 
+
+     OUTPUTS :
+         core_1/memory_clk_gate_C2119/ENCLK = memory_gclk_dirty_ptr0 
+
+ Clock Gating Bank : core_1/memory_clk_gate_C2140
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/memory_clk_gate_C2140/CLK = clk 
+         core_1/memory_clk_gate_C2140/EN = memory_gclk_dirty_ptr1_en 
+         core_1/memory_clk_gate_C2140/TE = n11 
+
+     OUTPUTS :
+         core_1/memory_clk_gate_C2140/ENCLK = memory_gclk_dirty_ptr1 
+
+ Clock Gating Bank : core_1/mult/clk_gate_C684
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/mult/clk_gate_C684/CLK = clk 
+         core_1/mult/clk_gate_C684/EN = n434 
+         core_1/mult/clk_gate_C684/TE = n_Logic0_ 
+
+     OUTPUTS :
+         core_1/mult/clk_gate_C684/ENCLK = gclk_mult3 
+
+ Clock Gating Bank : core_1/mult/clk_gate_C679
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/mult/clk_gate_C679/CLK = clk 
+         core_1/mult/clk_gate_C679/EN = n434 
+         core_1/mult/clk_gate_C679/TE = n_Logic0_ 
+
+     OUTPUTS :
+         core_1/mult/clk_gate_C679/ENCLK = gclk_mult2 
+
+ Clock Gating Bank : core_1/mult/clk_gate_C675
+-------------------
+
+     STYLE = latch, MIN = 3, MAX = unlimited, OBS_DEPTH = 5 
+
+     INPUTS :
+         core_1/mult/clk_gate_C675/CLK = clk 
+         core_1/mult/clk_gate_C675/EN = n434 
+         core_1/mult/clk_gate_C675/TE = n_Logic0_ 
+
+     OUTPUTS :
+         core_1/mult/clk_gate_C675/ENCLK = gclk_mult 
+--------------------------------------------------------------------------------
+
+
+                             Clock Gating Summary
+          ------------------------------------------------------------
+          |    Number of Clock gating elements    |       26         |
+          |                                       |                  |
+          |    Number of Gated registers          |   444 (67.48%)   |
+          |                                       |                  |
+          |    Number of Ungated registers        |   214 (32.52%)   |
+          |                                       |                  |
+          |    Total number of registers          |      658         |
+          ------------------------------------------------------------
+
+
+
+                             Clock Gating Report by Origin
+          +-------------------------------------------------+------------------+
+          |                                                 |    Actual (%)    |
+          |                                                 |    Count         |
+          +-------------------------------------------------+------------------+
+          |  Number of tool-inserted clock gating elements  |    26 (100.00%)  |
+          |                                                 |                  |
+          |  Number of pre-existing clock gating elements   |     0 (0.00%)    |
+          |                                                 |                  |
+          |  Number of gated registers                      |   444 (67.48%)   |
+          |                                                 |                  |
+          |  Number of tool-inserted gated registers        |   444 (67.48%)   |
+          |                                                 |                  |
+          |  Number of pre-existing gated registers         |     0 (0.00%)    |
+          |                                                 |                  |
+          |  Number of ungated registers                    |   214 (32.52%)   |
+          |                                                 |                  |
+          |  Number of registers                            |      658         |
+          +-------------------------------------------------+------------------+
+
+
+
+1
+report_area
+ 
+****************************************
+Report : area
+Design : DCCPU
+Version: T-2022.03
+Date   : Mon Jun 22 00:20:25 2026
+****************************************
+
+Library(s) Used:
+
+    fsa0m_a_generic_core_ss1p62v125c (File: /RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/UMC018_CBDK/CIC/SynopsysDC/db/fsa0m_a_generic_core_ss1p62v125c.db)
+    SUMA180_384X16X1BM1_WC (File: /RAID2/COURSE/2026_Spring/iclab/iclab042/Final_Project/04_MEM/SUMA180_384X16X1BM1_WC.db)
+
+Number of ports:                          789
+Number of nets:                          4366
+Number of cells:                         3910
+Number of combinational cells:           3197
+Number of sequential cells:               684
+Number of macros/black boxes:               1
+Number of buf/inv:                        808
+Number of references:                      64
+
+Combinational area:              55721.433525
+Buf/Inv area:                     8408.836741
+Noncombinational area:           40863.009815
+Macro/Black Box area:            83288.343750
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                179872.787090
+Total area:                 undefined
+1
+report_timing 
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : DCCPU
+Version: T-2022.03
+Date   : Mon Jun 22 00:20:25 2026
+****************************************
+
+Operating Conditions: WCCOM   Library: fsa0m_a_generic_core_ss1p62v125c
+Wire Load Model Mode: enclosed
+
+  Startpoint: core_1/current_core_r_reg
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: core_1/alu_result_r_reg_0_
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  DCCPU              enG30K                fsa0m_a_generic_core_ss1p62v125c
+  Core               enG30K                fsa0m_a_generic_core_ss1p62v125c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  core_1/current_core_r_reg/CK (QDFFRBT)                  0.00       0.00 r
+  core_1/current_core_r_reg/Q (QDFFRBT)                   0.50       0.50 r
+  core_1/U847/O (INV12)                                   0.10       0.60 f
+  core_1/U1214/O (INV12)                                  0.12       0.71 r
+  core_1/U124/OB (MXL2HT)                                 0.15       0.87 r
+  core_1/rs_addr[0] (Core)                                0.00       0.87 r
+  U1676/O (OR2T)                                          0.27       1.14 r
+  U1615/O (INV1CK)                                        0.14       1.28 f
+  U1618/O (ND2P)                                          0.19       1.47 r
+  U1614/O (INV8)                                          0.16       1.63 f
+  U1553/O (AOI22S)                                        0.25       1.87 r
+  U2002/O (AN4)                                           0.26       2.13 r
+  U1137/O (ND3P)                                          0.15       2.28 f
+  core_1/rs_data[11] (Core)                               0.00       2.28 f
+  core_1/U339/O (NR2)                                     0.25       2.53 r
+  core_1/U338/O (ND3P)                                    0.21       2.74 f
+  core_1/U115/O (INV3)                                    0.13       2.87 r
+  core_1/U1113/O (NR2T)                                   0.13       3.01 f
+  core_1/U334/O (ND2P)                                    0.16       3.17 r
+  core_1/U358/O (INV1S)                                   0.16       3.33 f
+  core_1/U1141/O (AOI13H)                                 0.27       3.60 r
+  core_1/U735/O (XNR2H)                                   0.15       3.75 f
+  core_1/U733/O (NR2F)                                    0.14       3.88 r
+  core_1/U1142/O (INV4)                                   0.06       3.94 f
+  core_1/U1156/O (ND3P)                                   0.08       4.03 r
+  core_1/alu_result_r_reg_0_/D (QDFFRBS)                  0.00       4.03 r
+  data arrival time                                                  4.03
+
+  clock clk (rise edge)                                   4.30       4.30
+  clock network delay (ideal)                             0.00       4.30
+  clock uncertainty                                      -0.10       4.20
+  core_1/alu_result_r_reg_0_/CK (QDFFRBS)                 0.00       4.20 r
+  library setup time                                     -0.17       4.03
+  data required time                                                 4.03
+  --------------------------------------------------------------------------
+  data required time                                                 4.03
+  data arrival time                                                 -4.03
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1
+exit
+
+Memory usage for this session 446 Mbytes.
+Memory usage for this session including child processes 550 Mbytes.
+CPU usage for this session 109 seconds ( 0.03 hours ).
+Elapsed time for this session 58 seconds ( 0.02 hours ).
+
+Thank you...
+

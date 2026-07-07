@@ -1,0 +1,104 @@
+//############################################################################
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//   (C) Copyright Laboratory System Integration and Silicon Implementation
+//   All Right Reserved
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//   2023 ICLAB Fall Course
+//   Lab03      : BRIDGE
+//   Author     : Tzu-Yun Huang
+//	 Editor		: Ting-Yu Chang
+//                
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//   File Name   : pseudo_DRAM.v
+//   Module Name : pseudo_DRAM
+//   Release version : v3.0 (Release Date: Sep-2023)
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//############################################################################
+
+module pseudo_DRAM (
+    input  wire        clk,
+    input  wire        rst_n,
+    input  wire [3:0]  dram_cmd,
+    input  wire [1:0]  dram_ba,
+    input  wire [10:0] dram_addr,
+    input  wire [63:0] dram_wdata,
+    output reg  [63:0] dram_rdata,
+    output reg         dram_valid
+);
+
+`protected
+^6Y.QQ^#\bZ>LFa@OB-Q/#4-GOfgObZ.1D\?c8?BTNKAC\UKfg,[():@a7SET#JQ
+KXFBZQCe35WA:#@@E=]]=aeR^IL5Cf#Tb0cSY5+f.U:?Q+S,STB2X6C]2Y#;)EG.
+0(1F0YKEJWUYK4BdTbMPYJFfL@BR,0XaN:IFTTbXQGDK,[P2>GS(:2-N81-F-)MS
+N)H-F)GL_Kf42A+_38bG\;@eE26I=.T:TXaN9&/ZeU>O[0L(JA(Sc)_V:7f1B8N8
+#9?W#XMW1RZZI1?8Og8-[-2)eFL5O4a55eTGC64YMJR70C)Xeg&^DHaXKV^Z+3+V
+_WV6Z\,EK+;K(T#>dV<>C-RD/QQa;X@S0B?(0R7R/U=0cY#MA=E1Z2R32c8L)bNd
+:+GUN)/bcZ[38,\6>,/?.b;#Y4#GMTI)[J>Q5Q;3KH90EDPO/GTO_[:@9#O?O@ca
+3T37Y_.(YS3>L:1RRNZ[A]ST_QKVb8:)^_[gFML]69BK(P5[AfA+M@TReHQ6PG1@
+2?7JWP74gF[B9aIU];+7>VL]^1)L?[Qd[]YcN&9&)K/75K/[)G]>+WB1,ROe2Z1U
+?9=4AY7fM&FED6eUB34@<38Rg5]O:HA]&HMEP[T^gP((;DR[bHVbT6KI^=#<#(J]
+U/ce/:fZL8.OHUL;XU>QVEFP914R12XL-HP/C^^P^Q-(-<eE]:/A+H&L=2e9_GUU
+R\?@7EHAY5GN6e6?ZYD2eCN,5)LVGaJ;(9I&B6+&TC>d0?^cL2O],F7EZ;=>XN,)
+NcbJf^7ZFT.aG9W14(H/H_(?g#aJL-<WM\,)C:G>.KIDYFf/M0><GWVX>cIVLEeI
+Ig.^Qg8\.-(a/TB_OFEQA,NEe3)a:8NSY?^94.3-AQRVWE5-+P<<c&RBe)X;gVIX
+>BMFOT0P[:G,U3_94JU1A)\>d:3>d/Qd_cFHB\Tf<\d^_\P3]B.+YFX)H3S/E+X&
+S;,.>)Q4?,O5+82QXgGH;1Q#/6K\^CS#2L,^7:/[dZVd+5\^(AM)Qb1@<dFEC6,1
+Ud-L/59;e1d,O#C1Y2X3_]6S1;[X60a[?/(2fP:LV_7GC7gHF?:e&40BF[SPFC.<
+AS_AL<TOT0&FM5de-=W4/+WW1RO)95T#;18Ubg#(4R?H-?JV8?Q&(9)e,GP\g)??
+TS5GeDE<66:+4=L[Z\<b8\fZg8S_9Ob;=b-96QfP?P/eON9NOG9>Q<e&a]H7NJQ)
+\KQ<00=<>>fI?\\;X9RQZ-0R&)MJT0Cg[@c-IHX).&BT6VI[LUeSb80.FC>]HNLG
+7P0UA.#)VF>9;(,CB)QN,;b]4/M/D+.<_SEaBe:V3I(L>_H:dU2(I2Qf=cQI-D@V
++g<L;+=F2O[000FT@cF)]KMC.C^;X.RFMS;_/CGI2I1EAf[[<W/eTSFcd);1H\XO
+c[0+C>1[_RJYO\A9ggd_CVfMGV?6/RY2c3)N3,AccJ?O=X6e\_-V#SKc]N2-=5XO
+eAQ]JVSL>>Q4:5fK=QMB#?]4a/5ebG2Ye/;>(0a6>R\9A7=b9W)>S.,,+e_8Y/X0
+U^4RWL1B0BgbWDQaeD@@T^](:Ff+X\PO;bG:_5fH)77)ZA9<_XGL)NAF9Q901KGS
+A7LWX12=ObXG4N03d.ST=DE/05S2=BM)Q#1f@2eTaVO1X=b[E+4(U<&6RLGHV#T)
+YI?Qf=T:NY>84e.;)B(K4WXIY^.K@g4,0@MJQDF0Qc.I2TZPb]+)ARR6N951I.MC
+(@S-(MOY&9KaSe?FcMWe:31Y7SBYS/cU.e+\C;AB(2I8NX?S.?-0Sb[I8f2WYWH_
+5-)S[^_PNC,@N_2G3ePdV=3aJ;3@U#&3?LP[8-DIEOI()_9<eSPD[9FFR/M9R6\=
+,YKDZ/?V_?F(0YfLO_5,PVX,B30He?g;7H@9&U8gC5[[fLI],703e]A-3g70S+B+
+UgMIUGYE+>#M^G-.Rf&/Y#LPa^AHC8J@?aK4FN&<DHEKgGS;;\TDa^]BI>TEZ)9E
+1?9#L:ZGB_JI[)B#O#0\=U]I<YS_M_Z-P;+XDT6X).H=0G,K3\H:4_/f34/aHIZO
+@YNDR]MIaN4;>GS]-SQWELYDCDMA=?;&_8/_7;cNDIWg&Y3GXb/dI1X:^8U6P-d1
+S,R:)AX;4Z59?TF[V<Q:,SOA8d-D_P:=G@\\6#NGHS0E&X:(>]@I?4KgF+WU=C?>
+0GTH.TbIULe)8e?DB_H)6Q\+d;G\NE(@P#(LAQ^NGD);fJ[1+)O_+@)=AOXDW=2b
+<-CY.[RHG7BTM8bb2?./UBI6YX#JgG@ea->JAg#@?M7BL[bCe(][PbTMBW;3_)GM
+1H@G81dd\3R&_H_Q\XQQAN;K29b[.bYfa>Cab>[+\>S,dI,IX#W.BEVb:&gLQ>>[
++[_Z+^/d6DLdC[TT.2KbVE6\H=+d#faM](-WSBJ&=RdKQ4+:^2X9D.1J8S-8B6ad
+B)(P1N95/F6,;e61E</@CTg20#V^AU;Kb+WO6I@LJf0+65WA/_b:D<57BO[09Ud-
+REDF-8S]8RO(RRP\PX2=):/Qf7>ReM;7CZ3)U09_Uf/b6.[:M,A-b\0#1\<GUGH7
+J9PcTPFH4gab6b72?36fEf+JANH:KPR>/cNZKc=_T9b&b(f@73SX5aC[\LMWG+C1
+QNQ>,Ic^XF<;@_EbV78>OYA4I0R<;\A@>]4eIFCaZbJBg8(_87VE&XeNZNGR9#Y9
+D]/H,3YZfO=A?T/YZ^c5JX\F^-01HB+V5@_YZ=,56MeNG]0aU2b.Wd-_J2@P=DVJ
+;O5(fB:L_7TL#XdF_ZU5B/6H..6GJE-X(JUCbaJV9.OP=:dB\F-de^@C(3Z#L[6A
+)[Qg@T[GU?S]N7E,VDaCAYRVZ[C0f8S2</L16[E[)PX5\@N0PMbC8]dE]DMT@bR5
+a>G8@,EB2M;:c0^ZY,FWUbM70B583KQe]b+L[K+AURY(SR,8V7<8Rd\JQ18aXc^b
+X6IF3NT140d(-WK&f&^QN)O:8.J9c?,/W>f3?61@BP;OGL>(bGdA]F5QKE0_^9?f
+.>13N=CNEBC22&]V9:b\>gfOMMd+b4Q[(4#+U4g1;1_R3Ef](aO]C0(Lbc4b(H/U
+KIM;38F24R87+K@=.^aM>PD@ce^-5baHH4AZgU[.4)H5W/5N6+fI]YO7=?g5Q?Y;
+OTZgWV9<6ZIY9]&gFQ->/;\QAA[(<.VT^.V4fGCg6M:M0b/9dZ37Q21B+MA9Bb\)
+5\S=/Z^d&K832+E/KMQ[2GRAPLP168N]5f)/++\fY1QRaD>3&]U_7S050K_=L)-X
+e7N6-36/f,T#B,SW:PdbQ)f,>@]6/(P9?)VF//=7W:9=DV5Q(b3f=<:,d\ZP3?G?
+2:YI+-H[B>Xaf^B>^4Q:F-1b\8U8U]FcJgR\5b&#[_N;X,Z-\_(dLa2XEIF_7D,c
+&WD_^.C&3@Ob10UEd(P+W3VC&+1113+\>/PMV0L[gU49;30;MK4J2N/UY4RL@20=
+>OX9#_G/NQZ#Ua;+2/Be1@;1cQGSU)Zc^C\JFDZXObDA[BS<g0a<6+(U(CdMN4bK
+>f,:41J<8ZX2H3AOc@TNM^WZD)f?@3ZDcgfX@fe-YcZ=F&&a&;>ZPV?b[DCU2LP,
+,2\(aC7<PbP+()2):Ia(40]KD]I96I5N@A:(/@FbH(AbM?74PYO3T[N8PdfGE/:Z
+20bf\IML4EOEOG++7.YRCREIR/F&c<b9;Tf^O#)/[&A.W8\2JE@Oe9R<3?9eF]JD
+_XH@MG^/S?DSc-LC;a<ed+I3&+cX9DLQ0HA1;Ydb)6\g7RB+:^TDXBP)B<SD6VEd
+B=8,I9XbKU9cU2-eXWPCTICIVVM;QO7\MW]E;)XQ(Q31@<BK+QcH:C?CgIRD&>OT
+dXG\MJ_Q&_a&=.4^+3CHP#?B<SDeH87J#E\HeG8<0^=Q80?=34=f1C&)>]8[(907
+@#^2S\,E.R?,CQV)/6097QdH=W8[a+Kf0g53(V39^bZ@G&[.D1Jf@;;0]@]-=LJ0
+(WeaGJUQ?=+_\>WLgWDBMH<b.P?]dP&A)E4<\AgH/DQ@Xd8>FO;;+]<Z2M3U5&F&
++d3.E\6EP>Sa^O(&gV#>J_R)#CNd2/cA[K0ZXfQ7-9Vbg,A(=,8ZF<KOFEfObN0I
+Uc7XT5.CTIBNb=3bA3:_;S]c66F@(#9e,Y3]/d[-9HO>S5RXJ=/YC8QfQ)6<(V)d
+:2R0T&H?.)63>\\2WVWGX/\c5MS8DP]_#e_Q/F;XSMI+bdMB4HC0OeLg59O?-GYd
+#WBRMQJ5QHDNP=1VaMGCWJ[+1O,f3UUKCTX;/6]IXO\6:#9g&DFDgI7(1RQ(GEAX
+Yd.?[5/a7DR]D:I1\)[UV].M^[g>TL#W9_U#;47WI\c9X0bOQ\-[40]g/eO?>K^g
+GB72cfFV[@#(#R:1<ST4IO6+?bW^=c#F@-WY-0E-(HfS/E;bC,4U):\YLccFSf9<
+2)<CE1aEIg0@2&1;KK^_HaKb>Y>B8LG_TQZC[O5L8-1N(_5e-9fHI6\YN$
+`endprotected
+endmodule

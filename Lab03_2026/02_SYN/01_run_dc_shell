@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Error: Please specify the design name!"
+    echo "Usage: ./02_run_dc <DRAM_CTRL | HARVESTER>"
+    exit 1
+fi
+top_design=$1
+num_CPU_cores=8
+syn_tcl="syn.tcl"
+syn_log="syn_${top_design}.log"
+
+dcnxt_shell -f ${syn_tcl} \
+    -x "set DESIGN ${top_design}; set_host_options -max_cores ${num_CPU_cores}" \
+    -output_log_file ${syn_log}

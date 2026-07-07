@@ -1,0 +1,2661 @@
+vcs -timescale=1ns/1fs -j8                -sverilog +v2k -full64 -Mupdate -R -debug_access+all -y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f "filelist.f"	 -o "simv"      	 -l "vcs.log"      	 -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a +define+RTL +define+CORRECT +notimingchecks 
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Fri Mar 20 18:24:00 2026
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file 'PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'DRAM_CTRL.vp'.
+Back to file 'TESTBED.v'.
+Parsing included file 'HARVESTER.vp'.
+Back to file 'TESTBED.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM.vp'.
+Back to file 'TESTBED.v'.
+Top Level Modules:
+       TESTBED
+TimeScale is 1 ns / 10 ps
+Starting vcs inline pass...
+
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+6 modules and 0 UDP read.
+recompiling module PATTERN
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+make[1]: Entering directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+make[1]: Leaving directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+make[1]: Entering directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
+rm -f _cuarc0.so
+if [ -x ../simv ]; then chmod a-x ../simv; fi
+g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir -Wl,-rpath=/usr/cad/synopsys/vcs/2022.06/linux64/lib -L/usr/cad/synopsys/vcs/2022.06/linux64/lib  -Wl,-rpath-link=./  /usr/lib64/libnuma.so.1     _137622_archive_1.so _137642_archive_1.so _prev_archive_1.so _cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o           -lvirsim -lerrorinf -lsnpsmalloc -lvfs /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a    -lvcsnew -lsimprofile -luclinative /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_tls.o   -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive        _vcs_pli_stub_.o   /usr/cad/synopsys/vcs/2022.06/linux64/lib/vcs_save_restore_new.o /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/LINUX64/pli.a -ldl -lm  -lc -lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab03_2026/01_RTL/csrc'
+Notice: timing checks disabled with +notimingcheck at compile-time
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Mar 20 18:24 2026
+*Verdi* Loading libsscore_vcs201906.so
+FSDB Dumper for VCS, Release Verdi_P-2019.06, Linux x86_64/64bit, 05/26/2019
+(C) 1996 - 2019 by Synopsys, Inc.
+***********************************************************************
+*  ERROR -                                                            *
+*  The simulator version is newer than the FSDB dumper version which  *
+*  may cause abnormal behavior, please contact Synopsys support for   *
+*  assistance.                                                        *
+***********************************************************************
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'HARVESTER.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+========================================================================
+Total Patterns  : 78
+========================================================================
+
+------------------------------------------------------------------------
+  Testing Pattern 1/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 11, dst_row =  0
+  Output completed in 265 cycles
+  DRAM read data check completed
+  [PASS] Pattern 1
+------------------------------------------------------------------------
+  Testing Pattern 2/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 55
+  Output completed in 262 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 2
+------------------------------------------------------------------------
+  Testing Pattern 3/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  6, dst_row =  0
+  Output completed in 2868 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 3
+------------------------------------------------------------------------
+  Testing Pattern 4/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 33, dst_row = 42
+  Output completed in 7776 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 4
+------------------------------------------------------------------------
+  Testing Pattern 5/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 11, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 5
+------------------------------------------------------------------------
+  Testing Pattern 6/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 57
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 6
+------------------------------------------------------------------------
+  Testing Pattern 7/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 14, dst_row =  0
+  Output completed in 3364 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 7
+------------------------------------------------------------------------
+  Testing Pattern 8/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 34, dst_row = 38
+  Output completed in 8076 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 8
+------------------------------------------------------------------------
+  Testing Pattern 9/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 29, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 9
+------------------------------------------------------------------------
+  Testing Pattern 10/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 37
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 10
+------------------------------------------------------------------------
+  Testing Pattern 11/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 12, dst_row =  0
+  Output completed in 2108 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 11
+------------------------------------------------------------------------
+  Testing Pattern 12/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 47, dst_row = 46
+  Output completed in 7957 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 12
+------------------------------------------------------------------------
+  Testing Pattern 13/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 46, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 13
+------------------------------------------------------------------------
+  Testing Pattern 14/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 56
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 14
+------------------------------------------------------------------------
+  Testing Pattern 15/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 29, dst_row =  0
+  Output completed in 2337 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 15
+------------------------------------------------------------------------
+  Testing Pattern 16/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 61, dst_row = 49
+  Output completed in 7922 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 16
+------------------------------------------------------------------------
+  Testing Pattern 17/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 22, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 17
+------------------------------------------------------------------------
+  Testing Pattern 18/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 43
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 18
+------------------------------------------------------------------------
+  Testing Pattern 19/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 25, dst_row =  0
+  Output completed in 2629 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 19
+------------------------------------------------------------------------
+  Testing Pattern 20/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 36
+  Output completed in 8011 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 20
+------------------------------------------------------------------------
+  Testing Pattern 21/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 29, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 21
+------------------------------------------------------------------------
+  Testing Pattern 22/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 37
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 22
+------------------------------------------------------------------------
+  Testing Pattern 23/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 29, dst_row =  0
+  Output completed in 2330 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 23
+------------------------------------------------------------------------
+  Testing Pattern 24/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 55, dst_row = 52
+  Output completed in 7402 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 24
+------------------------------------------------------------------------
+  Testing Pattern 25/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 14, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 25
+------------------------------------------------------------------------
+  Testing Pattern 26/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 60
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 26
+------------------------------------------------------------------------
+  Testing Pattern 27/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  8, dst_row =  0
+  Output completed in 3675 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 27
+------------------------------------------------------------------------
+  Testing Pattern 28/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 57, dst_row = 52
+  Output completed in 7334 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 28
+------------------------------------------------------------------------
+  Testing Pattern 29/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 10, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 29
+------------------------------------------------------------------------
+  Testing Pattern 30/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 58
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 30
+------------------------------------------------------------------------
+  Testing Pattern 31/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 26, dst_row =  0
+  Output completed in 2330 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 31
+------------------------------------------------------------------------
+  Testing Pattern 32/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 45, dst_row = 52
+  Output completed in 7996 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 32
+------------------------------------------------------------------------
+  Testing Pattern 33/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 39, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 33
+------------------------------------------------------------------------
+  Testing Pattern 34/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 39
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 34
+------------------------------------------------------------------------
+  Testing Pattern 35/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 25, dst_row =  0
+  Output completed in 2629 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 35
+------------------------------------------------------------------------
+  Testing Pattern 36/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 35
+  Output completed in 7189 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 36
+------------------------------------------------------------------------
+  Testing Pattern 37/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 33, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 37
+------------------------------------------------------------------------
+  Testing Pattern 38/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 32
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 38
+------------------------------------------------------------------------
+  Testing Pattern 39/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  9, dst_row =  0
+  Output completed in 2345 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 39
+------------------------------------------------------------------------
+  Testing Pattern 40/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 33, dst_row = 40
+  Output completed in 7776 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 40
+------------------------------------------------------------------------
+  Testing Pattern 41/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 22, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 41
+------------------------------------------------------------------------
+  Testing Pattern 42/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 37
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 42
+------------------------------------------------------------------------
+  Testing Pattern 43/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  3, dst_row =  0
+  Output completed in 3953 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 43
+------------------------------------------------------------------------
+  Testing Pattern 44/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 34
+  Output completed in 7189 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 44
+------------------------------------------------------------------------
+  Testing Pattern 45/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 48, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 45
+------------------------------------------------------------------------
+  Testing Pattern 46/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 37
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 46
+------------------------------------------------------------------------
+  Testing Pattern 47/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 47
+------------------------------------------------------------------------
+  Testing Pattern 48/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 34, dst_row = 61
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 48
+------------------------------------------------------------------------
+  Testing Pattern 49/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 56, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 49
+------------------------------------------------------------------------
+  Testing Pattern 50/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 44
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 50
+------------------------------------------------------------------------
+  Testing Pattern 51/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 28, dst_row =  0
+  Output completed in 3816 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 51
+------------------------------------------------------------------------
+  Testing Pattern 52/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 62, dst_row = 39
+  Output completed in 7899 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 52
+------------------------------------------------------------------------
+  Testing Pattern 53/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 34, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 53
+------------------------------------------------------------------------
+  Testing Pattern 54/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 56
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 54
+------------------------------------------------------------------------
+  Testing Pattern 55/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 20, dst_row =  0
+  Output completed in 2255 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 55
+------------------------------------------------------------------------
+  Testing Pattern 56/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 45, dst_row = 45
+  Output completed in 7996 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 56
+------------------------------------------------------------------------
+  Testing Pattern 57/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 16, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 57
+------------------------------------------------------------------------
+  Testing Pattern 58/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 60
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 58
+------------------------------------------------------------------------
+  Testing Pattern 59/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 23, dst_row =  0
+  Output completed in 3412 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 59
+------------------------------------------------------------------------
+  Testing Pattern 60/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 54, dst_row = 48
+  Output completed in 7928 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 60
+------------------------------------------------------------------------
+  Testing Pattern 61/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row =  9, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 61
+------------------------------------------------------------------------
+  Testing Pattern 62/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 37
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 62
+------------------------------------------------------------------------
+  Testing Pattern 63/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  5, dst_row =  0
+  Output completed in 3695 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 63
+------------------------------------------------------------------------
+  Testing Pattern 64/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 41, dst_row = 34
+  Output completed in 8030 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 64
+------------------------------------------------------------------------
+  Testing Pattern 65/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 42, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 65
+------------------------------------------------------------------------
+  Testing Pattern 66/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 53
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 66
+------------------------------------------------------------------------
+  Testing Pattern 67/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 67
+------------------------------------------------------------------------
+  Testing Pattern 68/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 62, dst_row = 45
+  Output completed in 7899 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 68
+------------------------------------------------------------------------
+  Testing Pattern 69/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row =  8, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 69
+------------------------------------------------------------------------
+  Testing Pattern 70/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 58
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 70
+------------------------------------------------------------------------
+  Testing Pattern 71/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  5, dst_row =  0
+  Output completed in 3695 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 71
+------------------------------------------------------------------------
+  Testing Pattern 72/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 37, dst_row = 50
+  Output completed in 6837 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 72
+------------------------------------------------------------------------
+  Testing Pattern 73/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 61, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 73
+------------------------------------------------------------------------
+  Testing Pattern 74/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 54
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 74
+------------------------------------------------------------------------
+  Testing Pattern 75/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 75
+------------------------------------------------------------------------
+  Testing Pattern 76/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 45, dst_row = 33
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 76
+------------------------------------------------------------------------
+  Testing Pattern 77/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 56, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 77
+------------------------------------------------------------------------
+  Testing Pattern 78/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 48
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 78
+------------------------------------------------------------------------
+  Testing Pattern 79/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 26, dst_row =  0
+  Output completed in 2330 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 79
+------------------------------------------------------------------------
+  Testing Pattern 80/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 35, dst_row = 58
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 80
+------------------------------------------------------------------------
+  Testing Pattern 81/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 32, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 81
+------------------------------------------------------------------------
+  Testing Pattern 82/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 47
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 82
+------------------------------------------------------------------------
+  Testing Pattern 83/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 23, dst_row =  0
+  Output completed in 3412 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 83
+------------------------------------------------------------------------
+  Testing Pattern 84/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 58, dst_row = 37
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 84
+------------------------------------------------------------------------
+  Testing Pattern 85/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row =  6, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 85
+------------------------------------------------------------------------
+  Testing Pattern 86/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 52
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 86
+------------------------------------------------------------------------
+  Testing Pattern 87/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  9, dst_row =  0
+  Output completed in 2345 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 87
+------------------------------------------------------------------------
+  Testing Pattern 88/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 47, dst_row = 45
+  Output completed in 8136 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 88
+------------------------------------------------------------------------
+  Testing Pattern 89/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row =  8, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 89
+------------------------------------------------------------------------
+  Testing Pattern 90/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 62
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 90
+------------------------------------------------------------------------
+  Testing Pattern 91/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  4, dst_row =  0
+  Output completed in 2957 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 91
+------------------------------------------------------------------------
+  Testing Pattern 92/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 45, dst_row = 39
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 92
+------------------------------------------------------------------------
+  Testing Pattern 93/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 42, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 93
+------------------------------------------------------------------------
+  Testing Pattern 94/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 51
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 94
+------------------------------------------------------------------------
+  Testing Pattern 95/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 13, dst_row =  0
+  Output completed in 5376 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 95
+------------------------------------------------------------------------
+  Testing Pattern 96/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 42
+  Output completed in 6799 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 96
+------------------------------------------------------------------------
+  Testing Pattern 97/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 61, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 97
+------------------------------------------------------------------------
+  Testing Pattern 98/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 54
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 98
+------------------------------------------------------------------------
+  Testing Pattern 99/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  8, dst_row =  0
+  Output completed in 3675 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 99
+------------------------------------------------------------------------
+  Testing Pattern 100/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 34, dst_row = 48
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 100
+------------------------------------------------------------------------
+  Testing Pattern 101/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 42, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 101
+------------------------------------------------------------------------
+  Testing Pattern 102/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 38
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 102
+------------------------------------------------------------------------
+  Testing Pattern 103/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 30, dst_row =  0
+  Output completed in 3176 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 103
+------------------------------------------------------------------------
+  Testing Pattern 104/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 49
+  Output completed in 6799 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 104
+------------------------------------------------------------------------
+  Testing Pattern 105/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 39, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 105
+------------------------------------------------------------------------
+  Testing Pattern 106/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 32
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 106
+------------------------------------------------------------------------
+  Testing Pattern 107/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 10, dst_row =  0
+  Output completed in 2863 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 107
+------------------------------------------------------------------------
+  Testing Pattern 108/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 42, dst_row = 56
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 108
+------------------------------------------------------------------------
+  Testing Pattern 109/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 26, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 109
+------------------------------------------------------------------------
+  Testing Pattern 110/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 59
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 110
+------------------------------------------------------------------------
+  Testing Pattern 111/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  4, dst_row =  0
+  Output completed in 2957 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 111
+------------------------------------------------------------------------
+  Testing Pattern 112/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 35, dst_row = 49
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 112
+------------------------------------------------------------------------
+  Testing Pattern 113/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 31, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 113
+------------------------------------------------------------------------
+  Testing Pattern 114/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 39
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 114
+------------------------------------------------------------------------
+  Testing Pattern 115/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 31, dst_row =  0
+  Output completed in 3293 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 115
+------------------------------------------------------------------------
+  Testing Pattern 116/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 50, dst_row = 33
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 116
+------------------------------------------------------------------------
+  Testing Pattern 117/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 17, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 117
+------------------------------------------------------------------------
+  Testing Pattern 118/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 33
+  Output completed in 259 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 118
+------------------------------------------------------------------------
+  Testing Pattern 119/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 12, dst_row =  0
+  Output completed in 2108 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 119
+------------------------------------------------------------------------
+  Testing Pattern 120/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 40, dst_row = 45
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 120
+------------------------------------------------------------------------
+  Testing Pattern 121/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 58, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 121
+------------------------------------------------------------------------
+  Testing Pattern 122/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 48
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 122
+------------------------------------------------------------------------
+  Testing Pattern 123/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 27, dst_row =  0
+  Output completed in 2022 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 123
+------------------------------------------------------------------------
+  Testing Pattern 124/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 46, dst_row = 42
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 124
+------------------------------------------------------------------------
+  Testing Pattern 125/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 34, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 125
+------------------------------------------------------------------------
+  Testing Pattern 126/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 42
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 126
+------------------------------------------------------------------------
+  Testing Pattern 127/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 21, dst_row =  0
+  Output completed in 3951 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 127
+------------------------------------------------------------------------
+  Testing Pattern 128/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 48, dst_row = 40
+  Output completed in 6264 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 128
+------------------------------------------------------------------------
+  Testing Pattern 129/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 13, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 129
+------------------------------------------------------------------------
+  Testing Pattern 130/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 57
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 130
+------------------------------------------------------------------------
+  Testing Pattern 131/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 17, dst_row =  0
+  Output completed in 1884 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 131
+------------------------------------------------------------------------
+  Testing Pattern 132/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 35
+  Output completed in 6799 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 132
+------------------------------------------------------------------------
+  Testing Pattern 133/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 49, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 133
+------------------------------------------------------------------------
+  Testing Pattern 134/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 50
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 134
+------------------------------------------------------------------------
+  Testing Pattern 135/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 17, dst_row =  0
+  Output completed in 1884 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 135
+------------------------------------------------------------------------
+  Testing Pattern 136/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 38, dst_row = 40
+  Output completed in 5837 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 136
+------------------------------------------------------------------------
+  Testing Pattern 137/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 22, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 137
+------------------------------------------------------------------------
+  Testing Pattern 138/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 59
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 138
+------------------------------------------------------------------------
+  Testing Pattern 139/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  8, dst_row =  0
+  Output completed in 3675 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 139
+------------------------------------------------------------------------
+  Testing Pattern 140/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 54, dst_row = 45
+  Output completed in 6852 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 140
+------------------------------------------------------------------------
+  Testing Pattern 141/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 41, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 141
+------------------------------------------------------------------------
+  Testing Pattern 142/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 46
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 142
+------------------------------------------------------------------------
+  Testing Pattern 143/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 29, dst_row =  0
+  Output completed in 2337 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 143
+------------------------------------------------------------------------
+  Testing Pattern 144/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 48, dst_row = 41
+  Output completed in 6264 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 144
+------------------------------------------------------------------------
+  Testing Pattern 145/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 30, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 145
+------------------------------------------------------------------------
+  Testing Pattern 146/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 47
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 146
+------------------------------------------------------------------------
+  Testing Pattern 147/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  0, dst_row =  0
+  Output completed in 2587 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 147
+------------------------------------------------------------------------
+  Testing Pattern 148/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 36, dst_row = 34
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 148
+------------------------------------------------------------------------
+  Testing Pattern 149/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 53, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 149
+------------------------------------------------------------------------
+  Testing Pattern 150/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 44
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 150
+------------------------------------------------------------------------
+  Testing Pattern 151/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 25, dst_row =  0
+  Output completed in 2629 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 151
+------------------------------------------------------------------------
+  Testing Pattern 152/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 45, dst_row = 45
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 152
+------------------------------------------------------------------------
+  Testing Pattern 153/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row =  5, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 153
+------------------------------------------------------------------------
+  Testing Pattern 154/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 40
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 154
+------------------------------------------------------------------------
+  Testing Pattern 155/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 25, dst_row =  0
+  Output completed in 2629 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 155
+------------------------------------------------------------------------
+  Testing Pattern 156/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 34, dst_row = 42
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 156
+------------------------------------------------------------------------
+  Testing Pattern 157/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 29, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 157
+------------------------------------------------------------------------
+  Testing Pattern 158/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 57
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 158
+------------------------------------------------------------------------
+  Testing Pattern 159/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 159
+------------------------------------------------------------------------
+  Testing Pattern 160/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 52, dst_row = 36
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 160
+------------------------------------------------------------------------
+  Testing Pattern 161/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 29, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 161
+------------------------------------------------------------------------
+  Testing Pattern 162/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 60
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 162
+------------------------------------------------------------------------
+  Testing Pattern 163/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 17, dst_row =  0
+  Output completed in 1884 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 163
+------------------------------------------------------------------------
+  Testing Pattern 164/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 61, dst_row = 47
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 164
+------------------------------------------------------------------------
+  Testing Pattern 165/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row =  1, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 165
+------------------------------------------------------------------------
+  Testing Pattern 166/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 55
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 166
+------------------------------------------------------------------------
+  Testing Pattern 167/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  5, dst_row =  0
+  Output completed in 3695 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 167
+------------------------------------------------------------------------
+  Testing Pattern 168/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 55, dst_row = 61
+  Output completed in 7234 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 168
+------------------------------------------------------------------------
+  Testing Pattern 169/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 42, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 169
+------------------------------------------------------------------------
+  Testing Pattern 170/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 34
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 170
+------------------------------------------------------------------------
+  Testing Pattern 171/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 24, dst_row =  0
+  Output completed in 2100 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 171
+------------------------------------------------------------------------
+  Testing Pattern 172/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 36, dst_row = 33
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 172
+------------------------------------------------------------------------
+  Testing Pattern 173/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 11, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 173
+------------------------------------------------------------------------
+  Testing Pattern 174/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 42
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 174
+------------------------------------------------------------------------
+  Testing Pattern 175/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 17, dst_row =  0
+  Output completed in 1884 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 175
+------------------------------------------------------------------------
+  Testing Pattern 176/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 41, dst_row = 51
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 176
+------------------------------------------------------------------------
+  Testing Pattern 177/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 35, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 177
+------------------------------------------------------------------------
+  Testing Pattern 178/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 49
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 178
+------------------------------------------------------------------------
+  Testing Pattern 179/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  7, dst_row =  0
+  Output completed in 3586 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 179
+------------------------------------------------------------------------
+  Testing Pattern 180/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 44, dst_row = 37
+  Output completed in 8385 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 180
+------------------------------------------------------------------------
+  Testing Pattern 181/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 17, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 181
+------------------------------------------------------------------------
+  Testing Pattern 182/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 40
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 182
+------------------------------------------------------------------------
+  Testing Pattern 183/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 21, dst_row =  0
+  Output completed in 3944 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 183
+------------------------------------------------------------------------
+  Testing Pattern 184/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 62, dst_row = 36
+  Output completed in 7296 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 184
+------------------------------------------------------------------------
+  Testing Pattern 185/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 17, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 185
+------------------------------------------------------------------------
+  Testing Pattern 186/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 32
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 186
+------------------------------------------------------------------------
+  Testing Pattern 187/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 14, dst_row =  0
+  Output completed in 3364 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 187
+------------------------------------------------------------------------
+  Testing Pattern 188/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 58, dst_row = 51
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 188
+------------------------------------------------------------------------
+  Testing Pattern 189/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 25, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 189
+------------------------------------------------------------------------
+  Testing Pattern 190/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 52
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 190
+------------------------------------------------------------------------
+  Testing Pattern 191/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 10, dst_row =  0
+  Output completed in 2863 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 191
+------------------------------------------------------------------------
+  Testing Pattern 192/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 33, dst_row = 61
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 192
+------------------------------------------------------------------------
+  Testing Pattern 193/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 19, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 193
+------------------------------------------------------------------------
+  Testing Pattern 194/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 60
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 194
+------------------------------------------------------------------------
+  Testing Pattern 195/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 11, dst_row =  0
+  Output completed in 4155 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 195
+------------------------------------------------------------------------
+  Testing Pattern 196/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 59, dst_row = 54
+  Output completed in 8324 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 196
+------------------------------------------------------------------------
+  Testing Pattern 197/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row =  0, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 197
+------------------------------------------------------------------------
+  Testing Pattern 198/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 62
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 198
+------------------------------------------------------------------------
+  Testing Pattern 199/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  4, dst_row =  0
+  Output completed in 2957 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 199
+------------------------------------------------------------------------
+  Testing Pattern 200/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 41, dst_row = 38
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 200
+------------------------------------------------------------------------
+  Testing Pattern 201/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 50, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 201
+------------------------------------------------------------------------
+  Testing Pattern 202/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 36
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 202
+------------------------------------------------------------------------
+  Testing Pattern 203/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 11, dst_row =  0
+  Output completed in 4155 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 203
+------------------------------------------------------------------------
+  Testing Pattern 204/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 51, dst_row = 49
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 204
+------------------------------------------------------------------------
+  Testing Pattern 205/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 20, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 205
+------------------------------------------------------------------------
+  Testing Pattern 206/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 43
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 206
+------------------------------------------------------------------------
+  Testing Pattern 207/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  6, dst_row =  0
+  Output completed in 2876 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 207
+------------------------------------------------------------------------
+  Testing Pattern 208/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 62, dst_row = 57
+  Output completed in 7296 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 208
+------------------------------------------------------------------------
+  Testing Pattern 209/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 21, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 209
+------------------------------------------------------------------------
+  Testing Pattern 210/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 36
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 210
+------------------------------------------------------------------------
+  Testing Pattern 211/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  6, dst_row =  0
+  Output completed in 2876 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 211
+------------------------------------------------------------------------
+  Testing Pattern 212/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 47, dst_row = 53
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 212
+------------------------------------------------------------------------
+  Testing Pattern 213/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 50, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 213
+------------------------------------------------------------------------
+  Testing Pattern 214/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 47
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 214
+------------------------------------------------------------------------
+  Testing Pattern 215/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  8, dst_row =  0
+  Output completed in 3675 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 215
+------------------------------------------------------------------------
+  Testing Pattern 216/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 43, dst_row = 48
+  Output completed in 7381 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 216
+------------------------------------------------------------------------
+  Testing Pattern 217/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 44, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 217
+------------------------------------------------------------------------
+  Testing Pattern 218/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 37
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 218
+------------------------------------------------------------------------
+  Testing Pattern 219/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 22, dst_row =  0
+  Output completed in 1916 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 219
+------------------------------------------------------------------------
+  Testing Pattern 220/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 50
+  Output completed in 6782 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 220
+------------------------------------------------------------------------
+  Testing Pattern 221/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 58, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 221
+------------------------------------------------------------------------
+  Testing Pattern 222/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 52
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 222
+------------------------------------------------------------------------
+  Testing Pattern 223/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 13, dst_row =  0
+  Output completed in 5376 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 223
+------------------------------------------------------------------------
+  Testing Pattern 224/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 55, dst_row = 33
+  Output completed in 7234 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 224
+------------------------------------------------------------------------
+  Testing Pattern 225/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row =  1, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 225
+------------------------------------------------------------------------
+  Testing Pattern 226/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 45
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 226
+------------------------------------------------------------------------
+  Testing Pattern 227/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 11, dst_row =  0
+  Output completed in 4155 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 227
+------------------------------------------------------------------------
+  Testing Pattern 228/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 49, dst_row = 60
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 228
+------------------------------------------------------------------------
+  Testing Pattern 229/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 37, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 229
+------------------------------------------------------------------------
+  Testing Pattern 230/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 54
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 230
+------------------------------------------------------------------------
+  Testing Pattern 231/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  4, dst_row =  0
+  Output completed in 2957 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 231
+------------------------------------------------------------------------
+  Testing Pattern 232/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 53, dst_row = 37
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 232
+------------------------------------------------------------------------
+  Testing Pattern 233/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 13, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 233
+------------------------------------------------------------------------
+  Testing Pattern 234/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 49
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 234
+------------------------------------------------------------------------
+  Testing Pattern 235/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 235
+------------------------------------------------------------------------
+  Testing Pattern 236/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 36
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 236
+------------------------------------------------------------------------
+  Testing Pattern 237/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 20, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 237
+------------------------------------------------------------------------
+  Testing Pattern 238/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 56
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 238
+------------------------------------------------------------------------
+  Testing Pattern 239/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 14, dst_row =  0
+  Output completed in 3364 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 239
+------------------------------------------------------------------------
+  Testing Pattern 240/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 34, dst_row = 59
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 240
+------------------------------------------------------------------------
+  Testing Pattern 241/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 16, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 241
+------------------------------------------------------------------------
+  Testing Pattern 242/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 44
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 242
+------------------------------------------------------------------------
+  Testing Pattern 243/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 25, dst_row =  0
+  Output completed in 2629 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 243
+------------------------------------------------------------------------
+  Testing Pattern 244/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 41, dst_row = 49
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 244
+------------------------------------------------------------------------
+  Testing Pattern 245/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row =  1, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 245
+------------------------------------------------------------------------
+  Testing Pattern 246/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 54
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 246
+------------------------------------------------------------------------
+  Testing Pattern 247/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  6, dst_row =  0
+  Output completed in 2876 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 247
+------------------------------------------------------------------------
+  Testing Pattern 248/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 50, dst_row = 46
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 248
+------------------------------------------------------------------------
+  Testing Pattern 249/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 17, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 249
+------------------------------------------------------------------------
+  Testing Pattern 250/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 47
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 250
+------------------------------------------------------------------------
+  Testing Pattern 251/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  2, dst_row =  0
+  Output completed in 3325 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 251
+------------------------------------------------------------------------
+  Testing Pattern 252/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 60, dst_row = 55
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 252
+------------------------------------------------------------------------
+  Testing Pattern 253/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 52, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 253
+------------------------------------------------------------------------
+  Testing Pattern 254/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 38
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 254
+------------------------------------------------------------------------
+  Testing Pattern 255/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 23, dst_row =  0
+  Output completed in 3412 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 255
+------------------------------------------------------------------------
+  Testing Pattern 256/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 47, dst_row = 58
+  Output completed in 6691 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 256
+------------------------------------------------------------------------
+  Testing Pattern 257/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 17, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 257
+------------------------------------------------------------------------
+  Testing Pattern 258/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 47
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 258
+------------------------------------------------------------------------
+  Testing Pattern 259/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  7, dst_row =  0
+  Output completed in 3586 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 259
+------------------------------------------------------------------------
+  Testing Pattern 260/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 45, dst_row = 39
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 260
+------------------------------------------------------------------------
+  Testing Pattern 261/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 30, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 261
+------------------------------------------------------------------------
+  Testing Pattern 262/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 45
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 262
+------------------------------------------------------------------------
+  Testing Pattern 263/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 29, dst_row =  0
+  Output completed in 2337 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 263
+------------------------------------------------------------------------
+  Testing Pattern 264/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 55, dst_row = 50
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 264
+------------------------------------------------------------------------
+  Testing Pattern 265/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row = 37, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 265
+------------------------------------------------------------------------
+  Testing Pattern 266/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 39
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 266
+------------------------------------------------------------------------
+  Testing Pattern 267/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 13, dst_row =  0
+  Output completed in 5376 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 267
+------------------------------------------------------------------------
+  Testing Pattern 268/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 37, dst_row = 43
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 268
+------------------------------------------------------------------------
+  Testing Pattern 269/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row =  7, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 269
+------------------------------------------------------------------------
+  Testing Pattern 270/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 33
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 270
+------------------------------------------------------------------------
+  Testing Pattern 271/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 20, dst_row =  0
+  Output completed in 2255 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 271
+------------------------------------------------------------------------
+  Testing Pattern 272/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 51, dst_row = 34
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 272
+------------------------------------------------------------------------
+  Testing Pattern 273/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row =  2, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 273
+------------------------------------------------------------------------
+  Testing Pattern 274/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 38
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 274
+------------------------------------------------------------------------
+  Testing Pattern 275/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 23, dst_row =  0
+  Output completed in 3412 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 275
+------------------------------------------------------------------------
+  Testing Pattern 276/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 52, dst_row = 60
+  Output completed in 6691 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 276
+------------------------------------------------------------------------
+  Testing Pattern 277/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row =  1, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 277
+------------------------------------------------------------------------
+  Testing Pattern 278/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 32
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 278
+------------------------------------------------------------------------
+  Testing Pattern 279/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  1, dst_row =  0
+  Output completed in 3829 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 279
+------------------------------------------------------------------------
+  Testing Pattern 280/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 50, dst_row = 61
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 280
+------------------------------------------------------------------------
+  Testing Pattern 281/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 24, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 281
+------------------------------------------------------------------------
+  Testing Pattern 282/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 40
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 282
+------------------------------------------------------------------------
+  Testing Pattern 283/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 24, dst_row =  0
+  Output completed in 2100 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 283
+------------------------------------------------------------------------
+  Testing Pattern 284/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 36, dst_row = 34
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 284
+------------------------------------------------------------------------
+  Testing Pattern 285/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 28, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 285
+------------------------------------------------------------------------
+  Testing Pattern 286/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 2, src_row =  0, dst_row = 61
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 286
+------------------------------------------------------------------------
+  Testing Pattern 287/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 287
+------------------------------------------------------------------------
+  Testing Pattern 288/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 37, dst_row = 38
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 288
+------------------------------------------------------------------------
+  Testing Pattern 289/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 46, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 289
+------------------------------------------------------------------------
+  Testing Pattern 290/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 53
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 290
+------------------------------------------------------------------------
+  Testing Pattern 291/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 14, dst_row =  0
+  Output completed in 3364 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 291
+------------------------------------------------------------------------
+  Testing Pattern 292/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 33, dst_row = 59
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 292
+------------------------------------------------------------------------
+  Testing Pattern 293/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 59, dst_row =  0
+  Output completed in 262 cycles
+  DRAM read data check completed
+  [PASS] Pattern 293
+------------------------------------------------------------------------
+  Testing Pattern 294/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 38
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 294
+------------------------------------------------------------------------
+  Testing Pattern 295/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 22, dst_row =  0
+  Output completed in 1916 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 295
+------------------------------------------------------------------------
+  Testing Pattern 296/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 41, dst_row = 49
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 296
+------------------------------------------------------------------------
+  Testing Pattern 297/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 0, src_row = 55, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 297
+------------------------------------------------------------------------
+  Testing Pattern 298/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 45
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 298
+------------------------------------------------------------------------
+  Testing Pattern 299/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row = 19, dst_row =  0
+  Output completed in 1522 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 299
+------------------------------------------------------------------------
+  Testing Pattern 300/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 47, dst_row = 44
+  Output completed in 6691 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 300
+------------------------------------------------------------------------
+  Testing Pattern 301/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 3, src_row = 19, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 301
+------------------------------------------------------------------------
+  Testing Pattern 302/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 3, src_row =  0, dst_row = 48
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 302
+------------------------------------------------------------------------
+  Testing Pattern 303/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  4, dst_row =  0
+  Output completed in 2957 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 303
+------------------------------------------------------------------------
+  Testing Pattern 304/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 51, dst_row = 60
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 304
+------------------------------------------------------------------------
+  Testing Pattern 305/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 1, src_row = 60, dst_row =  0
+  Output completed in 262 cycles
+  DRAM read data check completed
+  [PASS] Pattern 305
+------------------------------------------------------------------------
+  Testing Pattern 306/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 0, src_row =  0, dst_row = 39
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 306
+------------------------------------------------------------------------
+  Testing Pattern 307/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  9, dst_row =  0
+  Output completed in 2345 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 307
+------------------------------------------------------------------------
+  Testing Pattern 308/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 33, dst_row = 34
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 308
+------------------------------------------------------------------------
+  Testing Pattern 309/312
+------------------------------------------------------------------------
+  Input pattern: mode = 0, bank = 2, src_row =  6, dst_row =  0
+  Output completed in 269 cycles
+  DRAM read data check completed
+  [PASS] Pattern 309
+------------------------------------------------------------------------
+  Testing Pattern 310/312
+------------------------------------------------------------------------
+
+Warning-[RT-ISV] Ignoring seed value
+PATTERN.v, 701
+  Ignoring seed value 0. Seeding with value 1 as seed must be greater than 0.
+
+  Input pattern: mode = 1, bank = 1, src_row =  0, dst_row = 45
+  Output completed in 266 cycles
+  DRAM write completed, checking DRAM data...
+  [PASS] Pattern 310
+------------------------------------------------------------------------
+  Testing Pattern 311/312
+------------------------------------------------------------------------
+  Input pattern: mode = 2, bank = 0, src_row =  6, dst_row =  0
+  Output completed in 2876 cycles
+  Calculation completed, checking results...
+  [PASS] Pattern 311
+------------------------------------------------------------------------
+  Testing Pattern 312/312
+------------------------------------------------------------------------
+  Input pattern: mode = 3, bank = 0, src_row = 38, dst_row = 58
+  Output completed in 7552 cycles
+  Sorting completed, checking DRAM data...
+  [PASS] Pattern 312
+*************************************************************************
+*                         Congratulations!                              *
+*                Your execution cycles = 870855 cycles          *
+*                Your clock period = 40.0 ns          *
+*                Total Latency = 34834200.0 ns          *
+*************************************************************************
+$finish called from file "PATTERN.v", line 584.
+$finish at simulation time           3568650000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 35686500000 ps
+CPU Time:     18.130 seconds;       Data structure size:   1.2Mb
+Fri Mar 20 18:24:18 2026
+CPU time: 1.308 seconds to compile + .456 seconds to elab + .418 seconds to link + 18.209 seconds in simulation

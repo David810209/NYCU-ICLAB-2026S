@@ -1,0 +1,336 @@
+vcs -timescale=1ns/1fs -j4                -sverilog +v2k -full64 -Mupdate -R -debug_access+all -y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f "filelist.f"	 -o "simv"      	 -l "vcs.log"      	 -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a +define+RTL +define+RUN +define+PERF +notimingchecks 
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Mon May  4 19:29:12 2026
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+The design hasn't changed and need not be recompiled. 
+If you really want to, delete file /RAID2/COURSE/2026_Spring/iclab/iclab042/Midterm_Project/01_RTL/simv.daidir/.vcs.timestamp and
+run VCS again.
+
+Notice: timing checks disabled with +notimingcheck at compile-time
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  May  4 19:29 2026
+=================================================
+   Using Random Seed: 312
+=================================================
+
+========================
+   STARTING TEST CASE 1
+===========================
+*Verdi* Loading libsscore_vcs201906.so
+FSDB Dumper for VCS, Release Verdi_P-2019.06, Linux x86_64/64bit, 05/26/2019
+(C) 1996 - 2019 by Synopsys, Inc.
+***********************************************************************
+*  ERROR -                                                            *
+*  The simulator version is newer than the FSDB dumper version which  *
+*  may cause abnormal behavior, please contact Synopsys support for   *
+*  assistance.                                                        *
+***********************************************************************
+*Verdi* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi* : Create FSDB file 'DCCPU.fsdb'
+*Verdi* : Begin traversing the scopes, layer (0).
+*Verdi* : Enable +mda dumping.
+*Verdi* : End of traversing.
+   [INFO] IC=0000 executed in 614 cycles.
+   [INFO] IC=0001 executed in 12 cycles.
+   [INFO] IC=0002 executed in 12 cycles.
+   [INFO] IC=0003 executed in 12 cycles.
+   [INFO] IC=0004 executed in 316 cycles.
+   [INFO] IC=0005 executed in 15 cycles.
+   [INFO] IC=0006 executed in 15 cycles.
+   [INFO] IC=0007 executed in 18 cycles.
+   [INFO] IC=0008 executed in 15 cycles.
+   [INFO] IC=0009 executed in 18 cycles.
+   [INFO] IC=0010 executed in 15 cycles.
+   [INFO] IC=0011 executed in 31 cycles.
+   [INFO] IC=0012 executed in 12 cycles.
+   [INFO] IC=0013 executed in 44 cycles.
+   [INFO] IC=0014 executed in 15 cycles.
+   [INFO] IC=0015 executed in 28 cycles.
+   [INFO] IC=0016 executed in 31 cycles.
+   [INFO] IC=0017 executed in 18 cycles.
+   [INFO] IC=0018 executed in 28 cycles.
+   [INFO] IC=0019 executed in 18 cycles.
+   [INFO] IC=0020 executed in 12 cycles.
+   [INFO] IC=0021 executed in 31 cycles.
+   [INFO] IC=0022 executed in 18 cycles.
+   [INFO] IC=0023 executed in 15 cycles.
+   [INFO] IC=0024 executed in 15 cycles.
+   [INFO] IC=0025 executed in 12 cycles.
+   [INFO] IC=0026 executed in 15 cycles.
+   [INFO] IC=0027 executed in 12 cycles.
+   [INFO] IC=0028 executed in 31 cycles.
+   [INFO] IC=0029 executed in 12 cycles.
+   [INFO] IC=0030 executed in 31 cycles.
+   [INFO] IC=0031 executed in 15 cycles.
+   [INFO] IC=0032 executed in 18 cycles.
+   [INFO] IC=0033 executed in 12 cycles.
+   [INFO] IC=0034 executed in 28 cycles.
+   [INFO] IC=0035 executed in 18 cycles.
+   [INFO] IC=0036 executed in 44 cycles.
+   [INFO] IC=0037 executed in 15 cycles.
+   [INFO] IC=0038 executed in 15 cycles.
+   [INFO] IC=0039 executed in 12 cycles.
+   [INFO] IC=0040 executed in 15 cycles.
+   [INFO] IC=0041 executed in 12 cycles.
+   [INFO] IC=0042 executed in 18 cycles.
+   [INFO] IC=0043 executed in 15 cycles.
+   [INFO] IC=0044 executed in 12 cycles.
+   [INFO] IC=0045 executed in 28 cycles.
+   [INFO] IC=0046 executed in 31 cycles.
+   [INFO] IC=0047 executed in 12 cycles.
+   [INFO] IC=0048 executed in 28 cycles.
+   [INFO] IC=0049 executed in 386 cycles.
+   [INFO] IC=0049: Data DRAM verification passed.
+   [INFO] IC=0050 executed in 12 cycles.
+   [INFO] IC=0051 executed in 28 cycles.
+   [INFO] IC=0052 executed in 12 cycles.
+   [INFO] IC=0053 executed in 12 cycles.
+   [INFO] IC=0054 executed in 10 cycles.
+   [INFO] IC=0055 executed in 15 cycles.
+   [INFO] IC=0056 executed in 15 cycles.
+   [INFO] IC=0057 executed in 15 cycles.
+   [INFO] IC=0058 executed in 18 cycles.
+   [INFO] IC=0059 executed in 15 cycles.
+   [INFO] IC=0060 executed in 18 cycles.
+   [INFO] IC=0061 executed in 15 cycles.
+   [INFO] IC=0062 executed in 31 cycles.
+   [INFO] IC=0063 executed in 12 cycles.
+   [INFO] IC=0064 executed in 44 cycles.
+   [INFO] IC=0065 executed in 15 cycles.
+   [INFO] IC=0066 executed in 28 cycles.
+   [INFO] IC=0067 executed in 31 cycles.
+   [INFO] IC=0068 executed in 18 cycles.
+   [INFO] IC=0069 executed in 28 cycles.
+   [INFO] IC=0070 executed in 18 cycles.
+   [INFO] IC=0071 executed in 12 cycles.
+   [INFO] IC=0072 executed in 31 cycles.
+   [INFO] IC=0073 executed in 18 cycles.
+   [INFO] IC=0074 executed in 15 cycles.
+   [INFO] IC=0075 executed in 15 cycles.
+   [INFO] IC=0076 executed in 12 cycles.
+   [INFO] IC=0077 executed in 15 cycles.
+   [INFO] IC=0078 executed in 12 cycles.
+   [INFO] IC=0079 executed in 31 cycles.
+   [INFO] IC=0080 executed in 12 cycles.
+   [INFO] IC=0081 executed in 31 cycles.
+   [INFO] IC=0082 executed in 15 cycles.
+   [INFO] IC=0083 executed in 18 cycles.
+   [INFO] IC=0084 executed in 12 cycles.
+   [INFO] IC=0085 executed in 28 cycles.
+   [INFO] IC=0086 executed in 18 cycles.
+   [INFO] IC=0087 executed in 44 cycles.
+   [INFO] IC=0088 executed in 15 cycles.
+   [INFO] IC=0089 executed in 15 cycles.
+   [INFO] IC=0090 executed in 12 cycles.
+   [INFO] IC=0091 executed in 15 cycles.
+   [INFO] IC=0092 executed in 12 cycles.
+   [INFO] IC=0093 executed in 18 cycles.
+   [INFO] IC=0094 executed in 15 cycles.
+   [INFO] IC=0095 executed in 12 cycles.
+   [INFO] IC=0096 executed in 28 cycles.
+   [INFO] IC=0097 executed in 31 cycles.
+   [INFO] IC=0098 executed in 12 cycles.
+   [INFO] IC=0099 executed in 228 cycles.
+   [INFO] IC=0099: Data DRAM verification passed.
+   [INFO] IC=0100 executed in 31 cycles.
+   [INFO] IC=0101 executed in 12 cycles.
+   [INFO] IC=0102 executed in 28 cycles.
+   [INFO] IC=0103 executed in 12 cycles.
+   [INFO] IC=0104 executed in 12 cycles.
+   [INFO] IC=0105 executed in 10 cycles.
+   [INFO] IC=0106 executed in 15 cycles.
+   [INFO] IC=0107 executed in 15 cycles.
+   [INFO] IC=0108 executed in 15 cycles.
+   [INFO] IC=0109 executed in 18 cycles.
+   [INFO] IC=0110 executed in 15 cycles.
+   [INFO] IC=0111 executed in 18 cycles.
+   [INFO] IC=0112 executed in 15 cycles.
+   [INFO] IC=0113 executed in 31 cycles.
+   [INFO] IC=0114 executed in 12 cycles.
+   [INFO] IC=0115 executed in 44 cycles.
+   [INFO] IC=0116 executed in 15 cycles.
+   [INFO] IC=0117 executed in 28 cycles.
+   [INFO] IC=0118 executed in 31 cycles.
+   [INFO] IC=0119 executed in 18 cycles.
+   [INFO] IC=0120 executed in 28 cycles.
+   [INFO] IC=0121 executed in 18 cycles.
+   [INFO] IC=0122 executed in 12 cycles.
+   [INFO] IC=0123 executed in 31 cycles.
+   [INFO] IC=0124 executed in 18 cycles.
+   [INFO] IC=0125 executed in 15 cycles.
+   [INFO] IC=0126 executed in 15 cycles.
+   [INFO] IC=0127 executed in 12 cycles.
+   [INFO] IC=0128 executed in 15 cycles.
+   [INFO] IC=0129 executed in 12 cycles.
+   [INFO] IC=0130 executed in 31 cycles.
+   [INFO] IC=0131 executed in 12 cycles.
+   [INFO] IC=0132 executed in 31 cycles.
+   [INFO] IC=0133 executed in 15 cycles.
+   [INFO] IC=0134 executed in 18 cycles.
+   [INFO] IC=0135 executed in 12 cycles.
+   [INFO] IC=0136 executed in 28 cycles.
+   [INFO] IC=0137 executed in 18 cycles.
+   [INFO] IC=0138 executed in 44 cycles.
+   [INFO] IC=0139 executed in 15 cycles.
+   [INFO] IC=0140 executed in 15 cycles.
+   [INFO] IC=0141 executed in 12 cycles.
+   [INFO] IC=0142 executed in 15 cycles.
+   [INFO] IC=0143 executed in 12 cycles.
+   [INFO] IC=0144 executed in 18 cycles.
+   [INFO] IC=0145 executed in 15 cycles.
+   [INFO] IC=0146 executed in 12 cycles.
+   [INFO] IC=0147 executed in 28 cycles.
+   [INFO] IC=0148 executed in 31 cycles.
+   [INFO] IC=0149 executed in 254 cycles.
+   [INFO] IC=0149: Data DRAM verification passed.
+   [INFO] IC=0150 executed in 28 cycles.
+   [INFO] IC=0151 executed in 31 cycles.
+   [INFO] IC=0152 executed in 12 cycles.
+   [INFO] IC=0153 executed in 28 cycles.
+   [INFO] IC=0154 executed in 12 cycles.
+   [INFO] IC=0155 executed in 12 cycles.
+   [INFO] IC=0156 executed in 10 cycles.
+   [INFO] IC=0157 executed in 15 cycles.
+   [INFO] IC=0158 executed in 15 cycles.
+   [INFO] IC=0159 executed in 15 cycles.
+   [INFO] IC=0160 executed in 18 cycles.
+   [INFO] IC=0161 executed in 15 cycles.
+   [INFO] IC=0162 executed in 18 cycles.
+   [INFO] IC=0163 executed in 15 cycles.
+   [INFO] IC=0164 executed in 31 cycles.
+   [INFO] IC=0165 executed in 12 cycles.
+   [INFO] IC=0166 executed in 44 cycles.
+   [INFO] IC=0167 executed in 15 cycles.
+   [INFO] IC=0168 executed in 28 cycles.
+   [INFO] IC=0169 executed in 31 cycles.
+   [INFO] IC=0170 executed in 18 cycles.
+   [INFO] IC=0171 executed in 28 cycles.
+   [INFO] IC=0172 executed in 18 cycles.
+   [INFO] IC=0173 executed in 12 cycles.
+   [INFO] IC=0174 executed in 31 cycles.
+   [INFO] IC=0175 executed in 18 cycles.
+   [INFO] IC=0176 executed in 15 cycles.
+   [INFO] IC=0177 executed in 15 cycles.
+   [INFO] IC=0178 executed in 12 cycles.
+   [INFO] IC=0179 executed in 15 cycles.
+   [INFO] IC=0180 executed in 12 cycles.
+   [INFO] IC=0181 executed in 31 cycles.
+   [INFO] IC=0182 executed in 12 cycles.
+   [INFO] IC=0183 executed in 31 cycles.
+   [INFO] IC=0184 executed in 15 cycles.
+   [INFO] IC=0185 executed in 18 cycles.
+   [INFO] IC=0186 executed in 12 cycles.
+   [INFO] IC=0187 executed in 28 cycles.
+   [INFO] IC=0188 executed in 18 cycles.
+   [INFO] IC=0189 executed in 44 cycles.
+   [INFO] IC=0190 executed in 15 cycles.
+   [INFO] IC=0191 executed in 15 cycles.
+   [INFO] IC=0192 executed in 12 cycles.
+   [INFO] IC=0193 executed in 15 cycles.
+   [INFO] IC=0194 executed in 12 cycles.
+   [INFO] IC=0195 executed in 18 cycles.
+   [INFO] IC=0196 executed in 15 cycles.
+   [INFO] IC=0197 executed in 12 cycles.
+   [INFO] IC=0198 executed in 28 cycles.
+   [INFO] IC=0199 executed in 518 cycles.
+   [INFO] IC=0199: Data DRAM verification passed.
+   [INFO] IC=0200 executed in 12 cycles.
+   [INFO] IC=0201 executed in 28 cycles.
+   [INFO] IC=0202 executed in 31 cycles.
+   [INFO] IC=0203 executed in 12 cycles.
+   [INFO] IC=0204 executed in 28 cycles.
+   [INFO] IC=0205 executed in 12 cycles.
+   [INFO] IC=0206 executed in 12 cycles.
+   [INFO] IC=0207 executed in 10 cycles.
+   [INFO] IC=0208 executed in 15 cycles.
+   [INFO] IC=0209 executed in 15 cycles.
+   [INFO] IC=0210 executed in 15 cycles.
+   [INFO] IC=0211 executed in 18 cycles.
+   [INFO] IC=0212 executed in 15 cycles.
+   [INFO] IC=0213 executed in 18 cycles.
+   [INFO] IC=0214 executed in 15 cycles.
+   [INFO] IC=0215 executed in 31 cycles.
+   [INFO] IC=0216 executed in 12 cycles.
+   [INFO] IC=0217 executed in 44 cycles.
+   [INFO] IC=0218 executed in 15 cycles.
+   [INFO] IC=0219 executed in 28 cycles.
+   [INFO] IC=0220 executed in 31 cycles.
+   [INFO] IC=0221 executed in 18 cycles.
+   [INFO] IC=0222 executed in 28 cycles.
+   [INFO] IC=0223 executed in 18 cycles.
+   [INFO] IC=0224 executed in 12 cycles.
+   [INFO] IC=0225 executed in 31 cycles.
+   [INFO] IC=0226 executed in 18 cycles.
+   [INFO] IC=0227 executed in 15 cycles.
+   [INFO] IC=0228 executed in 15 cycles.
+   [INFO] IC=0229 executed in 12 cycles.
+   [INFO] IC=0230 executed in 15 cycles.
+   [INFO] IC=0231 executed in 12 cycles.
+   [INFO] IC=0232 executed in 31 cycles.
+   [INFO] IC=0233 executed in 12 cycles.
+   [INFO] IC=0234 executed in 31 cycles.
+   [INFO] IC=0235 executed in 15 cycles.
+   [INFO] IC=0236 executed in 18 cycles.
+   [INFO] IC=0237 executed in 12 cycles.
+   [INFO] IC=0238 executed in 28 cycles.
+   [INFO] IC=0239 executed in 18 cycles.
+   [INFO] IC=0240 executed in 44 cycles.
+   [INFO] IC=0241 executed in 15 cycles.
+   [INFO] IC=0242 executed in 15 cycles.
+   [INFO] IC=0243 executed in 12 cycles.
+   [INFO] IC=0244 executed in 15 cycles.
+   [INFO] IC=0245 executed in 12 cycles.
+   [INFO] IC=0246 executed in 18 cycles.
+   [INFO] IC=0247 executed in 15 cycles.
+   [INFO] IC=0248 executed in 12 cycles.
+   [INFO] IC=0249 executed in 446 cycles.
+   [INFO] IC=0249: Data DRAM verification passed.
+   [INFO] IC=0250 executed in 31 cycles.
+   [INFO] IC=0251 executed in 12 cycles.
+   [INFO] IC=0252 executed in 28 cycles.
+   [INFO] IC=0253 executed in 31 cycles.
+   [INFO] IC=0254 executed in 12 cycles.
+   [INFO] IC=0255 executed in 28 cycles.
+   [INFO] IC=0256 executed in 12 cycles.
+   [INFO] IC=0257 executed in 12 cycles.
+   [INFO] IC=0258 executed in 44 cycles.
+   [INFO] IC=0259 executed in 15 cycles.
+   [INFO] IC=0260 executed in 28 cycles.
+   [INFO] IC=0261 executed in 12 cycles.
+   [INFO] IC=0262 executed in 303 cycles.
+   [INFO] IC=0263 executed in 759 cycles.
+   [INFO] IC=0263: Data DRAM verification passed.
+
+=================================================
+               Congratulations!                  
+   All instructions and Data DRAM matched.       
+   Passed all 264 patterns successfully!         
+   Total Execution Cycles : 8769
+   Avg. Cycles per Inst   : 33
+=================================================
+
+$finish called from file "../00_TESTBED/PATTERN.vp", line 151.
+$finish at simulation time          30714250 ps
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 30714250 ps
+CPU Time:      0.470 seconds;       Data structure size:   0.8Mb
+Mon May  4 19:29:13 2026
+CPU time: .513 seconds in simulation

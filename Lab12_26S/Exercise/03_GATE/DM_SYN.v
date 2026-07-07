@@ -1,0 +1,1 @@
+../02_SYN/Netlist/DM_SYN.v

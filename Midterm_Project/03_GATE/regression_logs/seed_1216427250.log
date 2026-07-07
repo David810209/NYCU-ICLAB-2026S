@@ -1,0 +1,252 @@
+vcs -timescale=1ns/1fs -j4                -sverilog +v2k -full64 -Mupdate -R -debug_access+all -f "filelist.f"	 -o "simv"      	 -l "vcs.log"      	 -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a -v ~iclabTA01/umc018/Verilog/umc18_neg.v +define+GATE +define+RUN +define+PERF +neg_tchk  
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Tue May  5 00:11:00 2026
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Parsing design file 'TESTBED.v'
+Parsing included file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/DRAM_MAP_define.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM_inst1.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM_inst2.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Parsing included file '../00_TESTBED/pseudo_DRAM_data.v'.
+Back to file '../00_TESTBED/PATTERN.v'.
+Back to file 'TESTBED.v'.
+Parsing included file 'DCCPU_SYN.v'.
+Back to file 'TESTBED.v'.
+Parsing design file '../04_MEM/CACHE_128X16X1BM1.v'
+Parsing design file '../04_MEM/CACHE_256X16X1BM1.v'
+Parsing design file '../04_MEM/SUMA180_512X16X1BM1.v'
+Parsing library file '/RAID2/COURSE/BackUp/2023_Spring/iclab/iclabta01/umc018/Verilog/umc18_neg.v'
+Top Level Modules:
+       TESTBED
+       CACHE_128X16X1BM1
+       CACHE_256X16X1BM1
+TimeScale is 10 ps / 1 ps
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 1503
+DCCPU, "DFFSX1 core_1_memory_dcache_dirty_start_addr_reg_0__6_( .D (n2019),  .CK (clk),  .SN (n2809),  .QN (n5790));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 1523
+DCCPU, "DFFSX1 core_1_memory_dcache_dirty_start_addr_reg_1__6_( .D (n2018),  .CK (clk),  .SN (n3878),  .QN (n5789));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 1531
+DCCPU, "DFFSX1 core_1_memory_awlen_m_inf_data_reg_0_( .D (n5761),  .CK (clk),  .SN (n3878),  .QN (awlen_m_inf_data[0]));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[TFIPC] Too few instance port connections
+DCCPU_SYN.v, 5514
+DCCPU, "AFHCONX2 U6007( .A (n4671),  .B (n4670),  .CI (n4669),  .CON (n5558));"
+  The above instance has fewer port connections than the module definition.
+  Please use '+lint=TFIPC-L' to print out detailed information of unconnected 
+  ports.
+
+
+Warning-[IDTS] Ignoring dynamic type sensitivity
+../00_TESTBED/PATTERN.v, 468
+"txt_red_prefix"
+  Dynamic types used in always_comb, always_latch, always (@*) will be ignored
+  for the inferred sensitivity list. 
+  
+  Declared at: ../00_TESTBED/PATTERN.v, 409
+  
+
+
+Warning-[IDTS] Ignoring dynamic type sensitivity
+../00_TESTBED/PATTERN.v, 468
+"reset_color"
+  Dynamic types used in always_comb, always_latch, always (@*) will be ignored
+  for the inferred sensitivity list. 
+  
+  Declared at: ../00_TESTBED/PATTERN.v, 408
+  
+
+
+   ***   $sdf_annotate() version 1.2R
+   ***    SDF file: "DCCPU_SYN.sdf"
+   ***    Annotation scope: TESTBED.u_DCCPU
+   ***    No MTM selection argument specified
+   ***    No SCALE FACTORS argument specified
+   ***    No SCALE TYPE argument specified
+   ***    MTM selection defaulted to "TOOL_CONTROL":
+               (+typdelays compiled, TYPICAL delays selected)
+   ***    SCALE FACTORS defaulted to "1.0:1.0:1.0":
+   ***    SCALE TYPE defaulted to: "FROM_MTM"
+   ***    Turnoff delay: "FROM_FILE"
+   ***    Approximation (mipd) policy: "MAXIMUM"
+
+   ***    SDF annotation begin: Tue May  5 00:11:01 2026
+
+
+SDF Info: +pulse_r/100, +pulse_e/100 in effect
+
+          Total errors: 0
+          Total warnings: 0
+   ***    SDF annotation completed: Tue May  5 00:11:01 2026
+
+
+Starting vcs inline pass...
+
+Note-[VCS_PARAL] Parallel code-gen enabled
+  VCS is running with parallel code generation(-j)...
+
+125 modules and 2 UDPs read.
+recompiling module pseudo_DRAM_data
+recompiling module DCCPU
+recompiling module pseudo_DRAM_inst2
+recompiling module ADDHXL
+recompiling module SUMA180_512X16X1BM1
+recompiling module DFFRHQX2
+recompiling module OAI222X1
+recompiling module AOI2BB2X2
+recompiling module OAI22X2
+recompiling module XNOR2X1
+recompiling module XOR2XL
+recompiling module AOI31XL
+recompiling module MXI2XL
+recompiling module OAI31X1
+recompiling module AOI21X2
+recompiling module AOI2BB1X2
+recompiling module NAND3BX1
+recompiling module NAND4XL
+recompiling module NOR4XL
+recompiling module OAI21XL
+recompiling module OAI2BB1XL
+recompiling module AND3X2
+recompiling module NAND2BX4
+recompiling module NAND3XL
+recompiling module NOR3X1
+recompiling module AND2X1
+recompiling module NAND2X1
+recompiling module NOR2X1
+recompiling module OR2X1
+recompiling module BUFX1
+recompiling module BUFX4
+recompiling module CLKINVX3
+recompiling module pseudo_DRAM_inst1
+recompiling module DFFSX1
+recompiling module DFFRHQX1
+recompiling module DFFSHQXL
+recompiling module AOI2BB2X1
+recompiling module OAI22X1
+recompiling module OAI2BB2XL
+recompiling module XOR2X2
+recompiling module AOI211XL
+recompiling module MXI2X4
+recompiling module OAI211XL
+recompiling module AOI21X1
+recompiling module AOI2BB1X1
+recompiling module MX2XL
+recompiling module NAND4X4
+recompiling module NOR4X1
+recompiling module OAI21X4
+recompiling module OAI2BB1X4
+recompiling module AND3X1
+recompiling module NAND2BX2
+recompiling module NAND3X2
+recompiling module NOR2BXL
+recompiling module TESTBED
+recompiling module CACHE_128X16X1BM1
+recompiling module AND2XL
+recompiling module NAND2XL
+recompiling module NOR2XL
+recompiling module AFHCONX2
+recompiling module BUFX16
+recompiling module BUFX3
+recompiling module CLKINVX2
+recompiling module AOI222XL
+recompiling module INVX3
+recompiling module DFFRHQXL
+recompiling module PATTERN
+recompiling module AOI22XL
+recompiling module AOI2BB2XL
+recompiling module OAI2BB2X1
+recompiling module XOR2X1
+recompiling module AOI211X2
+recompiling module MXI2X2
+recompiling module OAI211X1
+recompiling module OAI31XL
+recompiling module AOI21XL
+recompiling module MX2X2
+recompiling module NAND4X2
+recompiling module NOR3BXL
+recompiling module OAI21X2
+recompiling module OAI2BB1X2
+recompiling module OR4X4
+recompiling module NAND2BX1
+recompiling module NAND3X1
+recompiling module NOR2BX4
+recompiling module CACHE_256X16X1BM1
+recompiling module OR3XL
+recompiling module AND2X4
+recompiling module NAND2X4
+recompiling module NOR2X4
+recompiling module AOI222X1
+recompiling module OR2XL
+recompiling module BUFX2
+recompiling module BUFXL
+recompiling module INVX2
+recompiling module DFFRHQX4
+recompiling module INVXL
+recompiling module OAI222XL
+recompiling module AOI2BB2X4
+recompiling module OAI22XL
+recompiling module XNOR2XL
+recompiling module AOI211X1
+recompiling module MXI2X1
+recompiling module NAND4BXL
+recompiling module OAI31X4
+recompiling module AOI21X4
+recompiling module AOI2BB1XL
+recompiling module NAND4X1
+recompiling module NOR3BX1
+recompiling module OAI21X1
+recompiling module OAI2BB1X1
+recompiling module OR4X1
+recompiling module AND3XL
+recompiling module NAND2BXL
+recompiling module NOR2BX1
+recompiling module NOR3X4
+recompiling module AND2X2
+recompiling module NAND2X2
+recompiling module NOR2X2
+recompiling module OR2X2
+recompiling module BUFX20
+recompiling module BUFX8
+recompiling module INVX1
+recompiling module INVX8
+recompiling module INVX4
+All of 125 modules done
+make: *** [vcs_gate] Interrupt

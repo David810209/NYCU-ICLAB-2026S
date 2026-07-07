@@ -1,0 +1,3 @@
+1ns : $fwrite : a=0 b=1
+1ns : $monitor: a=1 b=0
+2ns : $fwrite : a=1 b=0

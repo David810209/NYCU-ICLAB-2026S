@@ -1,0 +1,1 @@
+../02_SYN/Netlist/DRAM_CTRL_SYN.v

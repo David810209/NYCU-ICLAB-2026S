@@ -1,0 +1,116 @@
+Magic 271485
+Revision Verdi_P-2019.06
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 2560 23 1920 1009 253 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab04_2026_S/01_RTL/CDNA.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 1780000.000000 1896601.562500
+cursor 1835000.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 3
+; marker line index
+markerPos 7
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "G1"
+activeDirFile "" "/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab04_2026_S/01_RTL/CDNA.fsdb"
+addSignal -h 15 /TESTBED/u_CDNA/clk
+addSignal -h 15 -UNSIGNED -UDEC -holdScope preprocess_counter[7:0]
+addSignal -h 15 -holdScope start_preprocess
+addSignal -h 15 -holdScope weight_sel_ch0[3:0]
+addSignal -h 15 -holdScope weight_sel_ch1[3:0]
+addSignal -h 15 -holdScope start_conv_L1
+addSignal -h 15 -UNSIGNED -UDEC -holdScope conv_L1_cnt[6:0]
+addSignal -h 15 -holdScope cnt_three[1:0]
+addSignal -h 15 -holdScope conv_data_sel[1:0]
+addSignal -expanded -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[7][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[6][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[5][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[4][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[3][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[2][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[1][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a0[0][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_a1[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_b0[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_b1[7:0]
+addSignal -expanded -h 15 -UNSIGNED -HEX -holdScope two_mac_result[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[7][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[6][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[5][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[4][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[3][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[2][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[1][31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope two_mac_result[0][31:0]
+addSignal -expanded -h 15 -holdScope image_data[1:0]
+addSignal -h 15 -holdScope image_data[1][99:0]
+addSignal -h 15 -holdScope image_data[0][99:0]
+addSignal -h 15 -holdScope padding_sel
+addSignal -h 15 /TESTBED/u_CDNA/genblk1[0]/u_two_mac/clear
+addSignal -h 15 -holdScope accum_result[31:0]
+addSignal -h 15 -holdScope a0[31:0]
+addSignal -h 15 -holdScope a1[31:0]
+addSignal -h 15 -holdScope b0[31:0]
+addSignal -h 15 -holdScope b1[31:0]
+addSignal -h 15 -holdScope mac_out[31:0]
+addSignal -h 15 -holdScope mult1_out[31:0]
+addSignal -h 15 -holdScope mult2_out[31:0]
+addSignal -h 15 /TESTBED/u_CDNA/next_row
+addGroup "G2"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+activeDirFile "" "/RAID2/COURSE/2026_Spring/iclab/iclab042/Lab04_2026_S/01_RTL/CDNA.fsdb"
+
+GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+getSignalForm close
+
+"/TESTBED"
+"/TESTBED/u_CDNA"
+"/TESTBED/u_CDNA/genblk1[0]"
+
+SCOPE_LIST_BEGIN
+"/TESTBED"
+"/TESTBED/u_CDNA"
+"/TESTBED/u_CDNA/genblk1[0]"
+"/TESTBED/u_CDNA/genblk1[0]/u_two_mac"
+SCOPE_LIST_END
+
+GETSIGNALFORM_SCOPE_HIERARCHY_END
+
+

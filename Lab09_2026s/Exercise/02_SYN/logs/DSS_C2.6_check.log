@@ -1,0 +1,13 @@
+[1;33m===========DSS============[0m
+[0;32m--> V Latch Checked![0m
+[0;32m--> V Width Mismatch Checked![0m
+[0;32m--> V No Error in syn_DSS.log![0m
+[0;32m--> V Timing (MET) Checked![0m
+[1;33m============================[0m
+[0;32m--> V 02_SYN Success !![0m
+[1;33m============================[0m
+[1;33mCycle: 2.60 [0m
+[1;33mArea: 175851.245008 [0m
+[1;33mGate count: 17622 [0m
+[1;33mDynamic: Total Dynamic Power    =  15.8264 mW  (100%) [0m
+[1;33mLeakage: Cell Leakage Power     =  11.2323 uW [0m

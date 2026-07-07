@@ -1,0 +1,151 @@
+Command: vcs -timescale=1ns/1fs -j8 -sverilog +v2k -full64 -Mupdate -R -debug_access+all \
+-y /usr/cad/synopsys/synthesis/cur/dw/sim_ver/ +libext+.v -f filelist.f -o simv -l \
+vcs.log -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a \
++define+RTL +define+Period_2 +notimingchecks
+*** Using c compiler gcc instead of cc ...
+                         Chronologic VCS (TM)
+         Version T-2022.06_Full64 -- Sat Apr 25 00:05:08 2026
+
+                    Copyright (c) 1991 - 2022 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+The design hasn't changed and need not be recompiled. 
+If you really want to, delete file /RAID2/COURSE/2026_Spring/iclab/iclab042/Lab07_2026/Exercise/01_RTL/simv.daidir/.vcs.timestamp and
+run VCS again.
+
+Command: /RAID2/COURSE/2026_Spring/iclab/iclab042/Lab07_2026/Exercise/01_RTL/./simv +v2k +libext+.v -a vcs.log +define+RTL +define+Period_2 +notimingchecks
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06_Full64; Runtime version T-2022.06_Full64;  Apr 25 00:05 2026
+========================================================================
+Total Patterns  : 100
+========================================================================
+------------------------------------------------------------------------
+  Testing Pattern 1/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 8266 cycles
+  [PASS] Pattern 1
+------------------------------------------------------------------------
+  Testing Pattern 2/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 9866 cycles
+  [PASS] Pattern 2
+------------------------------------------------------------------------
+  Testing Pattern 3/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 11982 cycles
+  [PASS] Pattern 3
+------------------------------------------------------------------------
+  Testing Pattern 4/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 16970 cycles
+  [PASS] Pattern 4
+------------------------------------------------------------------------
+  Testing Pattern 5/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 5010 cycles
+  [PASS] Pattern 5
+------------------------------------------------------------------------
+  Testing Pattern 6/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 14576 cycles
+  [PASS] Pattern 6
+------------------------------------------------------------------------
+  Testing Pattern 7/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 13786 cycles
+  [PASS] Pattern 7
+------------------------------------------------------------------------
+  Testing Pattern 8/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 18607 cycles
+  [PASS] Pattern 8
+------------------------------------------------------------------------
+  Testing Pattern 9/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 6342 cycles
+  [PASS] Pattern 9
+------------------------------------------------------------------------
+  Testing Pattern 10/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 11544 cycles
+  [PASS] Pattern 10
+------------------------------------------------------------------------
+  Testing Pattern 11/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 9170 cycles
+  [PASS] Pattern 11
+------------------------------------------------------------------------
+  Testing Pattern 12/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 14567 cycles
+  [PASS] Pattern 12
+------------------------------------------------------------------------
+  Testing Pattern 13/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 20679 cycles
+  [PASS] Pattern 13
+------------------------------------------------------------------------
+  Testing Pattern 14/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+  All 4 outputs collected, latency = 13090 cycles
+  [PASS] Pattern 14
+------------------------------------------------------------------------
+  Testing Pattern 15/100
+------------------------------------------------------------------------
+  Golden computed: exp_out_num = 4
+Interrupt at time 2002161000 ps
+
+Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 2002161000 ps
+CPU Time:      1.410 seconds;       Data structure size:   0.2Mb
+Sat Apr 25 00:05:18 2026
+Received SIGHUP (signal 1), exiting.
+Received SIGHUP (signal 1), exiting.
+Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 44563710000 ps
+CPU Time:     28.920 seconds;       Data structure size:   0.2Mb
+Sat Apr 25 00:33:23 2026
+Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 13221900600 ps
+CPU Time:      7.410 seconds;       Data structure size:   0.2Mb
+Sat Apr 25 00:33:23 2026
+Received SIGHUP (signal 1), exiting.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 27879784400 ps
+CPU Time:     24.530 seconds;       Data structure size:   0.2Mb
+Sat Apr 25 00:33:23 2026
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 17461449300 ps
+CPU Time:     19.800 seconds;       Data structure size:   0.2Mb
+Sat Apr 25 00:33:25 2026

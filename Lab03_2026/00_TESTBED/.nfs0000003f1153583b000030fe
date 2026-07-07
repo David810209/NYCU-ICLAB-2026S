@@ -1,0 +1,114 @@
+//############################################################################
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//   (C) Copyright Laboratory System Integration and Silicon Implementation
+//   All Right Reserved
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//   2023 ICLAB Fall Course
+//   Lab03      : BRIDGE
+//   Author     : Tzu-Yun Huang
+//	 Editor		: Ting-Yu Chang
+//                
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//   File Name   : pseudo_DRAM.v
+//   Module Name : pseudo_DRAM
+//   Release version : v3.0 (Release Date: Sep-2023)
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//############################################################################
+
+module pseudo_DRAM (
+    input  wire        clk,
+    input  wire        rst_n,
+    input  wire [3:0]  dram_cmd,
+    input  wire [1:0]  dram_ba,
+    input  wire [10:0] dram_addr,
+    input  wire [63:0] dram_wdata,
+    output reg  [63:0] dram_rdata,
+    output reg         dram_valid
+);
+
+parameter tRCD = 2, tCL = 3, tRP = 3, tRAS = 5, tRFC = 10;
+
+localparam CMD_NOP = 4'b0111, CMD_ACT = 4'b0011, CMD_READ = 4'b0101;
+localparam CMD_WRITE = 4'b0100, CMD_PRE = 4'b0010, CMD_REF = 4'b0001;
+
+reg [1:0]  bank_state [0:3]; 
+reg [10:0] active_row [0:3];
+reg [63:0] DRAM [0:65535]; // Simplified DRAM
+
+integer last_act [0:3], last_pre [0:3], last_ref;
+integer current_time;
+integer i;
+
+// Read Pipeline
+reg [63:0] rdata_pipe [0:4];
+reg        valid_pipe [0:4];
+
+parameter DRAM_p_r = "../00_TESTBED/DRAM_init.dat";
+initial $readmemh(DRAM_p_r, DRAM);
+
+initial begin
+	for (i=0; i<4; i=i+1) begin
+		bank_state[i] = 0; last_act[i] = -100; last_pre[i] = -100;
+	end
+	last_ref = 0; current_time = 0;
+end
+
+always @(posedge clk or negedge rst_n) begin
+	if (!rst_n) begin
+		dram_valid <= 0; dram_rdata <= 0;
+		for(i=0; i<5; i=i+1) begin rdata_pipe[i] <= 0; valid_pipe[i] <= 0; end
+	end else begin
+		current_time = current_time + 1;
+
+		// Pipeline shift
+		dram_rdata <= rdata_pipe[0];
+		dram_valid <= valid_pipe[0];
+		for(i=0; i<tCL; i=i+1) begin
+			rdata_pipe[i] <= rdata_pipe[i+1];
+			valid_pipe[i] <= valid_pipe[i+1];
+		end
+		rdata_pipe[tCL] <= 0; valid_pipe[tCL] <= 0;
+
+		case (dram_cmd)
+			CMD_ACT: begin
+			// 	$display("*************************************************************************");
+			// YOU_FAIL_task;
+			// $display("*   R_READY should be asserted after AR_READY goes high.                 *");
+			// $display("*************************************************************************");	
+				if (current_time - last_pre[dram_ba] < tRP) begin $display("[DRAM ERROR] tRP Violation! Time: %0t", $time); $finish;end
+				if (bank_state[dram_ba] == 1) begin $display("[DRAM ERR] Bank %0d already active! Time: %0t", dram_ba, $time); $finish;end
+				bank_state[dram_ba] = 1;
+				active_row[dram_ba] = dram_addr;
+				last_act[dram_ba] = current_time;
+			end
+			CMD_PRE: begin
+				if (current_time - last_act[dram_ba] < tRAS) begin $display("[DRAM ERROR] tRAS Violation! Time: %0t", $time); $finish;end
+				// if (dram_addr[10]) for(i=0; i<4; i=i+1) bank_state[i] = 0; // Precharge ALL
+				else bank_state[dram_ba] = 0;
+				last_pre[dram_ba] = current_time;
+			end
+			CMD_READ: begin
+				if (current_time - last_act[dram_ba] < tRCD) begin $display("[DRAM ERROR] tRCD Violation! Time: %0t", $time); $finish;end
+				if (bank_state[dram_ba] == 0) begin $display("[DRAM ERROR] Read from IDLE bank! Time: %0t", $time); $finish;end
+				valid_pipe[tCL-1] <= 1;
+				// Hash address for simple array fitting
+				rdata_pipe[tCL-1] <= DRAM[{dram_ba, active_row[dram_ba][5:0], dram_addr[7:0]}];
+			end
+			CMD_WRITE: begin
+				if (current_time - last_act[dram_ba] < tRCD) begin $display("[DRAM ERROR] tRCD Violation! Time: %0t", $time); $finish;end
+				if (bank_state[dram_ba] == 0) begin $display("[DRAM ERROR] Write to IDLE bank! Time: %0t", $time); $finish;end
+				DRAM[{dram_ba, active_row[dram_ba][5:0], dram_addr[7:0]}] <= dram_wdata;
+			end
+			CMD_REF: last_ref = current_time;
+		endcase
+	end
+end
+
+task YOU_FAIL_task; begin
+    $display("*                              FAIL!                                    *");
+    $display("*                Error message from pseudo_DRAM.v                       *");
+end endtask
+endmodule

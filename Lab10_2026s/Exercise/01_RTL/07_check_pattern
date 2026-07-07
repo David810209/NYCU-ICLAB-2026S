@@ -1,0 +1,75 @@
+#!/bin/bash
+
+echo -e "***********************************************************************"
+echo -e "*         Lab10 Coverage & Assertion Auto Check Script                *"
+echo -e "***********************************************************************"
+
+PASS="\033[32m"
+FAIL="\033[31m"
+GREEN_BG="\033[42m"
+RESET="\033[0m"
+
+# ============================================================
+# ./00_run_cov : CORRECT + FAIL_1~FAIL_5
+# ============================================================
+echo -e "\n========== 00_run_cov =========="
+
+# CORRECT -> Congratulations
+./00_run_cov CORRECT > check.log 2>&1
+if grep -q "Congratulations" check.log; then
+    echo -e "${PASS}--- 00_run_cov CORRECT check Pass (Congratulations) ---${RESET}"
+else
+    echo -e "${FAIL}--- 00_run_cov CORRECT check Fail (expected: Congratulations) ---${RESET}"
+    exit 0
+fi
+
+# FAIL_1 ~ FAIL_5 -> Wrong Answer
+FAIL_NUM=5
+for ((i=1; i<=FAIL_NUM; i++))
+do
+    ./00_run_cov FAIL_$i > check.log 2>&1
+    if grep -q "Wrong Answer" check.log; then
+        echo -e "${PASS}--- 00_run_cov FAIL_$i check Pass (Wrong Answer) ---${RESET}"
+    else
+        echo -e "${FAIL}--- 00_run_cov FAIL_$i check Fail (expected: Wrong Answer) ---${RESET}"
+        # exit 0
+    fi
+done
+echo -e "${GREEN_BG}--- 00_run_cov ALL PASS ---${RESET}"
+
+# ============================================================
+# ./01_run : CORRECT + SPEC_x_x
+# ============================================================
+echo -e "\n========== 01_run =========="
+
+# CORRECT -> Congratulations
+./01_run CORRECT > check.log 2>&1
+if grep -q "Congratulations" check.log; then
+    echo -e "${PASS}--- 01_run CORRECT check Pass (Congratulations) ---${RESET}"
+else
+    echo -e "${FAIL}--- 01_run CORRECT check Fail (expected: Congratulations) ---${RESET}"
+    # exit 0
+fi
+
+# SPEC counts per assertion number
+# SPEC_1: 4, SPEC_2: 4, SPEC_3: 2, SPEC_4: 4, SPEC_5: 4
+# SPEC_6: 1, SPEC_7: 1, SPEC_8: 6, SPEC_9: 2
+SPEC_COUNT=(4 4 2 4 4 1 1 6 2)
+
+for ((i=1; i<=9; i++))
+do
+    COUNT=${SPEC_COUNT[$i-1]}
+    for ((j=1; j<=COUNT; j++))
+    do
+        ./01_run SPEC_${i}_${j} > check.log 2>&1
+        if grep -q "Assertion $i is violated" check.log; then
+            echo -e "${PASS}--- SPEC_${i}_${j} check Pass (Assertion $i is violated) ---${RESET}"
+        else
+            echo -e "${FAIL}--- SPEC_${i}_${j} check Fail (expected: Assertion $i is violated) ---${RESET}"
+            # exit 0
+        fi
+    done
+    echo -e "${GREEN_BG}--- SPEC_${i} ALL PASS ---${RESET}"
+done
+
+echo -e "\n${GREEN_BG}--- ALL CHECK PASS !!! ---${RESET}"

@@ -1,0 +1,2 @@
+vcs -timescale=1ns/1fs -j4                -sverilog +v2k -full64 -Mupdate -R -debug_access+all -f "filelist.f"	 -o "simv"      	 -l "vcs.log"      	 -P /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/novas.tab /usr/cad/synopsys/verdi/2019.06//share/PLI/VCS/linux64/pli.a -v ~iclabTA01/umc018/Verilog/umc18_neg.v +define+GATE +define+RUN +define+PERF +neg_tchk  
+make: *** [vcs_gate] Interrupt

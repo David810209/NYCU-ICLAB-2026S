@@ -1,0 +1,256 @@
+Idx:   0 | Data:002f8492ba1affa5 | Key(Dec):   3114130
+Idx:   1 | Data:80452066e79a3a23 | Key(Dec):   4530278
+Idx:   2 | Data:805314175acccb32 | Key(Dec):   5444631
+Idx:   3 | Data:00601968c317d54e | Key(Dec):   6297960
+Idx:   4 | Data:8148848c36c6fb6a | Key(Dec):  21529740
+Idx:   5 | Data:0183ea2b27dc5b8d | Key(Dec):  25422379
+Idx:   6 | Data:0205f6f54464a0ef | Key(Dec):  33945333
+Idx:   7 | Data:825574d68f7d30ee | Key(Dec):  39154902
+Idx:   8 | Data:0286b238c0bb208b | Key(Dec):  42381880
+Idx:   9 | Data:02dcc97aafe2f25d | Key(Dec):  48023930
+Idx:  10 | Data:02eb6e798c8279ab | Key(Dec):  48983673
+Idx:  11 | Data:030a3f495db919ca | Key(Dec):  51003209
+Idx:  12 | Data:8319c1920d6da265 | Key(Dec):  52019602
+Idx:  13 | Data:035709c2d029f51b | Key(Dec):  56035778
+Idx:  14 | Data:03ac0a2eb9948137 | Key(Dec):  61606446
+Idx:  15 | Data:84018054de5c4a2f | Key(Dec):  67207252
+Idx:  16 | Data:0445e35f2ed0ca1a | Key(Dec):  71689055
+Idx:  17 | Data:044aebeec202c80a | Key(Dec):  72018926
+Idx:  18 | Data:845ffdc498dadcac | Key(Dec):  73399748
+Idx:  19 | Data:049d16a39900e4dc | Key(Dec):  77403811
+Idx:  20 | Data:84f30f24d0175e56 | Key(Dec):  83037988
+Idx:  21 | Data:85c60da77b0cf3e6 | Key(Dec):  96865703
+Idx:  22 | Data:05fa13c73ab9893e | Key(Dec): 100275143
+Idx:  23 | Data:86291eca092d49c7 | Key(Dec): 103358154
+Idx:  24 | Data:06875ba510c1dad4 | Key(Dec): 109534117
+Idx:  25 | Data:06ac5dac9bc051a2 | Key(Dec): 111959468
+Idx:  26 | Data:06d09b3a180cff1f | Key(Dec): 114334522
+Idx:  27 | Data:86e9f246e4afa43f | Key(Dec): 115995206
+Idx:  28 | Data:87d9ad99f1010da0 | Key(Dec): 131706265
+Idx:  29 | Data:0826abd5e4ddb297 | Key(Dec): 136752085
+Idx:  30 | Data:0a009fe9ed02ad8a | Key(Dec): 167813097
+Idx:  31 | Data:8a4e2a1236014c5e | Key(Dec): 172894738
+Idx:  32 | Data:0a4ff2f3cec2b3da | Key(Dec): 173011699
+Idx:  33 | Data:8b589a2378ecde6b | Key(Dec): 190356003
+Idx:  34 | Data:0c6971cfa37610d4 | Key(Dec): 208237007
+Idx:  35 | Data:8c8175c62d07be4f | Key(Dec): 209810886
+Idx:  36 | Data:8c8ed33b85130203 | Key(Dec): 210686779
+Idx:  37 | Data:0c978cd31b66afcc | Key(Dec): 211258579
+Idx:  38 | Data:0eac56e8d768052d | Key(Dec): 246175464
+Idx:  39 | Data:8efbaeeee1d6d593 | Key(Dec): 251375342
+Idx:  40 | Data:9003c3eba69dff3b | Key(Dec): 268682219
+Idx:  41 | Data:90c12e04a2e63c5d | Key(Dec): 281095684
+Idx:  42 | Data:110907502dc97ed2 | Key(Dec): 285804368
+Idx:  43 | Data:91c60cb3311e6b1a | Key(Dec): 298192051
+Idx:  44 | Data:1352f9348ac0a22e | Key(Dec): 324204852
+Idx:  45 | Data:940432ac8f530fea | Key(Dec): 335819436
+Idx:  46 | Data:9422b473f69c522e | Key(Dec): 337818739
+Idx:  47 | Data:94f9bf3c051411fd | Key(Dec): 351911740
+Idx:  48 | Data:960b5faaedd54e10 | Key(Dec): 369844138
+Idx:  49 | Data:1771f68af051b88e | Key(Dec): 393344650
+Idx:  50 | Data:98effa8d715fb6e1 | Key(Dec): 418380429
+Idx:  51 | Data:1903abb348cf7fe2 | Key(Dec): 419670963
+Idx:  52 | Data:9939a52828b8bb5c | Key(Dec): 423208232
+Idx:  53 | Data:99d1369345331c71 | Key(Dec): 433141395
+Idx:  54 | Data:9b1da8b6d00bafc0 | Key(Dec): 454928566
+Idx:  55 | Data:1d2501b611e21d6b | Key(Dec): 488964534
+Idx:  56 | Data:1d63540308484bc7 | Key(Dec): 493048835
+Idx:  57 | Data:1e0310d7af8734ee | Key(Dec): 503517399
+Idx:  58 | Data:1e0413c3c124cebe | Key(Dec): 503583683
+Idx:  59 | Data:1e27d8f4b7512bfb | Key(Dec): 505927924
+Idx:  60 | Data:1e32a925d5561637 | Key(Dec): 506636581
+Idx:  61 | Data:1fb100f68ba64939 | Key(Dec): 531693814
+Idx:  62 | Data:a0fd98afa8916c36 | Key(Dec): 553490607
+Idx:  63 | Data:a16264520bed1145 | Key(Dec): 560096338
+Idx:  64 | Data:a1a19f99c37947ef | Key(Dec): 564240281
+Idx:  65 | Data:a1fe17cbb9737d07 | Key(Dec): 570300363
+Idx:  66 | Data:a2943a8002859ec5 | Key(Dec): 580139648
+Idx:  67 | Data:a29f71a19e1932fe | Key(Dec): 580874657
+Idx:  68 | Data:22b1f88cb6ac0fae | Key(Dec): 582088844
+Idx:  69 | Data:a3527510b14cadd6 | Key(Dec): 592606480
+Idx:  70 | Data:a40d0aa6bf38698c | Key(Dec): 604834470
+Idx:  71 | Data:a4bd9b7897746175 | Key(Dec): 616405880
+Idx:  72 | Data:251f72725cd1e0aa | Key(Dec): 622817906
+Idx:  73 | Data:a5dbee62a40da6c4 | Key(Dec): 635170402
+Idx:  74 | Data:a62d4f6c5db07de9 | Key(Dec): 640503660
+Idx:  75 | Data:a64368904fc6e868 | Key(Dec): 641951888
+Idx:  76 | Data:26971eff23271843 | Key(Dec): 647438079
+Idx:  77 | Data:a6e09c926661eec1 | Key(Dec): 652254354
+Idx:  78 | Data:26e83a316c90cc17 | Key(Dec): 652753457
+Idx:  79 | Data:a6ff35ee3065de86 | Key(Dec): 654259694
+Idx:  80 | Data:2715898beb2dba66 | Key(Dec): 655722891
+Idx:  81 | Data:27c237a367d11ddd | Key(Dec): 667039651
+Idx:  82 | Data:a800c0e51034af2b | Key(Dec): 671138021
+Idx:  83 | Data:2854b48c6d1f479a | Key(Dec): 676639884
+Idx:  84 | Data:a876f1369f0da263 | Key(Dec): 678883638
+Idx:  85 | Data:289ba0c40842aaad | Key(Dec): 681287876
+Idx:  86 | Data:a8c3ae7898c4b52b | Key(Dec): 683912824
+Idx:  87 | Data:2965277cbf4528fb | Key(Dec): 694495100
+Idx:  88 | Data:a9dd598218bd8d47 | Key(Dec): 702372226
+Idx:  89 | Data:aa1be21b0dcd3c20 | Key(Dec): 706470427
+Idx:  90 | Data:aa2b16f8a8424942 | Key(Dec): 707467000
+Idx:  91 | Data:2a694d8e3342b5a1 | Key(Dec): 711544206
+Idx:  92 | Data:2becf2f51808a3d1 | Key(Dec): 736948981
+Idx:  93 | Data:ac0bf0e3da6148ed | Key(Dec): 738980067
+Idx:  94 | Data:2c26c84976cde90c | Key(Dec): 740739145
+Idx:  95 | Data:2cd41a1fad59a397 | Key(Dec): 752097823
+Idx:  96 | Data:2d23c413e2017bf2 | Key(Dec): 757318675
+Idx:  97 | Data:2d2849a8656fb841 | Key(Dec): 757615016
+Idx:  98 | Data:2ff25f70bcf0533f | Key(Dec): 804413296
+Idx:  99 | Data:305fad112815cc98 | Key(Dec): 811576593
+Idx: 100 | Data:b0768280ad1449de | Key(Dec): 813073024
+Idx: 101 | Data:b0afaa98a35503a7 | Key(Dec): 816818840
+Idx: 102 | Data:b26edf0ddeeac31b | Key(Dec): 846126861
+Idx: 103 | Data:b2c0560757754ac5 | Key(Dec): 851465735
+Idx: 104 | Data:3333f1e1ef837c9f | Key(Dec): 859042273
+Idx: 105 | Data:b3dad949b951f24e | Key(Dec): 869980489
+Idx: 106 | Data:33dc790b973c9644 | Key(Dec): 870086923
+Idx: 107 | Data:b45e925b25d69a33 | Key(Dec): 878613083
+Idx: 108 | Data:362a596a3a328605 | Key(Dec): 908745066
+Idx: 109 | Data:b6310274da2e75dc | Key(Dec): 909181556
+Idx: 110 | Data:b6555956e71668d8 | Key(Dec): 911563094
+Idx: 111 | Data:b68e2a752831fb2c | Key(Dec): 915286645
+Idx: 112 | Data:36cc645d78929712 | Key(Dec): 919364701
+Idx: 113 | Data:372346580e27d555 | Key(Dec): 925058648
+Idx: 114 | Data:b78a1411b6ca46a2 | Key(Dec): 931795985
+Idx: 115 | Data:b7a4cc6aa0c75a64 | Key(Dec): 933547114
+Idx: 116 | Data:380c6bf84d1d1ef4 | Key(Dec): 940338168
+Idx: 117 | Data:381283b5d98776f1 | Key(Dec): 940737461
+Idx: 118 | Data:b819254a69c5cbeb | Key(Dec): 941172042
+Idx: 119 | Data:38ac64e85bbe0cd9 | Key(Dec): 950822120
+Idx: 120 | Data:396ae3cc0e681da3 | Key(Dec): 963306444
+Idx: 121 | Data:b970a9a167cedcbe | Key(Dec): 963684769
+Idx: 122 | Data:ba31f946fe920955 | Key(Dec): 976353606
+Idx: 123 | Data:ba8105fbe5ea8adb | Key(Dec): 981534203
+Idx: 124 | Data:baf826f0079b7b2f | Key(Dec): 989341424
+Idx: 125 | Data:bb8a1f780956f44c | Key(Dec): 998907768
+Idx: 126 | Data:bc589fca15a3d5eb | Key(Dec):1012441034
+Idx: 127 | Data:bd19b6fba97e7a1c | Key(Dec):1025095419
+Idx: 128 | Data:bd40599cb4a5bc3c | Key(Dec):1027627420
+Idx: 129 | Data:bd4c341e021bb790 | Key(Dec):1028404254
+Idx: 130 | Data:be886b76c5869ce3 | Key(Dec):1049127798
+Idx: 131 | Data:bf11b6a37306aed7 | Key(Dec):1058125475
+Idx: 132 | Data:3f67977fc3d732b4 | Key(Dec):1063753599
+Idx: 133 | Data:3fa6662659fe7341 | Key(Dec):1067869734
+Idx: 134 | Data:c0e2a6cb053b110c | Key(Dec):1088595659
+Idx: 135 | Data:c131858706d8dde6 | Key(Dec):1093764487
+Idx: 136 | Data:c16023073a0447c6 | Key(Dec):1096819463
+Idx: 137 | Data:c193017884fe2859 | Key(Dec):1100153208
+Idx: 138 | Data:c1ab08fd630fa2a8 | Key(Dec):1101727997
+Idx: 139 | Data:c394b7f26a572b41 | Key(Dec):1133819890
+Idx: 140 | Data:c3e3ed29e1a42db2 | Key(Dec):1139010857
+Idx: 141 | Data:c3e48e9d0c65df5a | Key(Dec):1139052189
+Idx: 142 | Data:443fafc96f9fcfbd | Key(Dec):1145024457
+Idx: 143 | Data:c4cd51b76af8271c | Key(Dec):1154306487
+Idx: 144 | Data:453ba375dd217886 | Key(Dec):1161536373
+Idx: 145 | Data:c549394cd9c47d3c | Key(Dec):1162426700
+Idx: 146 | Data:c5bcabf8977dabb5 | Key(Dec):1169992696
+Idx: 147 | Data:c60426450a0c5de8 | Key(Dec):1174677061
+Idx: 148 | Data:c611319a84665500 | Key(Dec):1175531930
+Idx: 149 | Data:4687a1323fbfb976 | Key(Dec):1183293746
+Idx: 150 | Data:c6ed9c3770b2d426 | Key(Dec):1189977143
+Idx: 151 | Data:47662b5c829ad912 | Key(Dec):1197878108
+Idx: 152 | Data:4864823f73ef201f | Key(Dec):1214546495
+Idx: 153 | Data:c870628b92bce1d5 | Key(Dec):1215324811
+Idx: 154 | Data:c924d217c742bc2f | Key(Dec):1227149847
+Idx: 155 | Data:c9a97f718071b271 | Key(Dec):1235844977
+Idx: 156 | Data:4b72e5f7d2613022 | Key(Dec):1265821175
+Idx: 157 | Data:cd23cb81a4feee9b | Key(Dec):1294191489
+Idx: 158 | Data:cfe225977a6d55a4 | Key(Dec):1340220823
+Idx: 159 | Data:d029efa78d6bf1f1 | Key(Dec):1344925607
+Idx: 160 | Data:513eebc08f1f71f3 | Key(Dec):1363078080
+Idx: 161 | Data:d1841fc9db20af1e | Key(Dec):1367613385
+Idx: 162 | Data:529e3b6cd8bad5b1 | Key(Dec):1386101612
+Idx: 163 | Data:52e9fda04e0e906c | Key(Dec):1391066528
+Idx: 164 | Data:5342b2aa904f4020 | Key(Dec):1396880042
+Idx: 165 | Data:d3c028a78805a7c4 | Key(Dec):1405102247
+Idx: 166 | Data:d49986e3ff1e47ca | Key(Dec):1419347683
+Idx: 167 | Data:55332adff2189f14 | Key(Dec):1429416671
+Idx: 168 | Data:d585ef2fcf17af20 | Key(Dec):1434840879
+Idx: 169 | Data:56eaa61cebd6cfb7 | Key(Dec):1458218524
+Idx: 170 | Data:58968327603a79a1 | Key(Dec):1486258983
+Idx: 171 | Data:d8b71fd6daa2bd44 | Key(Dec):1488396246
+Idx: 172 | Data:da9de226796c3bd9 | Key(Dec):1520296486
+Idx: 173 | Data:5af8e302903f355d | Key(Dec):1526260482
+Idx: 174 | Data:dc870412eb5fa38a | Key(Dec):1552352274
+Idx: 175 | Data:5cee8f5c41705273 | Key(Dec):1559138140
+Idx: 176 | Data:5ea2cc6596675c5a | Key(Dec):1587727461
+Idx: 177 | Data:deb7f741b4977f4b | Key(Dec):1589114689
+Idx: 178 | Data:5f5bd31e7a7183c3 | Key(Dec):1599853342
+Idx: 179 | Data:df7bb68c78be9b0a | Key(Dec):1601943180
+Idx: 180 | Data:dfbaf3ecdd8ba94c | Key(Dec):1606087660
+Idx: 181 | Data:6076d9cdb11cff3f | Key(Dec):1618401741
+Idx: 182 | Data:60ced0e922cf219f | Key(Dec):1624166633
+Idx: 183 | Data:60d301db6ff62db5 | Key(Dec):1624441307
+Idx: 184 | Data:61366cb5dd62c76a | Key(Dec):1630956725
+Idx: 185 | Data:e13e6ec77c9533bb | Key(Dec):1631481543
+Idx: 186 | Data:e1c7318fd0a30078 | Key(Dec):1640444303
+Idx: 187 | Data:61cb657445ae705e | Key(Dec):1640719732
+Idx: 188 | Data:e1db831d3a7180a9 | Key(Dec):1641775901
+Idx: 189 | Data:e221f12fed34b3d8 | Key(Dec):1646391599
+Idx: 190 | Data:e2662de75c82608e | Key(Dec):1650863591
+Idx: 191 | Data:e2849dadf36dfa76 | Key(Dec):1652858285
+Idx: 192 | Data:630b9218ad68a485 | Key(Dec):1661702680
+Idx: 193 | Data:6439f663b3023cf2 | Key(Dec):1681520227
+Idx: 194 | Data:e4a61f33d5634c59 | Key(Dec):1688608563
+Idx: 195 | Data:6554d702012c4879 | Key(Dec):1700058882
+Idx: 196 | Data:e57dae64a00df192 | Key(Dec):1702735460
+Idx: 197 | Data:e60deac51e1cc8b4 | Key(Dec):1712188101
+Idx: 198 | Data:666d71e043ece755 | Key(Dec):1718448608
+Idx: 199 | Data:67107ebd2ab8499e | Key(Dec):1729134269
+Idx: 200 | Data:676c7c8d87e25aa9 | Key(Dec):1735163021
+Idx: 201 | Data:e80062678efa91d2 | Key(Dec):1744855655
+Idx: 202 | Data:e8072aa95223b5d4 | Key(Dec):1745300137
+Idx: 203 | Data:e8384e83e5aab82b | Key(Dec):1748520579
+Idx: 204 | Data:693ec8045ae906bd | Key(Dec):1765722116
+Idx: 205 | Data:ea507e2c518f76a4 | Key(Dec):1783660076
+Idx: 206 | Data:6a6c2a979008cc28 | Key(Dec):1785473687
+Idx: 207 | Data:eae1e91577a19392 | Key(Dec):1793190165
+Idx: 208 | Data:eae32ec2fb94e73f | Key(Dec):1793273538
+Idx: 209 | Data:6af335f077afbe62 | Key(Dec):1794323952
+Idx: 210 | Data:eb1ebb75f336e014 | Key(Dec):1797176181
+Idx: 211 | Data:6b4a9d61ad90281a | Key(Dec):1800052065
+Idx: 212 | Data:6bba84a3d8dfc43d | Key(Dec):1807385763
+Idx: 213 | Data:ebec291f95b967e3 | Key(Dec):1810639135
+Idx: 214 | Data:6c498ab7bf45d05f | Key(Dec):1816758967
+Idx: 215 | Data:6cb43ef046c7545f | Key(Dec):1823751920
+Idx: 216 | Data:6d2fe7b0d24bca50 | Key(Dec):1831856048
+Idx: 217 | Data:ed74ccd04b7204b9 | Key(Dec):1836371152
+Idx: 218 | Data:6d9cd6801a627609 | Key(Dec):1838995072
+Idx: 219 | Data:ee8177e1f237cca8 | Key(Dec):1853978593
+Idx: 220 | Data:6fa6a13933e75943 | Key(Dec):1873191225
+Idx: 221 | Data:efe87deab05c17b2 | Key(Dec):1877507562
+Idx: 222 | Data:effe32b2b5a5e26e | Key(Dec):1878930098
+Idx: 223 | Data:f0d71b30e97c3bb5 | Key(Dec):1893145392
+Idx: 224 | Data:f171eb2dec73d21a | Key(Dec):1903291181
+Idx: 225 | Data:f2659547db03f25d | Key(Dec):1919259975
+Idx: 226 | Data:739d66528e0c1747 | Key(Dec):1939695186
+Idx: 227 | Data:f39dbf701a004c0b | Key(Dec):1939718000
+Idx: 228 | Data:73b954e054376077 | Key(Dec):1941525728
+Idx: 229 | Data:75197780d41b4188 | Key(Dec):1964603264
+Idx: 230 | Data:f623298e78a43835 | Key(Dec):1982015886
+Idx: 231 | Data:f642696893de9d38 | Key(Dec):1984063848
+Idx: 232 | Data:f69b473523c43444 | Key(Dec):1989887797
+Idx: 233 | Data:76c934b2357d9d72 | Key(Dec):1992897714
+Idx: 234 | Data:f8473bf54b7d3e42 | Key(Dec):2017934325
+Idx: 235 | Data:785c2d19dd6505ff | Key(Dec):2019306777
+Idx: 236 | Data:786d0c5cb7b1cb4a | Key(Dec):2020412508
+Idx: 237 | Data:7906375b208d4b1d | Key(Dec):2030450523
+Idx: 238 | Data:7a747c3bc32d9187 | Key(Dec):2054454331
+Idx: 239 | Data:fae1df7805bf8085 | Key(Dec):2061623160
+Idx: 240 | Data:7b16a993e1ed6006 | Key(Dec):2065082771
+Idx: 241 | Data:7b1dda65468f526f | Key(Dec):2065554021
+Idx: 242 | Data:fb3c67adf9e3ae56 | Key(Dec):2067556269
+Idx: 243 | Data:fba3a6a4d01839e0 | Key(Dec):2074322596
+Idx: 244 | Data:fbb7eabe09e3019d | Key(Dec):2075650750
+Idx: 245 | Data:7be34a60db6f79ea | Key(Dec):2078493280
+Idx: 246 | Data:7c42f339a1cd77e8 | Key(Dec):2084762425
+Idx: 247 | Data:fc5eae1d8ef16635 | Key(Dec):2086579741
+Idx: 248 | Data:fc60dc583a520494 | Key(Dec):2086722648
+Idx: 249 | Data:fca477c29c18eea7 | Key(Dec):2091153346
+Idx: 250 | Data:fd3e46c91941f886 | Key(Dec):2101233353
+Idx: 251 | Data:7d6ef016954897be | Key(Dec):2104422422
+Idx: 252 | Data:ff8ce3af5ef29f0e | Key(Dec):2139939759
+Idx: 253 | Data:ff98c84ebcf8c34b | Key(Dec):2140719182
+Idx: 254 | Data:7ff52d0cb98e51a3 | Key(Dec):2146774284
+Idx: 255 | Data:fff696165150dd08 | Key(Dec):2146866710
