@@ -32,54 +32,13 @@
 `endif
 
 `ifdef FUNC
+`define PAT_NUM 1700
 `define MAX_WAIT_READY_CYCLE 2000
 `endif
 `ifdef PERF
+`define PAT_NUM 1700
 `define MAX_WAIT_READY_CYCLE 100000
 `endif
-
-// Directed test: covers corner cases, forward/backward branch and jump,
-// and loop-based memory access patterns.
-// Both cores execute the same number of ICs and eventually reach PC = 0x1FFE.
-
-// random test: random generate instructions (only forward jump/branch) 
-// in random test, instruction counts will be multiple of 50 
-//(it won't reach 0x1ffe, but I think it can still work since I'm sure it will run 50x ICs)
-
-
-//============================================================
-// Test mode selection
-//============================================================
-// Select the test mode by setting TEST_TYPE.
-//
-// TEST_TYPE = 0: Run randomly generated instruction patterns.
-//
-// TEST_TYPE = 1: Run hand-written directed patterns.
-//
-//============================================================
-
-// 0 for random, 1 for direct.
-`define TEST_TYPE 0
-
-// (can adjust)
-`ifndef SEED
-`define SEED 69
-`endif 
-// (can adjust)
-// jump target max can be up to 128
-// jump target min: 1
-`define JUMP_MAX 128
-`define JUMP_MIN 1
-// (can adjust)
-// branch target max can be up to 63
-// branch target min: 0
-`define BRANCH_MAX 63
-`define BRANCH_MIN 0
-
-// 0x1000 ~ 0x2FFE (can adjust)
-`ifndef MEM_START_ACCESS_ADDR
-`define MEM_START_ACCESS_ADDR 16'h1000
-`endif 
 
 module PATTERN(
     clk,
@@ -389,6 +348,7 @@ pseudo_DRAM_data u_DRAM_data (
 
 
 parameter CYCLE     = `CYCLE_TIME;
+parameter PAT_NUM   = `PAT_NUM;
 parameter MAX_CYCLE = `MAX_WAIT_READY_CYCLE;
 
 parameter INST1_BASE  = 32'h0000_0000;
@@ -431,7 +391,7 @@ reg signed [15:0] golden_reg_c2 [0:7];
 reg [12:0] pc_1, pc_2;
 reg pc_1_done, pc_2_done;
 integer total_step;
-// integer f_in;
+integer f_in;
 reg [15:0] inst_c1, inst_c2;
 reg [2:0]  op_c1,  op_c2;
 reg [3:0]  rs_c1,  rs_c2;
@@ -444,7 +404,7 @@ reg signed [12:0] addr_c1, addr_c2;
 reg        c2_is_store_pending;
 reg [15:0] c2_store_addr_pending;
 reg [15:0] c2_store_data_pending;
-integer inst_count;
+
 always #(`CYCLE_TIME / 2.0) clk = ~clk;
 initial clk = 0;
 
@@ -471,9 +431,8 @@ always @(*) begin
         $finish;
     end
 end
-integer  a;
+
 initial begin
-    a = $urandom(`SEED);
     total_latency = 0;
     total_latency1 = 0;
     total_latency2 = 0;
@@ -483,16 +442,10 @@ initial begin
     pc_1_done = 0;
     pc_2_done = 0;
     reset_task;
-    if (`TEST_TYPE == 1) begin
-        gen_dram_files_task_direct;
-    end
-    else begin
-        gen_dram_files_task_random;
-    end
-    
-    $readmemh("../00_TESTBED/DRAM/inst_1_dram_file.dat", u_DRAM_inst1.DRAM_r);
-    $readmemh("../00_TESTBED/DRAM/inst_2_dram_file.dat", u_DRAM_inst2.DRAM_r);
-    $readmemh("../00_TESTBED/DRAM/data_dram_file.dat", u_DRAM_data.DRAM_r);
+    gen_dram_files_task_all;
+    // gen_dram_files_task_memory;
+    // gen_dram_files_task_basic;
+    // gen_dram_files_task_random;
     set_env_task;
     run_simulation_task;
     you_pass_task;
@@ -543,6 +496,691 @@ task reset_task; begin
     #(5 * CYCLE); release clk;
 end endtask
 
+// =============================================================
+// Helper macros for word access to byte-addressable tmp_data_live
+// and golden_data_DRAM.  A word at byte addr BA uses BA (low) and
+// BA+1 (high).
+// =============================================================
+task gen_dram_files_task_memory; begin
+    integer fd_i1, fd_i2, fd_d;
+    integer i, ic_count;
+
+    reg [15:0] tmp_inst1 [0:INST_DEPTH-1];
+    reg [15:0] tmp_inst2 [0:INST_DEPTH-1];
+
+    // BYTE-ADDRESSABLE. Seed once into _init, then copy to _live for
+    // simulation reads/writes. _init is what gets written to .dat.
+    reg [7:0]  tmp_data_init [0:DATA_TOP];
+    reg [7:0]  tmp_data_live [0:DATA_TOP];
+
+    reg signed [15:0] sim_reg_c1 [0:7];
+    reg signed [15:0] sim_reg_c2 [0:7];
+
+    reg signed [15:0] rs_val_c1 [0:INST_DEPTH-1];
+    reg signed [15:0] rs_val_c2 [0:INST_DEPTH-1];
+
+    reg [15:0] NOP;
+    reg [15:0] w_tmp;   // scratch for packing word writes
+    integer pc1, pc2;
+
+    NOP = 16'h0000;
+
+    // ------------------------------------------------------------
+    // Initialize
+    // ------------------------------------------------------------
+    for (i = 0; i < 8; i = i + 1) begin
+        sim_reg_c1[i] = 16'h0;
+        sim_reg_c2[i] = 16'h0;
+    end
+
+    for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        tmp_inst1[i] = NOP;
+        tmp_inst2[i] = NOP;
+        rs_val_c1[i] = 0;
+        rs_val_c2[i] = 0;
+    end
+
+    // Zero the whole data memory first (byte-granularity).
+    for (i = 0; i <= DATA_TOP; i = i + 1)
+        tmp_data_init[i] = 8'h0;
+
+    // Random-fill the accessible byte range [DATA_ACC_LO .. DATA_ACC_HI+1].
+    for (i = DATA_ACC_LO; i <= DATA_ACC_HI + 1; i = i + 1)
+        tmp_data_init[i] = $urandom_range(255, 0);
+
+    // Seed known 16-bit words (little-endian: low byte at even addr).
+    // word at byte-addr A holds value V:  init[A]=V[7:0]; init[A+1]=V[15:8]
+    `define SEED_WORD(BA, VAL) \
+    begin \
+        tmp_data_init[(BA)]   = ((VAL)      & 16'h00FF); \
+        tmp_data_init[(BA)+1] = (((VAL)>>8) & 16'h00FF); \
+    end
+
+    // -------- Low region 0x1000 ~ 0x15FE --------
+    `SEED_WORD(16'h1000, 16'hA5A5)
+    `SEED_WORD(16'h1002, 16'h5A5A)
+    `SEED_WORD(16'h1004, 16'hCCCC)
+    `SEED_WORD(16'h1006, 16'hDDDD)
+    `SEED_WORD(16'h1010, 16'h1111)
+    `SEED_WORD(16'h1020, 16'h2222)
+    `SEED_WORD(16'h1040, 16'h4444)
+    `SEED_WORD(16'h1060, 16'h6666)
+    `SEED_WORD(16'h107E, 16'h7E7E)
+    `SEED_WORD(16'h1080, 16'h8080)
+    `SEED_WORD(16'h10FE, 16'hFEFE)
+    `SEED_WORD(16'h1100, 16'hB100)
+    `SEED_WORD(16'h1180, 16'hB180)
+    `SEED_WORD(16'h11FE, 16'hFE11)
+    `SEED_WORD(16'h1200, 16'hB200)
+    `SEED_WORD(16'h1280, 16'hB280)
+    `SEED_WORD(16'h12FE, 16'hFE22)
+    `SEED_WORD(16'h1300, 16'hB300)
+    `SEED_WORD(16'h1380, 16'hB380)
+    `SEED_WORD(16'h13FE, 16'hFE33)
+    `SEED_WORD(16'h1400, 16'hB400)
+    `SEED_WORD(16'h1480, 16'hB480)
+    `SEED_WORD(16'h14FE, 16'hFE44)
+    `SEED_WORD(16'h1500, 16'hB500)
+    `SEED_WORD(16'h1580, 16'hB580)
+    `SEED_WORD(16'h15FE, 16'hFE55)
+
+    // -------- Mid region 0x1600 ~ 0x1FFE --------
+    `SEED_WORD(16'h1600, 16'hC600)
+    `SEED_WORD(16'h1680, 16'hC680)
+    `SEED_WORD(16'h16FE, 16'hFE66)
+    `SEED_WORD(16'h1700, 16'hC700)
+    `SEED_WORD(16'h1780, 16'hC780)
+    `SEED_WORD(16'h17FE, 16'hFE77)
+    `SEED_WORD(16'h1800, 16'hC800)
+    `SEED_WORD(16'h1880, 16'hC880)
+    `SEED_WORD(16'h18FE, 16'hFE88)
+    `SEED_WORD(16'h1900, 16'hC900)
+    `SEED_WORD(16'h1980, 16'hC980)
+    `SEED_WORD(16'h19FE, 16'hFE99)
+    `SEED_WORD(16'h1A00, 16'hCA00)
+    `SEED_WORD(16'h1A80, 16'hCA80)
+    `SEED_WORD(16'h1AFE, 16'hFEAA)
+    `SEED_WORD(16'h1B00, 16'hCB00)
+    `SEED_WORD(16'h1B80, 16'hCB80)
+    `SEED_WORD(16'h1BFE, 16'hFEBB)
+    `SEED_WORD(16'h1C00, 16'hCC00)
+    `SEED_WORD(16'h1CFE, 16'hFECC)
+    `SEED_WORD(16'h1D00, 16'hCD00)
+    `SEED_WORD(16'h1DFE, 16'hFEDD)
+    `SEED_WORD(16'h1E00, 16'hCE00)
+    `SEED_WORD(16'h1EFE, 16'hFEEE)
+    `SEED_WORD(16'h1F00, 16'hCF00)
+    `SEED_WORD(16'h1FFE, 16'hFEFF)
+
+    // -------- High region 0x2000 ~ 0x2FFE --------
+    `SEED_WORD(16'h2000, 16'hD000)
+    `SEED_WORD(16'h2080, 16'hD080)
+    `SEED_WORD(16'h20FE, 16'hFE00)
+    `SEED_WORD(16'h2100, 16'hD100)
+    `SEED_WORD(16'h2180, 16'hD180)
+    `SEED_WORD(16'h21FE, 16'hFE10)
+    `SEED_WORD(16'h2200, 16'hD200)
+    `SEED_WORD(16'h2280, 16'hD280)
+    `SEED_WORD(16'h22FE, 16'hFE20)
+    `SEED_WORD(16'h2300, 16'hD300)
+    `SEED_WORD(16'h2380, 16'hD380)
+    `SEED_WORD(16'h23FE, 16'hFE30)
+    `SEED_WORD(16'h2400, 16'hD400)
+    `SEED_WORD(16'h2480, 16'hD480)
+    `SEED_WORD(16'h24FE, 16'hFE40)
+    `SEED_WORD(16'h2500, 16'hD500)
+    `SEED_WORD(16'h2580, 16'hD580)
+    `SEED_WORD(16'h25FE, 16'hFE50)
+    `SEED_WORD(16'h2600, 16'hD600)
+    `SEED_WORD(16'h2680, 16'hD680)
+    `SEED_WORD(16'h26FE, 16'hFE60)
+    `SEED_WORD(16'h2700, 16'hD700)
+    `SEED_WORD(16'h2780, 16'hD780)
+    `SEED_WORD(16'h27FE, 16'hFE70)
+    `SEED_WORD(16'h2800, 16'hD800)
+    `SEED_WORD(16'h2880, 16'hD880)
+    `SEED_WORD(16'h28FE, 16'hFE80)
+    `SEED_WORD(16'h2900, 16'hD900)
+    `SEED_WORD(16'h2980, 16'hD980)
+    `SEED_WORD(16'h29FE, 16'hFE90)
+    `SEED_WORD(16'h2A00, 16'hDA00)
+    `SEED_WORD(16'h2A80, 16'hDA80)
+    `SEED_WORD(16'h2AFE, 16'hFEA0)
+    `SEED_WORD(16'h2B00, 16'hDB00)
+    `SEED_WORD(16'h2B80, 16'hDB80)
+    `SEED_WORD(16'h2BFE, 16'hFEB0)
+    `SEED_WORD(16'h2C00, 16'hDC00)
+    `SEED_WORD(16'h2C80, 16'hDC80)
+    `SEED_WORD(16'h2CFE, 16'hFEC0)
+    `SEED_WORD(16'h2D00, 16'hDD00)
+    `SEED_WORD(16'h2D80, 16'hDD80)
+    `SEED_WORD(16'h2DFE, 16'hFED0)
+    `SEED_WORD(16'h2E00, 16'hDE00)
+    `SEED_WORD(16'h2E80, 16'hDE80)
+    `SEED_WORD(16'h2EFE, 16'hFEE0)
+    `SEED_WORD(16'h2F00, 16'hDF00)
+    `SEED_WORD(16'h2F80, 16'hDF80)
+    `SEED_WORD(16'h2FFE, 16'hFEF0)
+
+    `undef SEED_WORD
+
+    // Copy init -> live (byte by byte).
+    for (i = 0; i <= DATA_TOP; i = i + 1)
+        tmp_data_live[i] = tmp_data_init[i];
+
+    pc1      = 0;
+    pc2      = 0;
+    ic_count = 0;
+
+    // ============================================================
+    // ADDI init: core1 reg[ri]=ri, core2 reg[ri]=ri+1
+    // ============================================================
+    begin : init_regs
+        integer ri;
+        integer ri2;
+        for (ri = 1; ri <= 7; ri = ri + 1) begin
+            ri2 = ri + 1;
+            tmp_inst1[pc1] = {3'b010, 3'd0, ri[2:0],  ri[6:0]};
+            tmp_inst2[pc2] = {3'b010, 3'd0, ri[2:0], ri2[6:0]};
+            sim_reg_c1[ri] = ri;
+            sim_reg_c2[ri] = ri2;   // FIX: was ri, must match inst2's imm
+            pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+        end
+    end
+
+    // ============================================================
+    // Main loop (10 iterations). LS addresses now span 0x1000~0x2FFE.
+    // addr_A / addr_B are WORD OFFSETs (0..4095), byte = 0x1000 + off*2.
+    // Keep within imm7-signed? NO -- here we feed the full 7-bit field
+    // of ADDR into the instruction. Since this LS uses rs=r0 (=0) and
+    // the HW treats imm as unsigned byte-address selector in the
+    // original code (addr_A[6:0]), we must keep addr_A,addr_B <= 127
+    // for THIS main-loop encoding. To reach higher addresses we use
+    // extra_ls below which builds a base in r1 via ADDI chain.
+    // So keep main_loop addresses within 0..127 (byte 0x1000~0x10FE).
+    // ============================================================
+    begin : main_loop
+        integer iter;
+        integer addr_A, addr_B;         // WORD OFFSETs (0..127)
+        integer baddr_A, baddr_B;       // BYTE addresses in DRAM
+
+        for (iter = 0; iter < 10; iter = iter + 1) begin
+
+        case (iter)
+            0: begin addr_A = 0;   addr_B = 1;   end
+            1: begin addr_A = 2;   addr_B = 3;   end
+            2: begin addr_A = 8;   addr_B = 9;   end
+            3: begin addr_A = 16;  addr_B = 17;  end
+            4: begin addr_A = 24;  addr_B = 25;  end
+            5: begin addr_A = 32;  addr_B = 33;  end
+            6: begin addr_A = 40;  addr_B = 48;  end
+            7: begin addr_A = 50;  addr_B = 56;  end
+            8: begin addr_A = 60;  addr_B = 62;  end
+            9: begin addr_A = 63;  addr_B = 2;   end
+            default: begin addr_A = 0; addr_B = 1; end
+        endcase
+        baddr_A = 16'h1000 + (addr_A << 1);
+        baddr_B = 16'h1000 + (addr_B << 1);
+
+        // --- ALU / MULT / ADDI / SUBI block ---
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] & sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] & sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] | sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] | sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] & sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] & sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] | sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] | sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] ^ sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] ^ sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        sim_reg_c1[3] = ($signed(sim_reg_c1[1]) < $signed(sim_reg_c1[2])) ? 16'h0001 : 16'h0000;
+        sim_reg_c2[3] = ($signed(sim_reg_c2[1]) < $signed(sim_reg_c2[2])) ? 16'h0001 : 16'h0000;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        tmp_inst2[pc2] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        begin
+            reg [31:0] prod1, prod2;
+            prod1 = sim_reg_c1[1] * sim_reg_c1[2];
+            prod2 = sim_reg_c2[1] * sim_reg_c2[2];
+            sim_reg_c1[3] = prod1[31:16];
+            sim_reg_c1[4] = prod1[15:0];
+            sim_reg_c2[3] = prod2[31:16];
+            sim_reg_c2[4] = prod2[15:0];
+        end
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b010, 3'd1, 3'd5, 7'd5};
+        tmp_inst2[pc2] = {3'b010, 3'd1, 3'd5, 7'd5};
+        sim_reg_c1[5] = sim_reg_c1[1] + 16'sd5;
+        sim_reg_c2[5] = sim_reg_c2[1] + 16'sd5;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b011, 3'd1, 3'd6, 7'd3};
+        tmp_inst2[pc2] = {3'b011, 3'd1, 3'd6, 7'd3};
+        sim_reg_c1[6] = sim_reg_c1[1] - 16'sd3;
+        sim_reg_c2[6] = sim_reg_c2[1] - 16'sd3;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // ========================================================
+        // LS sub-sequence.
+        // LOAD  w = {live[BA+1], live[BA]}
+        // STORE live[BA]=w[7:0]; live[BA+1]=w[15:8]
+        // ========================================================
+
+        // +11: c1 LOAD A, c2 NOP
+        tmp_inst1[pc1] = {3'b100, 3'd0, 3'd7, addr_A[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = NOP;
+        sim_reg_c1[7] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // +12: c1 NOP, c2 LOAD A
+        tmp_inst1[pc1] = NOP;
+        tmp_inst2[pc2] = {3'b100, 3'd0, 3'd7, addr_A[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        sim_reg_c2[7] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // +13: c1 LOAD A, c2 LOAD B
+        tmp_inst1[pc1] = {3'b100, 3'd0, 3'd6, addr_A[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = {3'b100, 3'd0, 3'd6, addr_B[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        sim_reg_c1[6] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        sim_reg_c2[6] = {tmp_data_live[baddr_B+1], tmp_data_live[baddr_B]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // +14: c1 NOP, c2 STORE A <- r5
+        tmp_inst1[pc1] = NOP;
+        tmp_inst2[pc2] = {3'b101, 3'd0, 3'd5, addr_A[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        w_tmp = sim_reg_c2[5];
+        tmp_data_live[baddr_A]   = w_tmp[7:0];
+        tmp_data_live[baddr_A+1] = w_tmp[15:8];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // +15: c1 STORE B <- r5, c2 NOP
+        tmp_inst1[pc1] = {3'b101, 3'd0, 3'd5, addr_B[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = NOP;
+        w_tmp = sim_reg_c1[5];
+        tmp_data_live[baddr_B]   = w_tmp[7:0];
+        tmp_data_live[baddr_B+1] = w_tmp[15:8];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // +16: c1 LOAD A, c2 STORE A <- r6 (store first, load sees new)
+        tmp_inst1[pc1] = {3'b100, 3'd0, 3'd7, addr_A[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = {3'b101, 3'd0, 3'd6, addr_A[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        w_tmp = sim_reg_c2[6];
+        tmp_data_live[baddr_A]   = w_tmp[7:0];
+        tmp_data_live[baddr_A+1] = w_tmp[15:8];
+        sim_reg_c1[7] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // +17: c1 STORE B <- r6, c2 LOAD B (load sees old, then store commits)
+        tmp_inst1[pc1] = {3'b101, 3'd0, 3'd6, addr_B[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = {3'b100, 3'd0, 3'd7, addr_B[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        sim_reg_c2[7] = {tmp_data_live[baddr_B+1], tmp_data_live[baddr_B]};
+        w_tmp = sim_reg_c1[6];
+        tmp_data_live[baddr_B]   = w_tmp[7:0];
+        tmp_data_live[baddr_B+1] = w_tmp[15:8];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+        end // for iter
+    end
+
+    // Fill-up to PC 200
+    repeat(12) begin
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+    end
+
+    // +199: SUB
+    tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+    tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+    sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+    sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+    // ============================================================
+    // Cross-block LS after PC 200.
+    // 25 groups x 10 LS each. Covers 0x1000~0x2F78.
+    //
+    // ±200 constraint: consecutive LS within same core must differ
+    // by <= 200 words. The imm sequence [0,3,7,15,31,60,5,20,40,55]
+    // has max consecutive delta = 55 words -> always satisfies ±200.
+    // Cross-group transitions contain ADDI chain (not LS), so they
+    // are exempt from the LS address constraint.
+    //
+    // Two-class layout:
+    //   grp 0~12 : c1 sweeps 0x1xxx, c2 sweeps 0x2xxx (gap=2048 words)
+    //              -> tests cross-region dependency prediction
+    //   grp 13~24: both cores in 0x2xxx, gap=128 words
+    //              -> dense 0x2xxx coverage
+    //
+    // byte addr = 0x1000 + (base + imm) * 2
+    // max: base_c2=3936+60=3996 -> 0x1000+3996*2 = 0x2F38 <= 0x2FFE OK
+    // ============================================================
+    begin : extra_ls
+        integer grp;
+        integer base_c1, base_c2;
+
+        for (grp = 0; grp < 25; grp = grp + 1) begin
+            case (grp)
+                // grp 0~12: c1=0x1xxx, c2=0x2xxx, step=160 words
+                0:  begin base_c1 = 0;    base_c2 = 2048; end // 0x1000 / 0x2000
+                1:  begin base_c1 = 160;  base_c2 = 2208; end // 0x1140 / 0x2140
+                2:  begin base_c1 = 320;  base_c2 = 2368; end // 0x1280 / 0x2280
+                3:  begin base_c1 = 480;  base_c2 = 2528; end // 0x13C0 / 0x23C0
+                4:  begin base_c1 = 640;  base_c2 = 2688; end // 0x1500 / 0x2500
+                5:  begin base_c1 = 800;  base_c2 = 2848; end // 0x1640 / 0x2640
+                6:  begin base_c1 = 960;  base_c2 = 3008; end // 0x1780 / 0x2780
+                7:  begin base_c1 = 1120; base_c2 = 3168; end // 0x18C0 / 0x28C0
+                8:  begin base_c1 = 1280; base_c2 = 3328; end // 0x1A00 / 0x2A00
+                9:  begin base_c1 = 1440; base_c2 = 3488; end // 0x1B40 / 0x2B40
+                10: begin base_c1 = 1600; base_c2 = 3648; end // 0x1C80 / 0x2C80
+                11: begin base_c1 = 1760; base_c2 = 3808; end // 0x1DC0 / 0x2DC0
+                12: begin base_c1 = 1920; base_c2 = 3968; end // 0x1F00 / 0x2F00
+                // grp 13~24: both in 0x2xxx, gap=128 words, step=160 words
+                13: begin base_c1 = 2048; base_c2 = 2176; end // 0x2000 / 0x2100
+                14: begin base_c1 = 2208; base_c2 = 2336; end // 0x2140 / 0x2240
+                15: begin base_c1 = 2368; base_c2 = 2496; end // 0x2280 / 0x2380
+                16: begin base_c1 = 2528; base_c2 = 2656; end // 0x23C0 / 0x24C0
+                17: begin base_c1 = 2688; base_c2 = 2816; end // 0x2500 / 0x2600
+                18: begin base_c1 = 2848; base_c2 = 2976; end // 0x2640 / 0x2740
+                19: begin base_c1 = 3008; base_c2 = 3136; end // 0x2780 / 0x2880
+                20: begin base_c1 = 3168; base_c2 = 3296; end // 0x28C0 / 0x29C0
+                21: begin base_c1 = 3328; base_c2 = 3456; end // 0x2A00 / 0x2B00
+                22: begin base_c1 = 3488; base_c2 = 3616; end // 0x2B40 / 0x2C40
+                23: begin base_c1 = 3648; base_c2 = 3776; end // 0x2C80 / 0x2D80
+                24: begin base_c1 = 3808; base_c2 = 3936; end // 0x2DC0 / 0x2EC0
+                default: begin base_c1 = 0; base_c2 = 0; end
+            endcase
+
+            // Stage 1: ADDI chain to build base in r1
+            begin : build_bases
+                integer acc1, acc2;
+                integer chunk1, chunk2;
+                integer first1, first2;
+                integer done1, done2;
+
+                acc1 = 0; acc2 = 0;
+                first1 = 1; first2 = 1;
+                done1 = 0; done2 = 0;
+
+                while (!(done1 && done2)) begin
+                    if (!done1) begin
+                        chunk1 = base_c1 - acc1;
+                        if (chunk1 > 63) chunk1 = 63;
+                        if (first1) begin
+                            tmp_inst1[pc1] = {3'b010, 3'd0, 3'd1, chunk1[6:0]};
+                            sim_reg_c1[1] = chunk1;
+                            first1 = 0;
+                        end else begin
+                            tmp_inst1[pc1] = {3'b010, 3'd1, 3'd1, chunk1[6:0]};
+                            sim_reg_c1[1] = sim_reg_c1[1] + chunk1;
+                        end
+                        acc1 = acc1 + chunk1;
+                        if (acc1 >= base_c1) done1 = 1;
+                    end else begin
+                        tmp_inst1[pc1] = {3'b010, 3'd1, 3'd1, 7'd0};
+                    end
+
+                    if (!done2) begin
+                        chunk2 = base_c2 - acc2;
+                        if (chunk2 > 63) chunk2 = 63;
+                        if (first2) begin
+                            tmp_inst2[pc2] = {3'b010, 3'd0, 3'd1, chunk2[6:0]};
+                            sim_reg_c2[1] = chunk2;
+                            first2 = 0;
+                        end else begin
+                            tmp_inst2[pc2] = {3'b010, 3'd1, 3'd1, chunk2[6:0]};
+                            sim_reg_c2[1] = sim_reg_c2[1] + chunk2;
+                        end
+                        acc2 = acc2 + chunk2;
+                        if (acc2 >= base_c2) done2 = 1;
+                    end else begin
+                        tmp_inst2[pc2] = {3'b010, 3'd1, 3'd1, 7'd0};
+                    end
+
+                    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+                end
+            end
+
+            // Stage 2: 10 LS per group, rs=r1, varied imm
+            begin : do_ls
+                integer k;
+                integer imm_k;
+                integer c1_is_st, c2_is_st;
+                integer eff1_byte, eff2_byte;
+
+                for (k = 0; k < 10; k = k + 1) begin
+                    case (k)
+                        0: imm_k = 0;
+                        1: imm_k = 3;
+                        2: imm_k = 7;
+                        3: imm_k = 15;
+                        4: imm_k = 31;
+                        5: imm_k = 60;
+                        6: imm_k = 5;
+                        7: imm_k = 20;
+                        8: imm_k = 40;
+                        9: imm_k = 55;
+                        default: imm_k = 0;
+                    endcase
+
+                    case (k)
+                        0: begin c1_is_st = 0; c2_is_st = 1; end
+                        1: begin c1_is_st = 1; c2_is_st = 0; end
+                        2: begin c1_is_st = 0; c2_is_st = 0; end
+                        3: begin c1_is_st = 1; c2_is_st = 0; end
+                        4: begin c1_is_st = 0; c2_is_st = 1; end
+                        5: begin c1_is_st = 1; c2_is_st = 0; end
+                        6: begin c1_is_st = 0; c2_is_st = 0; end
+                        7: begin c1_is_st = 0; c2_is_st = 1; end
+                        8: begin c1_is_st = 1; c2_is_st = 0; end
+                        9: begin c1_is_st = 0; c2_is_st = 0; end
+                        default: begin c1_is_st = 0; c2_is_st = 0; end
+                    endcase
+
+                    eff1_byte = 16'h1000 + ((sim_reg_c1[1] + imm_k) << 1);
+                    eff2_byte = 16'h1000 + ((sim_reg_c2[1] + imm_k) << 1);
+
+                    // Core1
+                    if (c1_is_st) begin
+                        tmp_inst1[pc1] = {3'b101, 3'd1, 3'd5, imm_k[6:0]};
+                        rs_val_c1[pc1] = sim_reg_c1[1];
+                        w_tmp = sim_reg_c1[5];
+                        tmp_data_live[eff1_byte]   = w_tmp[7:0];
+                        tmp_data_live[eff1_byte+1] = w_tmp[15:8];
+                    end else begin
+                        tmp_inst1[pc1] = {3'b100, 3'd1, 3'd7, imm_k[6:0]};
+                        rs_val_c1[pc1] = sim_reg_c1[1];
+                        sim_reg_c1[7] = {tmp_data_live[eff1_byte+1], tmp_data_live[eff1_byte]};
+                    end
+
+                    // Core2
+                    if (c2_is_st) begin
+                        tmp_inst2[pc2] = {3'b101, 3'd1, 3'd5, imm_k[6:0]};
+                        rs_val_c2[pc2] = sim_reg_c2[1];
+                        w_tmp = sim_reg_c2[5];
+                        tmp_data_live[eff2_byte]   = w_tmp[7:0];
+                        tmp_data_live[eff2_byte+1] = w_tmp[15:8];
+                    end else begin
+                        tmp_inst2[pc2] = {3'b100, 3'd1, 3'd7, imm_k[6:0]};
+                        rs_val_c2[pc2] = sim_reg_c2[1];
+                        sim_reg_c2[7] = {tmp_data_live[eff2_byte+1], tmp_data_live[eff2_byte]};
+                    end
+
+                    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+                end
+            end
+        end
+    end
+
+    $display("%0s[task_basic] %0d instructions generated (rest NOP)%0s",
+             txt_cyan_prefix, ic_count, reset_color);
+
+    // ============================================================
+    // Write inst_1_dram_file.dat
+    // ============================================================
+    fd_i1 = $fopen("../00_TESTBED/DRAM/inst_1_dram_file.dat", "w");
+    for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        reg [2:0]        cop, crs, crt, crd, crl, csub;
+        reg signed [6:0] cimm;
+        reg [31:0]       eff_byte_addr;
+
+        $fwrite(fd_i1, "@%04h\n", (i << 1));
+
+        cop  = tmp_inst1[i][15:13];
+        crs  = tmp_inst1[i][12:10];
+        crt  = tmp_inst1[i][9:7];
+        crd  = tmp_inst1[i][6:4];
+        crl  = tmp_inst1[i][3:1];
+        csub = tmp_inst1[i][3:1];
+        cimm = tmp_inst1[i][6:0];
+
+        eff_byte_addr = DATA_BASE + ((rs_val_c1[i] + $signed(cimm)) << 1);
+
+        if (tmp_inst1[i] == NOP) begin
+            $fwrite(fd_i1, "%02h %02h // %d:NOP\n", tmp_inst1[i][15:8], tmp_inst1[i][7:0], i);
+        end else begin
+            case (cop)
+                3'b000: begin
+                    case (csub)
+                        3'b000: $fwrite(fd_i1, "%02h %02h // %d:ADD  r%0d = r%0d + r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b001: $fwrite(fd_i1, "%02h %02h // %d:SUB  r%0d = r%0d - r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b010: $fwrite(fd_i1, "%02h %02h // %d:AND  r%0d = r%0d & r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b011: $fwrite(fd_i1, "%02h %02h // %d:OR   r%0d = r%0d | r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b100: $fwrite(fd_i1, "%02h %02h // %d:NAND r%0d = ~(r%0d & r%0d)\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b101: $fwrite(fd_i1, "%02h %02h // %d:NOR  r%0d = ~(r%0d | r%0d)\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b110: $fwrite(fd_i1, "%02h %02h // %d:XOR  r%0d = r%0d ^ r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i , crd, crs, crt);
+                        3'b111: $fwrite(fd_i1, "%02h %02h // %d:SLT  r%0d = (r%0d < r%0d)\n",  tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                    endcase
+                end
+                3'b001: $fwrite(fd_i1, "%02h %02h // %d:MULT {r%0d,r%0d} = r%0d * r%0d\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crl, crs, crt);
+                3'b010: $fwrite(fd_i1, "%02h %02h // %d:ADDI r%0d = r%0d + %0d\n",          tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, crs, $signed(cimm));
+                3'b011: $fwrite(fd_i1, "%02h %02h // %d:SUBI r%0d = r%0d - %0d\n",          tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, crs, $signed(cimm));
+                3'b100: $fwrite(fd_i1, "%02h %02h // %d:LOAD  r%0d <- DM[0x%04h] rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, eff_byte_addr[15:0], crs, rs_val_c1[i], $signed(cimm));
+                3'b101: $fwrite(fd_i1, "%02h %02h // %d:STORE DM[0x%04h] <- r%0d rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, eff_byte_addr[15:0], crt, crs, rs_val_c1[i], $signed(cimm));
+                default: $fwrite(fd_i1, "%02h %02h // %d:UNKNOWN\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i);
+            endcase
+        end
+    end
+    $fclose(fd_i1);
+
+    // ============================================================
+    // Write inst_2_dram_file.dat
+    // ============================================================
+    fd_i2 = $fopen("../00_TESTBED/DRAM/inst_2_dram_file.dat", "w");
+    for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        reg [2:0]        cop, crs, crt, crd, crl, csub;
+        reg signed [6:0] cimm;
+        reg [31:0]       eff_byte_addr;
+
+        $fwrite(fd_i2, "@%04h\n", (i << 1));
+
+        cop  = tmp_inst2[i][15:13];
+        crs  = tmp_inst2[i][12:10];
+        crt  = tmp_inst2[i][9:7];
+        crd  = tmp_inst2[i][6:4];
+        crl  = tmp_inst2[i][3:1];
+        csub = tmp_inst2[i][3:1];
+        cimm = tmp_inst2[i][6:0];
+
+        eff_byte_addr = DATA_BASE + ((rs_val_c2[i] + $signed(cimm)) << 1);
+
+        if (tmp_inst2[i] == NOP) begin
+            $fwrite(fd_i2, "%02h %02h // %d:NOP\n", tmp_inst2[i][15:8], tmp_inst2[i][7:0], i);
+        end else begin
+            case (cop)
+                3'b000: begin
+                    case (csub)
+                        3'b000: $fwrite(fd_i2, "%02h %02h // %d:ADD  r%0d = r%0d + r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b001: $fwrite(fd_i2, "%02h %02h // %d:SUB  r%0d = r%0d - r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b010: $fwrite(fd_i2, "%02h %02h // %d:AND  r%0d = r%0d & r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b011: $fwrite(fd_i2, "%02h %02h // %d:OR   r%0d = r%0d | r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b100: $fwrite(fd_i2, "%02h %02h // %d:NAND r%0d = ~(r%0d & r%0d)\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b101: $fwrite(fd_i2, "%02h %02h // %d:NOR  r%0d = ~(r%0d | r%0d)\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b110: $fwrite(fd_i2, "%02h %02h // %d:XOR  r%0d = r%0d ^ r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b111: $fwrite(fd_i2, "%02h %02h // %d:SLT  r%0d = (r%0d < r%0d)\n",  tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                    endcase
+                end
+                3'b001: $fwrite(fd_i2, "%02h %02h // %d:MULT {r%0d,r%0d} = r%0d * r%0d\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crl, crs, crt);
+                3'b010: $fwrite(fd_i2, "%02h %02h // %d:ADDI r%0d = r%0d + %0d\n",          tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, crs, $signed(cimm));
+                3'b011: $fwrite(fd_i2, "%02h %02h // %d:SUBI r%0d = r%0d - %0d\n",          tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, crs, $signed(cimm));
+                3'b100: $fwrite(fd_i2, "%02h %02h // %d:LOAD  r%0d <- DM[0x%04h] rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, eff_byte_addr[15:0], crs, rs_val_c2[i], $signed(cimm));
+                3'b101: $fwrite(fd_i2, "%02h %02h // %d:STORE DM[0x%04h] <- r%0d rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, eff_byte_addr[15:0], crt, crs, rs_val_c2[i], $signed(cimm));
+                default: $fwrite(fd_i2, "%02h %02h // %d:UNKNOWN\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i);
+            endcase
+        end
+    end
+    $fclose(fd_i2);
+
+    // ============================================================
+    // Write shared data_dram_file.dat using the INITIAL state.
+    // Format:  @<byte_addr_even>
+    //          <low_byte> <high_byte> // comment
+    // ============================================================
+    fd_d = $fopen("../00_TESTBED/DRAM/data_dram_file.dat", "w");
+    for (i = DATA_ACC_LO; i <= DATA_ACC_HI; i = i + 2) begin
+        $fwrite(fd_d, "@%04h\n", i);
+        $fwrite(fd_d, "%02h %02h // DATA[%04h] = %0d\n",
+                tmp_data_init[i],           // low  byte first
+                tmp_data_init[i+1],         // high byte second
+                i,
+                {tmp_data_init[i+1], tmp_data_init[i]});
+    end
+    $fclose(fd_d);
+    $display("%0s[task_basic] .dat files written%0s", txt_cyan_prefix, reset_color);
+end endtask
+
+
 task set_env_task; begin
     integer i;
     for (i = 0; i < INST_DEPTH; i = i + 1) begin
@@ -583,11 +1221,10 @@ task run_simulation_task; begin
         if ((ic_1 == 49) || ((ic_1 > 49) && ((ic_1 + 1) % 50 == 0)) || (pc_1_done && pc_2_done)) begin
             check_dram_task(step);
         end
-        if(ic_1 == inst_count - 1) begin
-            total_step = inst_count;
+        if(pc_1_done && pc_2_done) begin
+            total_step = step;
             break;
         end
-        
     end
 end endtask
 
@@ -680,7 +1317,7 @@ task execute_golden_task; begin
 
     // BEQ / JUMP legality (unchanged)
     if (op1g == 3'b110) begin
-        beq_tgt1 = cur_pc1 + 2 + (imm1g_ext * 2);
+        beq_tgt1 = cur_pc1 + 2 + imm1g_ext;
         if ((beq_tgt1 & 1) != 0 || beq_tgt1 < 0 || beq_tgt1 > max_inst_addr) begin
             $display("  %0sPATTERN ERROR%0s  Core1 BEQ target illegal  pc=0x%04h tgt=0x%04h",
                      txt_red_prefix, reset_color, cur_pc1, beq_tgt1);
@@ -688,7 +1325,7 @@ task execute_golden_task; begin
         end
     end
     if (op2g == 3'b110) begin
-        beq_tgt2 = cur_pc2 + 2 + (imm2g_ext*2);
+        beq_tgt2 = cur_pc2 + 2 + imm2g_ext;
         if ((beq_tgt2 & 1) != 0 || beq_tgt2 < 0 || beq_tgt2 > max_inst_addr) begin
             $display("  %0sPATTERN ERROR%0s  Core2 BEQ target illegal  pc=0x%04h tgt=0x%04h",
                      txt_red_prefix, reset_color, cur_pc2, beq_tgt2);
@@ -929,23 +1566,268 @@ end endtask
 task you_pass_task; begin
     $display("%0s======================================================================", txt_magenta_prefix);
     $display("                          Congratulations!!");
-    $display("                    All %0d Instruction Counter Executed", total_step);
-    $display("                    All %0d Instructions Executed", total_step*2);
+    $display("                    All %0d Instructions Executed", total_step);
     $display("                       Cycle time = %-2f ns", CYCLE);
     $display("               Your execution cycles = %-4d cycles", total_latency);
-    $display("               Your CPIC       = %-2f cycles per instruction counter", (total_latency*1.00) / total_step);
-    $display("               Your CPI       = %-2f cycles per instruction", (total_latency*1.00) / (total_step*2));
+    $display("               Your CPI       = %-2f cycles per instruction", (total_latency*1.00) / total_step);
     $display("======================================================================%0s", reset_color);
     $finish;
 end endtask
 
-task gen_dram_files_task_random; begin
-    integer fd_i1, fd_i2, fd_d;
-    integer i, k;
+task gen_dram_files_task_basic; begin
+    integer fd_i1, fd_i2;
+    integer i, ic_count;
 
     reg [15:0] tmp_inst1 [0:INST_DEPTH-1];
     reg [15:0] tmp_inst2 [0:INST_DEPTH-1];
 
+    reg signed [15:0] sim_reg_c1 [0:7];
+    reg signed [15:0] sim_reg_c2 [0:7];
+
+    reg [15:0] NOP;
+    integer pc1, pc2;
+
+    NOP = 16'h0000;
+
+    // ------------------------------------------------------------
+    // Initialize
+    // ------------------------------------------------------------
+    for (i = 0; i < 8; i = i + 1) begin
+        sim_reg_c1[i] = 16'h0;
+        sim_reg_c2[i] = 16'h0;
+    end
+
+    for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        tmp_inst1[i] = NOP;
+        tmp_inst2[i] = NOP;
+    end
+
+    pc1      = 0;
+    pc2      = 0;
+    ic_count = 0;
+
+    // ============================================================
+    // ADDI init: reg1=1, reg2=2, ..., reg7=7  (r_i = r0 + i)
+    // ============================================================
+    begin : init_regs
+        integer ri;
+        integer ri2;
+        for (ri = 1; ri <= 7; ri = ri + 1) begin
+            // ADDI rt = rs + imm  =>  {3'b010, rs(r0), rt(ri), imm(ri)}
+            ri2 = ri + 1;
+            tmp_inst1[pc1] = {3'b010, 3'd0, ri[2:0], ri[6:0]};
+            tmp_inst2[pc2] = {3'b010, 3'd0, ri[2:0], ri2[6:0]};
+            sim_reg_c1[ri] = ri;
+            sim_reg_c2[ri] = ri;
+            pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+        end
+    end
+
+    // ============================================================
+    // 11 instructions x 18 repeats = 198, then 2 extra = 200 total
+    // Remaining slots stay NOP.
+    // ============================================================
+
+    repeat (18) begin
+        // @ +0 : ADD  r3 = r1 + r2
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +1 : SUB  r3 = r1 - r2
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +2 : AND  r3 = r1 & r2
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] & sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] & sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +3 : OR   r3 = r1 | r2
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] | sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] | sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +4 : NAND r3 = ~(r1 & r2)
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] & sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] & sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +5 : NOR  r3 = ~(r1 | r2)
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] | sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] | sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +6 : XOR  r3 = r1 ^ r2
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] ^ sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] ^ sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +7 : SLT  r3 = (r1 < r2)
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        sim_reg_c1[3] = ($signed(sim_reg_c1[1]) < $signed(sim_reg_c1[2])) ? 16'h0001 : 16'h0000;
+        sim_reg_c2[3] = ($signed(sim_reg_c2[1]) < $signed(sim_reg_c2[2])) ? 16'h0001 : 16'h0000;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +8 : MULT {r3,r4} = r1 * r2
+        tmp_inst1[pc1] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        tmp_inst2[pc2] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        begin
+            reg [31:0] prod1, prod2;
+            prod1 = sim_reg_c1[1] * sim_reg_c1[2];
+            prod2 = sim_reg_c2[1] * sim_reg_c2[2];
+            sim_reg_c1[3] = prod1[31:16];
+            sim_reg_c1[4] = prod1[15:0];
+            sim_reg_c2[3] = prod2[31:16];
+            sim_reg_c2[4] = prod2[15:0];
+        end
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +9 : ADDI r5 = r1 + 5
+        tmp_inst1[pc1] = {3'b010, 3'd1, 3'd5, 7'd5};
+        tmp_inst2[pc2] = {3'b010, 3'd1, 3'd5, 7'd5};
+        sim_reg_c1[5] = sim_reg_c1[1] + 16'sd5;
+        sim_reg_c2[5] = sim_reg_c2[1] + 16'sd5;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // @ +10 : SUBI r6 = r1 - 3
+        tmp_inst1[pc1] = {3'b011, 3'd1, 3'd6, 7'd3};
+        tmp_inst2[pc2] = {3'b011, 3'd1, 3'd6, 7'd3};
+        sim_reg_c1[6] = sim_reg_c1[1] - 16'sd3;
+        sim_reg_c2[6] = sim_reg_c2[1] - 16'sd3;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+    end
+
+    // 2 extra instructions to reach exactly 200
+    // @ +198 : ADD  r3 = r1 + r2
+    tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+    tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+    sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+    sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+    // @ +199 : SUB  r3 = r1 - r2
+    tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+    tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+    sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+    sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+    $display("%0s[task_basic] %0d instructions generated (rest NOP)%0s",
+             txt_cyan_prefix, ic_count, reset_color);
+
+    // ============================================================
+    // Write inst_1_dram_file.dat
+    // ============================================================
+    fd_i1 = $fopen("../00_TESTBED/DRAM/inst_1_dram_file.dat", "w");
+    for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        reg [2:0]        cop, crs, crt, crd, crl, csub;
+        reg signed [6:0] cimm;
+
+        $fwrite(fd_i1, "@%04h\n", (i << 1));
+
+        cop  = tmp_inst1[i][15:13];
+        crs  = tmp_inst1[i][12:10];
+        crt  = tmp_inst1[i][9:7];
+        crd  = tmp_inst1[i][6:4];
+        crl  = tmp_inst1[i][3:1];
+        csub = tmp_inst1[i][3:1];
+        cimm = tmp_inst1[i][6:0];
+
+        if (tmp_inst1[i] == NOP) begin
+            $fwrite(fd_i1, "%02h %02h // %d:NOP\n", tmp_inst1[i][15:8], tmp_inst1[i][7:0], i);
+        end else begin
+            case (cop)
+                3'b000: begin
+                    case (csub)
+                        3'b000: $fwrite(fd_i1, "%02h %02h // %d:ADD  r%0d = r%0d + r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b001: $fwrite(fd_i1, "%02h %02h // %d:SUB  r%0d = r%0d - r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);  
+                        3'b010: $fwrite(fd_i1, "%02h %02h // %d:AND  r%0d = r%0d & r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b011: $fwrite(fd_i1, "%02h %02h // %d:OR   r%0d = r%0d | r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b100: $fwrite(fd_i1, "%02h %02h // %d:NAND r%0d = ~(r%0d & r%0d)\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b101: $fwrite(fd_i1, "%02h %02h // %d:NOR  r%0d = ~(r%0d | r%0d)\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b110: $fwrite(fd_i1, "%02h %02h // %d:XOR  r%0d = r%0d ^ r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i , crd, crs, crt);
+                        3'b111: $fwrite(fd_i1, "%02h %02h // %d:SLT  r%0d = (r%0d < r%0d)\n",  tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                    endcase
+                end
+                3'b001: $fwrite(fd_i1, "%02h %02h // %d:MULT {r%0d,r%0d} = r%0d * r%0d\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crl, crs, crt);
+                3'b010: $fwrite(fd_i1, "%02h %02h // %d:ADDI r%0d = r%0d + %0d\n",          tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, crs, $signed(cimm));
+                3'b011: $fwrite(fd_i1, "%02h %02h // %d:SUBI r%0d = r%0d - %0d\n",          tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, crs, $signed(cimm));
+                default: $fwrite(fd_i1, "%02h %02h // %d:UNKNOWN\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i);
+            endcase
+        end
+    end
+    $fclose(fd_i1);
+
+    // ============================================================
+    // Write inst_2_dram_file.dat
+    // ============================================================
+    fd_i2 = $fopen("../00_TESTBED/DRAM/inst_2_dram_file.dat", "w");
+    for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        reg [2:0]        cop, crs, crt, crd, crl, csub;
+        reg signed [6:0] cimm;
+
+        $fwrite(fd_i2, "@%04h\n", (i << 1));
+
+        cop  = tmp_inst2[i][15:13];
+        crs  = tmp_inst2[i][12:10];
+        crt  = tmp_inst2[i][9:7];
+        crd  = tmp_inst2[i][6:4];
+        crl  = tmp_inst2[i][3:1];
+        csub = tmp_inst2[i][3:1];
+        cimm = tmp_inst2[i][6:0];
+
+        if (tmp_inst2[i] == NOP) begin
+            $fwrite(fd_i2, "%02h %02h // %d:NOP\n", tmp_inst2[i][15:8], tmp_inst2[i][7:0], i);
+        end else begin
+            case (cop)
+                3'b000: begin
+                    case (csub)
+                        3'b000: $fwrite(fd_i2, "%02h %02h // %d:ADD  r%0d = r%0d + r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b001: $fwrite(fd_i2, "%02h %02h // %d:SUB  r%0d = r%0d - r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b010: $fwrite(fd_i2, "%02h %02h // %d:AND  r%0d = r%0d & r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);  
+                        3'b011: $fwrite(fd_i2, "%02h %02h // %d:OR   r%0d = r%0d | r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b100: $fwrite(fd_i2, "%02h %02h // %d:NAND r%0d = ~(r%0d & r%0d)\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b101: $fwrite(fd_i2, "%02h %02h // %d:NOR  r%0d = ~(r%0d | r%0d)\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b110: $fwrite(fd_i2, "%02h %02h // %d:XOR  r%0d = r%0d ^ r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b111: $fwrite(fd_i2, "%02h %02h // %d:SLT  r%0d = (r%0d < r%0d)\n",  tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                    endcase
+                end
+                    3'b001: $fwrite(fd_i2, "%02h %02h // %d:MULT {r%0d,r%0d} = r%0d * r%0d\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crl, crs, crt);
+                3'b010: $fwrite(fd_i2, "%02h %02h // %d:ADDI r%0d = r%0d + %0d\n",          tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, crs, $signed(cimm));
+                3'b011: $fwrite(fd_i2, "%02h %02h // %d:SUBI r%0d = r%0d - %0d\n",          tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, crs, $signed(cimm));
+                default: $fwrite(fd_i2, "%02h %02h // %d:UNKNOWN\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i);
+            endcase
+        end
+    end
+    $fclose(fd_i2);
+
+    $display("%0s[task_basic] .dat files written%0s", txt_cyan_prefix, reset_color);
+end endtask
+task gen_dram_files_task_all; begin
+    integer fd_i1, fd_i2, fd_d;
+    integer i, ic_count;
+
+    reg [15:0] tmp_inst1 [0:INST_DEPTH-1];
+    reg [15:0] tmp_inst2 [0:INST_DEPTH-1];
+
+    // BYTE-ADDRESSABLE data memory
     reg [7:0]  tmp_data_init [0:DATA_TOP];
     reg [7:0]  tmp_data_live [0:DATA_TOP];
 
@@ -957,64 +1839,16 @@ task gen_dram_files_task_random; begin
 
     reg [15:0] NOP;
     reg [15:0] w_tmp;
-
     integer pc1, pc2;
-    integer pc1_start, pc2_start;
-
-    integer op1, op2;
-    integer rs1, rs2, rt1, rt2, rd1, rd2, rl1, rl2;
-    integer sub1, sub2, imm1, imm2;
-    integer rand_op;
-
-    integer len1, len2, max_len;
-    integer gap1, gap2;
-    integer lottary, lottary2;
-    integer jtarget_word1, jtarget_word2;
-    reg [12:0] jfield1, jfield2;
-
-    integer next_ls_eff_byte_c1;
-
-    // Keep the original variable names; although target_word_base1/2 are no longer the main model in the new LS version,
-    // their declarations are still kept to maintain compatibility with the original code structure.
-    integer target_word_base1, target_word_base2;
-    integer delta_word1, delta_word2;
-    integer step_word1, step_word2;
-    integer eff_byte1, eff_byte2;
-
-    // [MOD-3] Temporary variables required by the LS word-index model.
-    integer target_word_idx1, target_word_idx2;
-    integer step_rand1, step_rand2;
-    integer eff_word_idx1, eff_word_idx2;
-
-    integer TARGET_WORD;
-    integer STOP_WORD;
-
-    reg [2:0]        cop, crs, crt, crd, crl, csub;
-    reg signed [6:0] cimm;
-    reg [12:0]       cjaddr;
-    reg [31:0]       eff_byte_addr;
-    reg [31:0]       br_tgt_byte;
-
-    reg [31:0]       prod1, prod2;
-
-    integer pc_cur, gap, hop, next_pc, f;
-    reg [15:0] tgt_byte;
-    reg [12:0] jfield;
 
     NOP = 16'h0000;
 
-    TARGET_WORD = 4095;
-    STOP_WORD   = TARGET_WORD - 180;
-
-    // Not specified: keep using your original file path and f_in variable.
-    // f_in = $fopen("../00_TESTBED/op_gen.txt", "w");
-
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
     // Initialize
-    // --------------------------------------------------------
+    // ------------------------------------------------------------
     for (i = 0; i < 8; i = i + 1) begin
-        sim_reg_c1[i] = 0;
-        sim_reg_c2[i] = 0;
+        sim_reg_c1[i] = 16'h0;
+        sim_reg_c2[i] = 16'h0;
     end
 
     for (i = 0; i < INST_DEPTH; i = i + 1) begin
@@ -1025,459 +1859,699 @@ task gen_dram_files_task_random; begin
     end
 
     for (i = 0; i <= DATA_TOP; i = i + 1)
-        tmp_data_init[i] = 8'h00;
+        tmp_data_init[i] = 8'h0;
 
     for (i = DATA_ACC_LO; i <= DATA_ACC_HI + 1; i = i + 1)
         tmp_data_init[i] = $urandom_range(255, 0);
 
+    // Seed known 16-bit words
+    `define SEED_WORD(BA, VAL) \
+    begin \
+        tmp_data_init[(BA)]   = ((VAL)      & 16'h00FF); \
+        tmp_data_init[(BA)+1] = (((VAL)>>8) & 16'h00FF); \
+    end
+
+    // -------- Low region 0x1000 ~ 0x15FE --------
+    `SEED_WORD(16'h1000, 16'hA5A5)
+    `SEED_WORD(16'h1002, 16'h5A5A)
+    `SEED_WORD(16'h1004, 16'hCCCC)
+    `SEED_WORD(16'h1006, 16'hDDDD)
+    `SEED_WORD(16'h1010, 16'h1111)
+    `SEED_WORD(16'h1020, 16'h2222)
+    `SEED_WORD(16'h1040, 16'h4444)
+    `SEED_WORD(16'h1060, 16'h6666)
+    `SEED_WORD(16'h107E, 16'h7E7E)
+    `SEED_WORD(16'h1080, 16'h8080)
+    `SEED_WORD(16'h10FE, 16'hFEFE)
+    `SEED_WORD(16'h1100, 16'hB100)
+    `SEED_WORD(16'h1180, 16'hB180)
+    `SEED_WORD(16'h11FE, 16'hFE11)
+    `SEED_WORD(16'h1200, 16'hB200)
+    `SEED_WORD(16'h1280, 16'hB280)
+    `SEED_WORD(16'h12FE, 16'hFE22)
+    `SEED_WORD(16'h1300, 16'hB300)
+    `SEED_WORD(16'h1380, 16'hB380)
+    `SEED_WORD(16'h13FE, 16'hFE33)
+    `SEED_WORD(16'h1400, 16'hB400)
+    `SEED_WORD(16'h1480, 16'hB480)
+    `SEED_WORD(16'h14FE, 16'hFE44)
+    `SEED_WORD(16'h1500, 16'hB500)
+    `SEED_WORD(16'h1580, 16'hB580)
+    `SEED_WORD(16'h15FE, 16'hFE55)
+
+    // -------- Mid region 0x1600 ~ 0x1FFE --------
+    `SEED_WORD(16'h1600, 16'hC600)
+    `SEED_WORD(16'h1680, 16'hC680)
+    `SEED_WORD(16'h16FE, 16'hFE66)
+    `SEED_WORD(16'h1700, 16'hC700)
+    `SEED_WORD(16'h1780, 16'hC780)
+    `SEED_WORD(16'h17FE, 16'hFE77)
+    `SEED_WORD(16'h1800, 16'hC800)
+    `SEED_WORD(16'h1880, 16'hC880)
+    `SEED_WORD(16'h18FE, 16'hFE88)
+    `SEED_WORD(16'h1900, 16'hC900)
+    `SEED_WORD(16'h1980, 16'hC980)
+    `SEED_WORD(16'h19FE, 16'hFE99)
+    `SEED_WORD(16'h1A00, 16'hCA00)
+    `SEED_WORD(16'h1A80, 16'hCA80)
+    `SEED_WORD(16'h1AFE, 16'hFEAA)
+    `SEED_WORD(16'h1B00, 16'hCB00)
+    `SEED_WORD(16'h1B80, 16'hCB80)
+    `SEED_WORD(16'h1BFE, 16'hFEBB)
+    `SEED_WORD(16'h1C00, 16'hCC00)
+    `SEED_WORD(16'h1CFE, 16'hFECC)
+    `SEED_WORD(16'h1D00, 16'hCD00)
+    `SEED_WORD(16'h1DFE, 16'hFEDD)
+    `SEED_WORD(16'h1E00, 16'hCE00)
+    `SEED_WORD(16'h1EFE, 16'hFEEE)
+    `SEED_WORD(16'h1F00, 16'hCF00)
+    `SEED_WORD(16'h1FFE, 16'hFEFF)
+
+    // -------- High region 0x2000 ~ 0x2FFE --------
+    `SEED_WORD(16'h2000, 16'hD000)
+    `SEED_WORD(16'h2080, 16'hD080)
+    `SEED_WORD(16'h20FE, 16'hFE00)
+    `SEED_WORD(16'h2100, 16'hD100)
+    `SEED_WORD(16'h2180, 16'hD180)
+    `SEED_WORD(16'h21FE, 16'hFE10)
+    `SEED_WORD(16'h2200, 16'hD200)
+    `SEED_WORD(16'h2280, 16'hD280)
+    `SEED_WORD(16'h22FE, 16'hFE20)
+    `SEED_WORD(16'h2300, 16'hD300)
+    `SEED_WORD(16'h2380, 16'hD380)
+    `SEED_WORD(16'h23FE, 16'hFE30)
+    `SEED_WORD(16'h2400, 16'hD400)
+    `SEED_WORD(16'h2480, 16'hD480)
+    `SEED_WORD(16'h24FE, 16'hFE40)
+    `SEED_WORD(16'h2500, 16'hD500)
+    `SEED_WORD(16'h2580, 16'hD580)
+    `SEED_WORD(16'h25FE, 16'hFE50)
+    `SEED_WORD(16'h2600, 16'hD600)
+    `SEED_WORD(16'h2680, 16'hD680)
+    `SEED_WORD(16'h26FE, 16'hFE60)
+    `SEED_WORD(16'h2700, 16'hD700)
+    `SEED_WORD(16'h2780, 16'hD780)
+    `SEED_WORD(16'h27FE, 16'hFE70)
+    `SEED_WORD(16'h2800, 16'hD800)
+    `SEED_WORD(16'h2880, 16'hD880)
+    `SEED_WORD(16'h28FE, 16'hFE80)
+    `SEED_WORD(16'h2900, 16'hD900)
+    `SEED_WORD(16'h2980, 16'hD980)
+    `SEED_WORD(16'h29FE, 16'hFE90)
+    `SEED_WORD(16'h2A00, 16'hDA00)
+    `SEED_WORD(16'h2A80, 16'hDA80)
+    `SEED_WORD(16'h2AFE, 16'hFEA0)
+    `SEED_WORD(16'h2B00, 16'hDB00)
+    `SEED_WORD(16'h2B80, 16'hDB80)
+    `SEED_WORD(16'h2BFE, 16'hFEB0)
+    `SEED_WORD(16'h2C00, 16'hDC00)
+    `SEED_WORD(16'h2C80, 16'hDC80)
+    `SEED_WORD(16'h2CFE, 16'hFEC0)
+    `SEED_WORD(16'h2D00, 16'hDD00)
+    `SEED_WORD(16'h2D80, 16'hDD80)
+    `SEED_WORD(16'h2DFE, 16'hFED0)
+    `SEED_WORD(16'h2E00, 16'hDE00)
+    `SEED_WORD(16'h2E80, 16'hDE80)
+    `SEED_WORD(16'h2EFE, 16'hFEE0)
+    `SEED_WORD(16'h2F00, 16'hDF00)
+    `SEED_WORD(16'h2F80, 16'hDF80)
+    `SEED_WORD(16'h2FFE, 16'hFEF0)
+
+    `undef SEED_WORD
+
     for (i = 0; i <= DATA_TOP; i = i + 1)
         tmp_data_live[i] = tmp_data_init[i];
 
-    pc1 = 0;
-    pc2 = 0;
-    inst_count = 0;
+    pc1      = 0;
+    pc2      = 0;
+    ic_count = 0;
 
-    next_ls_eff_byte_c1 = `MEM_START_ACCESS_ADDR;
+    // ============================================================
+    // ============================================================
+    // PART 1: BASIC TEST
+    // ============================================================
+    // ============================================================
 
-    // --------------------------------------------------------
-    // Prologue: ADDI r1..r7 = 1..7
-    // Each loop = 1 IC
-    // --------------------------------------------------------
-    for (i = 1; i <= 7; i = i + 1) begin
-        tmp_inst1[pc1] = {3'b010, 3'd0, i[2:0], i[6:0]};
-        tmp_inst2[pc2] = {3'b010, 3'd0, i[2:0], i[6:0]};
-        sim_reg_c1[i]  = i;
-        sim_reg_c2[i]  = i;
-
-        pc1 = pc1 + 1;
-        pc2 = pc2 + 1;
-        inst_count = inst_count + 1;
+    // ADDI init (basic): reg1=1..reg7=7 for BOTH cores
+    begin : init_regs_basic
+        integer ri;
+        for (ri = 1; ri <= 7; ri = ri + 1) begin
+            tmp_inst1[pc1] = {3'b010, 3'd0, ri[2:0], ri[6:0]};
+            tmp_inst2[pc2] = {3'b010, 3'd0, ri[2:0], ri[6:0]};
+            sim_reg_c1[ri] = ri;
+            sim_reg_c2[ri] = ri;
+            pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+        end
     end
 
-    // --------------------------------------------------------
-    // Main random loop
-    // Each while iteration = 1 IC
-    // --------------------------------------------------------
-    while (pc1 < STOP_WORD && pc2 < STOP_WORD) begin
-        pc1_start = pc1;
-        pc2_start = pc2;
+    // 11 inst * 18 repeats = 198
+    repeat (18) begin
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
 
-        // Clear per-IC sequence buffers
-        len1 = 0;
-        len2 = 0;
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
 
-        // -----------------------------
-        // Pick main op of this IC
-        // -----------------------------
-        rand_op = $urandom_range(15, 0);
-        case (rand_op)
-            4'd0, 4'd1: op1 = 0; // ALU
-            4'd2,4'd3:           op1 = 1; // MULT
-            4'd4,4'd5:           op1 = 2; // ADDI
-            4'd6, 4'd7:           op1 = 3; // SUBI
-            4'd8,4'd9, 4'd13:         op1 = 4; // LOAD
-            4'd10, 4'd11, 4'd14:             op1 = 5; // STORE
-            4'd12:         op1 = 6; // BEQ
-            default:             op1 = 7; // JUMP
-        endcase
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] & sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] & sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
 
-        rand_op = $urandom_range(15, 0);
-        case (rand_op)
-            4'd0, 4'd1: op2 = 0;
-            4'd2,4'd3:           op2 = 1;
-            4'd4,4'd5:           op2 = 2;
-            4'd6, 4'd7:           op2 = 3;
-            4'd8,4'd9, 4'd13:         op2 = 4;
-            4'd10, 4'd11, 4'd14:               op2 = 5;
-            4'd12:         op2 = 6;
-            default:             op2 = 7;
-        endcase
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] | sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] | sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
 
-        // [MOD] Same IC cannot be STORE/STORE
-        if (op1 == 5 && op2 == 5) begin
-            op2 = 4;
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] & sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] & sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] | sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] | sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] ^ sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] ^ sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        sim_reg_c1[3] = ($signed(sim_reg_c1[1]) < $signed(sim_reg_c1[2])) ? 16'h0001 : 16'h0000;
+        sim_reg_c2[3] = ($signed(sim_reg_c2[1]) < $signed(sim_reg_c2[2])) ? 16'h0001 : 16'h0000;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        tmp_inst2[pc2] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        begin
+            reg [31:0] prod1, prod2;
+            prod1 = sim_reg_c1[1] * sim_reg_c1[2];
+            prod2 = sim_reg_c2[1] * sim_reg_c2[2];
+            sim_reg_c1[3] = prod1[31:16];
+            sim_reg_c1[4] = prod1[15:0];
+            sim_reg_c2[3] = prod2[31:16];
+            sim_reg_c2[4] = prod2[15:0];
         end
-        // ================================================================
-        // Build core1 sequence for THIS IC only
-        // ================================================================
-        rs1  = $urandom_range(7, 0);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
 
-        rt1  = $urandom_range(7, 2);
-        rd1  = $urandom_range(7, 2);
-        rl1  = $urandom_range(7, 2);
-        while(rd1 === rl1)begin
-            rl1  = $urandom_range(7, 2);
+        tmp_inst1[pc1] = {3'b010, 3'd1, 3'd5, 7'd5};
+        tmp_inst2[pc2] = {3'b010, 3'd1, 3'd5, 7'd5};
+        sim_reg_c1[5] = sim_reg_c1[1] + 16'sd5;
+        sim_reg_c2[5] = sim_reg_c2[1] + 16'sd5;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b011, 3'd1, 3'd6, 7'd3};
+        tmp_inst2[pc2] = {3'b011, 3'd1, 3'd6, 7'd3};
+        sim_reg_c1[6] = sim_reg_c1[1] - 16'sd3;
+        sim_reg_c2[6] = sim_reg_c2[1] - 16'sd3;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+    end
+    // End of basic test: pc1 = pc2 = 205
+
+    // ============================================================
+    // ============================================================
+    // PART 2: MEMORY TEST
+    // ============================================================
+    // ============================================================
+
+    begin : init_regs_mem
+        integer ri;
+        integer ri2;
+        for (ri = 1; ri <= 7; ri = ri + 1) begin
+            ri2 = ri + 1;
+            tmp_inst1[pc1] = {3'b010, 3'd0, ri[2:0],  ri[6:0]};
+            tmp_inst2[pc2] = {3'b010, 3'd0, ri[2:0], ri2[6:0]};
+            sim_reg_c1[ri] = ri;
+            sim_reg_c2[ri] = ri2;
+            pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
         end
-        sub1 = $urandom_range(7, 0);
-        imm1 = $urandom_range(63, -64);
-            
-        case (op1)
-            0: begin
-                reg signed [16:0] add_check, sub_check;
-                add_check = sim_reg_c1[rs1] + sim_reg_c1[rt1];  
-                sub_check = sim_reg_c1[rs1] - sim_reg_c1[rt1];
-                if (sub1 == 3'd0 && (add_check > 32767 || add_check < -32768)) begin
-                    sub1 = 3'd2;   
-                end
-                if (sub1 == 3'd1 && (sub_check > 32767 || sub_check < -32768)) begin
-                    sub1 = 3'd2;  
-                end
-                tmp_inst1[pc1] = {3'b000, rs1[2:0], rt1[2:0], rd1[2:0], sub1[2:0], 1'b0};
-                case (sub1)
-                    0: sim_reg_c1[rd1] = sim_reg_c1[rs1] + sim_reg_c1[rt1];
-                    1: sim_reg_c1[rd1] = sim_reg_c1[rs1] - sim_reg_c1[rt1];
-                    2: sim_reg_c1[rd1] = sim_reg_c1[rs1] & sim_reg_c1[rt1];
-                    3: sim_reg_c1[rd1] = sim_reg_c1[rs1] | sim_reg_c1[rt1];
-                    4: sim_reg_c1[rd1] = ~(sim_reg_c1[rs1] & sim_reg_c1[rt1]);
-                    5: sim_reg_c1[rd1] = ~(sim_reg_c1[rs1] | sim_reg_c1[rt1]);
-                    6: sim_reg_c1[rd1] = sim_reg_c1[rs1] ^ sim_reg_c1[rt1];
-                    7: sim_reg_c1[rd1] = ($signed(sim_reg_c1[rs1]) < $signed(sim_reg_c1[rt1])) ? 16'h0001 : 16'h0000;
-                endcase
-                len1 = 1;
-                pc1 = pc1 + 1;
-            end
-
-            1: begin
-                tmp_inst1[pc1] = {3'b001, rs1[2:0], rt1[2:0], rd1[2:0], rl1[2:0], 1'b0};
-                prod1 = sim_reg_c1[rs1] * sim_reg_c1[rt1];
-                sim_reg_c1[rd1] = prod1[31:16];
-                sim_reg_c1[rl1] = prod1[15:0];
-                len1 = 1;
-                pc1 = pc1 + 1;
-            end
-
-            2: begin
-                reg signed [16:0] addi_check;
-                rd1 = $urandom_range(7, 2);
-                addi_check = sim_reg_c1[rs1] + imm1;
-                if (addi_check > 32767) begin
-                    imm1 = 0;
-                end
-                tmp_inst1[pc1] = {3'b010, rs1[2:0], rd1[2:0], imm1[6:0]};
-                sim_reg_c1[rd1] = sim_reg_c1[rs1] + imm1;
-                len1 = 1;
-                pc1 = pc1 + 1;
-            end
-
-            3: begin
-                reg signed [16:0] subi_check;
-                rd1 = $urandom_range(7, 2);
-                subi_check = sim_reg_c1[rs1] - imm1;
-                if (subi_check > 32767 || subi_check < -32768) begin
-                    imm1 = 0;
-                end
-                tmp_inst1[pc1] = {3'b011, rs1[2:0], rd1[2:0], imm1[6:0]};
-                sim_reg_c1[rd1] = sim_reg_c1[rs1] - imm1;
-                len1 = 1;
-                pc1 = pc1 + 1;
-            end
-
-            4: begin
-                len1 = 0;
-
-                // [-200, +200] address
-                step_rand1 = $urandom_range(400, 0) - 200;
-                next_ls_eff_byte_c1 = next_ls_eff_byte_c1 + step_rand1;
-
-                if (next_ls_eff_byte_c1 < 16'h1000) next_ls_eff_byte_c1 = 16'h1000;
-                if (next_ls_eff_byte_c1 > 16'h2FFE) next_ls_eff_byte_c1 = 16'h2FFE;
-
-                target_word_idx1 = (next_ls_eff_byte_c1 - 16'h1000) >> 1;
-                delta_word1      = target_word_idx1 - sim_reg_c1[1];
-
-                while (delta_word1 != 0) begin
-                    step_word1 = (delta_word1 > 63) ? 63 : (delta_word1 < -64) ? -64 : delta_word1;
-                    tmp_inst1[pc1] = {3'b010, 3'd1, 3'd1, step_word1[6:0]}; // ADDI r1,r1,step
-                    sim_reg_c1[1] = sim_reg_c1[1] + step_word1;
-                    len1 = len1 + 1;
-                    pc1 = pc1 + 1;
-                    delta_word1 = target_word_idx1 - sim_reg_c1[1];
-                end
-
-                eff_word_idx1 = sim_reg_c1[1];
-                eff_byte1 = 16'h1000 + (eff_word_idx1 << 1);
-                if (eff_byte1 < 16'h1000 || eff_byte1 > 16'h2FFE) begin
-                    $display("GEN ERROR CORE1 LOAD byte_addr overflow rs=%0d imm=%0d eff=0x%04h",
-                                eff_word_idx1, 0, eff_byte1[15:0]);
-                    $finish;
-                end
-                rd1 = $urandom_range(7, 2);
-                tmp_inst1[pc1]    = {3'b100, 3'd1, rd1[2:0], 7'd0};
-                rs_val_c1[pc1] = sim_reg_c1[1];
-
-                sim_reg_c1[rd1] = {tmp_data_live[eff_byte1+1], tmp_data_live[eff_byte1]};
-                len1 = len1 + 1;
-                pc1 = pc1 + 1;
-            end
-
-            // ------------------------------------------------------------
-            // [MOD-3] STORE: same as LOAD, changed to the word-index model.
-            // ------------------------------------------------------------
-            5: begin
-                len1 = 0;
-
-                // [-200, +200] address
-                step_rand1 = $urandom_range(400, 0) - 200;
-                next_ls_eff_byte_c1 = next_ls_eff_byte_c1 + step_rand1;
-
-                if (next_ls_eff_byte_c1 < 16'h1000) next_ls_eff_byte_c1 = 16'h1000;
-                if (next_ls_eff_byte_c1 > 16'h2FFE) next_ls_eff_byte_c1 = 16'h2FFE;
-
-                target_word_idx1 = (next_ls_eff_byte_c1 - 16'h1000) >> 1;
-                delta_word1      = target_word_idx1 - sim_reg_c1[1];
-
-                while (delta_word1 != 0) begin
-                    step_word1 = (delta_word1 > 63) ? 63 : (delta_word1 < -64) ? -64 : delta_word1;
-                    tmp_inst1[pc1] = {3'b010, 3'd1, 3'd1, step_word1[6:0]}; // ADDI r1,r1,step
-                    sim_reg_c1[1] = sim_reg_c1[1] + step_word1;
-                    len1 = len1 + 1;
-                    pc1 = pc1 + 1;
-                    delta_word1 = target_word_idx1 - sim_reg_c1[1];
-                end
-
-                eff_word_idx1 = sim_reg_c1[1];
-                eff_byte1 = 16'h1000 + (eff_word_idx1 << 1);
-                if (eff_byte1 < 16'h1000 || eff_byte1 > 16'h2FFE) begin
-                    $display("GEN ERROR CORE1 LOAD byte_addr overflow rs=%0d imm=%0d eff=0x%04h",
-                                eff_word_idx1, 0, eff_byte1[15:0]);
-                    $finish;
-                end
-                rt1 = $urandom_range(7, 2);
-                tmp_inst1[pc1]    = {3'b101, 3'd1, rt1[2:0], 7'd0};
-                rs_val_c1[pc1] = sim_reg_c1[1];
-
-                w_tmp = sim_reg_c1[rt1];
-                tmp_data_live[eff_byte1]   = w_tmp[7:0];
-                tmp_data_live[eff_byte1+1] = w_tmp[15:8];
-                len1 = len1 + 1;
-                pc1 = pc1 + 1;
-            end
-
-            6: begin
-                gap1 = $urandom_range(`BRANCH_MAX, `BRANCH_MIN);
-                tmp_inst1[pc1] = {3'b110, 3'd0, 3'd0, gap1[6:0]};
-                pc1 = pc1 + 1 + gap1;
-                len1 = 1;
-            end
-
-            default: begin
-                gap1 = $urandom_range(`JUMP_MAX, `JUMP_MIN);
-                jtarget_word1 = pc1 + gap1;
-                jfield1 = (jtarget_word1 << 1) & 13'h1FFF;
-                tmp_inst1[pc1] = {3'b111, jfield1};
-                len1 = 1;
-                pc1 = jtarget_word1;
-                // $fdisplay(f_in, "[task_random] JUMP op generated in CORE1, pc1=%0d->%0d",
-                //          pc1_start, pc1);
-            end
-        endcase
-
-        // ================================================================
-        // Build core2 sequence for THIS IC only
-        // ================================================================
-        rs2  = $urandom_range(7, 0);
-
-        // [MOD-1] All rd/rt/rl selections always avoid r0/r1.
-        rt2  = $urandom_range(7, 2);
-        rd2  = $urandom_range(7, 2);
-        rl2  = $urandom_range(7, 2);
-        while(rd2 === rl2)begin
-            rl2  = $urandom_range(7, 2);
-        end
-
-        sub2 = $urandom_range(7, 0);
-        imm2 = $urandom_range(63, -64);
-            
-        case (op2)
-            0: begin
-                reg signed [16:0] add_check, sub_check;
-                add_check = sim_reg_c2[rs2] + sim_reg_c1[rt2];  
-                sub_check = sim_reg_c2[rs2] - sim_reg_c1[rt2];
-                if (sub2 == 3'd0 && (add_check > 32767 || add_check < -32768)) begin
-                    sub2 = 3'd2;   
-                end
-                if (sub2 == 3'd1 && (sub_check > 32767 || sub_check < -32768)) begin
-                    sub2 = 3'd2;  
-                end
-                tmp_inst2[pc2] = {3'b000, rs2[2:0], rt2[2:0], rd2[2:0], sub2[2:0], 1'b0};
-                case (sub2)
-                    0: sim_reg_c2[rd2] = sim_reg_c2[rs2] + sim_reg_c2[rt2];
-                    1: sim_reg_c2[rd2] = sim_reg_c2[rs2] - sim_reg_c2[rt2];
-                    2: sim_reg_c2[rd2] = sim_reg_c2[rs2] & sim_reg_c2[rt2];
-                    3: sim_reg_c2[rd2] = sim_reg_c2[rs2] | sim_reg_c2[rt2];
-                    4: sim_reg_c2[rd2] = ~(sim_reg_c2[rs2] & sim_reg_c2[rt2]);
-                    5: sim_reg_c2[rd2] = ~(sim_reg_c2[rs2] | sim_reg_c2[rt2]);
-                    6: sim_reg_c2[rd2] = sim_reg_c2[rs2] ^ sim_reg_c2[rt2];
-                    7: sim_reg_c2[rd2] = ($signed(sim_reg_c2[rs2]) < $signed(sim_reg_c2[rt2])) ? 16'h0001 : 16'h0000;
-                endcase
-                len2 = 1;
-                pc2 = pc2 + 1;
-            end
-
-            1: begin
-                tmp_inst2[pc2] = {3'b001, rs2[2:0], rt2[2:0], rd2[2:0], rl2[2:0], 1'b0};
-                prod2 = sim_reg_c2[rs2] * sim_reg_c2[rt2];
-                sim_reg_c2[rd2] = prod2[31:16];
-                sim_reg_c2[rl2] = prod2[15:0];
-                len2 = 1;
-                pc2 = pc2 + 1;
-            end
-
-            2: begin
-                reg signed [16:0] addi_check;
-                rd2 = $urandom_range(7, 2);
-                addi_check = sim_reg_c2[rs2] + imm2;
-                if (addi_check > 32767 || addi_check < -32768) begin
-                    imm2 = 0;
-                end
-                tmp_inst2[pc2]  = {3'b010, rs2[2:0], rd2[2:0], imm2[6:0]};
-                sim_reg_c2[rd2] = sim_reg_c2[rs2] + imm2;
-                len2 = 1;
-                pc2 = pc2 + 1;
-            end
-
-            3: begin
-                reg signed [16:0] subi_check;
-                rd2 = $urandom_range(7, 2);
-                subi_check = sim_reg_c2[rs2] - imm2;
-                if (subi_check > 32767 || subi_check < -32768) begin
-                    imm2 = 0;
-                end
-                tmp_inst2[pc2]  = {3'b011, rs2[2:0], rd2[2:0], imm2[6:0]};
-                sim_reg_c2[rd2] = sim_reg_c2[rs2] - imm2;
-                len2 = 1;
-                pc2 = pc2 + 1;
-            end
-
-            4: begin
-                len2 = 0;
-
-                // [-200, +200] address
-                step_rand2 = $urandom_range(400, 0) - 200;
-                next_ls_eff_byte_c1 = next_ls_eff_byte_c1 + step_rand2;
-
-                if (next_ls_eff_byte_c1 < 16'h1000) next_ls_eff_byte_c1 = 16'h1000;
-                if (next_ls_eff_byte_c1 > 16'h2FFE) next_ls_eff_byte_c1 = 16'h2FFE;
-
-                target_word_idx2 = (next_ls_eff_byte_c1 - 16'h1000) >> 1;
-                delta_word2      = target_word_idx2 - sim_reg_c2[1];
-                while (delta_word2 != 0) begin
-                    step_word2 = (delta_word2 > 63) ? 63 : (delta_word2 < -64) ? -64 : delta_word2;
-                    tmp_inst2[pc2] = {3'b010, 3'd1, 3'd1, step_word2[6:0]}; // ADDI r1,r1,step
-                    sim_reg_c2[1] = sim_reg_c2[1] + step_word2;
-                    len2 = len2 + 1;
-                    pc2 = pc2 + 1;
-                    delta_word2 = target_word_idx2 - sim_reg_c2[1];
-                end
-
-                eff_word_idx2 = sim_reg_c2[1];
-                eff_byte2 = 16'h1000 + (eff_word_idx2 << 1);
-                if (eff_byte2 < 16'h1000 || eff_byte2 > 16'h2FFE) begin
-                    $display("GEN ERROR CORE2 LOAD byte_addr overflow rs=%0d imm=%0d eff=0x%04h",
-                                eff_word_idx2, 0, eff_byte2[15:0]);
-                    $finish;
-                end
-                rd2 = $urandom_range(7, 2);
-                tmp_inst2[pc2]    = {3'b100, 3'd1, rd2[2:0], 7'd0};
-                rs_val_c2[pc2] = sim_reg_c2[1];
-
-                sim_reg_c2[rd2] = {tmp_data_live[eff_byte2+1], tmp_data_live[eff_byte2]};
-                len2 = len2 + 1;
-                pc2 = pc2 + 1;
-            end
-
-            5: begin
-                len2 = 0;
-
-                // [-200, +200] address
-                step_rand2 = $urandom_range(400, 0) - 200;
-                next_ls_eff_byte_c1 = next_ls_eff_byte_c1 + step_rand2;
-
-                if (next_ls_eff_byte_c1 < 16'h1000) next_ls_eff_byte_c1 = 16'h1000;
-                if (next_ls_eff_byte_c1 > 16'h2FFE) next_ls_eff_byte_c1 = 16'h2FFE;
-
-                target_word_idx2 = (next_ls_eff_byte_c1 - 16'h1000) >> 1;
-                delta_word2      = target_word_idx2 - sim_reg_c2[1];
-                while (delta_word2 != 0) begin
-                    step_word2 = (delta_word2 > 63) ? 63 : (delta_word2 < -64) ? -64 : delta_word2;
-                    tmp_inst2[pc2] = {3'b010, 3'd1, 3'd1, step_word2[6:0]}; // ADDI r1,r1,step
-                    sim_reg_c2[1] = sim_reg_c2[1] + step_word2;
-                    len2 = len2 + 1;
-                    pc2 = pc2 + 1;
-                    delta_word2 = target_word_idx2 - sim_reg_c2[1];
-                end
-
-                eff_word_idx2 = sim_reg_c2[1];
-                eff_byte2 = 16'h1000 + (eff_word_idx2 << 1);
-                if (eff_byte2 < 16'h1000 || eff_byte2 > 16'h2FFE) begin
-                    $display("GEN ERROR CORE2 LOAD byte_addr overflow rs=%0d imm=%0d eff=0x%04h",
-                                eff_word_idx2, 0, eff_byte2[15:0]);
-                    $finish;
-                end
-                rt2 = $urandom_range(7, 2);
-                tmp_inst2[pc2]    = {3'b101, 3'd1, rt2[2:0], 7'd0};
-                rs_val_c2[pc2] = sim_reg_c2[1];
-
-                w_tmp = sim_reg_c2[rt2];
-                tmp_data_live[eff_byte2]   = w_tmp[7:0];
-                tmp_data_live[eff_byte2+1] = w_tmp[15:8];
-                len2 = len2 + 1;
-                pc2 = pc2 + 1;
-            end
-
-            6: begin
-                gap2 = $urandom_range(`BRANCH_MAX, `BRANCH_MIN);
-                tmp_inst2[pc2] = {3'b110, 3'd0, 3'd0, gap2[6:0]};
-                pc2 = pc2 + 1 + gap2;
-                len2 = 1;
-            end
-
-            default: begin
-                gap2 = $urandom_range(`JUMP_MAX, `JUMP_MIN);
-                jtarget_word2 = pc2 + gap2;
-                jfield2 = (jtarget_word2 << 1) & 13'h1FFF;
-                tmp_inst2[pc2] = {3'b111, jfield2};
-                len2 = 1;
-                pc2 = jtarget_word2;
-                // $fdisplay(f_in, "[task_random] JUMP op generated in CORE2, pc2=%0d->%0d",
-                //          pc2_start, pc2);
-            end
-        endcase
-
-        // ================================================================
-        // Align THIS IC
-        // ================================================================
-        max_len = (len1 > len2) ? len1 : len2;
-
-        // ================================================================
-        // Emit THIS IC together
-        // Only now update pc1 / pc2
-        // ================================================================
-        if(max_len == len1)begin
-            for (k = 0; k < max_len - len2; k = k + 1) begin
-                pc2 = pc2 + 1;
-            end
-        end
-        else begin
-            for (k = 0; k < max_len - len1; k = k + 1) begin
-                pc1 = pc1 + 1;
-            end
-        end
-        inst_count = inst_count + max_len;
-        // $fdisplay(f_in, "[task_random] IC%0d: pc1=%0d->%0d pc2=%0d->%0d len1=%0d len2=%0d",
-        //          inst_count, pc1_start, pc1, pc2_start, pc2, len1, len2);
     end
 
-    if (inst_count % 50 != 0) inst_count = inst_count + (50 - inst_count % 50);
+    begin : main_loop
+        integer iter;
+        integer addr_A, addr_B;
+        integer baddr_A, baddr_B;
 
-    $display("%0s[task_random] %0d ICs generated%0s",
-             txt_cyan_prefix, inst_count, reset_color);
+        for (iter = 0; iter < 10; iter = iter + 1) begin
 
-    // --------------------------------------------------------
+        case (iter)
+            0: begin addr_A = 0;   addr_B = 1;   end
+            1: begin addr_A = 2;   addr_B = 3;   end
+            2: begin addr_A = 8;   addr_B = 9;   end
+            3: begin addr_A = 16;  addr_B = 17;  end
+            4: begin addr_A = 24;  addr_B = 25;  end
+            5: begin addr_A = 32;  addr_B = 33;  end
+            6: begin addr_A = 40;  addr_B = 48;  end
+            7: begin addr_A = 50;  addr_B = 56;  end
+            8: begin addr_A = 60;  addr_B = 62;  end
+            9: begin addr_A = 63;  addr_B = 2;   end
+            default: begin addr_A = 0; addr_B = 1; end
+        endcase
+        baddr_A = 16'h1000 + (addr_A << 1);
+        baddr_B = 16'h1000 + (addr_B << 1);
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b010, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] & sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] & sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b011, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] | sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] | sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b100, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] & sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] & sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b101, 1'b0};
+        sim_reg_c1[3] = ~(sim_reg_c1[1] | sim_reg_c1[2]);
+        sim_reg_c2[3] = ~(sim_reg_c2[1] | sim_reg_c2[2]);
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b110, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] ^ sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] ^ sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b111, 1'b0};
+        sim_reg_c1[3] = ($signed(sim_reg_c1[1]) < $signed(sim_reg_c1[2])) ? 16'h0001 : 16'h0000;
+        sim_reg_c2[3] = ($signed(sim_reg_c2[1]) < $signed(sim_reg_c2[2])) ? 16'h0001 : 16'h0000;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        tmp_inst2[pc2] = {3'b001, 3'd1, 3'd2, 3'd3, 3'd4, 1'b0};
+        begin
+            reg [31:0] prod1, prod2;
+            prod1 = sim_reg_c1[1] * sim_reg_c1[2];
+            prod2 = sim_reg_c2[1] * sim_reg_c2[2];
+            sim_reg_c1[3] = prod1[31:16];
+            sim_reg_c1[4] = prod1[15:0];
+            sim_reg_c2[3] = prod2[31:16];
+            sim_reg_c2[4] = prod2[15:0];
+        end
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b010, 3'd1, 3'd5, 7'd5};
+        tmp_inst2[pc2] = {3'b010, 3'd1, 3'd5, 7'd5};
+        sim_reg_c1[5] = sim_reg_c1[1] + 16'sd5;
+        sim_reg_c2[5] = sim_reg_c2[1] + 16'sd5;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b011, 3'd1, 3'd6, 7'd3};
+        tmp_inst2[pc2] = {3'b011, 3'd1, 3'd6, 7'd3};
+        sim_reg_c1[6] = sim_reg_c1[1] - 16'sd3;
+        sim_reg_c2[6] = sim_reg_c2[1] - 16'sd3;
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // LS sub-sequence
+        tmp_inst1[pc1] = {3'b100, 3'd0, 3'd7, addr_A[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = NOP;
+        sim_reg_c1[7] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = NOP;
+        tmp_inst2[pc2] = {3'b100, 3'd0, 3'd7, addr_A[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        sim_reg_c2[7] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b100, 3'd0, 3'd6, addr_A[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = {3'b100, 3'd0, 3'd6, addr_B[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        sim_reg_c1[6] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        sim_reg_c2[6] = {tmp_data_live[baddr_B+1], tmp_data_live[baddr_B]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = NOP;
+        tmp_inst2[pc2] = {3'b101, 3'd0, 3'd5, addr_A[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        w_tmp = sim_reg_c2[5];
+        tmp_data_live[baddr_A]   = w_tmp[7:0];
+        tmp_data_live[baddr_A+1] = w_tmp[15:8];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b101, 3'd0, 3'd5, addr_B[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = NOP;
+        w_tmp = sim_reg_c1[5];
+        tmp_data_live[baddr_B]   = w_tmp[7:0];
+        tmp_data_live[baddr_B+1] = w_tmp[15:8];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b100, 3'd0, 3'd7, addr_A[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = {3'b101, 3'd0, 3'd6, addr_A[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        w_tmp = sim_reg_c2[6];
+        tmp_data_live[baddr_A]   = w_tmp[7:0];
+        tmp_data_live[baddr_A+1] = w_tmp[15:8];
+        sim_reg_c1[7] = {tmp_data_live[baddr_A+1], tmp_data_live[baddr_A]};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        tmp_inst1[pc1] = {3'b101, 3'd0, 3'd6, addr_B[6:0]};
+        rs_val_c1[pc1] = sim_reg_c1[0];
+        tmp_inst2[pc2] = {3'b100, 3'd0, 3'd7, addr_B[6:0]};
+        rs_val_c2[pc2] = sim_reg_c2[0];
+        sim_reg_c2[7] = {tmp_data_live[baddr_B+1], tmp_data_live[baddr_B]};
+        w_tmp = sim_reg_c1[6];
+        tmp_data_live[baddr_B]   = w_tmp[7:0];
+        tmp_data_live[baddr_B+1] = w_tmp[15:8];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+        end // for iter
+    end
+
+    repeat(12) begin
+        tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b000, 1'b0};
+        sim_reg_c1[3] = sim_reg_c1[1] + sim_reg_c1[2];
+        sim_reg_c2[3] = sim_reg_c2[1] + sim_reg_c2[2];
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+    end
+
+    tmp_inst1[pc1] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+    tmp_inst2[pc2] = {3'b000, 3'd1, 3'd2, 3'd3, 3'b001, 1'b0};
+    sim_reg_c1[3] = sim_reg_c1[1] - sim_reg_c1[2];
+    sim_reg_c2[3] = sim_reg_c2[1] - sim_reg_c2[2];
+    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+    begin : extra_ls
+        integer grp;
+        integer base_c1, base_c2;
+
+        for (grp = 0; grp < 25; grp = grp + 1) begin
+            case (grp)
+                0:  begin base_c1 = 0;    base_c2 = 2048; end
+                1:  begin base_c1 = 160;  base_c2 = 2208; end
+                2:  begin base_c1 = 320;  base_c2 = 2368; end
+                3:  begin base_c1 = 480;  base_c2 = 2528; end
+                4:  begin base_c1 = 640;  base_c2 = 2688; end
+                5:  begin base_c1 = 800;  base_c2 = 2848; end
+                6:  begin base_c1 = 960;  base_c2 = 3008; end
+                7:  begin base_c1 = 1120; base_c2 = 3168; end
+                8:  begin base_c1 = 1280; base_c2 = 3328; end
+                9:  begin base_c1 = 1440; base_c2 = 3488; end
+                10: begin base_c1 = 1600; base_c2 = 3648; end
+                11: begin base_c1 = 1760; base_c2 = 3808; end
+                12: begin base_c1 = 1920; base_c2 = 3968; end
+                13: begin base_c1 = 2048; base_c2 = 2176; end
+                14: begin base_c1 = 2208; base_c2 = 2336; end
+                15: begin base_c1 = 2368; base_c2 = 2496; end
+                16: begin base_c1 = 2528; base_c2 = 2656; end
+                17: begin base_c1 = 2688; base_c2 = 2816; end
+                18: begin base_c1 = 2848; base_c2 = 2976; end
+                19: begin base_c1 = 3008; base_c2 = 3136; end
+                20: begin base_c1 = 3168; base_c2 = 3296; end
+                21: begin base_c1 = 3328; base_c2 = 3456; end
+                22: begin base_c1 = 3488; base_c2 = 3616; end
+                23: begin base_c1 = 3648; base_c2 = 3776; end
+                24: begin base_c1 = 3808; base_c2 = 3936; end
+                default: begin base_c1 = 0; base_c2 = 0; end
+            endcase
+
+            begin : build_bases
+                integer acc1, acc2;
+                integer chunk1, chunk2;
+                integer first1, first2;
+                integer done1, done2;
+
+                acc1 = 0; acc2 = 0;
+                first1 = 1; first2 = 1;
+                done1 = 0; done2 = 0;
+
+                while (!(done1 && done2)) begin
+                    if (!done1) begin
+                        chunk1 = base_c1 - acc1;
+                        if (chunk1 > 63) chunk1 = 63;
+                        if (first1) begin
+                            tmp_inst1[pc1] = {3'b010, 3'd0, 3'd1, chunk1[6:0]};
+                            sim_reg_c1[1] = chunk1;
+                            first1 = 0;
+                        end else begin
+                            tmp_inst1[pc1] = {3'b010, 3'd1, 3'd1, chunk1[6:0]};
+                            sim_reg_c1[1] = sim_reg_c1[1] + chunk1;
+                        end
+                        acc1 = acc1 + chunk1;
+                        if (acc1 >= base_c1) done1 = 1;
+                    end else begin
+                        tmp_inst1[pc1] = {3'b010, 3'd1, 3'd1, 7'd0};
+                    end
+
+                    if (!done2) begin
+                        chunk2 = base_c2 - acc2;
+                        if (chunk2 > 63) chunk2 = 63;
+                        if (first2) begin
+                            tmp_inst2[pc2] = {3'b010, 3'd0, 3'd1, chunk2[6:0]};
+                            sim_reg_c2[1] = chunk2;
+                            first2 = 0;
+                        end else begin
+                            tmp_inst2[pc2] = {3'b010, 3'd1, 3'd1, chunk2[6:0]};
+                            sim_reg_c2[1] = sim_reg_c2[1] + chunk2;
+                        end
+                        acc2 = acc2 + chunk2;
+                        if (acc2 >= base_c2) done2 = 1;
+                    end else begin
+                        tmp_inst2[pc2] = {3'b010, 3'd1, 3'd1, 7'd0};
+                    end
+
+                    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+                end
+            end
+
+            begin : do_ls
+                integer k;
+                integer imm_k;
+                integer c1_is_st, c2_is_st;
+                integer eff1_byte, eff2_byte;
+
+                for (k = 0; k < 10; k = k + 1) begin
+                    case (k)
+                        0: imm_k = 0;
+                        1: imm_k = 3;
+                        2: imm_k = 7;
+                        3: imm_k = 15;
+                        4: imm_k = 31;
+                        5: imm_k = 60;
+                        6: imm_k = 5;
+                        7: imm_k = 20;
+                        8: imm_k = 40;
+                        9: imm_k = 55;
+                        default: imm_k = 0;
+                    endcase
+
+                    case (k)
+                        0: begin c1_is_st = 0; c2_is_st = 1; end
+                        1: begin c1_is_st = 1; c2_is_st = 0; end
+                        2: begin c1_is_st = 0; c2_is_st = 0; end
+                        3: begin c1_is_st = 1; c2_is_st = 0; end
+                        4: begin c1_is_st = 0; c2_is_st = 1; end
+                        5: begin c1_is_st = 1; c2_is_st = 0; end
+                        6: begin c1_is_st = 0; c2_is_st = 0; end
+                        7: begin c1_is_st = 0; c2_is_st = 1; end
+                        8: begin c1_is_st = 1; c2_is_st = 0; end
+                        9: begin c1_is_st = 0; c2_is_st = 0; end
+                        default: begin c1_is_st = 0; c2_is_st = 0; end
+                    endcase
+
+                    eff1_byte = 16'h1000 + ((sim_reg_c1[1] + imm_k) << 1);
+                    eff2_byte = 16'h1000 + ((sim_reg_c2[1] + imm_k) << 1);
+
+                    if (c1_is_st) begin
+                        tmp_inst1[pc1] = {3'b101, 3'd1, 3'd5, imm_k[6:0]};
+                        rs_val_c1[pc1] = sim_reg_c1[1];
+                        w_tmp = sim_reg_c1[5];
+                        tmp_data_live[eff1_byte]   = w_tmp[7:0];
+                        tmp_data_live[eff1_byte+1] = w_tmp[15:8];
+                    end else begin
+                        tmp_inst1[pc1] = {3'b100, 3'd1, 3'd7, imm_k[6:0]};
+                        rs_val_c1[pc1] = sim_reg_c1[1];
+                        sim_reg_c1[7] = {tmp_data_live[eff1_byte+1], tmp_data_live[eff1_byte]};
+                    end
+
+                    if (c2_is_st) begin
+                        tmp_inst2[pc2] = {3'b101, 3'd1, 3'd5, imm_k[6:0]};
+                        rs_val_c2[pc2] = sim_reg_c2[1];
+                        w_tmp = sim_reg_c2[5];
+                        tmp_data_live[eff2_byte]   = w_tmp[7:0];
+                        tmp_data_live[eff2_byte+1] = w_tmp[15:8];
+                    end else begin
+                        tmp_inst2[pc2] = {3'b100, 3'd1, 3'd7, imm_k[6:0]};
+                        rs_val_c2[pc2] = sim_reg_c2[1];
+                        sim_reg_c2[7] = {tmp_data_live[eff2_byte+1], tmp_data_live[eff2_byte]};
+                    end
+
+                    pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+                end
+            end
+        end
+    end
+    // End of memory test: pc1 = pc2 = 1870 (word idx)
+
+    // ============================================================
+    // ============================================================
+    // PART 3: BRANCH / JUMP TEST
+    //
+    // ALIGNMENT RULE: PC is a BYTE address. Every instruction is
+    // 2 bytes, so every legal PC is EVEN. All branch targets and
+    // jump targets must be 2-byte-aligned (even).
+    //
+    // ENCODINGS:
+    //   BEQ  110 rs(3) rt(3) imm(7 signed)
+    //        if (rs==rt) next_pc = pc + 2 + imm   (byte)
+    //        else        next_pc = pc + 2
+    //        -> imm MUST BE EVEN so that target stays 2-aligned.
+    //
+    //   J    111 address(13)
+    //        next_pc byte = {3'b0, address[12:0]}
+    //        i.e. the 13-bit address field IS the low 13 bits of
+    //        the target BYTE address (LSB must be 0 -> even).
+    //        Range (per problem spec): target within ±256 bytes of
+    //        current pc  -> |next_pc_byte - current_pc_byte| <= 256.
+    //
+    // TEST PLAN:
+    //   1) BEQ taken  (r0==r0, imm=0). imm=0 is even.
+    //      taken target == fall-through, exercises taken datapath.
+    //   2) BEQ not-taken (r1!=r2, imm=+4). imm=+4 is even.
+    //      branch fails -> fall through.
+    //   3) Jump chain: each jump hops +256 bytes (= +128 word slots);
+    //      NOPs fill the skipped slots. Last hop is shorter to land
+    //      exactly on target byte = 0x1FFE (word index 4095).
+    //   4) Instruction at target word (byte 0x1FFE) = NOP. Sim ends.
+    // ============================================================
+    // ============================================================
+
+    begin : branch_jump_test
+        integer pc_cur_word;
+        integer target_word;
+        integer hop_word;
+        integer next_pc_word;
+        integer gap_word;
+        integer f;
+        reg [15:0] cur_byte, tgt_byte;
+        reg [12:0] jaddr_field;
+
+        if (pc1 != pc2) begin
+            $display("ERROR: pc1(%0d) != pc2(%0d) before branch/jump test", pc1, pc2);
+        end
+
+        target_word = 16'h1FFE >> 1;   // = 4095
+
+        // --------------------------------------------------------
+        // Step 1: BEQ TAKEN -- r0==r0, imm=0 (even, 2-aligned delta).
+        //   Target byte = (pc_cur<<1) + 2 + 0 = (pc_cur+1)<<1 = even.
+        // --------------------------------------------------------
+        tmp_inst1[pc1] = {3'b110, 3'd0, 3'd0, 7'd0};
+        tmp_inst2[pc2] = {3'b110, 3'd0, 3'd0, 7'd0};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // --------------------------------------------------------
+        // Step 2: BEQ NOT-TAKEN -- r1(=1) != r2(=2), imm=+4 (even).
+        //   Branch fails -> fall through to pc+2.
+        //   Even imm ensures alignment in case the branch WERE taken.
+        // --------------------------------------------------------
+        tmp_inst1[pc1] = {3'b110, 3'd1, 3'd2, 7'd4};
+        tmp_inst2[pc2] = {3'b110, 3'd1, 3'd2, 7'd4};
+        pc1 = pc1 + 1; pc2 = pc2 + 1; ic_count = ic_count + 1;
+
+        // --------------------------------------------------------
+        // Step 3: Jump chain. Each hop = +128 word slots (= +256 bytes).
+        //   Jump address field = target BYTE addr (low 13 bits).
+        //   target_byte = next_pc_word << 1  (always even).
+        // --------------------------------------------------------
+        pc_cur_word = pc1;
+
+        while (pc_cur_word < target_word) begin
+            gap_word = target_word - pc_cur_word;
+            if (gap_word > 128) hop_word = 128;   // 128 word = 256 byte
+            else                hop_word = gap_word;
+
+            next_pc_word = pc_cur_word + hop_word;
+
+            cur_byte    = pc_cur_word  << 1;
+            tgt_byte    = next_pc_word << 1;
+            jaddr_field = tgt_byte[12:0];   // low 13 bits of BYTE addr
+
+            // Sanity: target byte must be 2-aligned
+            if (tgt_byte[0] != 1'b0) begin
+                $display("ERROR: jump target byte 0x%04h at pc 0x%04h not 2-aligned",
+                         tgt_byte, cur_byte);
+            end
+            // Sanity: range must be <= 256 bytes
+            if ((tgt_byte - cur_byte) > 16'd256) begin
+                $display("ERROR: jump delta %0d > 256 bytes (pc=0x%04h tgt=0x%04h)",
+                         (tgt_byte - cur_byte), cur_byte, tgt_byte);
+            end
+
+            // Encode jump: opcode(111) + 13-bit target byte addr
+            tmp_inst1[pc_cur_word] = {3'b111, jaddr_field};
+            tmp_inst2[pc_cur_word] = {3'b111, jaddr_field};
+            ic_count = ic_count + 1;
+
+            // NOP-fill skipped slots (never executed, for cleanliness)
+            for (f = pc_cur_word + 1; f < next_pc_word; f = f + 1) begin
+                tmp_inst1[f] = NOP;
+                tmp_inst2[f] = NOP;
+            end
+
+            pc_cur_word = next_pc_word;
+        end
+
+        // Landing slot at target_word (byte 0x1FFE) stays NOP --
+        // simulation halts here.
+        tmp_inst1[target_word] = NOP;
+        tmp_inst2[target_word] = NOP;
+
+        pc1 = target_word + 1;
+        pc2 = target_word + 1;
+    end
+
+    $display("%0s[task_full] %0d instructions generated (rest NOP)%0s",
+             txt_cyan_prefix, ic_count, reset_color);
+
+    // ============================================================
     // Write inst_1_dram_file.dat
-    // --------------------------------------------------------
+    // ============================================================
     fd_i1 = $fopen("../00_TESTBED/DRAM/inst_1_dram_file.dat", "w");
     for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        reg [2:0]         cop, crs, crt, crd, crl, csub;
+        reg signed [6:0]  cimm;
+        reg        [12:0] cjaddr;
+        reg        [31:0] eff_byte_addr;
+
         $fwrite(fd_i1, "@%04h\n", (i << 1));
 
         cop    = tmp_inst1[i][15:13];
@@ -1488,50 +2562,52 @@ task gen_dram_files_task_random; begin
         csub   = tmp_inst1[i][3:1];
         cimm   = tmp_inst1[i][6:0];
         cjaddr = tmp_inst1[i][12:0];
+
         eff_byte_addr = DATA_BASE + ((rs_val_c1[i] + $signed(cimm)) << 1);
-        br_tgt_byte   = i + 16'd1 + ($signed(cimm));
-        br_tgt_byte = br_tgt_byte << 1;
 
         if (tmp_inst1[i] == NOP) begin
-            $fwrite(fd_i1, "%02h %02h // %0d:NOP\n",
-                    tmp_inst1[i][15:8], tmp_inst1[i][7:0], i);
-        end
-        else begin
+            $fwrite(fd_i1, "%02h %02h // %d:NOP\n", tmp_inst1[i][15:8], tmp_inst1[i][7:0], i);
+        end else begin
             case (cop)
                 3'b000: begin
                     case (csub)
-                        3'b000: $fwrite(fd_i1,"%02h %02h // %0d:ADD  r%0d=r%0d+r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b001: $fwrite(fd_i1,"%02h %02h // %0d:SUB  r%0d=r%0d-r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b010: $fwrite(fd_i1,"%02h %02h // %0d:AND  r%0d=r%0d&r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b011: $fwrite(fd_i1,"%02h %02h // %0d:OR   r%0d=r%0d|r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b100: $fwrite(fd_i1,"%02h %02h // %0d:NAND r%0d=~(r%0d&r%0d)\n", tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b101: $fwrite(fd_i1,"%02h %02h // %0d:NOR  r%0d=~(r%0d|r%0d)\n", tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b110: $fwrite(fd_i1,"%02h %02h // %0d:XOR  r%0d=r%0d^r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b111: $fwrite(fd_i1,"%02h %02h // %0d:SLT  r%0d=(r%0d<r%0d)\n",  tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
+                        3'b000: $fwrite(fd_i1, "%02h %02h // %d:ADD  r%0d = r%0d + r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b001: $fwrite(fd_i1, "%02h %02h // %d:SUB  r%0d = r%0d - r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b010: $fwrite(fd_i1, "%02h %02h // %d:AND  r%0d = r%0d & r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b011: $fwrite(fd_i1, "%02h %02h // %d:OR   r%0d = r%0d | r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b100: $fwrite(fd_i1, "%02h %02h // %d:NAND r%0d = ~(r%0d & r%0d)\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b101: $fwrite(fd_i1, "%02h %02h // %d:NOR  r%0d = ~(r%0d | r%0d)\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b110: $fwrite(fd_i1, "%02h %02h // %d:XOR  r%0d = r%0d ^ r%0d\n",    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
+                        3'b111: $fwrite(fd_i1, "%02h %02h // %d:SLT  r%0d = (r%0d < r%0d)\n",  tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crs, crt);
                     endcase
                 end
-                3'b001: $fwrite(fd_i1,"%02h %02h // %0d:MULT {r%0d,r%0d}=r%0d*r%0d\n",  tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crl,crs,crt);
-                3'b010: $fwrite(fd_i1,"%02h %02h // %0d:ADDI r%0d=r%0d+%0d\n",           tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,crs,$signed(cimm));
-                3'b011: $fwrite(fd_i1,"%02h %02h // %0d:SUBI r%0d=r%0d-%0d\n",           tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,crs,$signed(cimm));
-                3'b100: $fwrite(fd_i1,"%02h %02h // %0d:LOAD  r%0d<-DM[0x%04h] rs=r%0d(=%0d) imm=%0d\n",
-                                tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,eff_byte_addr[15:0],crs,rs_val_c1[i],$signed(cimm));
-                3'b101: $fwrite(fd_i1,"%02h %02h // %0d:STORE DM[0x%04h]<-r%0d rs=r%0d(=%0d) imm=%0d\n",
-                                tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,eff_byte_addr[15:0],crt,crs,rs_val_c1[i],$signed(cimm));
-                3'b110: $fwrite(fd_i1,"%02h %02h // %0d:BEQ  if(r%0d==r%0d) -> 0x%04h\n",
-                                tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crs,crt,br_tgt_byte[15:0]);
-                3'b111: $fwrite(fd_i1,"%02h %02h // %0d:JUMP -> 0x%04h\n",
-                                tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,{3'b0,cjaddr});
-                default:$fwrite(fd_i1,"%02h %02h // %0d:NOP\n", 8'h00, 8'h00, i);
+                3'b001: $fwrite(fd_i1, "%02h %02h // %d:MULT {r%0d,r%0d} = r%0d * r%0d\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crd, crl, crs, crt);
+                3'b010: $fwrite(fd_i1, "%02h %02h // %d:ADDI r%0d = r%0d + %0d\n",          tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, crs, $signed(cimm));
+                3'b011: $fwrite(fd_i1, "%02h %02h // %d:SUBI r%0d = r%0d - %0d\n",          tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, crs, $signed(cimm));
+                3'b100: $fwrite(fd_i1, "%02h %02h // %d:LOAD  r%0d <- DM[0x%04h] rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crt, eff_byte_addr[15:0], crs, rs_val_c1[i], $signed(cimm));
+                3'b101: $fwrite(fd_i1, "%02h %02h // %d:STORE DM[0x%04h] <- r%0d rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, eff_byte_addr[15:0], crt, crs, rs_val_c1[i], $signed(cimm));
+                3'b110: $fwrite(fd_i1, "%02h %02h // %d:BEQ  if(r%0d==r%0d) pc+=2+%0d (target byte 0x%04h)\n",
+                                 tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, crs, crt, $signed(cimm), ((i<<1) + 2 + $signed(cimm)));
+                3'b111: $fwrite(fd_i1, "%02h %02h // %d:JUMP -> byte 0x%04h\n",
+                                 tmp_inst1[i][7:0], tmp_inst1[i][15:8], i, {3'b0, cjaddr});
+                default: $fwrite(fd_i1, "%02h %02h // %d:UNKNOWN\n", tmp_inst1[i][7:0], tmp_inst1[i][15:8], i);
             endcase
         end
     end
     $fclose(fd_i1);
 
-    // --------------------------------------------------------
+    // ============================================================
     // Write inst_2_dram_file.dat
-    // --------------------------------------------------------
+    // ============================================================
     fd_i2 = $fopen("../00_TESTBED/DRAM/inst_2_dram_file.dat", "w");
     for (i = 0; i < INST_DEPTH; i = i + 1) begin
+        reg [2:0]         cop, crs, crt, crd, crl, csub;
+        reg signed [6:0]  cimm;
+        reg        [12:0] cjaddr;
+        reg        [31:0] eff_byte_addr;
+
         $fwrite(fd_i2, "@%04h\n", (i << 1));
 
         cop    = tmp_inst2[i][15:13];
@@ -1542,60 +2618,57 @@ task gen_dram_files_task_random; begin
         csub   = tmp_inst2[i][3:1];
         cimm   = tmp_inst2[i][6:0];
         cjaddr = tmp_inst2[i][12:0];
+
         eff_byte_addr = DATA_BASE + ((rs_val_c2[i] + $signed(cimm)) << 1);
-        br_tgt_byte   = i + 16'd1 + ($signed(cimm));
-        br_tgt_byte = br_tgt_byte << 1;
 
         if (tmp_inst2[i] == NOP) begin
-            $fwrite(fd_i2, "%02h %02h // %0d:NOP\n",
-                    tmp_inst2[i][15:8], tmp_inst2[i][7:0], i);
-        end
-        else begin
+            $fwrite(fd_i2, "%02h %02h // %d:NOP\n", tmp_inst2[i][15:8], tmp_inst2[i][7:0], i);
+        end else begin
             case (cop)
                 3'b000: begin
                     case (csub)
-                        3'b000: $fwrite(fd_i2,"%02h %02h // %0d:ADD  r%0d=r%0d+r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b001: $fwrite(fd_i2,"%02h %02h // %0d:SUB  r%0d=r%0d-r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b010: $fwrite(fd_i2,"%02h %02h // %0d:AND  r%0d=r%0d&r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b011: $fwrite(fd_i2,"%02h %02h // %0d:OR   r%0d=r%0d|r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b100: $fwrite(fd_i2,"%02h %02h // %0d:NAND r%0d=~(r%0d&r%0d)\n", tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b101: $fwrite(fd_i2,"%02h %02h // %0d:NOR  r%0d=~(r%0d|r%0d)\n", tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b110: $fwrite(fd_i2,"%02h %02h // %0d:XOR  r%0d=r%0d^r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b111: $fwrite(fd_i2,"%02h %02h // %0d:SLT  r%0d=(r%0d<r%0d)\n",  tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
+                        3'b000: $fwrite(fd_i2, "%02h %02h // %d:ADD  r%0d = r%0d + r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b001: $fwrite(fd_i2, "%02h %02h // %d:SUB  r%0d = r%0d - r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b010: $fwrite(fd_i2, "%02h %02h // %d:AND  r%0d = r%0d & r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b011: $fwrite(fd_i2, "%02h %02h // %d:OR   r%0d = r%0d | r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b100: $fwrite(fd_i2, "%02h %02h // %d:NAND r%0d = ~(r%0d & r%0d)\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b101: $fwrite(fd_i2, "%02h %02h // %d:NOR  r%0d = ~(r%0d | r%0d)\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b110: $fwrite(fd_i2, "%02h %02h // %d:XOR  r%0d = r%0d ^ r%0d\n",    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
+                        3'b111: $fwrite(fd_i2, "%02h %02h // %d:SLT  r%0d = (r%0d < r%0d)\n",  tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crs, crt);
                     endcase
                 end
-                3'b001: $fwrite(fd_i2,"%02h %02h // %0d:MULT {r%0d,r%0d}=r%0d*r%0d\n",  tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crl,crs,crt);
-                3'b010: $fwrite(fd_i2,"%02h %02h // %0d:ADDI r%0d=r%0d+%0d\n",           tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,crs,$signed(cimm));
-                3'b011: $fwrite(fd_i2,"%02h %02h // %0d:SUBI r%0d=r%0d-%0d\n",           tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,crs,$signed(cimm));
-                3'b100: $fwrite(fd_i2,"%02h %02h // %0d:LOAD  r%0d<-DM[0x%04h] rs=r%0d(=%0d) imm=%0d\n",
-                                tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,eff_byte_addr[15:0],crs,rs_val_c2[i],$signed(cimm));
-                3'b101: $fwrite(fd_i2,"%02h %02h // %0d:STORE DM[0x%04h]<-r%0d rs=r%0d(=%0d) imm=%0d\n",
-                                tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,eff_byte_addr[15:0],crt,crs,rs_val_c2[i],$signed(cimm));
-                3'b110: $fwrite(fd_i2,"%02h %02h // %0d:BEQ  if(r%0d==r%0d) -> 0x%04h\n",
-                                tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crs,crt,br_tgt_byte[15:0]);
-                3'b111: $fwrite(fd_i2,"%02h %02h // %0d:JUMP -> 0x%04h\n",
-                                tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,{3'b0,cjaddr});
-                default:$fwrite(fd_i2,"%02h %02h // %0d:NOP\n", 8'h00, 8'h00, i);
+                3'b001: $fwrite(fd_i2, "%02h %02h // %d:MULT {r%0d,r%0d} = r%0d * r%0d\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crd, crl, crs, crt);
+                3'b010: $fwrite(fd_i2, "%02h %02h // %d:ADDI r%0d = r%0d + %0d\n",          tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, crs, $signed(cimm));
+                3'b011: $fwrite(fd_i2, "%02h %02h // %d:SUBI r%0d = r%0d - %0d\n",          tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, crs, $signed(cimm));
+                3'b100: $fwrite(fd_i2, "%02h %02h // %d:LOAD  r%0d <- DM[0x%04h] rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crt, eff_byte_addr[15:0], crs, rs_val_c2[i], $signed(cimm));
+                3'b101: $fwrite(fd_i2, "%02h %02h // %d:STORE DM[0x%04h] <- r%0d rs=r%0d(=%0d) imm=%0d\n",
+                                 tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, eff_byte_addr[15:0], crt, crs, rs_val_c2[i], $signed(cimm));
+                3'b110: $fwrite(fd_i2, "%02h %02h // %d:BEQ  if(r%0d==r%0d) pc+=2+%0d (target byte 0x%04h)\n",
+                                 tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, crs, crt, $signed(cimm), ((i<<1) + 2 + $signed(cimm)));
+                3'b111: $fwrite(fd_i2, "%02h %02h // %d:JUMP -> byte 0x%04h\n",
+                                 tmp_inst2[i][7:0], tmp_inst2[i][15:8], i, {3'b0, cjaddr});
+                default: $fwrite(fd_i2, "%02h %02h // %d:UNKNOWN\n", tmp_inst2[i][7:0], tmp_inst2[i][15:8], i);
             endcase
         end
     end
     $fclose(fd_i2);
 
-    // --------------------------------------------------------
-    // Write data_dram_file.dat
-    // --------------------------------------------------------
+    // ============================================================
+    // Write shared data_dram_file.dat (INITIAL state)
+    // ============================================================
     fd_d = $fopen("../00_TESTBED/DRAM/data_dram_file.dat", "w");
     for (i = DATA_ACC_LO; i <= DATA_ACC_HI; i = i + 2) begin
         $fwrite(fd_d, "@%04h\n", i);
-        $fwrite(fd_d, "%02h %02h // DATA[%04h]=%0d\n",
-                tmp_data_init[i], tmp_data_init[i+1], i,
-                $signed({tmp_data_init[i+1], tmp_data_init[i]}));
+        $fwrite(fd_d, "%02h %02h // DATA[%04h] = %0d\n",
+                tmp_data_init[i],
+                tmp_data_init[i+1],
+                i,
+                {tmp_data_init[i+1], tmp_data_init[i]});
     end
     $fclose(fd_d);
-
-    $display("%0s[task_random] .dat files written%0s", txt_cyan_prefix, reset_color);
+    $display("%0s[task_full] .dat files written%0s", txt_cyan_prefix, reset_color);
 end endtask
-
 
 task decode_and_print_instr;
     input integer core_id;
@@ -1650,8 +2723,8 @@ task decode_and_print_instr;
                     $display("STORE MEM[r%0d + %0d] <- r%0d", rs, $signed(imm), rt);
                 end
                 3'b110: begin
-                    $display("BEQ   if (r%0d == r%0d) branch %0d bytes to 0x%04h",
-                             rs, rt, $signed(imm), ((pc_word) + 16'd2 + ($signed(imm) * 2)));
+                    $display("BEQ   if (r%0d == r%0d) branch %+0d bytes to 0x%04h",
+                             rs, rt, $signed(imm), ((pc_word << 1) + 16'd2 + $signed(imm)));
                 end
                 3'b111: begin
                     $display("JUMP  -> 0x%04h", {3'b000, jaddr});
@@ -1663,714 +2736,4 @@ task decode_and_print_instr;
         end
     end
 endtask
-task gen_dram_files_task_direct; begin
-    integer fd_i1, fd_i2, fd_d;
-    integer i;
-    integer pc;
-    integer exec_ic;
-
-    reg [15:0] tmp_inst1 [0:INST_DEPTH-1];
-    reg [15:0] tmp_inst2 [0:INST_DEPTH-1];
-    reg [7:0]  tmp_data_init [0:DATA_TOP];
-
-    reg [15:0] NOP;
-
-    integer imm;
-    integer loop_top_pc;
-    integer loop_end_pc;
-    integer beq_pc;
-
-    integer branch_loop_top_pc;
-    integer branch_loop_end_pc;
-
-    integer target_word;
-    integer target_byte;
-    integer final_word;
-    integer jump_step_word;
-
-    integer arr_base;
-    integer word_addr;
-    integer value;
-
-    // instruction decode variables for output comments
-    reg [2:0]  cop;
-    reg [2:0]  crs;
-    reg [2:0]  crt;
-    reg [2:0]  crd;
-    reg [2:0]  crl;
-    reg [2:0]  csub;
-    reg signed [6:0] cimm;
-    reg [12:0] cjaddr;
-    reg [31:0] br_tgt_byte;
-
-    NOP = 16'h0000;
-    pc  = 0;
-    exec_ic = 0;
-
-    final_word     = 4095; // byte address = 0x1FFE
-    jump_step_word = 128;   
-
-    // --------------------------------------------------------
-    // Initialize instruction/data memory image
-    // --------------------------------------------------------
-    for (i = 0; i < INST_DEPTH; i = i + 1) begin
-        tmp_inst1[i] = NOP;
-        tmp_inst2[i] = NOP;
-    end
-
-    for (i = 0; i <= DATA_TOP; i = i + 1) begin
-        tmp_data_init[i] = 8'h00;
-    end
-
-    // --------------------------------------------------------
-    // Directed data initialization
-    //
-    // Part A: MULT operands at 0x1000 ~ 0x1017
-    // The data memory is byte-addressable:
-    //   low byte  = mem[addr]
-    //   high byte = mem[addr+1]
-    //
-    // Part B: loop array at 0x1100
-    //   core0: arr[50+i]  = arr[i]     + arr[25+i]
-    //   core1: arr[150+i] = arr[100+i] + arr[125+i]
-    // --------------------------------------------------------
-
-    // ---------------- MULT operands ----------------
-    // Case 0: 0x8000 * 0x8000 = 0x40000000
-    tmp_data_init[16'h1000] = 8'h00;
-    tmp_data_init[16'h1001] = 8'h80;
-    tmp_data_init[16'h1002] = 8'h00;
-    tmp_data_init[16'h1003] = 8'h80;
-
-    // Case 1: 0x8000 * 0x7FFF = 0xC0008000
-    tmp_data_init[16'h1004] = 8'h00;
-    tmp_data_init[16'h1005] = 8'h80;
-    tmp_data_init[16'h1006] = 8'hFF;
-    tmp_data_init[16'h1007] = 8'h7F;
-
-    // Case 2: 0xFFFF * 0xFFFF = 0x00000001
-    tmp_data_init[16'h1008] = 8'hFF;
-    tmp_data_init[16'h1009] = 8'hFF;
-    tmp_data_init[16'h100A] = 8'hFF;
-    tmp_data_init[16'h100B] = 8'hFF;
-
-    // Case 3: 0xFFFF * 0x0001 = 0xFFFFFFFF
-    tmp_data_init[16'h100C] = 8'hFF;
-    tmp_data_init[16'h100D] = 8'hFF;
-    tmp_data_init[16'h100E] = 8'h01;
-    tmp_data_init[16'h100F] = 8'h00;
-
-    // Case 4: 0x0000 * 0xFFFF = 0x00000000
-    tmp_data_init[16'h1010] = 8'h00;
-    tmp_data_init[16'h1011] = 8'h00;
-    tmp_data_init[16'h1012] = 8'hFF;
-    tmp_data_init[16'h1013] = 8'hFF;
-
-    // Case 5: 0x7FFF * 0x7FFF = 0x3FFF0001
-    tmp_data_init[16'h1014] = 8'hFF;
-    tmp_data_init[16'h1015] = 8'h7F;
-    tmp_data_init[16'h1016] = 8'hFF;
-    tmp_data_init[16'h1017] = 8'h7F;
-
-    // ---------------- loop array data ----------------
-    arr_base = 16'h1100;
-
-    for (i = 0; i < 25; i = i + 1) begin
-        // arr[0..24] = 1..25
-        word_addr = arr_base + ((i + 0) << 1);
-        value = $urandom_range(1023, -1024);
-        tmp_data_init[word_addr]     = value[7:0];
-        tmp_data_init[word_addr + 1] = value[15:8];
-
-        // arr[25..49] = 2..26
-        word_addr = arr_base + ((i + 25) << 1);
-        value = $urandom_range(1023, -1024);
-        tmp_data_init[word_addr]     = value[7:0];
-        tmp_data_init[word_addr + 1] = value[15:8];
-
-        // arr[100..124] = 3..27
-        word_addr = arr_base + ((i + 100) << 1);
-        value = $urandom_range(1023, -1024);
-        tmp_data_init[word_addr]     = value[7:0];
-        tmp_data_init[word_addr + 1] = value[15:8];
-
-        // arr[125..149] = 4..28
-        word_addr = arr_base + ((i + 125) << 1);
-        value = $urandom_range(1023, -1024);
-        tmp_data_init[word_addr]     = value[7:0];
-        tmp_data_init[word_addr + 1] = value[15:8];
-    end
-
-    // ========================================================
-    // Phase 1: SLT with negative numbers
-    // ========================================================
-
-    tmp_inst1[pc] = {3'b011, 3'd0, 3'd4, 7'd5};  // core0: SUBI r4 = r0 - 5, r4 = -5
-    tmp_inst2[pc] = {3'b011, 3'd0, 3'd4, 7'd5};  // core1: SUBI r4 = r0 - 5, r4 = -5
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd5, 7'd3};  // core0: ADDI r5 = r0 + 3
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd5, 7'd3};  // core1: ADDI r5 = r0 + 3
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: SLT r6 = (-5 < 3), expect 1
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: SLT r6 = (-5 < 3), expect 1
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd5, 3'd4, 3'd7, 3'd7, 1'b0}; // core0: SLT r7 = (3 < -5), expect 0
-    tmp_inst2[pc] = {3'b000, 3'd5, 3'd4, 3'd7, 3'd7, 1'b0}; // core1: SLT r7 = (3 < -5), expect 0
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b011, 3'd0, 3'd4, 7'd1};  // core0: SUBI r4 = r0 - 1, r4 = -1
-    tmp_inst2[pc] = {3'b011, 3'd0, 3'd4, 7'd1};  // core1: SUBI r4 = r0 - 1, r4 = -1
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b011, 3'd0, 3'd5, 7'd2};  // core0: SUBI r5 = r0 - 2, r5 = -2
-    tmp_inst2[pc] = {3'b011, 3'd0, 3'd5, 7'd2};  // core1: SUBI r5 = r0 - 2, r5 = -2
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: SLT r6 = (-1 < -2), expect 0
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: SLT r6 = (-1 < -2), expect 0
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // ========================================================
-    // Phase 2: MULT robust test
-    //
-    // r1 = 0, so LOAD address = 0x1000 + imm * 2.
-    // Use LOAD to get large operands such as 0x8000 and 0x7FFF.
-    //
-    // MULT result format:
-    //   {rd, rl} = rs * rt
-    //
-    // Here:
-    //   r4 = operand A
-    //   r5 = operand B
-    //   r6 = product[31:16]
-    //   r7 = product[15:0]
-    // ========================================================
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd1, 7'd0};  // core0: ADDI r1 = r0 + 0, set LS base to 0
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd1, 7'd0};  // core1: ADDI r1 = r0 + 0, set LS base to 0
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Case 0: 0x8000 * 0x8000 = 0x40000000
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd0};  // core0: LOAD r4 <- DM[0x1000] = 0x8000
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd0};  // core1: LOAD r4 <- DM[0x1000] = 0x8000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd1};  // core0: LOAD r5 <- DM[0x1002] = 0x8000
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd1};  // core1: LOAD r5 <- DM[0x1002] = 0x8000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: MULT, expect {r6,r7}=0x40000000
-    tmp_inst2[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: MULT, expect {r6,r7}=0x40000000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Case 1: 0x8000 * 0x7FFF = 0xC0008000
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd2};  // core0: LOAD r4 <- DM[0x1004] = 0x8000
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd2};  // core1: LOAD r4 <- DM[0x1004] = 0x8000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd3};  // core0: LOAD r5 <- DM[0x1006] = 0x7FFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd3};  // core1: LOAD r5 <- DM[0x1006] = 0x7FFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: MULT, expect {r6,r7}=0xC0008000
-    tmp_inst2[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: MULT, expect {r6,r7}=0xC0008000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Case 2: 0xFFFF * 0xFFFF = 0x00000001
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd4};  // core0: LOAD r4 <- DM[0x1008] = 0xFFFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd4};  // core1: LOAD r4 <- DM[0x1008] = 0xFFFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd5};  // core0: LOAD r5 <- DM[0x100A] = 0xFFFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd5};  // core1: LOAD r5 <- DM[0x100A] = 0xFFFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: MULT, expect {r6,r7}=0x00000001
-    tmp_inst2[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: MULT, expect {r6,r7}=0x00000001
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Case 3: 0xFFFF * 0x0001 = 0xFFFFFFFF
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd6};  // core0: LOAD r4 <- DM[0x100C] = 0xFFFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd6};  // core1: LOAD r4 <- DM[0x100C] = 0xFFFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd7};  // core0: LOAD r5 <- DM[0x100E] = 0x0001
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd7};  // core1: LOAD r5 <- DM[0x100E] = 0x0001
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: MULT, expect {r6,r7}=0xFFFFFFFF
-    tmp_inst2[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: MULT, expect {r6,r7}=0xFFFFFFFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Case 4: 0x0000 * 0xFFFF = 0x00000000
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd8};  // core0: LOAD r4 <- DM[0x1010] = 0x0000
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd8};  // core1: LOAD r4 <- DM[0x1010] = 0x0000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd9};  // core0: LOAD r5 <- DM[0x1012] = 0xFFFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd9};  // core1: LOAD r5 <- DM[0x1012] = 0xFFFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: MULT, expect {r6,r7}=0x00000000
-    tmp_inst2[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: MULT, expect {r6,r7}=0x00000000
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Case 5: 0x7FFF * 0x7FFF = 0x3FFF0001
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd10}; // core0: LOAD r4 <- DM[0x1014] = 0x7FFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd10}; // core1: LOAD r4 <- DM[0x1014] = 0x7FFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd11}; // core0: LOAD r5 <- DM[0x1016] = 0x7FFF
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd11}; // core1: LOAD r5 <- DM[0x1016] = 0x7FFF
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core0: MULT, expect {r6,r7}=0x3FFF0001
-    tmp_inst2[pc] = {3'b001, 3'd4, 3'd5, 3'd6, 3'd7, 1'b0}; // core1: MULT, expect {r6,r7}=0x3FFF0001
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // ========================================================
-    // Phase 3: R-type / ADDI / SUBI corner cases
-    // No overflow cases.
-    // ========================================================
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd4, 7'd15}; // core0: ADDI r4 = 15
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd4, 7'd15}; // core1: ADDI r4 = 15
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd5, 7'd10}; // core0: ADDI r5 = 10
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd5, 7'd10}; // core1: ADDI r5 = 10
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd0, 1'b0}; // core0: ADD r6 = r4 + r5
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd0, 1'b0}; // core1: ADD r6 = r4 + r5
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd1, 1'b0}; // core0: SUB r6 = r4 - r5
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd1, 1'b0}; // core1: SUB r6 = r4 - r5
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd2, 1'b0}; // core0: AND r6 = r4 & r5
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd2, 1'b0}; // core1: AND r6 = r4 & r5
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd3, 1'b0}; // core0: OR r6 = r4 | r5
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd3, 1'b0}; // core1: OR r6 = r4 | r5
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd4, 1'b0}; // core0: NAND r6 = ~(r4 & r5)
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd4, 1'b0}; // core1: NAND r6 = ~(r4 & r5)
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd5, 1'b0}; // core0: NOR r6 = ~(r4 | r5)
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd5, 1'b0}; // core1: NOR r6 = ~(r4 | r5)
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd6, 1'b0}; // core0: XOR r6 = r4 ^ r5
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd6, 1'b0}; // core1: XOR r6 = r4 ^ r5
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd4, 3'd6, 7'd63}; // core0: ADDI r6 = r4 + 63
-    tmp_inst2[pc] = {3'b010, 3'd4, 3'd6, 7'd63}; // core1: ADDI r6 = r4 + 63
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b011, 3'd4, 3'd6, 7'd63}; // core0: SUBI r6 = r4 - 63
-    tmp_inst2[pc] = {3'b011, 3'd4, 3'd6, 7'd63}; // core1: SUBI r6 = r4 - 63
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    imm = -64;
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd6, imm[6:0]}; // core0: ADDI r6 = r0 - 64
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd6, imm[6:0]}; // core1: ADDI r6 = r0 - 64
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    imm = -64;
-    tmp_inst1[pc] = {3'b011, 3'd0, 3'd6, imm[6:0]}; // core0: SUBI r6 = r0 - (-64)
-    tmp_inst2[pc] = {3'b011, 3'd0, 3'd6, imm[6:0]}; // core1: SUBI r6 = r0 - (-64)
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // ========================================================
-    // Phase 4: LOAD/STORE combination test
-    //
-    // First use r1 = 0:
-    //   address = 0x1000 + imm * 2
-    //
-    // Then use r1 = 64:
-    //   address = 0x1000 + (64 + imm) * 2
-    //
-    // This covers:
-    //   LOAD / NOP
-    //   NOP / LOAD
-    //   STORE / NOP
-    //   NOP / STORE
-    //   LOAD / LOAD
-    //   LOAD / STORE different address
-    //   STORE / LOAD different address
-    //   LOAD / STORE same address
-    //   STORE / LOAD same address
-    // ========================================================
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd1, 7'd0};  // core0: r1 = 0
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd1, 7'd0};  // core1: r1 = 0
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd6, 7'd33}; // core0: r6 = 33, store data
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd6, 7'd44}; // core1: r6 = 44, store data
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd0};  // core0: LOAD  r4 <- DM[0x1000]
-    tmp_inst2[pc] = NOP;                          // core1: NOP
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = NOP;                          // core0: NOP
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd8};  // core1: LOAD  r4 <- DM[0x1010]
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b101, 3'd1, 3'd6, 7'd16}; // core0: STORE DM[0x1020] <- r6
-    tmp_inst2[pc] = NOP;                          // core1: NOP
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = NOP;                          // core0: NOP
-    tmp_inst2[pc] = {3'b101, 3'd1, 3'd6, 7'd24}; // core1: STORE DM[0x1030] <- r6
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd32}; // core0: LOAD  r4 <- DM[0x1040]
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd40}; // core1: LOAD  r4 <- DM[0x1050]
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd48}; // core0: LOAD  r4 <- DM[0x1060]
-    tmp_inst2[pc] = {3'b101, 3'd1, 3'd6, 7'd56}; // core1: STORE DM[0x1070] <- r6
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd1, 7'd63}; // core0: r1 = 63
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd1, 7'd63}; // core1: r1 = 63
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd1, 3'd1, 7'd1};  // core0: r1 = 64
-    tmp_inst2[pc] = {3'b010, 3'd1, 3'd1, 7'd1};  // core1: r1 = 64
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b101, 3'd1, 3'd6, 7'd0};  // core0: STORE DM[0x1080] <- r6
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd8};  // core1: LOAD  r4 <- DM[0x1090]
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd16}; // core0: LOAD  r4 <- DM[0x10A0]
-    tmp_inst2[pc] = {3'b101, 3'd1, 3'd6, 7'd16}; // core1: STORE DM[0x10A0] <- r6, same addr, STORE first
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b101, 3'd1, 3'd6, 7'd24}; // core0: STORE DM[0x10B0] <- r6, same addr, STORE first
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd24}; // core1: LOAD  r4 <- DM[0x10B0]
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // ========================================================
-    // Phase 5: small backward branch loop
-    //
-    // This phase is used to test backward BEQ.
-    // r2 counts from 0 to 3.
-    //
-    // pseudo code:
-    //   r2 = 0
-    //   r3 = 3
-    // loop_top:
-    //   r2 = r2 + 1
-    //   if (r2 == r3) goto loop_end
-    //   if (r0 == r0) goto loop_top
-    // loop_end:
-    // ========================================================
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd2, 7'd0};  // core0: r2 = 0
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd2, 7'd0};  // core1: r2 = 0
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd3, 7'd3};  // core0: r3 = 3
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd3, 7'd3};  // core1: r3 = 3
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    branch_loop_top_pc = pc;
-
-    tmp_inst1[pc] = {3'b010, 3'd2, 3'd2, 7'd1};  // core0: r2 = r2 + 1
-    tmp_inst2[pc] = {3'b010, 3'd2, 3'd2, 7'd1};  // core1: r2 = r2 + 1
-    pc = pc + 1;
-
-    beq_pc = pc;
-    pc = pc + 1; // fill forward BEQ after branch_loop_end_pc is known
-
-    imm = branch_loop_top_pc - (pc + 1);
-    tmp_inst1[pc] = {3'b110, 3'd0, 3'd0, imm[6:0]}; // core0: backward BEQ r0,r0,branch_loop_top
-    tmp_inst2[pc] = {3'b110, 3'd0, 3'd0, imm[6:0]}; // core1: backward BEQ r0,r0,branch_loop_top
-    pc = pc + 1;
-
-    branch_loop_end_pc = pc;
-
-    imm = branch_loop_end_pc - (beq_pc + 1);
-    tmp_inst1[beq_pc] = {3'b110, 3'd2, 3'd3, imm[6:0]}; // core0: BEQ r2,r3,branch_loop_end
-    tmp_inst2[beq_pc] = {3'b110, 3'd2, 3'd3, imm[6:0]}; // core1: BEQ r2,r3,branch_loop_end
-
-    // Dynamic execution count:
-    //   ADDI r2 executes 3 times
-    //   BEQ r2,r3 executes 3 times
-    //   backward BEQ executes 2 times
-    exec_ic = exec_ic + 8;
-
-    // ========================================================
-    // Phase 6: main loop
-    //
-    // core0:
-    //   arr[50+i] = arr[i] + arr[25+i]
-    //
-    // core1:
-    //   arr[150+i] = arr[100+i] + arr[125+i]
-    //
-    // Register usage:
-    //   r1 = base pointer
-    //   r2 = loop counter i
-    //   r3 = loop bound 25
-    //   r4 = first load value
-    //   r5 = second load value
-    //   r6 = sum
-    //
-    // Address mapping:
-    //   effective address = 0x1000 + (r1 + imm) * 2
-    //
-    // core0:
-    //   r1 = 128 -> 0x1100 = arr[0]
-    //   LOAD  imm 0  -> arr[i]
-    //   LOAD  imm 25 -> arr[25+i]
-    //   STORE imm 50 -> arr[50+i]
-    //
-    // core1:
-    //   r1 = 228 -> 0x11C8 = arr[100]
-    //   LOAD  imm 0  -> arr[100+i]
-    //   LOAD  imm 25 -> arr[125+i]
-    //   STORE imm 50 -> arr[150+i]
-    //
-    // Important:
-    //   Two cores cannot both STORE in the same IC.
-    //   Therefore, STORE is split into two ICs:
-    //     IC A: core0 NOP,   core1 STORE
-    //     IC B: core0 STORE, core1 NOP
-    // ========================================================
-
-    // Setup r1 base pointer.
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd1, 7'd63}; // core0: r1 = 63
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd1, 7'd63}; // core1: r1 = 63
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd1, 3'd1, 7'd63}; // core0: r1 = 126
-    tmp_inst2[pc] = {3'b010, 3'd1, 3'd1, 7'd63}; // core1: r1 = 126
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd1, 3'd1, 7'd2};  // core0: r1 = 128
-    tmp_inst2[pc] = {3'b010, 3'd1, 3'd1, 7'd63}; // core1: r1 = 189
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = NOP;                          // core0: NOP, keep r1 = 128
-    tmp_inst2[pc] = {3'b010, 3'd1, 3'd1, 7'd39}; // core1: r1 = 228
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    // Setup loop counter.
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd2, 7'd0};  // core0: r2 = 0
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd2, 7'd0};  // core1: r2 = 0
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd0, 3'd3, 7'd25}; // core0: r3 = 25
-    tmp_inst2[pc] = {3'b010, 3'd0, 3'd3, 7'd25}; // core1: r3 = 25
-    pc = pc + 1; exec_ic = exec_ic + 1;
-
-    loop_top_pc = pc;
-
-    beq_pc = pc;
-    pc = pc + 1; // fill BEQ after loop_end_pc is known
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd4, 7'd0};  // core0: LOAD r4 <- arr[i]
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd4, 7'd0};  // core1: LOAD r4 <- arr[100+i]
-    pc = pc + 1;
-
-    tmp_inst1[pc] = {3'b100, 3'd1, 3'd5, 7'd25}; // core0: LOAD r5 <- arr[25+i]
-    tmp_inst2[pc] = {3'b100, 3'd1, 3'd5, 7'd25}; // core1: LOAD r5 <- arr[125+i]
-    pc = pc + 1;
-
-    tmp_inst1[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd0, 1'b0}; // core0: ADD r6 = r4 + r5
-    tmp_inst2[pc] = {3'b000, 3'd4, 3'd5, 3'd6, 3'd0, 1'b0}; // core1: ADD r6 = r4 + r5
-    pc = pc + 1;
-
-    tmp_inst1[pc] = NOP;                          // core0: NOP, avoid STORE/STORE
-    tmp_inst2[pc] = {3'b101, 3'd1, 3'd6, 7'd50}; // core1: STORE arr[150+i] <- r6
-    pc = pc + 1;
-
-    tmp_inst1[pc] = {3'b101, 3'd1, 3'd6, 7'd50}; // core0: STORE arr[50+i] <- r6
-    tmp_inst2[pc] = NOP;                          // core1: NOP, avoid STORE/STORE
-    pc = pc + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd1, 3'd1, 7'd1};  // core0: r1 = r1 + 1
-    tmp_inst2[pc] = {3'b010, 3'd1, 3'd1, 7'd1};  // core1: r1 = r1 + 1
-    pc = pc + 1;
-
-    tmp_inst1[pc] = {3'b010, 3'd2, 3'd2, 7'd1};  // core0: r2 = r2 + 1
-    tmp_inst2[pc] = {3'b010, 3'd2, 3'd2, 7'd1};  // core1: r2 = r2 + 1
-    pc = pc + 1;
-
-    target_byte = loop_top_pc << 1;
-    tmp_inst1[pc] = {3'b111, target_byte[12:0]}; // core0: backward JUMP loop_top
-    tmp_inst2[pc] = {3'b111, target_byte[12:0]}; // core1: backward JUMP loop_top
-    pc = pc + 1;
-
-    loop_end_pc = pc;
-
-    imm = loop_end_pc - (beq_pc + 1);
-    tmp_inst1[beq_pc] = {3'b110, 3'd2, 3'd3, imm[6:0]}; // core0: forward BEQ r2,r3,loop_end
-    tmp_inst2[beq_pc] = {3'b110, 3'd2, 3'd3, imm[6:0]}; // core1: forward BEQ r2,r3,loop_end
-
-    // Main loop dynamic execution count:
-    // 25 iterations:
-    //   BEQ + LOAD + LOAD + ADD + NOP/STORE + STORE/NOP + ADDI + ADDI + JUMP = 9 IC
-    // Final exit:
-    //   BEQ taken = 1 IC
-    exec_ic = exec_ic + (25 * 9) + 1;
-
-    // ========================================================
-    // Phase 7: Jump padding to 0x1FFE
-    //
-    // Both cores use the same control flow and the same PC.
-    // Use forward JUMPs with 128-byte distance until reaching 0x1FFE.
-    // ========================================================
-
-    while (pc < final_word) begin
-        if ((final_word - pc) > jump_step_word)
-            target_word = pc + jump_step_word;
-        else
-            target_word = final_word;
-
-        target_byte = target_word << 1;
-
-        tmp_inst1[pc] = {3'b111, target_byte[12:0]}; // core0: JUMP forward
-        tmp_inst2[pc] = {3'b111, target_byte[12:0]}; // core1: JUMP forward
-
-        pc = target_word;
-        exec_ic = exec_ic + 1;
-    end
-
-    tmp_inst1[final_word] = NOP; // core0: final NOP at 0x1FFE
-    tmp_inst2[final_word] = NOP; // core1: final NOP at 0x1FFE
-    exec_ic = exec_ic + 1;
-
-    inst_count = exec_ic;
-
-    $display("%0s[task_direct] direct test generated, executed IC = %0d%0s",
-             txt_cyan_prefix, inst_count, reset_color);
-
-    // --------------------------------------------------------
-    // Write inst_1_dram_file.dat
-    // --------------------------------------------------------
-    fd_i1 = $fopen("../00_TESTBED/DRAM/inst_1_dram_file.dat", "w");
-    for (i = 0; i < INST_DEPTH; i = i + 1) begin
-        $fwrite(fd_i1, "@%04h\n", (i << 1));
-
-        cop    = tmp_inst1[i][15:13];
-        crs    = tmp_inst1[i][12:10];
-        crt    = tmp_inst1[i][9:7];
-        crd    = tmp_inst1[i][6:4];
-        crl    = tmp_inst1[i][3:1];
-        csub   = tmp_inst1[i][3:1];
-        cimm   = tmp_inst1[i][6:0];
-        cjaddr = tmp_inst1[i][12:0];
-
-        br_tgt_byte = (i + 1 + $signed(cimm)) << 1;
-
-        if (tmp_inst1[i] == NOP) begin
-            $fwrite(fd_i1, "%02h %02h // %0d:NOP\n",
-                    tmp_inst1[i][7:0], tmp_inst1[i][15:8], i);
-        end
-        else begin
-            case (cop)
-                3'b000: begin
-                    case (csub)
-                        3'b000: $fwrite(fd_i1,"%02h %02h // %0d:ADD  r%0d=r%0d+r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b001: $fwrite(fd_i1,"%02h %02h // %0d:SUB  r%0d=r%0d-r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b010: $fwrite(fd_i1,"%02h %02h // %0d:AND  r%0d=r%0d&r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b011: $fwrite(fd_i1,"%02h %02h // %0d:OR   r%0d=r%0d|r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b100: $fwrite(fd_i1,"%02h %02h // %0d:NAND r%0d=~(r%0d&r%0d)\n", tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b101: $fwrite(fd_i1,"%02h %02h // %0d:NOR  r%0d=~(r%0d|r%0d)\n", tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b110: $fwrite(fd_i1,"%02h %02h // %0d:XOR  r%0d=r%0d^r%0d\n",    tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                        3'b111: $fwrite(fd_i1,"%02h %02h // %0d:SLT  r%0d=(r%0d<r%0d)\n",  tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crs,crt);
-                    endcase
-                end
-                3'b001: $fwrite(fd_i1,"%02h %02h // %0d:MULT {r%0d,r%0d}=r%0d*r%0d\n", tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crd,crl,crs,crt);
-                3'b010: $fwrite(fd_i1,"%02h %02h // %0d:ADDI r%0d=r%0d+%0d\n",          tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,crs,$signed(cimm));
-                3'b011: $fwrite(fd_i1,"%02h %02h // %0d:SUBI r%0d=r%0d-%0d\n",          tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,crs,$signed(cimm));
-                3'b100: $fwrite(fd_i1,"%02h %02h // %0d:LOAD  r%0d<-DM, rs=r%0d imm=%0d\n",  tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,crs,$signed(cimm));
-                3'b101: $fwrite(fd_i1,"%02h %02h // %0d:STORE DM<-r%0d, rs=r%0d imm=%0d\n",  tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crt,crs,$signed(cimm));
-                3'b110: $fwrite(fd_i1,"%02h %02h // %0d:BEQ  if(r%0d==r%0d) -> 0x%04h\n",   tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,crs,crt,br_tgt_byte[15:0]);
-                3'b111: $fwrite(fd_i1,"%02h %02h // %0d:JUMP -> 0x%04h\n",                 tmp_inst1[i][7:0],tmp_inst1[i][15:8],i,{3'b0,cjaddr});
-                default:$fwrite(fd_i1,"%02h %02h // %0d:NOP\n", tmp_inst1[i][7:0],tmp_inst1[i][15:8],i);
-            endcase
-        end
-    end
-    $fclose(fd_i1);
-
-    // --------------------------------------------------------
-    // Write inst_2_dram_file.dat
-    // --------------------------------------------------------
-    fd_i2 = $fopen("../00_TESTBED/DRAM/inst_2_dram_file.dat", "w");
-    for (i = 0; i < INST_DEPTH; i = i + 1) begin
-        $fwrite(fd_i2, "@%04h\n", (i << 1));
-
-        cop    = tmp_inst2[i][15:13];
-        crs    = tmp_inst2[i][12:10];
-        crt    = tmp_inst2[i][9:7];
-        crd    = tmp_inst2[i][6:4];
-        crl    = tmp_inst2[i][3:1];
-        csub   = tmp_inst2[i][3:1];
-        cimm   = tmp_inst2[i][6:0];
-        cjaddr = tmp_inst2[i][12:0];
-
-        br_tgt_byte = (i + 1 + $signed(cimm)) << 1;
-
-        if (tmp_inst2[i] == NOP) begin
-            $fwrite(fd_i2, "%02h %02h // %0d:NOP\n",
-                    tmp_inst2[i][7:0], tmp_inst2[i][15:8], i);
-        end
-        else begin
-            case (cop)
-                3'b000: begin
-                    case (csub)
-                        3'b000: $fwrite(fd_i2,"%02h %02h // %0d:ADD  r%0d=r%0d+r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b001: $fwrite(fd_i2,"%02h %02h // %0d:SUB  r%0d=r%0d-r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b010: $fwrite(fd_i2,"%02h %02h // %0d:AND  r%0d=r%0d&r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b011: $fwrite(fd_i2,"%02h %02h // %0d:OR   r%0d=r%0d|r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b100: $fwrite(fd_i2,"%02h %02h // %0d:NAND r%0d=~(r%0d&r%0d)\n", tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b101: $fwrite(fd_i2,"%02h %02h // %0d:NOR  r%0d=~(r%0d|r%0d)\n", tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b110: $fwrite(fd_i2,"%02h %02h // %0d:XOR  r%0d=r%0d^r%0d\n",    tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                        3'b111: $fwrite(fd_i2,"%02h %02h // %0d:SLT  r%0d=(r%0d<r%0d)\n",  tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crs,crt);
-                    endcase
-                end
-                3'b001: $fwrite(fd_i2,"%02h %02h // %0d:MULT {r%0d,r%0d}=r%0d*r%0d\n", tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crd,crl,crs,crt);
-                3'b010: $fwrite(fd_i2,"%02h %02h // %0d:ADDI r%0d=r%0d+%0d\n",          tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,crs,$signed(cimm));
-                3'b011: $fwrite(fd_i2,"%02h %02h // %0d:SUBI r%0d=r%0d-%0d\n",          tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,crs,$signed(cimm));
-                3'b100: $fwrite(fd_i2,"%02h %02h // %0d:LOAD  r%0d<-DM, rs=r%0d imm=%0d\n",  tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,crs,$signed(cimm));
-                3'b101: $fwrite(fd_i2,"%02h %02h // %0d:STORE DM<-r%0d, rs=r%0d imm=%0d\n",  tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crt,crs,$signed(cimm));
-                3'b110: $fwrite(fd_i2,"%02h %02h // %0d:BEQ  if(r%0d==r%0d) -> 0x%04h\n",   tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,crs,crt,br_tgt_byte[15:0]);
-                3'b111: $fwrite(fd_i2,"%02h %02h // %0d:JUMP -> 0x%04h\n",                 tmp_inst2[i][7:0],tmp_inst2[i][15:8],i,{3'b0,cjaddr});
-                default:$fwrite(fd_i2,"%02h %02h // %0d:NOP\n", tmp_inst2[i][7:0],tmp_inst2[i][15:8],i);
-            endcase
-        end
-    end
-    $fclose(fd_i2);
-
-    // --------------------------------------------------------
-    // Write data_dram_file.dat
-    // --------------------------------------------------------
-    fd_d = $fopen("../00_TESTBED/DRAM/data_dram_file.dat", "w");
-    for (i = DATA_ACC_LO; i <= DATA_ACC_HI; i = i + 2) begin
-        $fwrite(fd_d, "@%04h\n", i);
-        $fwrite(fd_d, "%02h %02h // DATA[%04h]=%0d\n",
-                tmp_data_init[i], tmp_data_init[i+1], i,
-                $signed({tmp_data_init[i+1], tmp_data_init[i]}));
-    end
-    $fclose(fd_d);
-
-    $display("%0s[task_direct] .dat files written%0s",
-             txt_cyan_prefix, reset_color);
-end endtask
 endmodule
