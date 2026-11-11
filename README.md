@@ -62,6 +62,33 @@
 | OT | 2nd|x | 50 |5 | x | x | x | x |
 | Bonus |1st|x | 100 |x | x| x | x | x|
 -->
+
+<details>
+<summary><strong>Implementation Metrics (Cycle Time / Latency / Area)</strong></summary>
+
+Values are taken from each Lab / Project README. `—` means unrecorded or not applicable. Latency follows each lab's test setup (e.g. Lab02 totals 100 images), so values across labs are not directly comparable.
+
+| Lab | Cycle Time | Latency | Area | Cost / Constraint |
+| :--- | ---: | ---: | ---: | :--- |
+| [Lab01](Lab01/README.md) | 12 | — | 224648.1 | $CT \times Area$ |
+| [Lab02](Lab02/README.md) | 3.1 | 30900 | 768301.9 | $CT \times Latency \times Area^2$ |
+| [Lab03 (2de)](Lab03/README.md) | 4.5 | 578345 | 3154851 | $CT \times Latency \times Area^2$ |
+| [Lab04](Lab04/README.md) | 24.5 | 12400 | 3755865 | $(CT \times Latency)^2 \times Area$ |
+| [Lab05](Lab05/README.md) | 4.9 | 70692 | 4037956 | $CT \times Latency \times Area \times NonCombArea$ |
+| [Lab06](Lab06/README.md) | 9.2 | 2000 | 50566 | $CT \times Latency \times Area$ |
+| [Midterm Project](Midterm_Project/README.md) | 3.5 | 56750 | 203112.9 | $CT \times Latency \times Area^2$ |
+| [Lab07](Lab07/README.md) | — | 795238 | 987938 | Latency ≤ 800000, Area ≤ 1200000 |
+| [Lab08](Lab08/README.md) | — | 100 | 135385 | $Power^2 \times Latency \times Area$ |
+| [Lab09](Lab09/README.md) | 2.9 | 761292 | 155361.9 | $CT \times Latency \times Area$ |
+| [Lab10](Lab10/README.md) | — | — | — | — |
+| [Lab11](Lab11/README.md) | 9.8 | 17792 | 3654259 | $CT \times Latency \times Area$ |
+| [Lab12](Lab12/README.md) | — | — | — | — |
+| [Final Project](Final_Project/README.md) | — | 45307 | 576109.7 | — |
+
+CT = Cycle Time; NonCombArea = non-combinational area. Values and units follow the original records.
+
+</details>
+
 ## Lab Descriptions
 - Process: U18
 - Simulation: VCS
