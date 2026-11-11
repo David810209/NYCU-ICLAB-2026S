@@ -16,28 +16,28 @@
 - No.6 * 1
 - 2de  * 2
 
-| Lab | Rank | Score | 1de |
-| :--- | :--- | :--- | :--- |
-| Lab01 | 79 | 78.92 | 112 |
-| Lab02 | 16 | 95.54 | 102 |
-| Lab03(2de) | 4 | 75.73 | 40 |
-| Lab04 | 6 | 98.26 | 86 |
-| Lab05 | 39 | 81.90 | 63 |
-| Lab06 | 11 | 96.15 | 79 |
-| Midterm Project | 2 | 109.49/110 | 59 |
-| Midterm Exam | 2 | 100/120 | x |
-| Lab07 | pass goal | 100 | 71 |
-| Lab08 | 16 | 96.39 | 83 |
-| Lab09 | 12 | 95.6 | 75 |
-| Lab10 | x | 80 |  |
-| Lab11 | 2 | 99.59 | 73 |
-| Lab12 | x | 100 |  |
-| Final Project(area) | 1 | 25/25 | 70 |
-| Final Project(power) | 9 | 22.18/25 | 70 |
-| Final Project(overall) | 1 | 97.18/100 | 70 |
-| Final Exam | 2 | 118/130 | x |
-| OT(2de)  | x | 50 | 5 |
-| Bonus | x | 100 |  | 
+| Lab | Rank | Score | 1de | 可以參考之處 |
+| :--- | :--- | :--- | :--- | :--- |
+| Lab01 | 79 | 78.92 | 112 | x |
+| Lab02 | 16 | 95.54 | 102 | 各種影像處理: BLC, LSC, DPC, bilinear, CCM; 任何有sliding window的運算 |
+| Lab03(2de) | 4 | 75.73 | 40 | prefix expression tree (stack), odd-even sort |
+| Lab04 | 6 | 98.26 | 86 | CNN |
+| Lab05 | 39 | 81.90 | 63 | transformer |
+| Lab06 | 11 | 96.15 | 79 | x |
+| Midterm Project | 2 | 109.49/110 | 59 | CPU |
+| Midterm Exam | 2 | 100/120 | x | |
+| Lab07 | pass goal | 100 | 71 | DRAM controller, CDC back pressure, FIFO-sync AXI conversion |
+| Lab08 | 16 | 96.39 | 83 | pipelined convolution and element-wise operation (1-cycle design) |
+| Lab09 | 12 | 95.6 | 75 | lookup table for formulas |
+| Lab10 | x | 80 |  | x |
+| Lab11 | 2 | 99.59 | 73 | APR on pad design|
+| Lab12 | x | 100 |  | x |
+| Final Project(area) | 1 | 25/25 | 70 |  |
+| Final Project(power) | 9 | 22.18/25 | 70 |  |
+| Final Project(overall) | 1 | 97.18/100 | 70 | CPU優化, APR on ping design |
+| Final Exam | 2 | 118/130 | x | |
+| OT(2de)  | x | 50 | 5 | |
+| Bonus | x | 100 |  | |
 <!--
 | Lab   | Demo | Rank | Score | 1de | CT | latency | Area | Performance |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -67,26 +67,26 @@
 - Simulation: VCS
 - Synthesis: Design Compiler
 
-|  Lab  | Topic                                | Name                                           |  W  |
-|-------|--------------------------------------|------------------------------------------------|-----|
-| Lab01 | Combinational Circuit                | Design Rule Check Accelerator                  |  5% |
-| Lab02 | Sequential Circuit                   | mini Image Signal Process                      |  5% |
-| Lab03 | Pattern                              | Tree Harvester                                 |  5% |
-| Lab04 | DesignWare IP                        | Convolution and Deconvolution Network Accelerator |  5% |
-| Lab05 | Memory                                     | Diffusion Model (DM)                     |  5% |
-| Lab06 | Design Compiler & soft IP            |     Huffman Code Operation                     |  5% |
-| Lab07 | Clock Domain Crossing                | Harvester with Clock Domain Crossing           |  5% |
-| Lab08 |  Low Power Design                    | Coupling Network                               |  5% |
-| Lab09 |    SystemVerilog Design               |   Dessert Shop Simulator                          |  5% |
-| Lab10 |      	SystemVerilog Verification            |       Verification: From Lab09                       |  5% |
-| Lab11 |       APR flow with Innovus       |      mini Image Signal Process(ISP)-APR         |  5% |
-| Lab12 |        IR Drop after APR             |     Diffusion Model APR               |  3% |
-| formal lab |         Formal Verification            |                                                |  2% |
-| OT    |                                      |                                                |  8% |
-| MP    |                                      |      Customized ISA Processor                          |  8% |
-| FP    |                                      |   Customized ISA Processor(APR)                    |  8% |
-| Mid/Final Exam|                              |                                              |8% each|
-| ADFP/form bonus|                              |                                              |4%|
+| Lab | Topic | Name | W |
+| --- | --- | --- | --- |
+| Lab01 | Combinational Circuit | Design Rule Check Accelerator | 5% |
+| Lab02 | Sequential Circuit | mini Image Signal Process | 5% |
+| Lab03 | Pattern | Tree Harvester | 5% |
+| Lab04 | DesignWare IP | Convolution and Deconvolution Network Accelerator | 5% |
+| Lab05 | Memory | Diffusion Model (DM) | 5% |
+| Lab06 | Design Compiler & soft IP | Huffman Code Operation | 5% |
+| Lab07 | Clock Domain Crossing | Harvester with Clock Domain Crossing | 5% |
+| Lab08 | Low Power Design | Coupling Network | 5% |
+| Lab09 | SystemVerilog Design | Dessert Shop Simulator | 5% |
+| Lab10 | SystemVerilog Verification | Verification: From Lab09 | 5% |
+| Lab11 | APR flow with Innovus | mini Image Signal Process (ISP)-APR | 5% |
+| Lab12 | IR Drop after APR | Diffusion Model APR | 3% |
+| formal lab | Formal Verification | | 2% |
+| OT | | | 8% |
+| MP | | Customized ISA Processor | 8% |
+| FP | | Customized ISA Processor (APR) | 8% |
+| Mid/Final Exam | | | 8% each |
+| ADFP/form bonus | | | 4% |
 --- 
 
 ---
